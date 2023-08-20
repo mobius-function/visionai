@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/homeLandingFragment">
+
+    <fragment
+        android:id="@+id/homeLandingFragment"
+        android:name="com.yuvraj.visionai.ui.home.fragments.LandingFragment"
+        android:label="fragment_home_landing"
+        tools:layout="@layout/fragment_home_landing" >
+        <action
+            android:id="@+id/action_landingFragment_to_eyeTestingFragment"
+            app:destination="@id/homeEyeTestingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeEyeTestingFragment"
+        android:name="com.yuvraj.visionai.ui.home.fragments.EyeTestingFragment"
+        android:label="fragment_home_eye_testing"
+        tools:layout="@layout/fragment_home_eye_testing" />
+</navigation>
