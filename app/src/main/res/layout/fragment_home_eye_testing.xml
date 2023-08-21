@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.fragments.EyeTestingFragment">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/ic_mic" />
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
@@ -46,5 +36,16 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="26dp"
         android:text="ToggleButton" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnSpeech"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_mic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewSpeechToText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
