@@ -63,23 +63,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private fun initViews(view: View) {
         _binding = FragmentHomeEyeTestingBinding.bind(view)
 
-        binding.btnSpeech.setOnClickListener {
-            val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            sttIntent.putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-            )
-            sttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-            sttIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now!")
-
-            try {
-                startActivityForResult(sttIntent, REQUEST_CODE_STT)
-            } catch (e: ActivityNotFoundException) {
-                e.printStackTrace()
-                Toast.makeText(requireActivity(), "Your device does not support STT.", Toast.LENGTH_LONG).show()
-            }
-        }
-
 //        btn_tts.setOnClickListener {
 //            val text = et_text_input.text.toString().trim()
 //            if (text.isNotEmpty()) {
@@ -123,7 +106,22 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private fun clickableViews() {
 
         binding.apply {
+            btnSpeech.setOnClickListener {
+                val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                sttIntent.putExtra(
+                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+                )
+                sttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+                sttIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now!")
 
+                try {
+                    startActivityForResult(sttIntent, REQUEST_CODE_STT)
+                } catch (e: ActivityNotFoundException) {
+                    e.printStackTrace()
+                    Toast.makeText(requireActivity(), "Your device does not support STT.", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 
