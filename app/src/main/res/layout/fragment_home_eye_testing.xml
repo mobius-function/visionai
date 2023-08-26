@@ -6,16 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.fragments.EyeTestingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:circularflow_radiusInDP="18dp"
+        android:backgroundTint="@color/design_default_color_on_secondary"
+        android:text="AB"
+        android:textSize="250sp"
+        android:gravity="center"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+<!--    <ProgressBar-->
+<!--        android:id="@+id/progressBar"-->
+<!--        style="?android:attr/progressBarStyleHorizontal"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="28dp"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:paddingRight="10dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/toggleButton"/>-->
+
     <TextView
-        android:id="@+id/tvLandingPage"
+        android:id="@+id/textViewSpeechToText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Eye Testing Screen"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSpeech"
+        android:layout_marginTop="47dp" />
+
+<!--    <ToggleButton-->
+<!--        android:id="@+id/toggleButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:layout_marginTop="26dp"-->
+<!--        android:text="ToggleButton" />-->
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnSpeech"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_mic"
+        android:layout_marginTop="65dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
