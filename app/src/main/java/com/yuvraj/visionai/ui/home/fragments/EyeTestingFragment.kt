@@ -87,7 +87,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     }
 
     private fun displayRandomText() {
-        val randomSize : Int = (10..25).random()
+        val randomSize : Int = (5..25).random()
         val textDisplay : String = (((0..25).random() + 65).toChar()).toString() +
                                     (((0..25).random() + 65).toChar()).toString()
 

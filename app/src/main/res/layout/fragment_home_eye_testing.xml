@@ -14,7 +14,7 @@
         app:circularflow_radiusInDP="18dp"
         android:backgroundTint="@color/design_default_color_on_secondary"
         android:text="AB"
-        android:textSize="10sp"
+        android:textSize="250sp"
         android:gravity="center"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
