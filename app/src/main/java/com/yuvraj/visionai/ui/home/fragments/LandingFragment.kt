@@ -1,12 +1,9 @@
 package com.yuvraj.visionai.ui.home.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.navigation.fragment.findNavController
-import com.chaquo.python.Python
-import com.chaquo.python.android.AndroidPlatform
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
 
@@ -20,8 +17,12 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     private var _binding: FragmentHomeLandingBinding? = null
     private val binding get() = _binding!!
 
+    private var dis = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //  Initialize Python
+        //  Python.start(AndroidPlatform(this.requireContext()))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,22 +35,27 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     private fun initViews(view: View) {
         _binding = FragmentHomeLandingBinding.bind(view)
 
-        binding.tvLandingPage.text = initPython()
+        binding.apply {
+            tvLandingPage.text = "Distance: XX CM"
+        }
     }
 
     private fun clickableViews() {
 
         binding.apply {
-            tvLandingPage.setOnClickListener {
+            tvStart.setOnClickListener {
                 findNavController().navigate(R.id.action_landingFragment_to_eyeTestingFragment)
+            }
+
+            tvLandingPage.setOnClickListener {
+//                initPython()
             }
         }
     }
 
-    private fun initPython() : String {
-        Python.start(AndroidPlatform(this.requireContext()))
-        val python = Python.getInstance()
-        val pythonFile = python.getModule("test")
-        return pythonFile.callAttr("test", 5).toString()
-    }
+//    private fun initPython() {
+//        val python = Python.getInstance()
+//        val pythonFile = python.getModule("realtime_distance_calculator")
+//        pythonFile.callAttr("mainf", binding.tvLandingPage, binding.ivImage)
+//    }
 }

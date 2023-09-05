@@ -4,7 +4,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
-    id 'com.chaquo.python' // chaqopy for python scripts running on android
+//    id 'com.chaquo.python' // chaqopy for python scripts running on android
 //    id 'com.google.gms.google-services'
 //    id 'kotlin-android-extensions'
 }
@@ -22,20 +22,25 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        sourceSets {
-            main {
-                python {
-                    srcDirs = ["src/main/python"]
-                }
-            }
-        }
-        python {
-            buildPython "/urs/local/bin/python3"
-            buildPython "python3"
-        }
-        ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-        }
+//        sourceSets {
+//            main {
+//                python {
+//                    srcDirs = ["src/main/python"]
+//                }
+//            }
+//        }
+//        python {
+//
+//            pip {
+//                install "opencv-python"
+//            }
+//
+////            buildPython "/urs/local/bin/python3"
+////            buildPython "python3"
+//        }
+//        ndk {
+//            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+//        }
     }
 
     buildFeatures {

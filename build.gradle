@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()  // Maven Central repository
         gradlePluginPortal()
         jcenter()
-        maven { url 'https://chaquo.com/maven' }
+//        maven { url 'https://chaquo.com/maven' }
     }
     dependencies {
         // Add the dependency for the Google services Gradle plugin
@@ -20,7 +20,8 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
     id 'com.google.dagger.hilt.android' version '2.43.2' apply false
     id 'androidx.navigation.safeargs' version '2.5.3' apply false
-    id 'com.chaquo.python' version '13.0.0' apply false
+
+//    id 'com.chaquo.python' version '13.0.0' apply false
 //    id 'com.google.gms:google-services' version '4.3.15' apply false
 }
 
