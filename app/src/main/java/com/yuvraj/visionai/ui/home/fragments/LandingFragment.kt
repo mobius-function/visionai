@@ -17,8 +17,6 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     private var _binding: FragmentHomeLandingBinding? = null
     private val binding get() = _binding!!
 
-    private var dis = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //  Initialize Python
