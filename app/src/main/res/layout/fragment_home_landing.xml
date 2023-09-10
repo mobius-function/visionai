@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.fragments.LandingFragment">
 
-    <androidx.camera.view.PreviewView
-        android:id="@+id/previewView_finder"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tvSwitchCamera"/>
+        app:layout_constraintBottom_toTopOf="@id/btnSwitchCamera">
 
-    <TextView
-        android:id="@+id/tvSwitchCamera"
+        <androidx.camera.view.PreviewView
+            android:id="@+id/previewViewFinder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:scaleType="fillCenter" />
+
+        <com.yuvraj.visionai.service.cameraX.GraphicOverlay
+            android:id="@+id/graphicOverlayFinder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSwitchCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="5dp"
         android:text="Switch Camera"
-        android:textSize="26sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/tvStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:text="Start"
-        android:textSize="26sp"
-        app:layout_constraintTop_toTopOf="@id/tvSwitchCamera"
-        app:layout_constraintBottom_toBottomOf="@id/tvSwitchCamera"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="@id/btnSwitchCamera"
+        app:layout_constraintBottom_toBottomOf="@id/btnSwitchCamera"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,16 @@
 package com.yuvraj.visionai.ui.home.fragments
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
+import com.yuvraj.visionai.service.cameraX.CameraManager
 
 /**
  * A simple [Fragment] subclass.
@@ -17,6 +22,8 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     private var _binding: FragmentHomeLandingBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var cameraManager: CameraManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //  Initialize Python
@@ -27,6 +34,8 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initViews(view)
+        createCameraManager()
+        checkForPermission()
         clickableViews()
     }
 
@@ -34,7 +43,7 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         _binding = FragmentHomeLandingBinding.bind(view)
 
         binding.apply {
-            tvLandingPage.text = "Distance: XX CM"
+
         }
     }
 
@@ -45,10 +54,57 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
                 findNavController().navigate(R.id.action_landingFragment_to_eyeTestingFragment)
             }
 
-            tvLandingPage.setOnClickListener {
-//                initPython()
+            btnSwitchCamera.setOnClickListener {
+                cameraManager.changeCameraSelector()
             }
         }
+    }
+
+    private fun checkForPermission() {
+        if (allPermissionsGranted()) {
+            cameraManager.startCamera()
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
+            )
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults:
+        IntArray
+    ) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
+                cameraManager.startCamera()
+            } else {
+                Toast.makeText(requireActivity(),
+                    "Permissions not granted by the user.",
+                    Toast.LENGTH_SHORT).show()
+                requireActivity().finish()
+            }
+        }
+    }
+
+    private fun createCameraManager() {
+        cameraManager = CameraManager(
+            requireActivity(),
+            binding.previewViewFinder,
+            this,
+            binding.graphicOverlayFinder
+        )
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(requireActivity().baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    companion object {
+        private const val REQUEST_CODE_PERMISSIONS = 10
+        private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
     }
 
 //    private fun initPython() {
