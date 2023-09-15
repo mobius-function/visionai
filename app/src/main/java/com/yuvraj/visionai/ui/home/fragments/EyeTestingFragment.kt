@@ -109,7 +109,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                         binding.textViewSpeechToText.text = recognizedText.toString()
 
                         if(binding.textViewSpeechToText.text.toString().lowercase() ==
-                            binding.tvRandomText.toString().lowercase()) {
+                            binding.tvRandomText.text.toString().lowercase()) {
                             displayRandomText()
                         }
                     }
