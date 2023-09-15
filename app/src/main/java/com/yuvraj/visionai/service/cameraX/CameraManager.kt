@@ -10,7 +10,9 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.service.faceDetection.FaceContourDetectionProcessor
+import com.yuvraj.visionai.service.faceDetection.FaceStatus
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -18,8 +20,10 @@ class CameraManager(
     private val context: Context,
     private val finderView: PreviewView,
     private val lifecycleOwner: LifecycleOwner,
-    private val graphicOverlay: GraphicOverlay
-) {
+    private val graphicOverlay: GraphicOverlay,
+    private val onSuccessCallback: ((FaceStatus) -> Unit),
+    private val onSuccessCallbackFace: ((Face) -> Unit)
+    ) {
 
     private var preview: Preview? = null
 
@@ -65,7 +69,7 @@ class CameraManager(
     }
 
     private fun selectAnalyzer(): ImageAnalysis.Analyzer {
-        return FaceContourDetectionProcessor(graphicOverlay)
+        return FaceContourDetectionProcessor(graphicOverlay,onSuccessCallback,onSuccessCallbackFace)
     }
 
     private fun setCameraConfig(

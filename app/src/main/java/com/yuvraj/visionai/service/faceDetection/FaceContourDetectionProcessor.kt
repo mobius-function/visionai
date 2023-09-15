@@ -11,7 +11,9 @@ import com.yuvraj.visionai.service.cameraX.BaseImageAnalyzer
 import com.yuvraj.visionai.service.cameraX.GraphicOverlay
 import java.io.IOException
 
-class FaceContourDetectionProcessor(private val view: GraphicOverlay) :
+class FaceContourDetectionProcessor(private val view: GraphicOverlay,
+                                    private val onSuccessCallback: ((FaceStatus) -> Unit),
+                                    private val onSuccessCallbackFace: ((Face) -> Unit)):
     BaseImageAnalyzer<List<Face>>() {
 
     private val realTimeOpts = FaceDetectorOptions.Builder()
@@ -42,15 +44,23 @@ class FaceContourDetectionProcessor(private val view: GraphicOverlay) :
         rect: Rect
     ) {
         graphicOverlay.clear()
-        results.forEach {
-            val faceGraphic = FaceContourGraphic(graphicOverlay, it, rect)
-            graphicOverlay.add(faceGraphic)
+        if (results.isNotEmpty()){
+            results.forEach {
+                val faceGraphic = FaceContourGraphic(graphicOverlay, it, rect
+                    ,onSuccessCallback,onSuccessCallbackFace)
+                graphicOverlay.add(faceGraphic)
+            }
+            graphicOverlay.postInvalidate()
+        }else{
+            onSuccessCallback(FaceStatus.NO_FACE)
+            Log.e(TAG, "Face Detector failed.")
         }
-        graphicOverlay.postInvalidate()
+
     }
 
     override fun onFailure(e: Exception) {
-        Log.w(TAG, "Face Detector failed.$e")
+        Log.e(TAG, "Face Detector failed. $e")
+        onSuccessCallback(FaceStatus.NO_FACE)
     }
 
     companion object {

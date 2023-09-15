@@ -2,15 +2,18 @@ package com.yuvraj.visionai.ui.home.fragments
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
 import com.yuvraj.visionai.service.cameraX.CameraManager
+import com.yuvraj.visionai.service.faceDetection.FaceStatus
 
 /**
  * A simple [Fragment] subclass.
@@ -42,9 +45,8 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     private fun initViews(view: View) {
         _binding = FragmentHomeLandingBinding.bind(view)
 
-        binding.apply {
-
-        }
+        // Display width of the graphic overlay on tvCamera
+//        binding.tvFaceWidth.text = FaceContourGraphic.fac
     }
 
     private fun clickableViews() {
@@ -56,6 +58,10 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
 
             btnSwitchCamera.setOnClickListener {
                 cameraManager.changeCameraSelector()
+            }
+
+            tvFaceWidth.setOnClickListener{
+                binding.tvFaceWidth.text = binding.graphicOverlayFinder.width.toString()
             }
         }
     }
@@ -72,11 +78,11 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         }
     }
 
-    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String>, grantResults:
         IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
                 cameraManager.startCamera()
@@ -84,6 +90,7 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
                 Toast.makeText(requireActivity(),
                     "Permissions not granted by the user.",
                     Toast.LENGTH_SHORT).show()
+
                 requireActivity().finish()
             }
         }
@@ -94,8 +101,21 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
             requireActivity(),
             binding.previewViewFinder,
             this,
-            binding.graphicOverlayFinder
+            binding.graphicOverlayFinder,
+            ::processPicture,
+            ::updateTVFaceWidth
         )
+    }
+
+
+    private fun processPicture(faceStatus: FaceStatus) {
+        Log.e("facestatus","This is it ${faceStatus.name}")
+//        tvFaceWidth.text
+//       when(faceStatus){}
+    }
+
+    private fun updateTVFaceWidth(face: Face) {
+        binding.tvFaceWidth.text = "Face Width: ${face.boundingBox.width()}"
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
