@@ -12,7 +12,10 @@ import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.util.TypedValue
+import com.yuvraj.visionai.utils.DistanceHelper
+import com.yuvraj.visionai.utils.PowerAlgorithm
 
 /**
  * A simple [Fragment] subclass.
@@ -23,6 +26,10 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private var _binding: FragmentHomeEyeTestingBinding? = null
     private val binding get() = _binding!!
+
+    private val distance : Float = 75.0f
+    private  var textSize: Int = 0
+
 
     companion object {
         private const val REQUEST_CODE_STT = 1
@@ -57,7 +64,14 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private fun initViews(view: View) {
         _binding = FragmentHomeEyeTestingBinding.bind(view)
 
-        displayRandomText()
+//        val textSizeInCM : Float = PowerAlgorithm.generateInitialPowerText().toFloat()
+        val textSizeInCM : Float = 3.0f
+
+        Log.e("EyeTesting Debug","The initial text size in CM is: $textSizeInCM cm")
+        // Display Initial text
+        textSize = DistanceHelper.cmToPixels(textSizeInCM, requireActivity())
+        Log.e("EyeTesting Debug","The initial text size in pixels is: $textSize px")
+        displayRandomText(DistanceHelper.pixelsToDp(textSize).toInt())
     }
 
     private fun clickableViews() {
@@ -86,14 +100,13 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
     }
 
-    private fun displayRandomText() {
-        val randomSize : Int = (5..25).random()
+    private fun displayRandomText(textSizeDisplay: Int) {
         val textDisplay : String = (((0..25).random() + 65).toChar()).toString() +
                                     (((0..25).random() + 65).toChar()).toString()
 
         binding.apply {
-            tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_SP,
-                (randomSize * 10).toFloat())
+            tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeDisplay.toFloat())
+            Log.e("EyeTesting Debug","The initial text size in DP is: $textSizeDisplay dp")
             tvRandomText.text = textDisplay
         }
     }
@@ -110,7 +123,8 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
                         if(binding.textViewSpeechToText.text.toString().lowercase() ==
                             binding.tvRandomText.text.toString().lowercase()) {
-                            displayRandomText()
+                            val textSize : Int = PowerAlgorithm.generateInitialPowerText().toInt()
+                            displayRandomText(textSize)
                         }
                     }
                 }

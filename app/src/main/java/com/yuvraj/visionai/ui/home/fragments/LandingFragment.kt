@@ -14,6 +14,7 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
+import com.yuvraj.visionai.utils.DistanceHelper
 
 /**
  * A simple [Fragment] subclass.
@@ -26,6 +27,9 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     private val binding get() = _binding!!
 
     private lateinit var cameraManager: CameraManager
+
+    val focalLengthFound : Double = 50.0
+    val realFaceWidth : Double = 14.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,7 +119,18 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     }
 
     private fun updateTVFaceWidth(face: Face) {
-        binding.tvFaceWidth.text = "Face Width: ${face.boundingBox.width()}"
+        val faceWidth : Int = DistanceHelper.pixelsToDp(face.boundingBox.width()).toInt()
+        var distance = 0.0
+
+        if(faceWidth != 0) {
+            distance = DistanceHelper.distanceFinder(
+                focalLengthFound,
+                realFaceWidth,
+                faceWidth.toDouble()
+            )
+        }
+
+        binding.tvFaceWidth.text = "Face Width: ${distance}"
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
