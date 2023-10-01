@@ -64,8 +64,8 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private fun initViews(view: View) {
         _binding = FragmentHomeEyeTestingBinding.bind(view)
 
-//        val textSizeInCM : Float = PowerAlgorithm.generateInitialPowerText().toFloat()
-        val textSizeInCM : Float = 3.0f
+        val textSizeInCM : Float = PowerAlgorithm.generateInitialPowerText().toFloat()
+//        val textSizeInCM : Float = 3.0f
 
         Log.e("EyeTesting Debug","The initial text size in CM is: $textSizeInCM cm")
         // Display Initial text
