@@ -5,56 +5,82 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.navigation.fragment.findNavController
 import com.yuvraj.visionai.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.yuvraj.visionai.databinding.FragmentOnBoardingLoginBinding
+import com.yuvraj.visionai.utils.helpers.Validations
 
 /**
  * A simple [Fragment] subclass.
  * Use the [LoginFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
+
+    private var _binding: FragmentOnBoardingLoginBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews(view)
+//        textWatcher()
+//        binding.btn.btnStart.isEnabled = false
+        binding.btnLogin.isEnabled = true
+//        showSoftKeyboard(requireActivity(),binding.etName)
+        clickableViews(binding.etEmail,binding.etPassword)
+    }
+
+//    private fun textWatcher() {
+//        binding.etName.addTextWatcher()
+//    }
+
+
+    private fun clickableViews(Email : EditText, Password : EditText) {
+        binding.apply {
+//            btn.btnStart.setOnClickListener {
+//                findNavController().navigate(R.id.action_onBoardingAboutFrag_to_onBoardingCategoriesFragment)
+//            }
+            btnLogin.setOnClickListener {
+
+                var flag: Boolean = true
+
+                if(!Validations.validateEmail(Email.text.toString())){
+                    Email.error = "Enter a Valid Email"
+                    flag = false
+                }
+
+                if(!Validations.validatePassword(Password.text.toString())){
+                    Password.error = "Password must be atleast of 8 characters"
+                    flag = false
+                }
+
+                if(flag) {
+                    findNavController().navigate(R.id.action_loginFragment_to_detailsFragment)
+                }
+            }
+
+            tvSignUpHere.setOnClickListener {
+                findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+            }
+
+            tvSkipForNow.setOnClickListener {
+                findNavController().navigate(R.id.action_loginFragment_to_detailsFragment)
+            }
+
+            back.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_on_boarding_login, container, false)
-    }
+    private fun initViews(view: View) {
+        _binding = FragmentOnBoardingLoginBinding.bind(view)
+//        ConstantsFunctions.setStatusBarTransparent(requireActivity(), false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
