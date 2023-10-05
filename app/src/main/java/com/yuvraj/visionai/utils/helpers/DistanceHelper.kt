@@ -1,8 +1,9 @@
-package com.yuvraj.visionai.utils
+package com.yuvraj.visionai.utils.helpers
 
 import android.app.Activity
 import android.content.res.Resources
 import android.util.DisplayMetrics
+import com.yuvraj.visionai.utils.ScreenInchUtils
 
 
 class DistanceHelper {

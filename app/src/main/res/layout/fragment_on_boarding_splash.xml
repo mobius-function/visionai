@@ -30,7 +30,7 @@
         app:texts="@array/splash_titles"
         android:fontFamily="@font/roboto_medium"
         android:textSize="18sp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:timeout="500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

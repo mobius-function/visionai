@@ -14,7 +14,7 @@ import android.content.ActivityNotFoundException
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.util.TypedValue
-import com.yuvraj.visionai.utils.DistanceHelper
+import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.PowerAlgorithm
 
 /**
@@ -93,6 +93,17 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                     Toast.makeText(requireActivity(),
                         "Your device does not support STT.",
                         Toast.LENGTH_LONG).show()
+                }
+            }
+
+            btnCheck.setOnClickListener {
+                if(tvRandomText.text.toString().lowercase() ==
+                    tvInput.text.toString().lowercase()) {
+                    Toast.makeText(requireActivity(), "Correct", Toast.LENGTH_SHORT).show()
+                    val textSize : Int = PowerAlgorithm.generateInitialPowerText().toInt()
+                    displayRandomText(textSize)
+                } else {
+                    Toast.makeText(requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
                 }
             }
 

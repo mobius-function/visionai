@@ -14,7 +14,7 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
-import com.yuvraj.visionai.utils.DistanceHelper
+import com.yuvraj.visionai.utils.helpers.DistanceHelper
 
 /**
  * A simple [Fragment] subclass.

@@ -10,7 +10,7 @@ class PowerAlgorithm {
 
     // profile page
     // firebase
-    // logo
+    // logo - done
     // tracking in new page
     // changing it to text from speech
     // Newton Raphson

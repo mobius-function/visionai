@@ -4,7 +4,6 @@ import android.util.Patterns
 
 object Validations {
 
-
     fun validateFirstName(data: String): Boolean {
         if (data.isEmpty()) {
             return false
