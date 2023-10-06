@@ -8,6 +8,8 @@ class PowerAlgorithm {
         }
     }
 
+    // On Boarding - Done
+    // Navigation in Home
     // profile page
     // firebase
     // logo - done
