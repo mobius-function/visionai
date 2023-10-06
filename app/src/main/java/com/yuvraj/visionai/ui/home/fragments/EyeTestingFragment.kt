@@ -30,6 +30,9 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private val distance : Float = 75.0f
     private  var textSize: Int = 0
 
+    private val reading : Int = 0
+    private val score : Int = 0
+
 
     companion object {
         private const val REQUEST_CODE_STT = 1
@@ -91,7 +94,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 } catch (e: ActivityNotFoundException) {
                     e.printStackTrace()
                     Toast.makeText(requireActivity(),
-                        "Your device does not support STT.",
+                        "Your device does not support Speech To Text.",
                         Toast.LENGTH_LONG).show()
                 }
             }
@@ -100,10 +103,12 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 if(tvRandomText.text.toString().lowercase() ==
                     tvInput.text.toString().lowercase()) {
                     Toast.makeText(requireActivity(), "Correct", Toast.LENGTH_SHORT).show()
-                    val textSize : Int = PowerAlgorithm.generateInitialPowerText().toInt()
+                    textSize = (75/(2*distance)).toInt()
                     displayRandomText(textSize)
                 } else {
                     Toast.makeText(requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
+                    textSize = (2*75/distance).toInt()
+                    displayRandomText(textSize)
                 }
             }
 
