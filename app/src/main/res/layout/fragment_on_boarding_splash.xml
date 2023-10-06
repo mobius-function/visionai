@@ -43,7 +43,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStart"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="0dp"
         android:backgroundTint="#94F363"
         android:paddingVertical="4dp"
@@ -52,6 +52,7 @@
         android:text="Start"
         android:textColor="@color/white"
         app:cornerRadius="50dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@id/splash_title"
         app:layout_constraintEnd_toEndOf="@+id/splash_title"
         app:layout_constraintStart_toStartOf="@+id/splash_title"
