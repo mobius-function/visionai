@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -244,7 +245,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tvOrSignUpWith"/>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/google_button"
+                android:id="@+id/btnGoogleSignIn"
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
@@ -274,7 +275,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/tvLoginHere"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/google_button" />
+                app:layout_constraintTop_toBottomOf="@+id/btnGoogleSignIn" />
 
             <TextView
                 android:id="@+id/tvLoginHere"
@@ -287,7 +288,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.733"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/google_button" />
+                app:layout_constraintTop_toBottomOf="@+id/btnGoogleSignIn" />
 
             <TextView
                 android:id="@+id/tvSkipForNow"
