@@ -16,6 +16,8 @@ buildscript {
 //        maven { url 'https://chaquo.com/maven' }
     }
     dependencies {
+        classpath 'com.google.gms:google-services:4.3.14'
+
         // Add the dependency for the Google services Gradle plugin
 //        classpath 'com.google.gms:google-services:4.3.15'
     }

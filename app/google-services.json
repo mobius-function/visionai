@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "698047613394",
+    "project_id": "visionai-f8d4f",
+    "storage_bucket": "visionai-f8d4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698047613394:android:c8b75fd75808069e86200b",
+        "android_client_info": {
+          "package_name": "com.yuvraj.visionai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698047613394-d0s3jojkq1urnhh41u4vme6jkca204s4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAv5qxllcf4YnUm3jd9ZTm8EsE-51lDvk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698047613394-d0s3jojkq1urnhh41u4vme6jkca204s4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
