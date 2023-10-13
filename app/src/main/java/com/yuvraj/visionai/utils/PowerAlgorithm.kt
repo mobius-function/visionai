@@ -19,4 +19,6 @@ class PowerAlgorithm {
     // Blind app
     // Econ Job Rumours
     // QubeRT
+
+    // WSO
 }

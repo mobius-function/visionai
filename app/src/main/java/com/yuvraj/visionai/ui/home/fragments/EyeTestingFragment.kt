@@ -16,6 +16,7 @@ import android.util.Log
 import android.util.TypedValue
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.PowerAlgorithm
+import kotlin.math.roundToInt
 
 /**
  * A simple [Fragment] subclass.
@@ -27,11 +28,12 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private var _binding: FragmentHomeEyeTestingBinding? = null
     private val binding get() = _binding!!
 
-    private val distance : Float = 75.0f
-    private  var textSize: Int = 0
+    private var distance : Float = 75.0f
+    private var u_m0 : Float = 0.0f
+    private  var textSize: Float = 0.0f
 
-    private val reading : Int = 0
-    private val score : Int = 0
+    private var reading : Int = 0
+    private var score : Int = 0
 
 
     companion object {
@@ -72,9 +74,11 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         Log.e("EyeTesting Debug","The initial text size in CM is: $textSizeInCM cm")
         // Display Initial text
-        textSize = DistanceHelper.cmToPixels(textSizeInCM, requireActivity())
+        textSize = DistanceHelper.cmToPixels(textSizeInCM, requireActivity()).toFloat()
         Log.e("EyeTesting Debug","The initial text size in pixels is: $textSize px")
-        displayRandomText(DistanceHelper.pixelsToDp(textSize).toInt())
+        displayRandomText(DistanceHelper.pixelsToDp(textSize.roundToInt()))
+
+        u_m0 = 75.0f/distance
     }
 
     private fun clickableViews() {
@@ -100,28 +104,20 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             }
 
             btnCheck.setOnClickListener {
-                if(tvRandomText.text.toString().lowercase() ==
-                    tvInput.text.toString().lowercase()) {
-                    Toast.makeText(requireActivity(), "Correct", Toast.LENGTH_SHORT).show()
-                    textSize = (75/(2*distance)).toInt()
-                    displayRandomText(textSize)
-                } else {
-                    Toast.makeText(requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
-                    textSize = (2*75/distance).toInt()
-                    displayRandomText(textSize)
-                }
+                onCheck(tvRandomText.text.toString().lowercase() ==
+                        tvInput.text.toString().lowercase())
             }
 
 
         }
     }
 
-    private fun displayRandomText(textSizeDisplay: Int) {
+    private fun displayRandomText(textSizeDisplay: Float) {
         val textDisplay : String = (((0..25).random() + 65).toChar()).toString() +
                                     (((0..25).random() + 65).toChar()).toString()
 
         binding.apply {
-            tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeDisplay.toFloat())
+            tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeDisplay)
             Log.e("EyeTesting Debug","The initial text size in DP is: $textSizeDisplay dp")
             tvRandomText.text = textDisplay
         }
@@ -135,17 +131,40 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     result?.let {
                         val recognizedText = it[0]
+
                         binding.textViewSpeechToText.text = recognizedText.toString()
 
-                        if(binding.textViewSpeechToText.text.toString().lowercase() ==
-                            binding.tvRandomText.text.toString().lowercase()) {
-                            val textSize : Int = PowerAlgorithm.generateInitialPowerText().toInt()
-                            displayRandomText(textSize)
-                        }
+                        onCheck(binding.textViewSpeechToText.text.toString().lowercase() ==
+                                binding.tvRandomText.text.toString().lowercase())
                     }
                 }
             }
         }
+    }
+
+    private fun onCheck(flag : Boolean) {
+
+        reading += 1
+
+        if(flag) {
+            score += 1
+            u_m0 /= 2
+            Toast.makeText(requireActivity(), "Correct", Toast.LENGTH_SHORT).show()
+        } else {
+            u_m0 *= 2
+            Toast.makeText(requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
+        }
+
+        if(reading < 8) {
+            textSize = DistanceHelper.cmToPixels(u_m0,requireActivity()).toFloat()
+            displayRandomText(DistanceHelper.pixelsToDp(textSize.roundToInt()))
+        } else {
+            Toast.makeText(requireActivity(), "Your score is $score", Toast.LENGTH_SHORT).show()
+//            textToSpeechEngine.speak("Your score is $score", TextToSpeech.QUEUE_FLUSH, null, "")
+
+            var x = textSize * 8 / 0.145
+        }
+
     }
 
     override fun onPause() {
