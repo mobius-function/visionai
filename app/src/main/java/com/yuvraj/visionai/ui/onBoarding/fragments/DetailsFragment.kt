@@ -32,7 +32,7 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
 
     private fun clickableViews() {
         binding.apply {
-            tvDetrailsFragment.setOnClickListener {
+            btnCreateAccount.setOnClickListener {
                 val intent = Intent(requireActivity(), MainActivity::class.java)
                 startActivity(intent)
             }
