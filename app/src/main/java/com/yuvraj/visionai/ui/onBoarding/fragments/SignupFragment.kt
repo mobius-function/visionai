@@ -2,6 +2,7 @@ package com.yuvraj.visionai.ui.onBoarding.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.EditText
@@ -41,6 +42,9 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        checkForSignedInUser()
+
         initViews(view)
 //        textWatcher()
 //        binding.btn.btnStart.isEnabled = false
@@ -60,9 +64,15 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
     }
 
 
-    private fun signInGoogle() {
-        val signInIntent: Intent = mGoogleSignInClient.signInIntent
-        startActivity(signInIntent)
+    private fun checkForSignedInUser() {
+        if (GoogleSignIn.getLastSignedInAccount(requireContext()) != null) {
+            startActivity(
+                Intent(
+                    requireActivity(), MainActivity::class.java
+                )
+            )
+            requireActivity().finish()
+        }
     }
 
 
@@ -127,8 +137,16 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 
     }
 
+
+    private fun signInGoogle() {
+        val signInIntent: Intent = mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent,Req_Code)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        Log.e("SignupFragment Debug","The request code is: $requestCode")
         if (requestCode == Req_Code) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleResult(task)
@@ -162,13 +180,6 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 
     override fun onStart() {
         super.onStart()
-        if (GoogleSignIn.getLastSignedInAccount(requireContext()) != null) {
-            startActivity(
-                Intent(
-                    requireActivity(), MainActivity::class.java
-                )
-            )
-            requireActivity().finish()
-        }
+        checkForSignedInUser()
     }
 }

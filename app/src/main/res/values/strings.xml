@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">VisionAI</string>
 
+    <string name="web_client_id_google">698047613394-d0s3jojkq1urnhh41u4vme6jkca204s4.apps.googleusercontent.com</string>
+
     <string-array name="splash_titles">
         <item>ONE DAY OR DAY ONE</item>
         <item>YOU DECIDE</item>

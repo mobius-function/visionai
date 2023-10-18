@@ -130,7 +130,7 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
             )
         }
 
-        binding.tvFaceWidth.text = "Face Width: ${distance}"
+        binding.tvFaceWidth.text = "Face Width: ${distance*10}"
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
