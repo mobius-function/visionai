@@ -3,8 +3,8 @@ package com.yuvraj.visionai.utils.helpers
 import android.app.Activity
 import android.content.res.Resources
 import android.util.DisplayMetrics
+import android.util.TypedValue
 import com.yuvraj.visionai.utils.ScreenInchUtils
-
 
 class DistanceHelper {
 
@@ -34,6 +34,11 @@ class DistanceHelper {
 
         fun meterToFeet(meter: Double): Double {
             return meter * 3.28084
+        }
+
+        fun mmToPixels(mm: Float, activity: Activity?): Float {
+            return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, mm,
+                activity?.resources?.getDisplayMetrics());
         }
 
         fun pixelsToDp(px: Int): Float {

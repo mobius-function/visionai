@@ -30,7 +30,9 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private var distance : Float = 75.0f
     private var u_m0 : Float = 0.0f
-    private  var textSize: Float = 0.0f
+    private  var textSize: Float = 1.0f
+    private  var h_bar: Float = 1.0f
+    private var d_base:Float = 350.0f
 
     private var reading : Int = 0
     private var score : Int = 0
@@ -69,16 +71,22 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private fun initViews(view: View) {
         _binding = FragmentHomeEyeTestingBinding.bind(view)
 
-        val textSizeInCM : Float = PowerAlgorithm.generateInitialPowerText().toFloat()
-//        val textSizeInCM : Float = 3.0f
-
-        Log.e("EyeTesting Debug","The initial text size in CM is: $textSizeInCM cm")
+        Log.e("EyeTesting Debug","The initial text size in MM is: $textSize mm")
         // Display Initial text
-        textSize = DistanceHelper.cmToPixels(textSizeInCM, requireActivity()).toFloat()
-        Log.e("EyeTesting Debug","The initial text size in pixels is: $textSize px")
-        displayRandomText(DistanceHelper.pixelsToDp(textSize.roundToInt()))
+//        textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, textSize,
+//            getResources().getDisplayMetrics());
+        val r = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, textSize,
+            getResources().getDisplayMetrics())
+        Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
+        displayRandomText(textSize)
 
-        u_m0 = 75.0f/distance
+//        u_m0 = 75.0f/distance
+        d_base = 350.0f
+
+        // TODO: update distance here
+        // distance = min_distance at which user read
+
+        h_bar = textSize * (d_base/(distance*10))
     }
 
     private fun clickableViews() {
@@ -117,8 +125,8 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                                     (((0..25).random() + 65).toChar()).toString()
 
         binding.apply {
-            tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeDisplay)
-            Log.e("EyeTesting Debug","The initial text size in DP is: $textSizeDisplay dp")
+            tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, textSizeDisplay)
+//            Log.e("EyeTesting Debug","The initial text size in DP is: $textSizeDisplay dp")
             tvRandomText.text = textDisplay
         }
     }
@@ -148,21 +156,27 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         if(flag) {
             score += 1
-            u_m0 /= 2
+//            u_m0 /= 2
+            textSize = h_bar/2
+            h_bar = textSize * (d_base/(distance*10))
             Toast.makeText(requireActivity(), "Correct", Toast.LENGTH_SHORT).show()
         } else {
             u_m0 *= 2
+            textSize = h_bar * 1.5f
+            h_bar = textSize * (d_base/(distance*10))
             Toast.makeText(requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
         }
 
-        if(reading < 8) {
+        if(reading <= 6 || h_bar < 0.25f) {
             textSize = DistanceHelper.cmToPixels(u_m0,requireActivity()).toFloat()
             displayRandomText(DistanceHelper.pixelsToDp(textSize.roundToInt()))
         } else {
-            Toast.makeText(requireActivity(), "Your score is $score", Toast.LENGTH_SHORT).show()
+
+            val deno : Float = h_bar / 0.50905935f * 20
+            Toast.makeText(requireActivity(), "Your score is $score and deno is: $deno", Toast.LENGTH_SHORT).show()
 //            textToSpeechEngine.speak("Your score is $score", TextToSpeech.QUEUE_FLUSH, null, "")
 
-            var x = textSize * 8 / 0.145
+//            var x = textSize * 8 / 0.145
         }
 
     }
