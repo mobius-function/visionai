@@ -28,14 +28,20 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private var _binding: FragmentHomeEyeTestingBinding? = null
     private val binding get() = _binding!!
 
-    private var distance : Float = 75.0f
-    private var u_m0 : Float = 0.0f
+    private var distance : Float = 350.0f
+    private var baseDistance:Float = 350.0f
+
+//    private var u_m0 : Float = 0.0f
+
     private  var textSize: Float = 1.0f
-    private  var h_bar: Float = 1.0f
-    private var d_base:Float = 350.0f
+    private  var relativeTextSize: Float = 1.0f
+
 
     private var reading : Int = 0
     private var score : Int = 0
+
+    private var lastCorrect: Float? = null
+    private var lastIncorrect: Float? = null
 
 
     companion object {
@@ -81,12 +87,12 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         displayRandomText(textSize)
 
 //        u_m0 = 75.0f/distance
-        d_base = 350.0f
+        baseDistance = 350.0f
 
         // TODO: update distance here
         // distance = min_distance at which user read
 
-        h_bar = textSize * (d_base/(distance*10))
+        relativeTextSize = textSize * (baseDistance/distance)
     }
 
     private fun clickableViews() {
@@ -150,29 +156,48 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
     }
 
-    private fun onCheck(flag : Boolean) {
+    private fun onCheck(correctResult : Boolean) {
 
         reading += 1
 
-        if(flag) {
+        if(correctResult) {
             score += 1
 //            u_m0 /= 2
-            textSize = h_bar/2
-            h_bar = textSize * (d_base/(distance*10))
+
+            lastCorrect = relativeTextSize
+            if(lastIncorrect == null) {
+                textSize = relativeTextSize/2
+            } else {
+                textSize = (relativeTextSize + lastIncorrect!!)/2
+            }
+
+            relativeTextSize = textSize * (baseDistance/(distance))
             Toast.makeText(requireActivity(), "Correct", Toast.LENGTH_SHORT).show()
         } else {
-            u_m0 *= 2
-            textSize = h_bar * 1.5f
-            h_bar = textSize * (d_base/(distance*10))
+//            u_m0 *= 2
+
+            lastIncorrect = relativeTextSize
+            if(lastCorrect == null) {
+                textSize = relativeTextSize * 2
+            } else {
+                textSize = (relativeTextSize + lastCorrect!!)/2
+            }
+
+//            textSize = relativeTextSize * 1.5f
+//            relativeTextSize = textSize * (baseDistance/(distance*10))
             Toast.makeText(requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
         }
 
-        if(reading <= 6 || h_bar < 0.25f) {
-            textSize = DistanceHelper.cmToPixels(u_m0,requireActivity()).toFloat()
-            displayRandomText(DistanceHelper.pixelsToDp(textSize.roundToInt()))
+        if(reading <= 6 && relativeTextSize > 0.25f) {
+//            textSize = DistanceHelper.cmToPixels(u_m0,requireActivity()).toFloat()
+            displayRandomText(textSize)
         } else {
-
-            val deno : Float = h_bar / 0.50905935f * 20
+            var deno : Double? = null
+            if(lastCorrect != null) {
+                deno = (lastCorrect!! * 20)/0.50905435
+            } else {
+                deno = (lastIncorrect!! * 20)/0.50905435
+            }
             Toast.makeText(requireActivity(), "Your score is $score and deno is: $deno", Toast.LENGTH_SHORT).show()
 //            textToSpeechEngine.speak("Your score is $score", TextToSpeech.QUEUE_FLUSH, null, "")
 
