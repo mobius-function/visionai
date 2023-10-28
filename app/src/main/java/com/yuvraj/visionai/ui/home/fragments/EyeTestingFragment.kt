@@ -127,8 +127,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     }
 
     private fun displayRandomText(textSizeDisplay: Float) {
-        val textDisplay : String = (((0..25).random() + 65).toChar()).toString() +
-                                    (((0..25).random() + 65).toChar()).toString()
+        val textDisplay : String = (((0..25).random() + 65).toChar()).toString()
 
         binding.apply {
             tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, textSizeDisplay)
@@ -188,9 +187,10 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             Toast.makeText(requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
         }
 
-        if(reading <= 6 && relativeTextSize > 0.25f) {
+        if(reading <= 6 && textSize >= 0.5f) {
 //            textSize = DistanceHelper.cmToPixels(u_m0,requireActivity()).toFloat()
             displayRandomText(textSize)
+            Log.e("EyeTesting Debug","The presented text size in MM is: $textSize mm")
         } else {
             var deno : Double? = null
             if(lastCorrect != null) {
