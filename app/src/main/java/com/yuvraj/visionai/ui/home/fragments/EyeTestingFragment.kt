@@ -11,12 +11,16 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.pm.PackageManager
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.util.TypedValue
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.mlkit.vision.face.Face
+import com.yuvraj.visionai.service.cameraX.CameraManager
+import com.yuvraj.visionai.service.faceDetection.FaceStatus
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
-import com.yuvraj.visionai.utils.PowerAlgorithm
-import kotlin.math.roundToInt
 
 /**
  * A simple [Fragment] subclass.
@@ -28,7 +32,12 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private var _binding: FragmentHomeEyeTestingBinding? = null
     private val binding get() = _binding!!
 
-    private var distance : Float = 350.0f
+    private lateinit var cameraManager: CameraManager
+
+    private val focalLengthFound : Double = 50.0
+    private val realFaceWidth : Double = 14.0
+
+    private var distanceMinimum : Float = 350.0f
     private var baseDistance:Float = 350.0f
 
 //    private var u_m0 : Float = 0.0f
@@ -42,11 +51,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private var lastCorrect: Float? = null
     private var lastIncorrect: Float? = null
-
-
-    companion object {
-        private const val REQUEST_CODE_STT = 1
-    }
 
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireActivity()) { status ->
@@ -71,6 +75,8 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initViews(view)
+        createCameraManager()
+        checkForPermission()
         clickableViews()
     }
 
@@ -92,7 +98,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         // TODO: update distance here
         // distance = min_distance at which user read
 
-        relativeTextSize = textSize * (baseDistance/distance)
+        relativeTextSize = textSize * (baseDistance/distanceMinimum)
     }
 
     private fun clickableViews() {
@@ -170,7 +176,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 textSize = (relativeTextSize + lastIncorrect!!)/2
             }
 
-            relativeTextSize = textSize * (baseDistance/(distance))
+            relativeTextSize = textSize * (baseDistance/(distanceMinimum))
             Toast.makeText(requireActivity(), "Correct", Toast.LENGTH_SHORT).show()
         } else {
 //            u_m0 *= 2
@@ -204,7 +210,88 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 //            var x = textSize * 8 / 0.145
         }
 
+        distanceMinimum = binding.tvCurrentDistance.text.toString().toFloat() * 10.0f
+
     }
+
+    private fun checkForPermission() {
+        if (allPermissionsGranted()) {
+            cameraManager.startCamera()
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults:
+        IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
+                cameraManager.startCamera()
+            } else {
+                Toast.makeText(requireActivity(),
+                    "Permissions not granted by the user.",
+                    Toast.LENGTH_SHORT).show()
+
+                requireActivity().finish()
+            }
+        }
+    }
+
+    private fun createCameraManager() {
+        cameraManager = CameraManager(
+            requireActivity(),
+            binding.previewViewFinder,
+            this,
+            binding.graphicOverlayFinder,
+            ::processPicture,
+            ::updateTVFaceWidth
+        )
+    }
+
+
+    private fun processPicture(faceStatus: FaceStatus) {
+        Log.e("facestatus","This is it ${faceStatus.name}")
+//        tvFaceWidth.text
+//       when(faceStatus){}
+    }
+
+    private fun updateTVFaceWidth(face: Face) {
+        val faceWidth : Int = DistanceHelper.pixelsToDp(face.boundingBox.width()).toInt()
+        var distance = 0.0
+
+        if(faceWidth != 0) {
+            distance = DistanceHelper.distanceFinder(
+                focalLengthFound,
+                realFaceWidth,
+                faceWidth.toDouble()
+            )
+        }
+
+        binding.tvCurrentDistance.text = "Face Width: ${distance*10}"
+
+        if(binding.tvCurrentDistance.text.toString().toFloat() * 10.0f < distanceMinimum) {
+            distanceMinimum = binding.tvCurrentDistance.text.toString().toFloat() * 10.0f
+        }
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(requireActivity().baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    companion object {
+        private const val REQUEST_CODE_STT = 1
+
+        private const val REQUEST_CODE_PERMISSIONS = 10
+        private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
+    }
+
 
     override fun onPause() {
         textToSpeechEngine.stop()
