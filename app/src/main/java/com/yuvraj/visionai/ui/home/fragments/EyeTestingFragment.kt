@@ -37,6 +37,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private val focalLengthFound : Double = 50.0
     private val realFaceWidth : Double = 14.0
 
+    private var distanceCurrent : Float = 0.0f
     private var distanceMinimum : Float = 350.0f
     private var baseDistance:Float = 350.0f
 
@@ -99,6 +100,9 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         // distance = min_distance at which user read
 
         relativeTextSize = textSize * (baseDistance/distanceMinimum)
+
+
+//        binding.tvCurrentDistance.text = distanceMinimum.toString()
     }
 
     private fun clickableViews() {
@@ -210,7 +214,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 //            var x = textSize * 8 / 0.145
         }
 
-        distanceMinimum = binding.tvCurrentDistance.text.toString().toFloat() * 10.0f
+        distanceMinimum = distanceCurrent
 
     }
 
@@ -274,10 +278,12 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             )
         }
 
-        binding.tvCurrentDistance.text = "Face Width: ${distance*10}"
+        binding.tvCurrentDistance.text = "Current Distance: ${distance*10}"
+        distanceCurrent = distance.toFloat()*10.0f
 
-        if(binding.tvCurrentDistance.text.toString().toFloat() * 10.0f < distanceMinimum) {
-            distanceMinimum = binding.tvCurrentDistance.text.toString().toFloat() * 10.0f
+        if(distanceCurrent < distanceMinimum) {
+            distanceMinimum = distanceCurrent
+            binding.tvMinimumDistance.text = distanceMinimum.toString()
         }
     }
 
