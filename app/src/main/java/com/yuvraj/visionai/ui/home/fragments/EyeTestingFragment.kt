@@ -215,6 +215,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
 
         distanceMinimum = distanceCurrent
+        binding.tvMinimumDistance.text = "Minimum Distance: ${distanceMinimum}"
 
     }
 
@@ -278,8 +279,8 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             )
         }
 
-        binding.tvCurrentDistance.text = "Current Distance: ${distance*10}"
-        distanceCurrent = distance.toFloat()*10.0f
+        binding.tvCurrentDistance.text = "Current Distance: ${distance*100}"
+        distanceCurrent = distance.toFloat()*100.0f
 
         if(distanceCurrent < distanceMinimum) {
             distanceMinimum = distanceCurrent
