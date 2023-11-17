@@ -17,6 +17,7 @@ import android.util.Log
 import android.util.TypedValue
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
@@ -85,6 +86,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         _binding = FragmentHomeEyeTestingBinding.bind(view)
 
         Log.e("EyeTesting Debug","The initial text size in MM is: $textSize mm")
+
         // Display Initial text
 //        textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, textSize,
 //            getResources().getDisplayMetrics());
@@ -169,6 +171,8 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         reading += 1
 
+        relativeTextSize = textSize * (baseDistance/distanceMinimum)
+
         if(correctResult) {
             score += 1
 //            u_m0 /= 2
@@ -180,9 +184,10 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 textSize = (relativeTextSize + lastIncorrect!!)/2
             }
 
-            relativeTextSize = textSize * (baseDistance/(distanceMinimum))
             Toast.makeText(requireActivity(), "Correct", Toast.LENGTH_SHORT).show()
-        } else {
+        }
+
+        else {
 //            u_m0 *= 2
 
             lastIncorrect = relativeTextSize
@@ -197,7 +202,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             Toast.makeText(requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
         }
 
-        if(reading <= 6 && textSize >= 0.5f) {
+        if(reading <= 6 && textSize > 0.25f) {
 //            textSize = DistanceHelper.cmToPixels(u_m0,requireActivity()).toFloat()
             displayRandomText(textSize)
             Log.e("EyeTesting Debug","The presented text size in MM is: $textSize mm")
@@ -208,8 +213,14 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             } else {
                 deno = (lastIncorrect!! * 20)/0.50905435
             }
+            binding.tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, 10.0f)
+            binding.tvRandomText.text = "$deno"
             Toast.makeText(requireActivity(), "Your score is $score and deno is: $deno", Toast.LENGTH_SHORT).show()
 //            textToSpeechEngine.speak("Your score is $score", TextToSpeech.QUEUE_FLUSH, null, "")
+
+            binding.tvRandomText.setOnClickListener {
+                findNavController().navigate(R.id.action_homeEyeTestingFragment_to_hyperopiaTestingFragment)
+            }
 
 //            var x = textSize * 8 / 0.145
         }
