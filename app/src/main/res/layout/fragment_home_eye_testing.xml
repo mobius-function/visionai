@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:backgroundTint="@color/design_default_color_on_secondary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.fragments.EyeTestingFragment">
@@ -10,10 +11,12 @@
         android:id="@+id/tvRandomText"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:translationZ="10dp"
         android:layout_marginTop="16dp"
         app:circularflow_radiusInDP="18dp"
-        android:backgroundTint="@color/design_default_color_on_secondary"
+        android:background="@color/white"
         android:text="AB"
+        android:textColor="@color/black"
         android:textSize="250sp"
         android:gravity="center"
         app:layout_constraintDimensionRatio="1:1"
@@ -70,9 +73,10 @@
         android:layout_height="240dp"
         android:translationZ="0dp"
         android:layout_marginBottom="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintEnd_toEndOf="@+id/tvRandomText"
+        app:layout_constraintStart_toStartOf="@+id/tvRandomText"
+        app:layout_constraintTop_toTopOf="@+id/tvRandomText"
+        app:layout_constraintBottom_toBottomOf="@+id/tvRandomText">
 
         <androidx.camera.view.PreviewView
             android:id="@+id/previewViewFinder"
@@ -95,7 +99,6 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tvCurrentDistance"
         app:layout_constraintTop_toBottomOf="@+id/btnCheck" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -106,7 +109,6 @@
         android:text="Current Distance: XX"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/tvMinimumDistance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCheck" />
 
