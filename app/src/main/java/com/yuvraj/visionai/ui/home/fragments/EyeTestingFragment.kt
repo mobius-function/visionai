@@ -218,10 +218,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             Toast.makeText(requireActivity(), "Your score is $score and deno is: $deno", Toast.LENGTH_SHORT).show()
 //            textToSpeechEngine.speak("Your score is $score", TextToSpeech.QUEUE_FLUSH, null, "")
 
-            binding.tvRandomText.setOnClickListener {
-                findNavController().navigate(R.id.action_homeEyeTestingFragment_to_hyperopiaTestingFragment)
-            }
-
 //            var x = textSize * 8 / 0.145
         }
 

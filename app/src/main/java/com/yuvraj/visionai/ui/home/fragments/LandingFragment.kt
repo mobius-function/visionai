@@ -64,8 +64,16 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
                 cameraManager.changeCameraSelector()
             }
 
-            tvFaceWidth.setOnClickListener{
-                binding.tvFaceWidth.text = binding.graphicOverlayFinder.width.toString()
+            btnMyopiaTesting.setOnClickListener {
+                findNavController().navigate(R.id.action_landingFragment_to_eyeTestingFragment)
+            }
+
+            btnHyperopiaTesting.setOnClickListener {
+                findNavController().navigate(R.id.action_homeLandingFragment_to_hyperopiaTestingFragment)
+            }
+
+            btnAstigmatismTesting.setOnClickListener {
+                findNavController().navigate(R.id.action_homeLandingFragment_to_astigmatismTestingFragment)
             }
         }
     }
