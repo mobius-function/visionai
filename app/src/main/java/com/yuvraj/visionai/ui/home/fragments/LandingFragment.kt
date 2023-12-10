@@ -26,7 +26,7 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     private var _binding: FragmentHomeLandingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var cameraManager: CameraManager
+//    private lateinit var cameraManager: CameraManager
 
     val focalLengthFound : Double = 50.0
     val realFaceWidth : Double = 14.0
@@ -41,7 +41,7 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initViews(view)
-        createCameraManager()
+//        createCameraManager()
         checkForPermission()
         clickableViews()
     }
@@ -60,9 +60,9 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
                 findNavController().navigate(R.id.action_landingFragment_to_eyeTestingFragment)
             }
 
-            btnSwitchCamera.setOnClickListener {
-                cameraManager.changeCameraSelector()
-            }
+//            btnSwitchCamera.setOnClickListener {
+//                cameraManager.changeCameraSelector()
+//            }
 
             btnMyopiaTesting.setOnClickListener {
                 findNavController().navigate(R.id.action_landingFragment_to_eyeTestingFragment)
@@ -80,7 +80,7 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
 
     private fun checkForPermission() {
         if (allPermissionsGranted()) {
-            cameraManager.startCamera()
+//            cameraManager.startCamera()
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
@@ -97,7 +97,10 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
-                cameraManager.startCamera()
+//                cameraManager.startCamera()
+                Toast.makeText(requireActivity(),
+                    "All Permissions are granted by the user.",
+                    Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireActivity(),
                     "Permissions not granted by the user.",
@@ -108,38 +111,38 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         }
     }
 
-    private fun createCameraManager() {
-        cameraManager = CameraManager(
-            requireActivity(),
-            binding.previewViewFinder,
-            this,
-            binding.graphicOverlayFinder,
-            ::processPicture,
-            ::updateTVFaceWidth
-        )
-    }
+//    private fun createCameraManager() {
+//        cameraManager = CameraManager(
+//            requireActivity(),
+//            binding.previewViewFinder,
+//            this,
+//            binding.graphicOverlayFinder,
+//            ::processPicture,
+//            ::updateTVFaceWidth
+//        )
+//    }
 
 
-    private fun processPicture(faceStatus: FaceStatus) {
-        Log.e("facestatus","This is it ${faceStatus.name}")
-//        tvFaceWidth.text
-//       when(faceStatus){}
-    }
-
-    private fun updateTVFaceWidth(face: Face) {
-        val faceWidth : Int = DistanceHelper.pixelsToDp(face.boundingBox.width()).toInt()
-        var distance = 0.0
-
-        if(faceWidth != 0) {
-            distance = DistanceHelper.distanceFinder(
-                focalLengthFound,
-                realFaceWidth,
-                faceWidth.toDouble()
-            )
-        }
-
-        binding.tvFaceWidth.text = "Current Distance: ${distance*10}"
-    }
+//    private fun processPicture(faceStatus: FaceStatus) {
+//        Log.e("facestatus","This is it ${faceStatus.name}")
+////        tvFaceWidth.text
+////       when(faceStatus){}
+//    }
+//
+//    private fun updateTVFaceWidth(face: Face) {
+//        val faceWidth : Int = DistanceHelper.pixelsToDp(face.boundingBox.width()).toInt()
+//        var distance = 0.0
+//
+//        if(faceWidth != 0) {
+//            distance = DistanceHelper.distanceFinder(
+//                focalLengthFound,
+//                realFaceWidth,
+//                faceWidth.toDouble()
+//            )
+//        }
+//
+//        binding.tvFaceWidth.text = "Current Distance: ${distance*10}"
+//    }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(requireActivity().baseContext, it) == PackageManager.PERMISSION_GRANTED
@@ -149,10 +152,4 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
     }
-
-//    private fun initPython() {
-//        val python = Python.getInstance()
-//        val pythonFile = python.getModule("realtime_distance_calculator")
-//        pythonFile.callAttr("mainf", binding.tvLandingPage, binding.ivImage)
-//    }
 }
