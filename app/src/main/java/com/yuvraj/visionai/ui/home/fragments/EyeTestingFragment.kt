@@ -21,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
+import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateNegativePower
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 
 /**
@@ -110,24 +111,24 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private fun clickableViews() {
 
         binding.apply {
-            btnSpeech.setOnClickListener {
-                val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                sttIntent.putExtra(
-                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-                )
-                sttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-                sttIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now!")
-
-                try {
-                    startActivityForResult(sttIntent, REQUEST_CODE_STT)
-                } catch (e: ActivityNotFoundException) {
-                    e.printStackTrace()
-                    Toast.makeText(requireActivity(),
-                        "Your device does not support Speech To Text.",
-                        Toast.LENGTH_LONG).show()
-                }
-            }
+//            btnSpeech.setOnClickListener {
+//                val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+//                sttIntent.putExtra(
+//                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+//                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+//                )
+//                sttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+//                sttIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now!")
+//
+//                try {
+//                    startActivityForResult(sttIntent, REQUEST_CODE_STT)
+//                } catch (e: ActivityNotFoundException) {
+//                    e.printStackTrace()
+//                    Toast.makeText(requireActivity(),
+//                        "Your device does not support Speech To Text.",
+//                        Toast.LENGTH_LONG).show()
+//                }
+//            }
 
             btnCheck.setOnClickListener {
                 onCheck(tvRandomText.text.toString().lowercase() ==
@@ -214,15 +215,14 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 deno = (lastIncorrect!! * 20)/0.50905435
             }
             binding.tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, 10.0f)
-            binding.tvRandomText.text = "$deno"
-            Toast.makeText(requireActivity(), "Your score is $score and deno is: $deno", Toast.LENGTH_SHORT).show()
+            binding.tvRandomText.text = calculateNegativePower(deno).toString()
+            Toast.makeText(requireActivity(), "Test Successful", Toast.LENGTH_SHORT).show()
 //            textToSpeechEngine.speak("Your score is $score", TextToSpeech.QUEUE_FLUSH, null, "")
 
 //            var x = textSize * 8 / 0.145
         }
 
         distanceMinimum = distanceCurrent
-        binding.tvMinimumDistance.text = "Minimum Distance: ${distanceMinimum}"
 
     }
 
@@ -286,12 +286,10 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             )
         }
 
-        binding.tvCurrentDistance.text = "Current Distance: ${distance*100}"
         distanceCurrent = distance.toFloat()*100.0f
 
         if(distanceCurrent < distanceMinimum) {
             distanceMinimum = distanceCurrent
-            binding.tvMinimumDistance.text = distanceMinimum.toString()
         }
     }
 
