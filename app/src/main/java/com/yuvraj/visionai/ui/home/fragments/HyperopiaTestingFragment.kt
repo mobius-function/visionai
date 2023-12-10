@@ -20,6 +20,7 @@ import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import com.yuvraj.visionai.databinding.FragmentHomeHyperopiaTestingBinding
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
+import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculatePositivePower
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import java.util.Locale
 
@@ -30,9 +31,9 @@ import java.util.Locale
  */
 
 
-class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_hyperopia_testing) {
+class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
-    private var _binding: FragmentHomeHyperopiaTestingBinding? = null
+    private var _binding: FragmentHomeEyeTestingBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var cameraManager: CameraManager
@@ -85,7 +86,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_hyperopia_testi
     }
 
     private fun initViews(view: View) {
-        _binding = FragmentHomeHyperopiaTestingBinding.bind(view)
+        _binding = FragmentHomeEyeTestingBinding.bind(view)
 
         Log.e("EyeTesting Debug","The initial text size in MM is: $textSize mm")
 
@@ -113,24 +114,24 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_hyperopia_testi
     private fun clickableViews() {
 
         binding.apply {
-            btnSpeech.setOnClickListener {
-                val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                sttIntent.putExtra(
-                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-                )
-                sttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-                sttIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now!")
-
-                try {
-                    startActivityForResult(sttIntent, REQUEST_CODE_STT)
-                } catch (e: ActivityNotFoundException) {
-                    e.printStackTrace()
-                    Toast.makeText(requireActivity(),
-                        "Your device does not support Speech To Text.",
-                        Toast.LENGTH_LONG).show()
-                }
-            }
+//            btnSpeech.setOnClickListener {
+//                val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+//                sttIntent.putExtra(
+//                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+//                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+//                )
+//                sttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+//                sttIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now!")
+//
+//                try {
+//                    startActivityForResult(sttIntent, REQUEST_CODE_STT)
+//                } catch (e: ActivityNotFoundException) {
+//                    e.printStackTrace()
+//                    Toast.makeText(requireActivity(),
+//                        "Your device does not support Speech To Text.",
+//                        Toast.LENGTH_LONG).show()
+//                }
+//            }
 
             btnCheck.setOnClickListener {
                 onCheck(tvRandomText.text.toString().lowercase() ==
@@ -178,7 +179,6 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_hyperopia_testi
 
         if(correctResult) {
             score += 1
-//            u_m0 /= 2
 
             lastCorrect = relativeTextSize
             if(lastIncorrect == null) {
@@ -191,8 +191,6 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_hyperopia_testi
         }
 
         else {
-//            u_m0 *= 2
-
             lastIncorrect = relativeTextSize
             if(lastCorrect == null) {
                 textSize = relativeTextSize / 2
@@ -200,34 +198,27 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_hyperopia_testi
                 textSize = (relativeTextSize + lastCorrect!!)/2
             }
 
-//            textSize = relativeTextSize * 1.5f
-//            relativeTextSize = textSize * (baseDistance/(distance*10))
             Toast.makeText(requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
         }
 
         if(reading <= 6 && textSize > 0.25f) {
-//            textSize = DistanceHelper.cmToPixels(u_m0,requireActivity()).toFloat()
             displayRandomText(textSize)
             Log.e("EyeTesting Debug","The presented text size in MM is: $textSize mm")
-        } else {
+        }
+
+        else {
             var diapter : Double? = null
             if(lastIncorrect == null) {
-                Toast.makeText(requireActivity(), "You don't have + power", Toast.LENGTH_SHORT).show()
+                diapter = 0.0
             } else {
-                var distance : Double = (baseDistance / (0.50905435) * lastIncorrect!!)
-                diapter = (1000/(90-15)) - (1000/(distance - 15))
+                diapter = calculatePositivePower(lastIncorrect!!, 20, baseDistance)
             }
             binding.tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, 10.0f)
             binding.tvRandomText.text = "$diapter"
             Toast.makeText(requireActivity(), "Your score is $score and deno is: $diapter", Toast.LENGTH_SHORT).show()
-//            textToSpeechEngine.speak("Your score is $score", TextToSpeech.QUEUE_FLUSH, null, "")
-
-//            var x = textSize * 8 / 0.145
         }
 
         distanceMaximum = distanceCurrent
-        binding.tvMaximumDistance.text = "Minimum Distance: ${distanceMaximum}"
-
     }
 
     private fun checkForPermission() {
@@ -290,12 +281,10 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_hyperopia_testi
             )
         }
 
-        binding.tvCurrentDistance.text = "Current Distance: ${distance*100}"
         distanceCurrent = distance.toFloat()*100.0f
 
         if(distanceCurrent > distanceMaximum) {
             distanceMaximum = distanceCurrent
-            binding.tvMaximumDistance.text = distanceMaximum.toString()
         }
     }
 
