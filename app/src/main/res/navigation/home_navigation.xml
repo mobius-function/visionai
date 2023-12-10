@@ -32,7 +32,7 @@
         tools:layout="@layout/fragment_home_hyperopia_testing" />
     <fragment
         android:id="@+id/astigmatismTestingFragment"
-        android:name="com.yuvraj.visionai.AstigmatismTestingFragment"
+        android:name="com.yuvraj.visionai.ui.home.fragments.AstigmatismTestingFragment"
         android:label="fragment_home_astigmatism_testing"
         tools:layout="@layout/fragment_home_astigmatism_testing" />
 </navigation>
