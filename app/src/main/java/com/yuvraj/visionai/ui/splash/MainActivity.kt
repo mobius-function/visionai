@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiSplashScreenBinding
-import com.yuvraj.visionai.ui.onBoarding.MainActivity
 
 class MainActivity : AppCompatActivity() {
 

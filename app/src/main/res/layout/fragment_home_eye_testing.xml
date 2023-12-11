@@ -30,7 +30,7 @@
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:textSize="18sp"
-        android:text=""
+        android:text="Clover left eye with your left hand, ensure to avoid applying pressure to the eyelid. Read the letters on the screen beginning at the top."
         android:layout_marginHorizontal="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
