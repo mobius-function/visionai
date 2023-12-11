@@ -19,7 +19,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingSignupBinding
-import com.yuvraj.visionai.ui.home.MainActivity
 import com.yuvraj.visionai.utils.helpers.Validations
 
 
@@ -66,12 +65,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 
     private fun checkForSignedInUser() {
         if (GoogleSignIn.getLastSignedInAccount(requireContext()) != null) {
-            startActivity(
-                Intent(
-                    requireActivity(), MainActivity::class.java
-                )
-            )
-            requireActivity().finish()
+            findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
         }
     }
 
@@ -171,9 +165,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
             if (task.isSuccessful) {
 //                SavedPreferences.setEmail(requireActivity(), account.email.toString())
 //                SavedPreferences.setUsername(requireActivity(), account.displayName.toString())
-                val intent = Intent(requireActivity(), MainActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
+                findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
             }
         }
     }
