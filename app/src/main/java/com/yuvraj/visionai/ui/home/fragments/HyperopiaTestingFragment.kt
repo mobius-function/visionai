@@ -155,24 +155,24 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            REQUEST_CODE_STT -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    result?.let {
-                        val recognizedText = it[0]
-
-                        binding.textViewSpeechToText.text = recognizedText.toString()
-
-                        onCheck(binding.textViewSpeechToText.text.toString().lowercase() ==
-                                binding.tvRandomText.text.toString().lowercase())
-                    }
-                }
-            }
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        when (requestCode) {
+//            REQUEST_CODE_STT -> {
+//                if (resultCode == Activity.RESULT_OK && data != null) {
+//                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+//                    result?.let {
+//                        val recognizedText = it[0]
+//
+//                        binding.textViewSpeechToText.text = recognizedText.toString()
+//
+//                        onCheck(binding.textViewSpeechToText.text.toString().lowercase() ==
+//                                binding.tvRandomText.text.toString().lowercase())
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private fun onCheck(correctResult : Boolean) {
 

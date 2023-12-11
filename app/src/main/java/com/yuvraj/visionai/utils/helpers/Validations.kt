@@ -31,11 +31,4 @@ object Validations {
         }
         return false
     }
-
-    fun validatePhoneNumbers(phone1: String, phone2: String): Boolean {
-        if(phone1 == phone2) {
-            return false
-        }
-        return true
-    }
 }

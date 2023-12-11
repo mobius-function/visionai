@@ -22,6 +22,7 @@ import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateNegativePower
+import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructionDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 
 /**
@@ -86,6 +87,15 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private fun initViews(view: View) {
         _binding = FragmentHomeEyeTestingBinding.bind(view)
 
+        val message: String = "Clover left eye with your left hand, ensure to avoid applying pressure to the eyelid. Read the letters on the screen beginning at the top. Once completed, repeat with the right eye."
+        showInstructionDialogBox(
+            requireActivity(),
+            "Follow me!",
+            message
+        )
+
+        binding.tvInstructions.text = message
+
         Log.e("EyeTesting Debug","The initial text size in MM is: $textSize mm")
 
         // Display Initial text
@@ -149,24 +159,24 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            REQUEST_CODE_STT -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    result?.let {
-                        val recognizedText = it[0]
-
-                        binding.textViewSpeechToText.text = recognizedText.toString()
-
-                        onCheck(binding.textViewSpeechToText.text.toString().lowercase() ==
-                                binding.tvRandomText.text.toString().lowercase())
-                    }
-                }
-            }
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        when (requestCode) {
+//            REQUEST_CODE_STT -> {
+//                if (resultCode == Activity.RESULT_OK && data != null) {
+//                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+//                    result?.let {
+//                        val recognizedText = it[0]
+//
+//                        binding.textViewSpeechToText.text = recognizedText.toString()
+//
+//                        onCheck(binding.tv.text.toString().lowercase() ==
+//                                binding.tvRandomText.text.toString().lowercase())
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private fun onCheck(correctResult : Boolean) {
 
@@ -216,8 +226,27 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             }
             binding.tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, 10.0f)
             binding.tvRandomText.text = calculateNegativePower(deno).toString()
-            Toast.makeText(requireActivity(), "Test Successful", Toast.LENGTH_SHORT).show()
+
+
+            showInstructionDialogBox(
+                requireActivity(),
+                "Negative Power",
+                "Your negative power is ${calculateNegativePower(deno)}"
+            )
 //            textToSpeechEngine.speak("Your score is $score", TextToSpeech.QUEUE_FLUSH, null, "")
+
+            val message : String = "Now Clover Right eye with your Right hand, " +
+                    "ensure to avoid applying pressure to the eyelid. " +
+                    "Read the letters on the screen and Input what you see in the Input field."
+
+            binding.tvInstructions.text = message
+
+            showInstructionDialogBox(
+                requireActivity(),
+                "Follow me!",
+                message
+            )
+
 
 //            var x = textSize * 8 / 0.145
         }
