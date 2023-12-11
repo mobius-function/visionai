@@ -2,6 +2,7 @@ package com.yuvraj.visionai.ui.home.fragments
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -20,6 +21,8 @@ import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import com.yuvraj.visionai.databinding.FragmentHomeHyperopiaTestingBinding
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
+import com.yuvraj.visionai.utils.Constants.USER_AGE
+import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculatePositivePower
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import java.util.Locale
@@ -211,7 +214,9 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             if(lastIncorrect == null) {
                 diapter = 0.0
             } else {
-                diapter = calculatePositivePower(lastIncorrect!!, 20, baseDistance)
+                val sharedPreferences = requireActivity().getSharedPreferences(USER_DETAILS, MODE_PRIVATE)
+                val userAge = sharedPreferences.getInt(USER_AGE, 20)
+                diapter = calculatePositivePower(lastIncorrect!!, userAge, baseDistance)
             }
             binding.tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, 10.0f)
             binding.tvRandomText.text = "$diapter"
