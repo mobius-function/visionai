@@ -23,7 +23,9 @@ import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
 import com.yuvraj.visionai.utils.Constants.USER_AGE
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
+import com.yuvraj.visionai.utils.PowerAlgorithm
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculatePositivePower
+import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import java.util.Locale
 
@@ -59,6 +61,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private var lastCorrect: Float? = null
     private var lastIncorrect: Float? = null
+    private var checkingRightEye: Boolean? = false
 
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireActivity()) { status ->
@@ -91,27 +94,26 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private fun initViews(view: View) {
         _binding = FragmentHomeEyeTestingBinding.bind(view)
 
+        val message: String = "Clover left eye with your left hand, ensure to avoid applying pressure to the eyelid. Read the letters on the screen beginning at the top. Once completed, repeat with the right eye."
+        AlertDialogBox.showInstructionDialogBox(
+            requireActivity(),
+            "Follow me!",
+            message
+        )
+
         Log.e("EyeTesting Debug","The initial text size in MM is: $textSize mm")
 
-        // Display Initial text
-//        textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, textSize,
-//            getResources().getDisplayMetrics());
         val r = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_MM, textSize,
             getResources().getDisplayMetrics())
+
         Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
         displayRandomText(textSize)
 
-//        u_m0 = 75.0f/distance
         baseDistance = 350.0f
-
-        // TODO: update distance here
-        // distance = min_distance at which user read
+        distanceMaximum = distanceCurrent
 
         relativeTextSize = textSize * (baseDistance/distanceMaximum)
-
-
-//        binding.tvCurrentDistance.text = distanceMinimum.toString()
     }
 
     private fun clickableViews() {
@@ -221,6 +223,58 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             binding.tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, 10.0f)
             binding.tvRandomText.text = "$diapter"
             Toast.makeText(requireActivity(), "Your score is $score and deno is: $diapter", Toast.LENGTH_SHORT).show()
+
+            if(checkingRightEye == false){
+                checkingRightEye = true
+                baseDistance = 350.0f
+                distanceMaximum = distanceCurrent
+
+                textSize = 2.0f
+                relativeTextSize = 1.0f
+
+                reading = 0
+                score = 0
+
+                lastCorrect = null
+                lastIncorrect = null
+
+                val message : String = "Now Clover Right eye with your Right hand, " +
+                        "ensure to avoid applying pressure to the eyelid. " +
+                        "Read the letters on the screen and Input what you see in the Input field."
+
+                binding.tvInstructions.text = message
+
+                AlertDialogBox.showInstructionDialogBox(
+                    requireActivity(),
+                    "Follow Instruction!",
+                    message
+                )
+
+                AlertDialogBox.showInstructionDialogBox(
+                    requireActivity(),
+                    "Positive Power",
+                    "Your power of Right eye is $diapter"
+                )
+
+                val r = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_MM, textSize,
+                    getResources().getDisplayMetrics())
+
+                Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
+                displayRandomText(textSize)
+
+                baseDistance = 350.0f
+                distanceMaximum = distanceCurrent
+
+                relativeTextSize = textSize * (baseDistance/distanceMaximum)
+
+            } else {
+                AlertDialogBox.showInstructionDialogBox(
+                    requireActivity(),
+                    "Positive Power",
+                    "Your power of Right eye is $diapter"
+                )
+            }
         }
 
         distanceMaximum = distanceCurrent

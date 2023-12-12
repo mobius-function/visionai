@@ -55,6 +55,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private var lastCorrect: Float? = null
     private var lastIncorrect: Float? = null
+    private var checkingRightEye: Boolean? = false
 
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireActivity()) { status ->
@@ -98,24 +99,16 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         Log.e("EyeTesting Debug","The initial text size in MM is: $textSize mm")
 
-        // Display Initial text
-//        textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, textSize,
-//            getResources().getDisplayMetrics());
+
         val r = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, textSize,
             getResources().getDisplayMetrics())
         Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
         displayRandomText(textSize)
 
-//        u_m0 = 75.0f/distance
         baseDistance = 350.0f
-
-        // TODO: update distance here
-        // distance = min_distance at which user read
+        distanceMinimum = distanceCurrent
 
         relativeTextSize = textSize * (baseDistance/distanceMinimum)
-
-
-//        binding.tvCurrentDistance.text = distanceMinimum.toString()
     }
 
     private fun clickableViews() {
@@ -224,31 +217,58 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             } else {
                 deno = (lastIncorrect!! * 20)/0.50905435
             }
-            binding.tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, 10.0f)
-            binding.tvRandomText.text = calculateNegativePower(deno).toString()
-
-
-            showInstructionDialogBox(
-                requireActivity(),
-                "Negative Power",
-                "Your negative power is ${calculateNegativePower(deno)}"
-            )
 //            textToSpeechEngine.speak("Your score is $score", TextToSpeech.QUEUE_FLUSH, null, "")
 
-            val message : String = "Now Clover Right eye with your Right hand, " +
-                    "ensure to avoid applying pressure to the eyelid. " +
-                    "Read the letters on the screen and Input what you see in the Input field."
+            if(checkingRightEye == false){
+                checkingRightEye = true
+                baseDistance = 350.0f
+                distanceMinimum = distanceCurrent
 
-            binding.tvInstructions.text = message
+                textSize = 1.0f
+                relativeTextSize = 1.0f
 
-            showInstructionDialogBox(
-                requireActivity(),
-                "Follow me!",
-                message
-            )
+                reading = 0
+                score = 0
 
+                lastCorrect = null
+                lastIncorrect = null
 
-//            var x = textSize * 8 / 0.145
+                val message : String = "Now Clover Right eye with your Right hand, " +
+                        "ensure to avoid applying pressure to the eyelid. " +
+                        "Read the letters on the screen and Input what you see in the Input field."
+
+                binding.tvInstructions.text = message
+
+                showInstructionDialogBox(
+                    requireActivity(),
+                    "Follow Instruction!",
+                    message
+                )
+
+                showInstructionDialogBox(
+                    requireActivity(),
+                    "Negative Power",
+                    "Your power of left eye is ${calculateNegativePower(deno)}"
+                )
+
+                val r = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, textSize,
+                    getResources().getDisplayMetrics())
+                Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
+                displayRandomText(textSize)
+
+                baseDistance = 350.0f
+                distanceMinimum = distanceCurrent
+
+                relativeTextSize = textSize * (baseDistance/distanceMinimum)
+
+            } else {
+                showInstructionDialogBox(
+                    requireActivity(),
+                    "Negative Power",
+                    "Your power of right eye is ${calculateNegativePower(deno)}"
+                )
+            }
+
         }
 
         distanceMinimum = distanceCurrent
