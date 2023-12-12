@@ -147,7 +147,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         binding.apply {
             tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, textSizeDisplay)
-//            Log.e("EyeTesting Debug","The initial text size in DP is: $textSizeDisplay dp")
+            Log.e("EyeTesting Debug","The current text size in DP is: $textSizeDisplay dp")
             tvRandomText.text = textDisplay
         }
     }
