@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingSignupBinding
 import com.yuvraj.visionai.utils.helpers.Validations
@@ -34,6 +36,8 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
     lateinit var mGoogleSignInClient: GoogleSignInClient
     val Req_Code: Int = 123
     private lateinit var firebaseAuth: FirebaseAuth
+
+    private lateinit var registerAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +64,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 //
         mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         firebaseAuth = FirebaseAuth.getInstance()
+        registerAuth = Firebase.auth
     }
 
 
@@ -101,7 +106,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
                 }
 
                 if(flag) {
-                    findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
+                    signUpUser()
                 }
             }
 
@@ -166,6 +171,37 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 //                SavedPreferences.setEmail(requireActivity(), account.email.toString())
 //                SavedPreferences.setUsername(requireActivity(), account.displayName.toString())
                 findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
+            }
+        }
+    }
+
+    private fun signUpUser() {
+        val email = binding.etEmail.text.toString()
+        val pass = binding.etPassword.text.toString()
+        val confirmPassword = binding.etConfirmPassword.text.toString()
+
+        // check pass
+        if (email.isBlank() || pass.isBlank() || confirmPassword.isBlank()) {
+            Toast.makeText(requireActivity(), "Email and Password can't be blank", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (pass != confirmPassword) {
+            Toast.makeText(requireActivity(), "Password and Confirm Password do not match", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        // If all credential are correct
+        // We call createUserWithEmailAndPassword
+        // using auth object and pass the
+        // email and pass in it.
+        registerAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(requireActivity()) {
+            if (it.isSuccessful) {
+                Toast.makeText(requireActivity(), "Successfully Singed Up", Toast.LENGTH_SHORT).show()
+
+                findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
+            } else {
+                Toast.makeText(requireActivity(), "Singed Up Failed!", Toast.LENGTH_SHORT).show()
             }
         }
     }

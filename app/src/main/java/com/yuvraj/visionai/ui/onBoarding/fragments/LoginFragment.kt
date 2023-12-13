@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingLoginBinding
 import com.yuvraj.visionai.utils.helpers.Validations
@@ -21,6 +23,9 @@ class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
     private var _binding: FragmentOnBoardingLoginBinding? = null
     private val binding get() = _binding!!
 
+    // creating a variable for firebaseAuth instance
+    lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -33,6 +38,8 @@ class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
         binding.btnLogin.isEnabled = true
 //        showSoftKeyboard(requireActivity(),binding.etName)
         clickableViews(binding.etEmail,binding.etPassword)
+
+        auth = FirebaseAuth.getInstance()
     }
 
 //    private fun textWatcher() {
@@ -42,26 +49,9 @@ class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
 
     private fun clickableViews(Email : EditText, Password : EditText) {
         binding.apply {
-//            btn.btnStart.setOnClickListener {
-//                findNavController().navigate(R.id.action_onBoardingAboutFrag_to_onBoardingCategoriesFragment)
-//            }
+
             btnLogin.setOnClickListener {
-
-                var flag: Boolean = true
-
-                if(!Validations.validateEmail(Email.text.toString())){
-                    Email.error = "Enter a Valid Email"
-                    flag = false
-                }
-
-                if(!Validations.validatePassword(Password.text.toString())){
-                    Password.error = "Password must be atleast of 8 characters"
-                    flag = false
-                }
-
-                if(flag) {
-                    findNavController().navigate(R.id.action_loginFragment_to_detailsFragment)
-                }
+                login()
             }
 
             tvSignUpHere.setOnClickListener {
@@ -82,5 +72,21 @@ class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
         _binding = FragmentOnBoardingLoginBinding.bind(view)
 //        ConstantsFunctions.setStatusBarTransparent(requireActivity(), false)
 
+    }
+
+    private fun login() {
+        val email = binding.etEmail.text.toString()
+        val pass = binding.etPassword.text.toString()
+        // calling signInWithEmailAndPassword(email, pass)
+        // function using Firebase auth object
+        // On successful response Display a Toast
+        auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(requireActivity()) {
+            if (it.isSuccessful) {
+                Toast.makeText(requireActivity(), "Successfully LoggedIn", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_loginFragment_to_detailsFragment)
+
+            } else
+                Toast.makeText(requireActivity(), "Log In failed ", Toast.LENGTH_SHORT).show()
+        }
     }
 }
