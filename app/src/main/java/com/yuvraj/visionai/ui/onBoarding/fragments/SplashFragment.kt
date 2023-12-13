@@ -51,6 +51,8 @@ class SplashFragment : Fragment(R.layout.fragment_on_boarding_splash) {
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
 
+            Toast.makeText(requireActivity(), "Signed in as ${user.displayName}", Toast.LENGTH_SHORT).show()
+
             val sharedPreferences = requireActivity().getSharedPreferences(USER_DETAILS, MODE_PRIVATE)
             val isOnBoardingCompleted = sharedPreferences.getBoolean(USER_ONBOARDING_COMPLETED, false)
 

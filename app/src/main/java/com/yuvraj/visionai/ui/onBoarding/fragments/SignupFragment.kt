@@ -18,6 +18,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingSignupBinding
@@ -110,7 +111,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
                 }
             }
 
-            btnGoogleSignIn.setOnClickListener() {view : View? ->
+            btnGoogleSignIn.setOnClickListener() {
                 signInGoogle()
                 Toast.makeText(requireActivity(), "Logging In", Toast.LENGTH_SHORT).show()
                 // findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
@@ -197,7 +198,21 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
         // email and pass in it.
         registerAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(requireActivity()) {
             if (it.isSuccessful) {
-                Toast.makeText(requireActivity(), "Successfully Singed Up", Toast.LENGTH_SHORT).show()
+
+                val user = FirebaseAuth.getInstance().currentUser
+                if(user != null) {
+                    val profileUpdates = userProfileChangeRequest {
+                        displayName = binding.etName.text.toString()
+                        photoUri = null
+                    }
+
+                    user.updateProfile(profileUpdates)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(requireActivity(), "Successfully Singed Up as ${user.displayName}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                }
 
                 findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
             } else {
