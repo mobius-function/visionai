@@ -28,14 +28,14 @@
                 android:background="@drawable/bg_circle"
                 android:visibility="visible"
                 android:text="AS"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:textColor="@color/white"
                 android:textAlignment="center"
                 android:gravity="center"
                 android:src="@drawable/bg_circular_logo"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/tvToolbarShortName2"
+                android:id="@+id/ivToolbarProfilePicture"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/logo_app"

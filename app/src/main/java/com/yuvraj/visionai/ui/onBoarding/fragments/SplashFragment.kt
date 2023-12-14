@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingSplashBinding
+import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
 import com.yuvraj.visionai.ui.home.MainActivity
 import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
@@ -48,7 +49,7 @@ class SplashFragment : Fragment(R.layout.fragment_on_boarding_splash) {
     }
 
     private fun checkForSignedInUser() {
-        val user = FirebaseAuth.getInstance().currentUser
+        val user = getSignedInUser()
         if (user != null) {
 
             Toast.makeText(requireActivity(), "Signed in as ${user.displayName}", Toast.LENGTH_SHORT).show()
