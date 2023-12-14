@@ -22,6 +22,7 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingSignupBinding
+import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
 import com.yuvraj.visionai.utils.helpers.Validations
 
 
@@ -70,7 +71,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 
 
     private fun checkForSignedInUser() {
-        if (GoogleSignIn.getLastSignedInAccount(requireContext()) != null) {
+        if (getSignedInUser() != null) {
             findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
         }
     }
