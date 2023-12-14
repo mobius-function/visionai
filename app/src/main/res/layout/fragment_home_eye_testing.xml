@@ -10,7 +10,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvRandomText"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="300dp"
         android:translationZ="10dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="32dp"
@@ -18,9 +18,8 @@
         android:background="@color/white"
         android:text="AB"
         android:textColor="@color/black"
-        android:textSize="250sp"
+        android:textSize="270sp"
         android:gravity="center"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -29,36 +28,36 @@
         android:id="@+id/tvInstructions"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:text=""
         android:layout_marginHorizontal="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:text="Hello"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvRandomText"
-        android:layout_marginTop="40dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRandomText" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tvInput"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginVertical="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvInstructions" />
+        app:layout_constraintBottom_toTopOf="@+id/btnCheck" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCheck"
         android:layout_width="200dp"
         android:layout_height="65dp"
-        android:layout_marginTop="20dp"
         android:text="Check"
+        android:layout_marginVertical="20dp"
         android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvInput"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
         android:id="@+id/cvImage"
