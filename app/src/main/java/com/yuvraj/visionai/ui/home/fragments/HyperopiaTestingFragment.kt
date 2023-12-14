@@ -101,6 +101,8 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             message
         )
 
+        binding.tvInstructions.text = message
+
         Log.e("EyeTesting Debug","The initial text size in MM is: $textSize mm")
 
         val r = TypedValue.applyDimension(
