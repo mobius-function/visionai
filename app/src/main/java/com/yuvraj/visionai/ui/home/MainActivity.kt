@@ -23,11 +23,14 @@ class MainActivity : AppCompatActivity() {
         initviews()
         setContentView(binding.root)
         setupAppBar()
+        setupNavigationController()
     }
 
     fun initviews() {
         _binding = UiHomeActivityMainBinding.inflate(layoutInflater,null,false)
+    }
 
+    private fun setupNavigationController() {
         navHostFragment = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment)
 
         val navController = navHostFragment.navController
