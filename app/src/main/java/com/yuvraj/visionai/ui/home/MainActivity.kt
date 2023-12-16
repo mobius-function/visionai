@@ -30,24 +30,24 @@ class MainActivity : AppCompatActivity() {
 
         navHostFragment = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment)
 
-//        val navController = navHostFragment.navController
-//        binding.bottomNavigation.setupWithNavController(navController)
+        val navController = navHostFragment.navController
+        binding.bottomNavigation.setupWithNavController(navController)
 
-//        navHostFragment.findNavController().addOnDestinationChangedListener { _, destination, _ ->
-//            when(destination.id) {
-//                R.id.homeFragment, R.id.searchFragment, R.id.uploadFragment,R.id.notificationFragment , R.id.profileFragment ->
-//                    binding!!.bottomNavigation.visibility = View.VISIBLE
-//                else -> binding!!.bottomNavigation.visibility = View.GONE
-//            }
-//
-//            when(destination.id) {
-//                R.id.homeEyeTestingFragment, R.id.homeLandingFragment -> binding.appBarLayout.visibility = View.GONE
-//                else -> binding.appBarLayout.visibility = View.VISIBLE
-//            }
-//        }
+        navHostFragment.findNavController().addOnDestinationChangedListener { _, destination, _ ->
+            when(destination.id) {
+                R.id.landingFragment, R.id.statisticsFragment , R.id.profileFragment ->
+                    binding.bottomNavigation.visibility = View.VISIBLE
+                else -> binding.bottomNavigation.visibility = View.GONE
+            }
+
+            when(destination.id) {
+                R.id.eyeTestingFragment, R.id.astigmatismTestingFragment, R.id.hyperopiaTestingFragment -> binding.appBarLayout.visibility = View.GONE
+                else -> binding.appBarLayout.visibility = View.VISIBLE
+            }
+        }
     }
 
-    fun setupAppBar() {
+    private fun setupAppBar() {
         val user = getSignedInUser()
         if (user != null) {
            binding.apply {
