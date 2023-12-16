@@ -3,19 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item1"
-        android:icon="@drawable/ic_google"
+        android:id="@+id/landingFragment"
+        android:icon="@drawable/ic_home"
         android:title="" />
 
 
     <item
-        android:id="@+id/item2"
-        android:icon="@drawable/ic_mic"
+        android:id="@+id/statisticsFragment"
+        android:icon="@drawable/baseline_query_stats_24"
         android:title="" />
 
 
     <item
-        android:id="@+id/item3"
-        android:icon="@drawable/ic_action_back"
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_profile"
         android:title="" />
 </menu>
