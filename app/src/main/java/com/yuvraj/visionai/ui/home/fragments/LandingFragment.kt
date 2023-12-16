@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
+import com.yuvraj.visionai.firebase.Authentication.Companion.signOutUser
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
 import com.yuvraj.visionai.ui.onBoarding.MainActivity
@@ -82,7 +83,7 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
             }
 
             btnLogOut.setOnClickListener {
-                logOut()
+                signOutUser()
 
                 val intent = Intent(requireActivity(), MainActivity::class.java)
                 startActivity(intent)
@@ -157,12 +158,6 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
 //
 //        binding.tvFaceWidth.text = "Current Distance: ${distance*10}"
 //    }
-
-    private fun logOut() {
-//        FirebaseAuth.getInstance().signOut()
-
-         Firebase.auth.signOut()
-    }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(requireActivity().baseContext, it) == PackageManager.PERMISSION_GRANTED
