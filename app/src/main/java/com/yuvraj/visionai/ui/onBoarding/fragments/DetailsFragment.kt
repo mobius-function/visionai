@@ -53,6 +53,8 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
 
                 val intent = Intent(requireActivity(), MainActivity::class.java)
                 startActivity(intent)
+
+                requireActivity().finish()
             }
         }
     }
