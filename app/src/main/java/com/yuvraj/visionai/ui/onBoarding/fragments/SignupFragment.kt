@@ -1,12 +1,13 @@
 package com.yuvraj.visionai.ui.onBoarding.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -36,7 +37,6 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
     private val binding get() = _binding!!
 
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    val Req_Code: Int = 123
     private lateinit var firebaseAuth: FirebaseAuth
 
     private lateinit var registerAuth: FirebaseAuth
@@ -51,10 +51,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
         checkForSignedInUser()
 
         initViews(view)
-//        textWatcher()
-//        binding.btn.btnStart.isEnabled = false
         binding.btnCreateAccount.isEnabled = true
-//        showSoftKeyboard(requireActivity(),binding.etName)
         clickableViews(binding.etName,binding.etEmail,binding.etPassword,binding.etConfirmPassword)
 
         FirebaseApp.initializeApp(this.requireActivity())
@@ -63,7 +60,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-//
+
         mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         firebaseAuth = FirebaseAuth.getInstance()
         registerAuth = Firebase.auth
@@ -79,9 +76,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 
     private fun clickableViews(Name : EditText, Email : EditText, Password : EditText, ConfirmPassword : EditText) {
         binding.apply {
-//            btn.btnStart.setOnClickListener {
-//                findNavController().navigate(R.id.action_onBoardingAboutFrag_to_onBoardingCategoriesFragment)
-//            }
+
             btnCreateAccount.setOnClickListener {
 
                 var flag: Boolean = true
@@ -134,31 +129,28 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 
     private fun initViews(view: View) {
         _binding = FragmentOnBoardingSignupBinding.bind(view)
-//        ConstantsFunctions.setStatusBarTransparent(requireActivity(), false)
-
     }
 
 
     private fun signInGoogle() {
         val signInIntent: Intent = mGoogleSignInClient.signInIntent
-        startActivityForResult(signInIntent,Req_Code)
+        getResult.launch(signInIntent)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        Log.e("SignupFragment Debug","The request code is: $requestCode")
-        if (requestCode == Req_Code) {
-            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleResult(task)
+    private val getResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) {
+            if(it.resultCode == Activity.RESULT_OK){
+                val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+                handleResult(task)
+            }
         }
-    }
 
     private fun handleResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
             if (account != null) {
-                UpdateUI(account)
+                updateUI(account)
             }
         } catch (e: ApiException) {
             Toast.makeText(requireActivity(), e.toString(), Toast.LENGTH_SHORT).show()
@@ -166,12 +158,10 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
     }
 
     // this is where we update the UI after Google signin takes place
-    private fun UpdateUI(account: GoogleSignInAccount) {
+    private fun updateUI(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-//                SavedPreferences.setEmail(requireActivity(), account.email.toString())
-//                SavedPreferences.setUsername(requireActivity(), account.displayName.toString())
                 findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
             }
         }
@@ -193,10 +183,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
                 .show()
             return
         }
-        // If all credential are correct
-        // We call createUserWithEmailAndPassword
-        // using auth object and pass the
-        // email and pass in it.
+
         registerAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(requireActivity()) {
             if (it.isSuccessful) {
 

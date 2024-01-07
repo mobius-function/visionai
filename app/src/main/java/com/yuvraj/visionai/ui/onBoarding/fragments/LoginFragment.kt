@@ -51,6 +51,16 @@ class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
         binding.apply {
 
             btnLogin.setOnClickListener {
+                if(etEmail.text.toString().isEmpty()){
+                    etEmail.error = "Please enter your Email"
+                    return@setOnClickListener
+                }
+
+                if(etPassword.text.toString().isEmpty()){
+                    etPassword.error = "Please enter your Password"
+                    return@setOnClickListener
+                }
+
                 login()
             }
 
@@ -82,11 +92,11 @@ class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
         // On successful response Display a Toast
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(requireActivity()) {
             if (it.isSuccessful) {
-                Toast.makeText(requireActivity(), "Successfully LoggedIn", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "Successfully Logged In", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_loginFragment_to_detailsFragment)
 
             } else
-                Toast.makeText(requireActivity(), "Log In failed ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "Invalid Login Credentials", Toast.LENGTH_SHORT).show()
         }
     }
 }

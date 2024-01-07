@@ -1,60 +1,59 @@
 package com.yuvraj.visionai.ui.home.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.yuvraj.visionai.R
+import com.yuvraj.visionai.databinding.FragmentHomeProfileBinding
+import com.yuvraj.visionai.firebase.Authentication
+import com.yuvraj.visionai.utils.Constants
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class ProfileFragment : Fragment(R.layout.fragment_home_profile) {
+
+    private var _binding: FragmentHomeProfileBinding? = null
+    private val binding get() = _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_profile, container, false)
+        initViews(view)
+        setupProfile()
+        clickableViews()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
+    private fun initViews(view: View) {
+        _binding = FragmentHomeProfileBinding.bind(view)
+    }
+
+    private fun clickableViews() {
+
+    }
+
+
+    private fun setupProfile() {
+        val user = Authentication.getSignedInUser()
+
+        binding.apply {
+            miniProfileTab.tvName.text = user?.displayName
+//            miniProfileTab.ivProfilePicture.setImageURI(user?.photoUrl)
+            Glide.with(requireActivity()).load(user?.photoUrl).into(miniProfileTab.ivProfilePicture)
+            emailTab.tvEmail.text = user?.email
+            val sharedPreferences = requireActivity().getSharedPreferences(
+                Constants.USER_DETAILS,
+                Context.MODE_PRIVATE
+            )
+            val phoneNumber = sharedPreferences.getLong(Constants.USER_PHONE, 20)
+            infoTab.tvMobile.text = phoneNumber.toString()
+
+        }
     }
 }

@@ -12,6 +12,7 @@ import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.Constants.USER_AGE
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.Constants.USER_ONBOARDING_COMPLETED
+import com.yuvraj.visionai.utils.Constants.USER_PHONE
 
 
 /**
@@ -40,7 +41,12 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
             btnCreateAccount.setOnClickListener {
 
                 if(etAge.text.toString().isEmpty()){
-                    etAge.error = "Please enter your age"
+                    etAge.error = "Please enter a valid age"
+                    return@setOnClickListener
+                }
+
+                if(etMobileNumber.text.toString().isEmpty()){
+                    etMobileNumber.error = "Please enter your Phone Number"
                     return@setOnClickListener
                 }
 
@@ -48,6 +54,7 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
                 val myEdit = sharedPreferences.edit()
 
                 myEdit.putInt(USER_AGE, binding.etAge.text.toString().toInt())
+                myEdit.putLong(USER_PHONE, binding.etMobileNumber.text.toString().toLong())
                 myEdit.putBoolean(USER_ONBOARDING_COMPLETED, true)
                 myEdit.apply()
 

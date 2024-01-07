@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeLandingFragment_to_astigmatismTestingFragment"
             app:destination="@id/astigmatismTestingFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_testingFragment"
+            app:destination="@id/testingFragment" />
     </fragment>
     <fragment
         android:id="@+id/eyeTestingFragment"
@@ -45,4 +48,9 @@
         android:name="com.yuvraj.visionai.ui.home.fragments.StatisticsFragment"
         android:label="fragment_home_statistics"
         tools:layout="@layout/fragment_home_statistics" />
+    <fragment
+        android:id="@+id/testingFragment"
+        android:name="com.yuvraj.visionai.ui.home.fragments.TestingFragment"
+        android:label="fragment_home_testing"
+        tools:layout="@layout/fragment_home_testing" />
 </navigation>
