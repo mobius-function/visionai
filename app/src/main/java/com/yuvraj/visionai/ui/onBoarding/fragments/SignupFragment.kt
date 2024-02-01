@@ -79,38 +79,32 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 
             btnCreateAccount.setOnClickListener {
 
-                var flag: Boolean = true
-
                 if(!Validations.validateFirstName(Name.text.toString())){
                     Name.error = "Enter a Valid Name"
-                    flag = false
+                    return@setOnClickListener
                 }
-
 
                 if(!Validations.validateEmail(Email.text.toString())){
                     Email.error = "Enter a Valid Email"
-                    flag = false
+                    return@setOnClickListener
                 }
 
                 if(!Validations.validatePassword(Password.text.toString())){
                     Password.error = "Password must be atleast of 8 characters"
-                    flag = false
+                    return@setOnClickListener
                 }
 
                 if(!Validations.validateConfirmPassword(Password.text.toString(),ConfirmPassword.text.toString())){
                     ConfirmPassword.error = "Password and confirm password should match"
-                    flag = false
+                    return@setOnClickListener
                 }
 
-                if(flag) {
-                    signUpUser()
-                }
+                signUpUser()
             }
 
             btnGoogleSignIn.setOnClickListener() {
                 signInGoogle()
                 Toast.makeText(requireActivity(), "Logging In", Toast.LENGTH_SHORT).show()
-                // findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
             }
 
             tvLoginHere.setOnClickListener {
