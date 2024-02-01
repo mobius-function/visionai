@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboarding_navigation"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.yuvraj.visionai.ui.onBoarding.fragments.LoginFragment"
+        android:label="fragment_on_boarding_login"
+        tools:layout="@layout/fragment_on_boarding_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.yuvraj.visionai.ui.onBoarding.fragments.SplashFragment"
+        android:label="fragment_on_boarding_splash"
+        tools:layout="@layout/fragment_on_boarding_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.yuvraj.visionai.ui.onBoarding.fragments.SignupFragment"
+        android:label="fragment_on_boarding_signup"
+        tools:layout="@layout/fragment_on_boarding_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.yuvraj.visionai.ui.onBoarding.fragments.DetailsFragment"
+        android:label="fragment_on_boarding_details"
+        tools:layout="@layout/fragment_on_boarding_details" />
+</navigation>

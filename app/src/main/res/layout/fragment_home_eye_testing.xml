@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:backgroundTint="@color/design_default_color_on_secondary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.fragments.EyeTestingFragment">
@@ -9,57 +10,77 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvRandomText"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="300dp"
+        android:translationZ="10dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="32dp"
         app:circularflow_radiusInDP="18dp"
-        android:backgroundTint="@color/design_default_color_on_secondary"
+        android:background="@color/white"
         android:text="AB"
-        android:textSize="250sp"
+        android:textColor="@color/black"
+        android:textSize="270sp"
         android:gravity="center"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-<!--    <ToggleButton-->
-<!--            android:id="@+id/toggleButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            android:layout_marginTop="26dp"-->
-<!--            android:text="ToggleButton" />-->
-
-<!--    <ProgressBar-->
-<!--        android:id="@+id/progressBar"-->
-<!--        style="?android:attr/progressBarStyleHorizontal"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="28dp"-->
-<!--        android:paddingLeft="10dp"-->
-<!--        android:paddingRight="10dp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/toggleButton"/>-->
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/btnSpeech"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ic_mic"
-        android:layout_marginTop="65dp"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvInstructions"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        android:text=""
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvRandomText" />
 
-    <TextView
-        android:id="@+id/textViewSpeechToText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tvInput"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSpeech"
-        android:layout_marginTop="47dp" />
+        app:layout_constraintBottom_toTopOf="@+id/btnCheck" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCheck"
+        android:layout_width="200dp"
+        android:layout_height="65dp"
+        android:text="Check"
+        android:layout_marginVertical="20dp"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/cvImage"
+        android:layout_width="120dp"
+        android:layout_height="240dp"
+        android:translationZ="0dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvRandomText"
+        app:layout_constraintStart_toStartOf="@+id/tvRandomText"
+        app:layout_constraintTop_toTopOf="@+id/tvRandomText"
+        app:layout_constraintBottom_toBottomOf="@+id/tvRandomText">
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/previewViewFinder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:scaleType="fillCenter" />
+
+        <com.yuvraj.visionai.service.cameraX.GraphicOverlay
+            android:id="@+id/graphicOverlayFinder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

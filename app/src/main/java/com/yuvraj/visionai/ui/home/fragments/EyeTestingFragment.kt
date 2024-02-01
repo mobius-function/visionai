@@ -11,8 +11,19 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.pm.PackageManager
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.util.TypedValue
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
+import com.google.mlkit.vision.face.Face
+import com.yuvraj.visionai.service.cameraX.CameraManager
+import com.yuvraj.visionai.service.faceDetection.FaceStatus
+import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateNegativePower
+import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructionDialogBox
+import com.yuvraj.visionai.utils.helpers.DistanceHelper
 
 /**
  * A simple [Fragment] subclass.
@@ -24,9 +35,27 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private var _binding: FragmentHomeEyeTestingBinding? = null
     private val binding get() = _binding!!
 
-    companion object {
-        private const val REQUEST_CODE_STT = 1
-    }
+    private lateinit var cameraManager: CameraManager
+
+    private val focalLengthFound : Double = 50.0
+    private val realFaceWidth : Double = 14.0
+
+    private var distanceCurrent : Float = 0.0f
+    private var distanceMinimum : Float = 350.0f
+    private var baseDistance:Float = 350.0f
+
+//    private var u_m0 : Float = 0.0f
+
+    private  var textSize: Float = 1.0f
+    private  var relativeTextSize: Float = 1.0f
+
+
+    private var reading : Int = 0
+    private var score : Int = 0
+
+    private var lastCorrect: Float? = null
+    private var lastIncorrect: Float? = null
+    private var checkingRightEye: Boolean? = false
 
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireActivity()) { status ->
@@ -51,72 +80,279 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initViews(view)
+        createCameraManager()
+        checkForPermission()
         clickableViews()
     }
 
     private fun initViews(view: View) {
         _binding = FragmentHomeEyeTestingBinding.bind(view)
 
-        displayRandomText()
+        val message: String = "Clover left eye with your left hand, ensure to avoid applying pressure to the eyelid. Read the letters on the screen beginning at the top. Once completed, repeat with the right eye."
+        showInstructionDialogBox(
+            requireActivity(),
+            "Follow me!",
+            message
+        )
+
+        binding.tvInstructions.text = message
+
+        Log.e("EyeTesting Debug","The initial text size in MM is: $textSize mm")
+
+
+        val r = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, textSize,
+            getResources().getDisplayMetrics())
+        Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
+        displayRandomText(textSize)
+
+        baseDistance = 350.0f
+        distanceMinimum = distanceCurrent
+
+        relativeTextSize = textSize * (baseDistance/distanceMinimum)
     }
 
     private fun clickableViews() {
 
         binding.apply {
-            btnSpeech.setOnClickListener {
-                val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                sttIntent.putExtra(
-                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-                )
-                sttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-                sttIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now!")
+//            btnSpeech.setOnClickListener {
+//                val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+//                sttIntent.putExtra(
+//                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+//                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+//                )
+//                sttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+//                sttIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now!")
+//
+//                try {
+//                    startActivityForResult(sttIntent, REQUEST_CODE_STT)
+//                } catch (e: ActivityNotFoundException) {
+//                    e.printStackTrace()
+//                    Toast.makeText(requireActivity(),
+//                        "Your device does not support Speech To Text.",
+//                        Toast.LENGTH_LONG).show()
+//                }
+//            }
 
-                try {
-                    startActivityForResult(sttIntent, REQUEST_CODE_STT)
-                } catch (e: ActivityNotFoundException) {
-                    e.printStackTrace()
-                    Toast.makeText(requireActivity(),
-                        "Your device does not support STT.",
-                        Toast.LENGTH_LONG).show()
-                }
+            btnCheck.setOnClickListener {
+                onCheck(tvRandomText.text.toString().lowercase() ==
+                        tvInput.text.toString().lowercase())
             }
 
 
         }
     }
 
-    private fun displayRandomText() {
-        val randomSize : Int = (5..25).random()
-        val textDisplay : String = (((0..25).random() + 65).toChar()).toString() +
-                                    (((0..25).random() + 65).toChar()).toString()
+    private fun displayRandomText(textSizeDisplay: Float) {
+        val textDisplay : String = (((0..25).random() + 65).toChar()).toString()
 
         binding.apply {
-            tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_SP,
-                (randomSize * 10).toFloat())
+            tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, textSizeDisplay)
+//            Log.e("EyeTesting Debug","The current text size in DP is: $textSizeDisplay dp")
             tvRandomText.text = textDisplay
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            REQUEST_CODE_STT -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    result?.let {
-                        val recognizedText = it[0]
-                        binding.textViewSpeechToText.text = recognizedText.toString()
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        when (requestCode) {
+//            REQUEST_CODE_STT -> {
+//                if (resultCode == Activity.RESULT_OK && data != null) {
+//                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+//                    result?.let {
+//                        val recognizedText = it[0]
+//
+//                        binding.textViewSpeechToText.text = recognizedText.toString()
+//
+//                        onCheck(binding.tv.text.toString().lowercase() ==
+//                                binding.tvRandomText.text.toString().lowercase())
+//                    }
+//                }
+//            }
+//        }
+//    }
 
-                        if(binding.textViewSpeechToText.text.toString().lowercase() ==
-                            binding.tvRandomText.text.toString().lowercase()) {
-                            displayRandomText()
-                        }
-                    }
-                }
+    private fun onCheck(correctResult : Boolean) {
+
+        reading += 1
+
+        relativeTextSize = textSize * (baseDistance/distanceMinimum)
+
+        if(correctResult) {
+            score += 1
+//            u_m0 /= 2
+
+            lastCorrect = relativeTextSize
+            if(lastIncorrect == null) {
+                textSize = relativeTextSize/2
+            } else {
+                textSize = (relativeTextSize + lastIncorrect!!)/2
+            }
+
+            Toast.makeText(requireActivity(), "Correct", Toast.LENGTH_SHORT).show()
+        }
+
+        else {
+//            u_m0 *= 2
+
+            lastIncorrect = relativeTextSize
+            if(lastCorrect == null) {
+                textSize = relativeTextSize * 2
+            } else {
+                textSize = (relativeTextSize + lastCorrect!!)/2
+            }
+
+//            textSize = relativeTextSize * 1.5f
+//            relativeTextSize = textSize * (baseDistance/(distance*10))
+            Toast.makeText(requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
+        }
+
+        if(reading <= 6 && textSize > 0.25f) {
+//            textSize = DistanceHelper.cmToPixels(u_m0,requireActivity()).toFloat()
+            displayRandomText(textSize)
+            Log.e("EyeTesting Debug","The presented text size in MM is: $textSize mm")
+        } else {
+            var deno : Double? = null
+            if(lastCorrect != null) {
+                deno = (lastCorrect!! * 20)/0.50905435
+            } else {
+                deno = (lastIncorrect!! * 20)/0.50905435
+            }
+//            textToSpeechEngine.speak("Your score is $score", TextToSpeech.QUEUE_FLUSH, null, "")
+
+            if(checkingRightEye == false){
+                checkingRightEye = true
+                baseDistance = 350.0f
+                distanceMinimum = distanceCurrent
+
+                textSize = 1.0f
+                relativeTextSize = 1.0f
+
+                reading = 0
+                score = 0
+
+                lastCorrect = null
+                lastIncorrect = null
+
+                val message : String = "Now Clover Right eye with your Right hand, " +
+                        "ensure to avoid applying pressure to the eyelid. " +
+                        "Read the letters on the screen and Input what you see in the Input field."
+
+                binding.tvInstructions.text = message
+
+                showInstructionDialogBox(
+                    requireActivity(),
+                    "Follow Instruction!",
+                    message
+                )
+
+                showInstructionDialogBox(
+                    requireActivity(),
+                    "Negative Power",
+                    "Your power of left eye is ${calculateNegativePower(deno)}"
+                )
+
+                val r = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, textSize,
+                    getResources().getDisplayMetrics())
+                Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
+                displayRandomText(textSize)
+
+                baseDistance = 350.0f
+                distanceMinimum = distanceCurrent
+
+                relativeTextSize = textSize * (baseDistance/distanceMinimum)
+
+            } else {
+                showInstructionDialogBox(
+                    requireActivity(),
+                    "Negative Power",
+                    "Your power of right eye is ${calculateNegativePower(deno)}"
+                )
+            }
+
+        }
+
+        distanceMinimum = distanceCurrent
+
+    }
+
+    private fun checkForPermission() {
+        if (allPermissionsGranted()) {
+            cameraManager.startCamera()
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults:
+        IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
+                cameraManager.startCamera()
+            } else {
+                Toast.makeText(requireActivity(),
+                    "Permissions not granted by the user.",
+                    Toast.LENGTH_SHORT).show()
+
+                requireActivity().finish()
             }
         }
     }
+
+    private fun createCameraManager() {
+        cameraManager = CameraManager(
+            requireActivity(),
+            binding.previewViewFinder,
+            this,
+            binding.graphicOverlayFinder,
+            ::processPicture,
+            ::updateTVFaceWidth
+        )
+    }
+
+
+    private fun processPicture(faceStatus: FaceStatus) {
+        Log.e("facestatus","This is it ${faceStatus.name}")
+//        tvFaceWidth.text
+//       when(faceStatus){}
+    }
+
+    private fun updateTVFaceWidth(face: Face) {
+        val faceWidth : Int = DistanceHelper.pixelsToDp(face.boundingBox.width()).toInt()
+        var distance = 0.0
+
+        if(faceWidth != 0) {
+            distance = DistanceHelper.distanceFinder(
+                focalLengthFound,
+                realFaceWidth,
+                faceWidth.toDouble()
+            )
+        }
+
+        distanceCurrent = distance.toFloat()*100.0f
+
+        if(distanceCurrent < distanceMinimum) {
+            distanceMinimum = distanceCurrent
+        }
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(requireActivity().baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    companion object {
+        private const val REQUEST_CODE_STT = 1
+
+        private const val REQUEST_CODE_PERMISSIONS = 10
+        private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
+    }
+
 
     override fun onPause() {
         textToSpeechEngine.stop()

@@ -1,5 +1,22 @@
 <resources>
     <string name="app_name">VisionAI</string>
+
+    <string name="web_client_id_google">698047613394-d0s3jojkq1urnhh41u4vme6jkca204s4.apps.googleusercontent.com</string>
+
+    <string-array name="splash_titles">
+        <item>ONE DAY OR DAY ONE</item>
+        <item>YOU DECIDE</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="astigmatism_instructions">
+        To perform the test, remove your glasses
+        and stand back 3 feet from the screen.
+        Clover left eye with your left hand and
+        look closely at the image,
+        then repeat with the right eye.
+        \n\n\n\n
+        Does some lines appear greyer than others?
+    </string>
 </resources>

@@ -11,21 +11,30 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo_app"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.VisionAI"
         tools:targetApi="31">
         <activity
-            android:name=".ui.home.MainActivity"
+            android:name=".ui.onBoarding.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.home.MainActivity"
+            android:exported="true">
+        </activity>
+
+<!--        <activity-->
+<!--            android:name=".ui.onBoarding.MainActivity"-->
+<!--            android:exported="true">-->
+<!--        </activity>-->
     </application>
 
 </manifest>
