@@ -9,4 +9,14 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="astigmatism_instructions">
+        To perform the test, remove your glasses
+        and stand back 3 feet from the screen.
+        Clover left eye with your left hand and
+        look closely at the image,
+        then repeat with the right eye.
+        \n\n\n\n
+        Does some lines appear greyer than others?
+    </string>
 </resources>
