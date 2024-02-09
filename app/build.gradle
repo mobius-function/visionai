@@ -22,7 +22,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-//        commented out for chaqopy
 //        sourceSets {
 //            main {
 //                python {
