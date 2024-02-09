@@ -5,30 +5,18 @@ import android.util.Patterns
 object Validations {
 
     fun validateFirstName(data: String): Boolean {
-        if (data.isEmpty()) {
-            return false
-        }
-        return true
+        return !data.isEmpty()
     }
 
     fun validateEmail(data: String): Boolean {
-        if(Patterns.EMAIL_ADDRESS.matcher(data).matches()) {
-            return true
-        }
-        return false
+        return Patterns.EMAIL_ADDRESS.matcher(data).matches()
     }
 
     fun validatePassword(data: String): Boolean {
-        if(data.length < 8) {
-            return false
-        }
-        return true
+        return data.length >= 8
     }
 
     fun validateConfirmPassword(data1: String, data2: String): Boolean {
-        if(data1 == data2) {
-            return true
-        }
-        return false
+        return data1 == data2
     }
 }
