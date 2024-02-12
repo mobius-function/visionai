@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_landingFragment_to_testingFragment"
             app:destination="@id/testingFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_dryEyeTestingFragment"
+            app:destination="@id/dryEyeTestingFragment" />
     </fragment>
     <fragment
         android:id="@+id/eyeTestingFragment"
@@ -53,4 +56,9 @@
         android:name="com.yuvraj.visionai.ui.home.fragments.TestingFragment"
         android:label="fragment_home_testing"
         tools:layout="@layout/fragment_home_testing" />
+    <fragment
+        android:id="@+id/dryEyeTestingFragment"
+        android:name="com.yuvraj.visionai.DryEyeTestingFragment"
+        android:label="fragment_home_dry_eye_testing"
+        tools:layout="@layout/fragment_home_dry_eye_testing" />
 </navigation>
