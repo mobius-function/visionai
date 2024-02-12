@@ -82,6 +82,10 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
                 findNavController().navigate(R.id.action_homeLandingFragment_to_astigmatismTestingFragment)
             }
 
+            btnDryEyeTesting.setOnClickListener {
+                findNavController().navigate(R.id.action_landingFragment_to_dryEyeTestingFragment)
+            }
+
             btnTesting.setOnClickListener {
                 findNavController().navigate(R.id.action_landingFragment_to_testingFragment)
             }

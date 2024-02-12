@@ -58,7 +58,7 @@
         tools:layout="@layout/fragment_home_testing" />
     <fragment
         android:id="@+id/dryEyeTestingFragment"
-        android:name="com.yuvraj.visionai.DryEyeTestingFragment"
+        android:name="com.yuvraj.visionai.ui.home.fragments.DryEyeTestingFragment"
         android:label="fragment_home_dry_eye_testing"
         tools:layout="@layout/fragment_home_dry_eye_testing" />
 </navigation>

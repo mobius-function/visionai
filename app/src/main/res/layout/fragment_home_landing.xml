@@ -123,6 +123,17 @@
 
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDryEyeTesting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="40dp"
+                android:text="Dry Eye Testing"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnTesting"/>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogOut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -131,7 +142,7 @@
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnTesting"/>
+                app:layout_constraintTop_toBottomOf="@+id/btnDryEyeTesting"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
