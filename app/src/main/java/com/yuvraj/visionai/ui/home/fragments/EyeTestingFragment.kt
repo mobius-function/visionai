@@ -233,7 +233,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 lastCorrect = null
                 lastIncorrect = null
 
-                val message : String = "Now Clover Right eye with your Right hand, " +
+                val message : String = "Now Cover Right eye with your Right hand, " +
                         "ensure to avoid applying pressure to the eyelid. " +
                         "Read the letters on the screen and Input what you see in the Input field."
 
