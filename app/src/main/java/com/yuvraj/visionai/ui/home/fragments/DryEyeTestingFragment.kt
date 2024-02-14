@@ -81,7 +81,7 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
             }
 
             buttonFlash.setOnClickListener{
-                changeflash()
+                changeFlash()
             }
         }
     }
@@ -134,7 +134,7 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
             }
         )
     }
-    private fun changeflash(){
+    private fun changeFlash(){
         flashFlag = !flashFlag
         cameraControl.enableTorch(flashFlag)
     }
