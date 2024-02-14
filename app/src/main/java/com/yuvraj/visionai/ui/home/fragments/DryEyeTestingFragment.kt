@@ -36,10 +36,11 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
     private lateinit var _binding: FragmentHomeDryEyeTestingBinding
     private val binding get() = _binding!!
 
+    private lateinit var cameraExecutor: ExecutorService
+    private lateinit var cameraControl: CameraControl
+
     private var imageCapture: ImageCapture? = null
-    lateinit var cameraExecutor: ExecutorService
     private var imageAnalyzer: ImageAnalysis? = null
-    lateinit var cameraControl: CameraControl
     private var cameraSelectorOption = CameraSelector.DEFAULT_BACK_CAMERA
     private var flashFlag: Boolean = true
 
@@ -66,14 +67,23 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
         }
 
         // Set up the listeners for take photo and video capture buttons
-        binding.imageCaptureButton.setOnClickListener { takePhoto() }
-        binding.buttonRotation.setOnClickListener{ flipCamera() }
-        binding.buttonFlash.setOnClickListener{changeflash()}
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
     private fun clickableViews() {
+        binding.apply {
+            imageCaptureButton.setOnClickListener {
+                takePhoto()
+            }
 
+            buttonRotation.setOnClickListener{
+                flipCamera()
+            }
+
+            buttonFlash.setOnClickListener{
+                changeflash()
+            }
+        }
     }
 
     private var highAccuracyOpts = FaceDetectorOptions.Builder()
@@ -211,21 +221,6 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
         cameraExecutor.shutdown()
     }
 
-    companion object {
-        private const val TAG = "CameraXApp"
-        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
-        private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS =
-            mutableListOf (
-                Manifest.permission.CAMERA,
-                //Manifest.permission.RECORD_AUDIO
-            ).apply {
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                }
-            }.toTypedArray()
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String>, grantResults:
         IntArray) {
@@ -240,5 +235,20 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                 requireActivity().finish()
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "CameraXApp"
+        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+        private const val REQUEST_CODE_PERMISSIONS = 10
+        private val REQUIRED_PERMISSIONS =
+            mutableListOf (
+                Manifest.permission.CAMERA,
+                //Manifest.permission.RECORD_AUDIO
+            ).apply {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                }
+            }.toTypedArray()
     }
 }

@@ -27,11 +27,6 @@ import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
 import com.yuvraj.visionai.utils.helpers.Validations
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SignupFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
     private var _binding: FragmentOnBoardingSignupBinding? = null
     private val binding get() = _binding!!
