@@ -30,12 +30,20 @@
         android:id="@+id/eyeTestingFragment"
         android:name="com.yuvraj.visionai.ui.home.fragments.EyeTestingFragment"
         android:label="fragment_home_eye_testing"
-        tools:layout="@layout/fragment_home_eye_testing" />
+        tools:layout="@layout/fragment_home_eye_testing" >
+        <action
+            android:id="@+id/action_eyeTestingFragment_to_hyperopiaTestingFragment"
+            app:destination="@id/hyperopiaTestingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/hyperopiaTestingFragment"
         android:name="com.yuvraj.visionai.ui.home.fragments.HyperopiaTestingFragment"
         android:label="fragment_hyperopia_testing"
-        tools:layout="@layout/fragment_home_eye_testing" />
+        tools:layout="@layout/fragment_home_eye_testing" >
+        <action
+            android:id="@+id/action_hyperopiaTestingFragment_to_astigmatismTestingFragment"
+            app:destination="@id/astigmatismTestingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/astigmatismTestingFragment"
         android:name="com.yuvraj.visionai.ui.home.fragments.AstigmatismTestingFragment"
