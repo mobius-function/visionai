@@ -10,13 +10,17 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
+import com.yuvraj.visionai.adapters.EyeTestsList
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
 import com.yuvraj.visionai.firebase.Authentication.Companion.signOutUser
+import com.yuvraj.visionai.model.EyeTests
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
 import com.yuvraj.visionai.ui.onBoarding.MainActivity
@@ -47,7 +51,6 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initViews(view)
-//        createCameraManager()
         checkForPermission()
         clickableViews()
     }
@@ -55,50 +58,64 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     private fun initViews(view: View) {
         _binding = FragmentHomeLandingBinding.bind(view)
 
-        // Display width of the graphic overlay on tvCamera
-//        binding.tvFaceWidth.text = FaceContourGraphic.fac
+        val tests = listOf(
+            EyeTests("Myopia Test"),
+            EyeTests("Hypermyopia Test"),
+            EyeTests("Astigmatism Test"),
+            EyeTests("Dry Eye Test")
+        )
+
+        val adapter = EyeTestsList(tests, this::onListItemClick)
+        binding.testsRecyclerView.adapter = adapter
+        binding.testsRecyclerView.addItemDecoration(
+            DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL)
+        )
     }
 
     private fun clickableViews() {
 
         binding.apply {
-            tvStart.setOnClickListener {
-                findNavController().navigate(R.id.action_landingFragment_to_eyeTestingFragment)
-            }
-
-//            btnSwitchCamera.setOnClickListener {
-//                cameraManager.changeCameraSelector()
+//            tvStart.setOnClickListener {
+//                findNavController().navigate(R.id.action_landingFragment_to_eyeTestingFragment)
 //            }
-
-            btnMyopiaTesting.setOnClickListener {
-                findNavController().navigate(R.id.action_landingFragment_to_eyeTestingFragment)
-            }
-
-            btnHyperopiaTesting.setOnClickListener {
-                findNavController().navigate(R.id.action_homeLandingFragment_to_hyperopiaTestingFragment)
-            }
-
-            btnAstigmatismTesting.setOnClickListener {
-                findNavController().navigate(R.id.action_homeLandingFragment_to_astigmatismTestingFragment)
-            }
-
-            btnDryEyeTesting.setOnClickListener {
-                findNavController().navigate(R.id.action_landingFragment_to_dryEyeTestingFragment)
-            }
-
-            btnTesting.setOnClickListener {
-                findNavController().navigate(R.id.action_landingFragment_to_testingFragment)
-            }
-
-            btnLogOut.setOnClickListener {
-                signOutUser()
-
-                val intent = Intent(requireActivity(), MainActivity::class.java)
-                startActivity(intent)
-
-                requireActivity().finish()
-            }
+//
+////            btnSwitchCamera.setOnClickListener {
+////                cameraManager.changeCameraSelector()
+////            }
+//
+//            btnMyopiaTesting.setOnClickListener {
+//                findNavController().navigate(R.id.action_landingFragment_to_eyeTestingFragment)
+//            }
+//
+//            btnHyperopiaTesting.setOnClickListener {
+//                findNavController().navigate(R.id.action_homeLandingFragment_to_hyperopiaTestingFragment)
+//            }
+//
+//            btnAstigmatismTesting.setOnClickListener {
+//                findNavController().navigate(R.id.action_homeLandingFragment_to_astigmatismTestingFragment)
+//            }
+//
+//            btnDryEyeTesting.setOnClickListener {
+//                findNavController().navigate(R.id.action_landingFragment_to_dryEyeTestingFragment)
+//            }
+//
+//            btnTesting.setOnClickListener {
+//                findNavController().navigate(R.id.action_landingFragment_to_testingFragment)
+//            }
+//
+//            btnLogOut.setOnClickListener {
+//                signOutUser()
+//
+//                val intent = Intent(requireActivity(), MainActivity::class.java)
+//                startActivity(intent)
+//
+//                requireActivity().finish()
+//            }
         }
+    }
+
+    fun onListItemClick(test: EyeTests) {
+        Toast.makeText(requireActivity(), test.title, Toast.LENGTH_SHORT).show()
     }
 
     private fun checkForPermission() {
@@ -133,39 +150,6 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
             }
         }
     }
-
-//    private fun createCameraManager() {
-//        cameraManager = CameraManager(
-//            requireActivity(),
-//            binding.previewViewFinder,
-//            this,
-//            binding.graphicOverlayFinder,
-//            ::processPicture,
-//            ::updateTVFaceWidth
-//        )
-//    }
-
-
-//    private fun processPicture(faceStatus: FaceStatus) {
-//        Log.e("facestatus","This is it ${faceStatus.name}")
-////        tvFaceWidth.text
-////       when(faceStatus){}
-//    }
-//
-//    private fun updateTVFaceWidth(face: Face) {
-//        val faceWidth : Int = DistanceHelper.pixelsToDp(face.boundingBox.width()).toInt()
-//        var distance = 0.0
-//
-//        if(faceWidth != 0) {
-//            distance = DistanceHelper.distanceFinder(
-//                focalLengthFound,
-//                realFaceWidth,
-//                faceWidth.toDouble()
-//            )
-//        }
-//
-//        binding.tvFaceWidth.text = "Current Distance: ${distance*10}"
-//    }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(requireActivity().baseContext, it) == PackageManager.PERMISSION_GRANTED
