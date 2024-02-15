@@ -44,8 +44,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private var distanceMinimum : Float = 350.0f
     private var baseDistance:Float = 350.0f
 
-//    private var u_m0 : Float = 0.0f
-
     private  var textSize: Float = 1.0f
     private  var relativeTextSize: Float = 1.0f
 
@@ -63,13 +61,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 textToSpeechEngine.language = Locale.US
             }
         }
-
-//        TextToSpeech(requireActivity(),
-//            TextToSpeech.OnInitListener { status ->
-//                if (status == TextToSpeech.SUCCESS) {
-//                    textToSpeechEngine.language = Locale.US
-//                }
-//            })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -142,7 +133,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         if(correctResult) {
             score += 1
-//            u_m0 /= 2
 
             lastCorrect = relativeTextSize
             if(lastIncorrect == null) {

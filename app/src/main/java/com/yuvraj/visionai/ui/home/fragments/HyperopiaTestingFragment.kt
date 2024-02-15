@@ -34,8 +34,6 @@ import java.util.Locale
  * Use the [HyperopiaTestingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-
-
 class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private var _binding: FragmentHomeEyeTestingBinding? = null
@@ -49,8 +47,6 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private var distanceCurrent : Float = 0.0f
     private var distanceMaximum : Float = 350.0f
     private var baseDistance:Float = 350.0f
-
-//    private var u_m0 : Float = 0.0f
 
     private  var textSize: Float = 2.0f
     private  var relativeTextSize: Float = 1.0f
@@ -69,13 +65,6 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 textToSpeechEngine.language = Locale.US
             }
         }
-
-//        TextToSpeech(requireActivity(),
-//            TextToSpeech.OnInitListener { status ->
-//                if (status == TextToSpeech.SUCCESS) {
-//                    textToSpeechEngine.language = Locale.US
-//                }
-//            })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,7 +83,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private fun initViews(view: View) {
         _binding = FragmentHomeEyeTestingBinding.bind(view)
 
-        val message: String = "Clover left eye with your left hand, ensure to avoid applying pressure to the eyelid. Read the letters on the screen beginning at the top. Once completed, repeat with the right eye."
+        val message: String = "Cover left eye with your left hand, ensure to avoid applying pressure to the eyelid. Read the letters on the screen beginning at the top. Once completed, repeat with the right eye."
         AlertDialogBox.showInstructionDialogBox(
             requireActivity(),
             "Follow me!",
@@ -121,31 +110,10 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private fun clickableViews() {
 
         binding.apply {
-//            btnSpeech.setOnClickListener {
-//                val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-//                sttIntent.putExtra(
-//                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-//                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-//                )
-//                sttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-//                sttIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now!")
-//
-//                try {
-//                    startActivityForResult(sttIntent, REQUEST_CODE_STT)
-//                } catch (e: ActivityNotFoundException) {
-//                    e.printStackTrace()
-//                    Toast.makeText(requireActivity(),
-//                        "Your device does not support Speech To Text.",
-//                        Toast.LENGTH_LONG).show()
-//                }
-//            }
-
             btnCheck.setOnClickListener {
                 onCheck(tvRandomText.text.toString().lowercase() ==
                         tvInput.text.toString().lowercase())
             }
-
-
         }
     }
 
@@ -158,25 +126,6 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             tvRandomText.text = textDisplay
         }
     }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        when (requestCode) {
-//            REQUEST_CODE_STT -> {
-//                if (resultCode == Activity.RESULT_OK && data != null) {
-//                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-//                    result?.let {
-//                        val recognizedText = it[0]
-//
-//                        binding.textViewSpeechToText.text = recognizedText.toString()
-//
-//                        onCheck(binding.textViewSpeechToText.text.toString().lowercase() ==
-//                                binding.tvRandomText.text.toString().lowercase())
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     private fun onCheck(correctResult : Boolean) {
 
@@ -354,8 +303,6 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     }
 
     companion object {
-        private const val REQUEST_CODE_STT = 1
-
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
     }
