@@ -114,24 +114,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private fun clickableViews() {
 
         binding.apply {
-//            btnSpeech.setOnClickListener {
-//                val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-//                sttIntent.putExtra(
-//                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-//                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-//                )
-//                sttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-//                sttIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now!")
-//
-//                try {
-//                    startActivityForResult(sttIntent, REQUEST_CODE_STT)
-//                } catch (e: ActivityNotFoundException) {
-//                    e.printStackTrace()
-//                    Toast.makeText(requireActivity(),
-//                        "Your device does not support Speech To Text.",
-//                        Toast.LENGTH_LONG).show()
-//                }
-//            }
 
             btnCheck.setOnClickListener {
                 onCheck(tvRandomText.text.toString().lowercase() ==
@@ -147,29 +129,10 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         binding.apply {
             tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, textSizeDisplay)
-//            Log.e("EyeTesting Debug","The current text size in DP is: $textSizeDisplay dp")
             tvRandomText.text = textDisplay
         }
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        when (requestCode) {
-//            REQUEST_CODE_STT -> {
-//                if (resultCode == Activity.RESULT_OK && data != null) {
-//                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-//                    result?.let {
-//                        val recognizedText = it[0]
-//
-//                        binding.textViewSpeechToText.text = recognizedText.toString()
-//
-//                        onCheck(binding.tv.text.toString().lowercase() ==
-//                                binding.tvRandomText.text.toString().lowercase())
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     private fun onCheck(correctResult : Boolean) {
 
@@ -192,8 +155,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
 
         else {
-//            u_m0 *= 2
-
             lastIncorrect = relativeTextSize
             if(lastCorrect == null) {
                 textSize = relativeTextSize * 2
@@ -201,23 +162,20 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 textSize = (relativeTextSize + lastCorrect!!)/2
             }
 
-//            textSize = relativeTextSize * 1.5f
-//            relativeTextSize = textSize * (baseDistance/(distance*10))
             Toast.makeText(requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
         }
 
         if(reading <= 6 && textSize > 0.25f) {
-//            textSize = DistanceHelper.cmToPixels(u_m0,requireActivity()).toFloat()
             displayRandomText(textSize)
             Log.e("EyeTesting Debug","The presented text size in MM is: $textSize mm")
         } else {
             var deno : Double? = null
+
             if(lastCorrect != null) {
                 deno = (lastCorrect!! * 20)/0.50905435
             } else {
                 deno = (lastIncorrect!! * 20)/0.50905435
             }
-//            textToSpeechEngine.speak("Your score is $score", TextToSpeech.QUEUE_FLUSH, null, "")
 
             if(checkingRightEye == false){
                 checkingRightEye = true
@@ -253,6 +211,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
                 val r = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, textSize,
                     getResources().getDisplayMetrics())
+
                 Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
                 displayRandomText(textSize)
 
@@ -268,11 +227,9 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                     "Your power of right eye is ${calculateNegativePower(deno)}"
                 )
             }
-
         }
 
         distanceMinimum = distanceCurrent
-
     }
 
     private fun checkForPermission() {
@@ -319,8 +276,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private fun processPicture(faceStatus: FaceStatus) {
         Log.e("facestatus","This is it ${faceStatus.name}")
-//        tvFaceWidth.text
-//       when(faceStatus){}
     }
 
     private fun updateTVFaceWidth(face: Face) {

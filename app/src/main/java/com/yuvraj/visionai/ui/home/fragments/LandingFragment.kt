@@ -1,9 +1,7 @@
 package com.yuvraj.visionai.ui.home.fragments
 
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -12,19 +10,14 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.adapters.EyeTestsList
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
-import com.yuvraj.visionai.firebase.Authentication.Companion.signOutUser
 import com.yuvraj.visionai.model.EyeTests
-import com.yuvraj.visionai.service.cameraX.CameraManager
-import com.yuvraj.visionai.service.faceDetection.FaceStatus
-import com.yuvraj.visionai.ui.onBoarding.MainActivity
-import com.yuvraj.visionai.utils.helpers.DistanceHelper
+import com.yuvraj.visionai.utils.Constants.ASTIGMATISM
+import com.yuvraj.visionai.utils.Constants.DRY_EYE
+import com.yuvraj.visionai.utils.Constants.HYPEROPIA
+import com.yuvraj.visionai.utils.Constants.MYOPIA
 
 /**
  * A simple [Fragment] subclass.
@@ -36,20 +29,12 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     private var _binding: FragmentHomeLandingBinding? = null
     private val binding get() = _binding!!
 
-//    private lateinit var cameraManager: CameraManager
-
-    val focalLengthFound : Double = 50.0
-    val realFaceWidth : Double = 14.0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //  Initialize Python
-        //  Python.start(AndroidPlatform(this.requireContext()))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Inflate the layout for this fragment
         initViews(view)
         checkForPermission()
         clickableViews()
@@ -59,10 +44,10 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         _binding = FragmentHomeLandingBinding.bind(view)
 
         val tests = listOf(
-            EyeTests("Myopia Test"),
-            EyeTests("Hypermyopia Test"),
-            EyeTests("Astigmatism Test"),
-            EyeTests("Dry Eye Test")
+            EyeTests(MYOPIA, "Myopia Test"),
+            EyeTests(HYPEROPIA, "Hyperopia Test"),
+            EyeTests(ASTIGMATISM, "Astigmatism Test"),
+            EyeTests(DRY_EYE, "Dry Eye Test")
         )
 
         val adapter = EyeTestsList(tests, this::onListItemClick)
@@ -75,34 +60,6 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     private fun clickableViews() {
 
         binding.apply {
-//            tvStart.setOnClickListener {
-//                findNavController().navigate(R.id.action_landingFragment_to_eyeTestingFragment)
-//            }
-//
-////            btnSwitchCamera.setOnClickListener {
-////                cameraManager.changeCameraSelector()
-////            }
-//
-//            btnMyopiaTesting.setOnClickListener {
-//                findNavController().navigate(R.id.action_landingFragment_to_eyeTestingFragment)
-//            }
-//
-//            btnHyperopiaTesting.setOnClickListener {
-//                findNavController().navigate(R.id.action_homeLandingFragment_to_hyperopiaTestingFragment)
-//            }
-//
-//            btnAstigmatismTesting.setOnClickListener {
-//                findNavController().navigate(R.id.action_homeLandingFragment_to_astigmatismTestingFragment)
-//            }
-//
-//            btnDryEyeTesting.setOnClickListener {
-//                findNavController().navigate(R.id.action_landingFragment_to_dryEyeTestingFragment)
-//            }
-//
-//            btnTesting.setOnClickListener {
-//                findNavController().navigate(R.id.action_landingFragment_to_testingFragment)
-//            }
-//
 //            btnLogOut.setOnClickListener {
 //                signOutUser()
 //
@@ -114,13 +71,26 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         }
     }
 
-    fun onListItemClick(test: EyeTests) {
-        Toast.makeText(requireActivity(), test.title, Toast.LENGTH_SHORT).show()
+    private fun onListItemClick(test: EyeTests) {
+        when (test.id) {
+            MYOPIA -> {
+                findNavController().navigate(R.id.action_landingFragment_to_eyeTestingFragment)
+            }
+            HYPEROPIA -> {
+                findNavController().navigate(R.id.action_homeLandingFragment_to_hyperopiaTestingFragment)
+            }
+            ASTIGMATISM -> {
+                findNavController().navigate(R.id.action_homeLandingFragment_to_astigmatismTestingFragment)
+            }
+            DRY_EYE -> {
+                findNavController().navigate(R.id.action_landingFragment_to_dryEyeTestingFragment)
+            }
+        }
     }
 
     private fun checkForPermission() {
         if (allPermissionsGranted()) {
-//            cameraManager.startCamera()
+            // continue
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
@@ -137,10 +107,7 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
-//                cameraManager.startCamera()
-                Toast.makeText(requireActivity(),
-                    "All Permissions are granted by the user.",
-                    Toast.LENGTH_SHORT).show()
+                // continue
             } else {
                 Toast.makeText(requireActivity(),
                     "Permissions not granted by the user.",
