@@ -11,12 +11,18 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.pm.PackageManager
+import android.hardware.camera2.CameraCharacteristics
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.util.TypedValue
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
+import android.hardware.camera2.CameraAccessException
+import android.hardware.camera2.CaptureRequest
+import android.hardware.camera2.CameraManager as CameraManager1
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.service.cameraX.CameraManager
@@ -265,6 +271,39 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             ::processPicture,
             ::updateTVFaceWidth
         )
+
+        // get focal length of the camera
+//        val focalLengthKey = CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS
+//        val focalLengths = cameraManager.getCameraCharacteristics().get(focalLengthKey)
+
+        val cameraManager1 = requireContext().getSystemService(Context.CAMERA_SERVICE) as CameraManager1
+//        val cameraManager1 = getSystemService(requireActivity().applicationContext.C) as CameraManager
+
+
+        try {
+            // Get the list of available camera IDs
+            val cameraIds = cameraManager1.cameraIdList
+
+            for (cameraId in cameraIds) {
+                // Get the camera characteristics for the specified camera ID
+                val characteristics = cameraManager1.getCameraCharacteristics(cameraId)
+
+                // Get the focal lengths array
+                val focalLengths = characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
+                val sensorSize = characteristics.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE)
+
+                // Print the focal lengths
+                for (focalLength in focalLengths ?: floatArrayOf()) {
+                    // Update your UI or log the focal lengths as needed
+//                    textViewCameraInfo.append("Camera $cameraId Focal Length: $focalLength\n")
+                    Log.e("focalLength","Camera $cameraId Focal Length: $focalLength\n")
+                    Log.e("focalLength","Camera $cameraId Sensor Size: $sensorSize\n")
+                }
+            }
+
+        } catch (e: CameraAccessException) {
+            e.printStackTrace()
+        }
     }
 
 

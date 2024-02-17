@@ -1,5 +1,6 @@
 package com.yuvraj.visionai.ui.home.fragments
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,10 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.adapters.EyeTestsList
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
+import com.yuvraj.visionai.firebase.Authentication.Companion.signOutUser
 import com.yuvraj.visionai.model.EyeTests
+import com.yuvraj.visionai.ui.onBoarding.MainActivity
 import com.yuvraj.visionai.utils.Constants.ASTIGMATISM
 import com.yuvraj.visionai.utils.Constants.DRY_EYE
 import com.yuvraj.visionai.utils.Constants.HYPEROPIA
+import com.yuvraj.visionai.utils.Constants.LOGOUT
+import com.yuvraj.visionai.utils.Constants.ML_MODEL
 import com.yuvraj.visionai.utils.Constants.MYOPIA
 
 /**
@@ -47,7 +52,9 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
             EyeTests(MYOPIA, "Myopia Test"),
             EyeTests(HYPEROPIA, "Hyperopia Test"),
             EyeTests(ASTIGMATISM, "Astigmatism Test"),
-            EyeTests(DRY_EYE, "Dry Eye Test")
+            EyeTests(DRY_EYE, "Dry Eye Test"),
+            EyeTests(ML_MODEL, "Ml Model Test"),
+            EyeTests(LOGOUT, "Log Out")
         )
 
         val adapter = EyeTestsList(tests, this::onListItemClick)
@@ -84,6 +91,15 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
             }
             DRY_EYE -> {
                 findNavController().navigate(R.id.action_landingFragment_to_dryEyeTestingFragment)
+            }
+            ML_MODEL -> {
+                findNavController().navigate(R.id.action_landingFragment_to_testingFragment)
+            }
+            LOGOUT -> {
+                 signOutUser()
+                 val intent = Intent(requireActivity(), MainActivity::class.java)
+                 startActivity(intent)
+                 requireActivity().finish()
             }
         }
     }
