@@ -1,6 +1,7 @@
 package com.yuvraj.visionai.service.cameraX
 
 import android.content.Context
+import android.hardware.camera2.CameraCharacteristics
 import android.util.Log
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
