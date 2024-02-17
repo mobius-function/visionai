@@ -71,7 +71,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initViews(view)
-        createCameraManager()
         checkForPermission()
         clickableViews()
     }
@@ -97,8 +96,10 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         displayRandomText(textSize)
 
         baseDistance = 350.0f
-        distanceMinimum = distanceCurrent
 
+        createCameraManager()
+
+        distanceMinimum = 1000.0f
         relativeTextSize = textSize * (baseDistance/distanceMinimum)
     }
 
@@ -158,6 +159,9 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         if(reading <= 6 && textSize > 0.25f) {
             displayRandomText(textSize)
             Log.e("EyeTesting Debug","The presented text size in MM is: $textSize mm")
+            Log.e("EyeTesting Debug","The presented Base Distance in MM is: $baseDistance mm")
+            Log.e("EyeTesting Debug","The presented Distance Minimum in MM is: $distanceMinimum mm")
+            Log.e("EyeTesting Debug","The presented Distance Current in MM is: $distanceCurrent mm")
         } else {
             var deno : Double? = null
 
