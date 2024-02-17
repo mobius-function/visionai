@@ -3,7 +3,6 @@ package com.yuvraj.visionai.ui.home
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.core.graphics.drawable.toIcon
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -20,13 +19,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initviews()
+        initViews()
         setContentView(binding.root)
         setupAppBar()
         setupNavigationController()
     }
 
-    fun initviews() {
+    fun initViews() {
         _binding = UiHomeActivityMainBinding.inflate(layoutInflater,null,false)
     }
 
