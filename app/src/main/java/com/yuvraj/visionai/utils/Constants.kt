@@ -15,4 +15,7 @@ object Constants {
     const val HYPEROPIA = "HYPEROPIA"
     const val ASTIGMATISM = "ASTIGMATISM"
     const val DRY_EYE = "DRY_EYE"
+
+    const val ML_MODEL = "ML_MODEL"
+    const val LOGOUT = "LOGOUT"
 }
