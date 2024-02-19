@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CaptureRequest
+import androidx.camera.camera2.internal.compat.CameraManagerCompat
 import android.hardware.camera2.CameraManager as CameraManager1
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
@@ -295,7 +296,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 // Print the focal lengths
                 for (focalLength in focalLengths ?: floatArrayOf()) {
                     // Update your UI or log the focal lengths as needed
-//                    textViewCameraInfo.append("Camera $cameraId Focal Length: $focalLength\n")
                     Log.e("focalLength","Camera $cameraId Focal Length: $focalLength\n")
                     Log.e("focalLength","Camera $cameraId Sensor Size: $sensorSize\n")
                 }

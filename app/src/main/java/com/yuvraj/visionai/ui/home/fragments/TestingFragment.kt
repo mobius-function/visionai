@@ -22,7 +22,7 @@ class TestingFragment : Fragment(R.layout.fragment_home_testing) {
 
     private lateinit var cameraManager: CameraManager
 
-    private val focalLengthFound : Double = 50.0
+    private val focalLengthFound : Double = 24.777
     private val realFaceWidth : Double = 14.0
 
     private var distanceCurrent : Float = 0.0f
