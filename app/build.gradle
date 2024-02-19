@@ -152,6 +152,11 @@ dependencies {
     // Recaptcha
     implementation 'com.google.android.recaptcha:recaptcha:18.4.0'
 
+
+    // In-app updates
+    implementation 'com.google.android.play:app-update:2.1.0'
+    implementation 'com.google.android.play:app-update-ktx:2.1.0'
+
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
