@@ -298,6 +298,8 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                     // Update your UI or log the focal lengths as needed
                     Log.e("focalLength","Camera $cameraId Focal Length: $focalLength\n")
                     Log.e("focalLength","Camera $cameraId Sensor Size: $sensorSize\n")
+
+
                 }
             }
 
