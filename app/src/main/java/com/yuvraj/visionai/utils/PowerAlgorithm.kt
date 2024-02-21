@@ -1,10 +1,24 @@
 package com.yuvraj.visionai.utils
 
+import android.os.Build
+
 class PowerAlgorithm {
 
     companion object {
         fun generateInitialPowerText(): Double {
             return (0.145 * 6 * 3) / 8
+        }
+
+        fun calculateFocalLength(): Double {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                return 23.64
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return 24.71
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                return 25.962
+            } else {
+                return 28.1747
+            }
         }
 
         fun calculatePositivePower(lastIncorrect: Float, age: Int, baseDistance: Float) : Double? {
