@@ -28,6 +28,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
+import com.yuvraj.visionai.utils.PowerAlgorithm
+import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateNegativePower
 import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructionDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
@@ -44,7 +46,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private lateinit var cameraManager: CameraManager
 
-    private val focalLengthFound : Double = 50.0
+    private val focalLengthFound : Double = calculateFocalLength()
     private val realFaceWidth : Double = 14.0
 
     private var distanceCurrent : Float = 0.0f
