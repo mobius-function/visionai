@@ -137,6 +137,8 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private fun onCheck(correctResult : Boolean) {
 
+        binding.tvInput.setText("")
+
         reading += 1
 
         relativeTextSize = textSize * (baseDistance/distanceMinimum)
