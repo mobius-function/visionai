@@ -10,14 +10,20 @@ class PowerAlgorithm {
         }
 
         fun calculateFocalLength(): Double {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            /*
+                Abhiram android 13 - 23.64
+                Kunal android 13 - 24.71
+                Aditya android 14 - 25.962
+                Abhinav android 12 - 28.1747   38.1747
+             */
+            if (Build.VERSION.SDK_INT <= 30) {
+                return 50.0
+            } else if (Build.VERSION.SDK_INT == 31 || Build.VERSION.SDK_INT == 32) {
+                return 38.1747
+            } else if (Build.VERSION.SDK_INT >= 33) {
                 return 23.64
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                return 24.71
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                return 25.962
             } else {
-                return 28.1747
+                return 23.64
             }
         }
 
