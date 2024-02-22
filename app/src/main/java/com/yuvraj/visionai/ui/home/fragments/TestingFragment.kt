@@ -14,6 +14,7 @@ import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import com.yuvraj.visionai.databinding.FragmentHomeTestingBinding
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
+import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 
 class TestingFragment : Fragment(R.layout.fragment_home_testing) {
@@ -22,16 +23,10 @@ class TestingFragment : Fragment(R.layout.fragment_home_testing) {
 
     private lateinit var cameraManager: CameraManager
 
-    private val focalLengthFound : Double = 23.64
+    private val focalLengthFound : Double = calculateFocalLength()
     private val realFaceWidth : Double = 14.0
 
     private var distanceCurrent : Float = 0.0f
-
-
-    // Abhiram android 13 - 23.64
-    // Kunal android 13 - 24.71
-    // Aditya android 14 - 25.962
-    // Abhinav android 12 - 28.1747   38.1747
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
