@@ -7,6 +7,8 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
+import com.yuvraj.visionai.R
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -47,5 +49,7 @@ object ScreenUtils {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             activity.window.setDecorFitsSystemWindows(false)
         }
+
+//        activity.window.statusBarColor = ContextCompat.getColor(activity, android.R.color.transparent)
     }
 }
