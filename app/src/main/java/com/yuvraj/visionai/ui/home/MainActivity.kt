@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiHomeActivityMainBinding
 import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
+import com.yuvraj.visionai.utils.ScreenUtils.hideStatusBar
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     fun initViews() {
         _binding = UiHomeActivityMainBinding.inflate(layoutInflater,null,false)
+        hideStatusBar(this)
     }
 
     private fun setupNavigationController() {
@@ -37,13 +39,19 @@ class MainActivity : AppCompatActivity() {
 
         navHostFragment.findNavController().addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id) {
-                R.id.landingFragment, R.id.statisticsFragment , R.id.profileFragment ->
-                    binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.landingFragment,
+                R.id.statisticsFragment ,
+                R.id.profileFragment -> binding.bottomNavigation.visibility = View.VISIBLE
+
                 else -> binding.bottomNavigation.visibility = View.GONE
             }
 
             when(destination.id) {
-                R.id.eyeTestingFragment, R.id.astigmatismTestingFragment, R.id.hyperopiaTestingFragment -> binding.appBarLayout.visibility = View.GONE
+                R.id.eyeTestingFragment,
+                R.id.astigmatismTestingFragment,
+                R.id.hyperopiaTestingFragment,
+                R.id.profileFragment-> binding.appBarLayout.visibility = View.GONE
+
                 else -> binding.appBarLayout.visibility = View.VISIBLE
             }
         }

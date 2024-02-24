@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.res.Resources
 import android.util.DisplayMetrics
 import android.util.TypedValue
-import com.yuvraj.visionai.utils.ScreenInchUtils
+import com.yuvraj.visionai.utils.ScreenUtils
 
 class DistanceHelper {
 
@@ -53,8 +53,8 @@ class DistanceHelper {
 
         fun getDPI(activity: Activity?): Float {
             //get screen size
-//            val screenSize: Double = ScreenInchUtils.getScreenInch(activity)
-            val screenSize: Double = ScreenInchUtils.getScreenInch(activity!!)
+//            val screenSize: Double = ScreenUtils.getScreenInch(activity)
+            val screenSize: Double = ScreenUtils.getScreenInch(activity!!)
 
             //Get Width and height
             val widthPx: Int = Resources.getSystem().displayMetrics.widthPixels
