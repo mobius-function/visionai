@@ -35,7 +35,11 @@ class ProfileFragment : Fragment(R.layout.fragment_home_profile) {
     }
 
     private fun clickableViews() {
-
+        binding.apply {
+            btnBack.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
+        }
     }
 
 

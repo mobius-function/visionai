@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
             android:background="@android:color/transparent"
+            app:menu="@menu/home_appbar_menu"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:minHeight="?attr/actionBarSize">
             <TextView

@@ -102,6 +102,10 @@ object ScreenUtils {
             // is translucent if user swipes it up
             @Suppress("DEPRECATION")
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+            actionBar?.hide()
         }
     }
 }

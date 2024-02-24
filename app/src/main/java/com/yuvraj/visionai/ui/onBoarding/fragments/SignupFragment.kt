@@ -94,10 +94,12 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
                     return@setOnClickListener
                 }
 
+                progressBar.visibility = View.VISIBLE
                 signUpUser()
             }
 
             btnGoogleSignIn.setOnClickListener() {
+                progressBar.visibility = View.VISIBLE
                 signInGoogle()
                 Toast.makeText(requireActivity(), "Logging In", Toast.LENGTH_SHORT).show()
             }
@@ -200,6 +202,12 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 
     override fun onStart() {
         super.onStart()
+        binding.progressBar.visibility = View.GONE
         checkForSignedInUser()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.progressBar.visibility = View.GONE
     }
 }
