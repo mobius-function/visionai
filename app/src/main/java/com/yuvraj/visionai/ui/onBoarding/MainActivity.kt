@@ -8,6 +8,7 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiOnboardingActivityMainBinding
 import com.yuvraj.visionai.service.autoUpdater.InAppUpdate
 import com.yuvraj.visionai.utils.ScreenUtils.hideStatusBar
+import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
 
 
 class MainActivity: AppCompatActivity() {
@@ -22,11 +23,11 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initviews()
         setContentView(binding?.root)
+        hideSystemUI()
     }
 
     fun initviews() {
         binding = UiOnboardingActivityMainBinding.inflate(layoutInflater,null,false)
-        hideStatusBar(this)
         navHostFragment = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment)
 
         //In-App Update Initializer

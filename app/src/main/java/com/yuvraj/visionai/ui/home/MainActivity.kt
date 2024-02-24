@@ -11,6 +11,7 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiHomeActivityMainBinding
 import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
 import com.yuvraj.visionai.utils.ScreenUtils.hideStatusBar
+import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,13 +23,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initViews()
         setContentView(binding.root)
+        hideSystemUI()
         setupAppBar()
         setupNavigationController()
     }
 
     fun initViews() {
         _binding = UiHomeActivityMainBinding.inflate(layoutInflater,null,false)
-        hideStatusBar(this)
     }
 
     private fun setupNavigationController() {
