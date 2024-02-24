@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
-import com.yuvraj.visionai.databinding.FragmentHomeHyperopiaTestingBinding
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.service.faceDetection.FaceStatus
 import com.yuvraj.visionai.utils.Constants.USER_AGE
@@ -114,6 +113,14 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             btnCheck.setOnClickListener {
                 onCheck(tvRandomText.text.toString().lowercase() ==
                         tvInput.text.toString().lowercase())
+            }
+
+            tvInput.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    tvInstructions.visibility = View.GONE
+                } else {
+                    tvInstructions.visibility = View.VISIBLE
+                }
             }
         }
     }

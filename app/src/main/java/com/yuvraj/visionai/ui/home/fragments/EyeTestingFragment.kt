@@ -115,13 +115,18 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private fun clickableViews() {
 
         binding.apply {
-
             btnCheck.setOnClickListener {
                 onCheck(tvRandomText.text.toString().lowercase() ==
                         tvInput.text.toString().lowercase())
             }
 
-
+            tvInput.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    tvInstructions.visibility = View.GONE
+                } else {
+                    tvInstructions.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
