@@ -1,16 +1,12 @@
 package com.yuvraj.visionai.ui.home.fragments
 
-import android.speech.RecognizerIntent
 import java.util.*
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
-import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.camera2.CameraCharacteristics
@@ -19,16 +15,13 @@ import android.util.Log
 import android.util.TypedValue
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import android.hardware.camera2.CameraAccessException
-import android.hardware.camera2.CaptureRequest
-import androidx.camera.camera2.internal.compat.CameraManagerCompat
 import android.hardware.camera2.CameraManager as CameraManager1
-import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.service.cameraX.CameraManager
-import com.yuvraj.visionai.service.faceDetection.FaceStatus
-import com.yuvraj.visionai.utils.PowerAlgorithm
+import com.yuvraj.visionai.model.FaceStatus
+import com.yuvraj.visionai.utils.DebugTags.DEVICE_INFO
+import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateNegativePower
 import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructionDialogBox
@@ -282,44 +275,13 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             ::updateTVFaceWidth
         )
 
-        // get focal length of the camera
-//        val focalLengthKey = CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS
-//        val focalLengths = cameraManager.getCameraCharacteristics().get(focalLengthKey)
-
-        val cameraManager1 = requireContext().getSystemService(Context.CAMERA_SERVICE) as CameraManager1
-//        val cameraManager1 = getSystemService(requireActivity().applicationContext.C) as CameraManager
-
-
-        try {
-            // Get the list of available camera IDs
-            val cameraIds = cameraManager1.cameraIdList
-
-            for (cameraId in cameraIds) {
-                // Get the camera characteristics for the specified camera ID
-                val characteristics = cameraManager1.getCameraCharacteristics(cameraId)
-
-                // Get the focal lengths array
-                val focalLengths = characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
-                val sensorSize = characteristics.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE)
-
-                // Print the focal lengths
-                for (focalLength in focalLengths ?: floatArrayOf()) {
-                    // Update your UI or log the focal lengths as needed
-                    Log.e("focalLength","Camera $cameraId Focal Length: $focalLength\n")
-                    Log.e("focalLength","Camera $cameraId Sensor Size: $sensorSize\n")
-
-
-                }
-            }
-
-        } catch (e: CameraAccessException) {
-            e.printStackTrace()
-        }
+        // Debugging the device info for the camera (Open Debug console)
+        cameraManager.getCameraDetails(requireActivity())
     }
 
 
     private fun processPicture(faceStatus: FaceStatus) {
-        Log.e("facestatus","This is it ${faceStatus.name}")
+        Log.e(FACE_DETECTION,"This is it ${faceStatus.name}")
     }
 
     private fun updateTVFaceWidth(face: Face) {
@@ -346,8 +308,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     }
 
     companion object {
-        private const val REQUEST_CODE_STT = 1
-
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
     }
