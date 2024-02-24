@@ -90,6 +90,8 @@
         android:textColor="@color/white"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="20dp"
+        android:textAllCaps="true"
+        android:inputType="textCapCharacters"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnCheck"
         app:layout_constraintBottom_toBottomOf="parent" />
