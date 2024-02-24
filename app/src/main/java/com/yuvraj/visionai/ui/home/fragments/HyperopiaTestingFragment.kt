@@ -1,12 +1,8 @@
 package com.yuvraj.visionai.ui.home.fragments
 
-import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Context.MODE_PRIVATE
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.util.TypedValue
@@ -19,10 +15,10 @@ import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import com.yuvraj.visionai.service.cameraX.CameraManager
-import com.yuvraj.visionai.service.faceDetection.FaceStatus
+import com.yuvraj.visionai.model.FaceStatus
 import com.yuvraj.visionai.utils.Constants.USER_AGE
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
-import com.yuvraj.visionai.utils.PowerAlgorithm
+import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculatePositivePower
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
@@ -280,11 +276,14 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             ::processPicture,
             ::updateTVFaceWidth
         )
+
+        // Debugging the camera details for the device (Open Debug console)
+        cameraManager.getCameraDetails(requireActivity())
     }
 
 
     private fun processPicture(faceStatus: FaceStatus) {
-        Log.e("facestatus","This is it ${faceStatus.name}")
+        Log.e(FACE_DETECTION,"This is it ${faceStatus.name}")
 //        tvFaceWidth.text
 //       when(faceStatus){}
     }
