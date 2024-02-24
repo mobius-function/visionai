@@ -26,6 +26,8 @@ import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeDryEyeTestingBinding
+import com.yuvraj.visionai.utils.DebugTags.CAMERA_X
+import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.concurrent.ExecutorService
@@ -122,14 +124,14 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
             ContextCompat.getMainExecutor(requireActivity()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                    Log.e(CAMERA_X, "Photo capture failed: ${exc.message}", exc)
                 }
 
                 override fun
                         onImageSaved(output: ImageCapture.OutputFileResults){
                     val msg = "Photo capture succeeded: ${output.savedUri}"
                     Toast.makeText(requireActivity().baseContext, msg, Toast.LENGTH_SHORT).show()
-                    Log.d(TAG, msg)
+                    Log.d(CAMERA_X, msg)
                 }
             }
         )
@@ -171,7 +173,7 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                 cameraControl = camera.cameraControl
                 cameraControl.enableTorch(flashFlag)
             } catch(exc: Exception) {
-                Log.e(TAG, "Use case binding failed", exc)
+                Log.e(CAMERA_X, "Use case binding failed", exc)
             }
 
         }, ContextCompat.getMainExecutor(requireActivity()))
@@ -197,10 +199,10 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                         faces.forEach { face ->
                             if (face.leftEyeOpenProbability!!< 0.4 || face.rightEyeOpenProbability!! < 0.4) {
                                 binding.eyes.text="BLINK"
-                                Log.e("debug", "BLINK")
+                                Log.e(FACE_DETECTION, "BLINK")
                             } else {
                                 binding.eyes.text="DOES NO BLINK"
-                                Log.e("debug", "does not blink")
+                                Log.e(FACE_DETECTION, "does not blink")
                             }
                         }
                         imageProxy.close()
@@ -238,7 +240,6 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
     }
 
     companion object {
-        private const val TAG = "CameraXApp"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS =
