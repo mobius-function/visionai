@@ -7,8 +7,10 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
+import com.yuvraj.visionai.model.FaceStatus
 import com.yuvraj.visionai.service.cameraX.BaseImageAnalyzer
 import com.yuvraj.visionai.service.cameraX.GraphicOverlay
+import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import java.io.IOException
 
 class FaceContourDetectionProcessor(private val view: GraphicOverlay,
@@ -34,7 +36,7 @@ class FaceContourDetectionProcessor(private val view: GraphicOverlay,
         try {
             detector.close()
         } catch (e: IOException) {
-            Log.e(TAG, "Exception thrown while trying to close Face Detector: $e")
+            Log.e(FACE_DETECTION, "Exception thrown while trying to close Face Detector: $e")
         }
     }
 
@@ -53,18 +55,13 @@ class FaceContourDetectionProcessor(private val view: GraphicOverlay,
             graphicOverlay.postInvalidate()
         }else{
             onSuccessCallback(FaceStatus.NO_FACE)
-            Log.e(TAG, "Face Detector failed.")
+            Log.e(FACE_DETECTION, "Face Detector failed.")
         }
 
     }
 
     override fun onFailure(e: Exception) {
-        Log.e(TAG, "Face Detector failed. $e")
+        Log.e(FACE_DETECTION, "Face Detector failed. $e")
         onSuccessCallback(FaceStatus.NO_FACE)
     }
-
-    companion object {
-        private const val TAG = "FaceDetectorProcessor"
-    }
-
 }
