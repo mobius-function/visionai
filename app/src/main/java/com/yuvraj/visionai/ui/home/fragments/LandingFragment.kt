@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.adapters.EyeTestsList
+import com.yuvraj.visionai.data.EyeTestMenuList.getEyeTestMenuList
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
 import com.yuvraj.visionai.firebase.Authentication.Companion.signOutUser
 import com.yuvraj.visionai.model.EyeTests
@@ -48,14 +49,7 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     private fun initViews(view: View) {
         _binding = FragmentHomeLandingBinding.bind(view)
 
-        val tests = listOf(
-            EyeTests(MYOPIA, "Myopia Test"),
-            EyeTests(HYPEROPIA, "Hyperopia Test"),
-            EyeTests(ASTIGMATISM, "Astigmatism Test"),
-            EyeTests(DRY_EYE, "Dry Eye Test"),
-            EyeTests(ML_MODEL, "Ml Model Test"),
-            EyeTests(LOGOUT, "Log Out")
-        )
+        val tests = getEyeTestMenuList()
 
         val adapter = EyeTestsList(tests, this::onListItemClick)
         binding.testsRecyclerView.adapter = adapter
