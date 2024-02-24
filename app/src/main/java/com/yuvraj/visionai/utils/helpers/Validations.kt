@@ -5,7 +5,7 @@ import android.util.Patterns
 object Validations {
 
     fun validateFirstName(data: String): Boolean {
-        return !data.isEmpty()
+        return data.isNotEmpty()
     }
 
     fun validateEmail(data: String): Boolean {

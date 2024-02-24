@@ -9,6 +9,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import com.yuvraj.visionai.R
+import com.yuvraj.visionai.utils.DebugTags.DEVICE_INFO
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -35,8 +36,8 @@ object ScreenUtils {
 
     fun hideStatusBar(activity: Activity) {
         // log the current version of the device
-        Log.d("DEBUG", "Device Version API: " + Build.VERSION.SDK_INT )
-        Log.d("DEBUG", "Device Version CODE: " + Build.VERSION.CODENAME )
+        Log.d(DEVICE_INFO, "Device Version API: " + Build.VERSION.SDK_INT )
+        Log.d(DEVICE_INFO, "Device Version CODE: " + Build.VERSION.CODENAME )
 
         if (Build.VERSION.SDK_INT < 16) {
             activity.window.setFlags(
