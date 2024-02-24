@@ -17,7 +17,6 @@
         android:roundIcon="@mipmap/logo_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.VisionAI"
-        android:windowSoftInputMode="stateHidden|adjustResize"
         tools:targetApi="31">
         <activity
             android:name=".ui.onBoarding.MainActivity"
@@ -30,6 +29,7 @@
 
         <activity
             android:name=".ui.home.MainActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
         </activity>
 
