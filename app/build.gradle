@@ -10,6 +10,21 @@ plugins {
 }
 
 android {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    def password = properties.getProperty('password')
+    def alias = properties.getProperty('alias')
+    def keystore = properties.getProperty('keystore')
+
+    signingConfigs {
+        key_config {
+            keyAlias alias
+            keyPassword password
+            storeFile file(keystore)
+            storePassword password
+        }
+    }
+
     namespace 'com.yuvraj.visionai'
     compileSdk 33
 
@@ -17,10 +32,11 @@ android {
         applicationId "com.yuvraj.visionai"
         minSdk 24
         targetSdk 33
-        versionCode 4
-        versionName "2.2"
+        versionCode 5
+        versionName "2.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.key_config
 
 //        sourceSets {
 //            main {
@@ -41,7 +57,6 @@ android {
 //        ndk {
 //            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
 //        }
-
     }
 
     buildFeatures {
@@ -53,6 +68,15 @@ android {
             minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            shrinkResources true
+            signingConfig signingConfigs.key_config
+        }
+
+        debug{
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            shrinkResources true
+            signingConfig signingConfigs.key_config
         }
     }
     compileOptions {
