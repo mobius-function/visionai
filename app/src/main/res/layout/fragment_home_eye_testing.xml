@@ -105,7 +105,8 @@
         android:src="@drawable/ic_check"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tvInput"
+        app:layout_constraintTop_toTopOf="@id/tvInput"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

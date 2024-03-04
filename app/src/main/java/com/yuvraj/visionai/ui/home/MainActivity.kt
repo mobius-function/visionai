@@ -1,8 +1,10 @@
 package com.yuvraj.visionai.ui.home
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -10,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiHomeActivityMainBinding
 import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
-import com.yuvraj.visionai.utils.ScreenUtils.hideStatusBar
 import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     fun initViews() {
         _binding = UiHomeActivityMainBinding.inflate(layoutInflater,null,false)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
     private fun setupNavigationController() {
