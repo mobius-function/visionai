@@ -32,8 +32,8 @@ android {
         applicationId "com.yuvraj.visionai"
         minSdk 24
         targetSdk 33
-        versionCode 5
-        versionName "2.3"
+        versionCode 6
+        versionName "2.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.key_config
