@@ -28,6 +28,7 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeDryEyeTestingBinding
 import com.yuvraj.visionai.utils.DebugTags.CAMERA_X
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
+import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.concurrent.ExecutorService
@@ -198,10 +199,16 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                     .addOnSuccessListener {
                             faces ->
                         faces.forEach { face ->
-                            if (face.leftEyeOpenProbability!!<= 0.5 || face.rightEyeOpenProbability!! <= 0.5) {
-                                binding.eyes.text="BLINK"
+                            if (face.leftEyeOpenProbability!! in 0.4..0.7 ||
+                            face.rightEyeOpenProbability!! in 0.4..0.7) {
+
+                                binding.eyes.text="PARTIAL BLINK"
                                 partialBlinkCounter += 1
-                                Log.e(FACE_DETECTION, "BLINK")
+
+                                if (partialBlinkCounter == 10) {
+                                    Toast.makeText(requireActivity(), "You Have Dry Eye", Toast.LENGTH_SHORT).show()
+                                }
+
                             } else {
                                 binding.eyes.text="DOES NO BLINK"
                                 Log.e(FACE_DETECTION, "does not blink")
@@ -239,6 +246,16 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                     Toast.LENGTH_SHORT).show()
                 requireActivity().finish()
             }
+        }
+    }
+
+    suspend fun startTimer() {
+        // Start a coroutine
+        for (i in 1..5) {
+            // Delay for 1 second
+            delay(1000)
+            // Print the number
+            println(i)
         }
     }
 
