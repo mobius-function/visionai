@@ -43,8 +43,10 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
 
     private var imageCapture: ImageCapture? = null
     private var imageAnalyzer: ImageAnalysis? = null
-    private var cameraSelectorOption = CameraSelector.DEFAULT_BACK_CAMERA
+    private var cameraSelectorOption = CameraSelector.DEFAULT_FRONT_CAMERA
     private var flashFlag: Boolean = true
+
+    private var partialBlinkCounter: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -171,7 +173,6 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                 val camera=cameraProvider.bindToLifecycle(
                     this, cameraSelectorOption, preview,imageCapture,imageAnalyzer)
                 cameraControl = camera.cameraControl
-                cameraControl.enableTorch(flashFlag)
             } catch(exc: Exception) {
                 Log.e(CAMERA_X, "Use case binding failed", exc)
             }
@@ -197,8 +198,9 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                     .addOnSuccessListener {
                             faces ->
                         faces.forEach { face ->
-                            if (face.leftEyeOpenProbability!!< 0.4 || face.rightEyeOpenProbability!! < 0.4) {
+                            if (face.leftEyeOpenProbability!!<= 0.5 || face.rightEyeOpenProbability!! <= 0.5) {
                                 binding.eyes.text="BLINK"
+                                partialBlinkCounter += 1
                                 Log.e(FACE_DETECTION, "BLINK")
                             } else {
                                 binding.eyes.text="DOES NO BLINK"
@@ -214,6 +216,7 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
             }
         }
     }
+
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(requireActivity().baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
