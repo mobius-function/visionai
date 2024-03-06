@@ -23,7 +23,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="16dp"
         android:layout_marginVertical="35dp"
-        android:text="result" />
+        android:text="Partial Blink Counter: 0" />
 
     <TextView
         android:id="@+id/eyes"

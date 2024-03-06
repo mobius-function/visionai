@@ -97,6 +97,7 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                 .also {
                     it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 }
+
             imageCapture = ImageCapture.Builder()
                 .build()
 
@@ -113,8 +114,15 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
 
                 // Bind use cases to camera
                 val camera=cameraProvider.bindToLifecycle(
-                    this, cameraSelectorOption, preview,imageCapture,imageAnalyzer)
+                    this,
+                    cameraSelectorOption,
+                    preview,
+                    imageCapture,
+                    imageAnalyzer
+                )
+
                 cameraControl = camera.cameraControl
+
             } catch(exc: Exception) {
                 Log.e(CAMERA_X, "Use case binding failed", exc)
             }
@@ -129,7 +137,12 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
         override fun analyze(imageProxy: ImageProxy) {
             val mediaImage = imageProxy.image
             mediaImage?.let {
-                val visionImage = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+
+                val visionImage = InputImage.fromMediaImage(
+                    mediaImage,
+                    imageProxy.imageInfo.rotationDegrees
+                )
+
                 faceDetector.process(visionImage)
                     .addOnSuccessListener {
                             faces ->
@@ -140,8 +153,13 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                                 binding.eyes.text="PARTIAL BLINK"
                                 partialBlinkCounter += 1
 
+                                binding.tvResult.text = "Partial Blink Counter: $partialBlinkCounter"
+
                                 if (partialBlinkCounter == 10) {
-                                    Toast.makeText(requireActivity(), "You Have Dry Eye", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        requireActivity(),
+                                        "You Have Dry Eye",
+                                        Toast.LENGTH_SHORT).show()
                                 }
 
                             } else {
@@ -160,7 +178,8 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(requireActivity().baseContext, it) == PackageManager.PERMISSION_GRANTED
+        ContextCompat.checkSelfPermission(requireActivity().baseContext, it) ==
+                PackageManager.PERMISSION_GRANTED
     }
 
     override fun onDestroy() {
@@ -195,12 +214,10 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
     }
 
     companion object {
-        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS =
             mutableListOf (
                 Manifest.permission.CAMERA,
-                //Manifest.permission.RECORD_AUDIO
             ).apply {
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                     add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
