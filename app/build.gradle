@@ -6,25 +6,9 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
     id 'com.google.gms.google-services'
-//    id 'com.chaquo.python' // chaqopy for python scripts running on android
 }
 
 android {
-//    Properties properties = new Properties()
-//    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-//    def password = properties.getProperty('password')
-//    def alias = properties.getProperty('alias')
-//    def keystore = properties.getProperty('keystore')
-//
-//    signingConfigs {
-//        key_config {
-//            keyAlias alias
-//            keyPassword password
-//            storeFile file(keystore)
-//            storePassword password
-//        }
-//    }
-
     namespace 'com.yuvraj.visionai'
     compileSdk 33
 
@@ -36,27 +20,6 @@ android {
         versionName "2.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        signingConfig signingConfigs.key_config
-
-//        sourceSets {
-//            main {
-//                python {
-//                    srcDirs = ["src/main/python"]
-//                }
-//            }
-//        }
-//        python {
-//
-//            pip {
-//                install "opencv-python"
-//            }
-//
-////            buildPython "/urs/local/bin/python3"
-////            buildPython "python3"
-//        }
-//        ndk {
-//            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-//        }
     }
 
     buildFeatures {
@@ -69,14 +32,12 @@ android {
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             shrinkResources true
-//            signingConfig signingConfigs.key_config
         }
 
         debug{
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             shrinkResources true
-//            signingConfig signingConfigs.key_config
         }
     }
     compileOptions {
@@ -105,8 +66,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
-
-//    implementation 'com.google.android.gms:play-services-auth:20.3.0'
 
     // Kotlin Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -147,7 +106,6 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
 
     // Google ML Kit
-//    implementation 'com.google.android.gms:play-services-mlkit-face-detection:16.1.0'
     implementation 'com.google.mlkit:face-detection:16.1.5'
     implementation 'com.google.android.gms:play-services-mlkit-face-detection:17.0.1'
 
