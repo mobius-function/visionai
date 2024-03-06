@@ -10,20 +10,20 @@ plugins {
 }
 
 android {
-    Properties properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-    def password = properties.getProperty('password')
-    def alias = properties.getProperty('alias')
-    def keystore = properties.getProperty('keystore')
-
-    signingConfigs {
-        key_config {
-            keyAlias alias
-            keyPassword password
-            storeFile file(keystore)
-            storePassword password
-        }
-    }
+//    Properties properties = new Properties()
+//    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//    def password = properties.getProperty('password')
+//    def alias = properties.getProperty('alias')
+//    def keystore = properties.getProperty('keystore')
+//
+//    signingConfigs {
+//        key_config {
+//            keyAlias alias
+//            keyPassword password
+//            storeFile file(keystore)
+//            storePassword password
+//        }
+//    }
 
     namespace 'com.yuvraj.visionai'
     compileSdk 33
@@ -32,11 +32,11 @@ android {
         applicationId "com.yuvraj.visionai"
         minSdk 24
         targetSdk 33
-        versionCode 6
-        versionName "2.4"
+        versionCode 7
+        versionName "2.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.key_config
+//        signingConfig signingConfigs.key_config
 
 //        sourceSets {
 //            main {
@@ -69,14 +69,14 @@ android {
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             shrinkResources true
-            signingConfig signingConfigs.key_config
+//            signingConfig signingConfigs.key_config
         }
 
         debug{
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             shrinkResources true
-            signingConfig signingConfigs.key_config
+//            signingConfig signingConfigs.key_config
         }
     }
     compileOptions {
