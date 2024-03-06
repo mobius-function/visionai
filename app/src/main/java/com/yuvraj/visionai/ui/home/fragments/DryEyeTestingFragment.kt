@@ -2,11 +2,9 @@ package com.yuvraj.visionai.ui.home.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -15,7 +13,6 @@ import androidx.camera.core.CameraControl
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -29,8 +26,6 @@ import com.yuvraj.visionai.databinding.FragmentHomeDryEyeTestingBinding
 import com.yuvraj.visionai.utils.DebugTags.CAMERA_X
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import kotlinx.coroutines.delay
-import java.text.SimpleDateFormat
-import java.util.Locale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -45,7 +40,6 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
     private var imageCapture: ImageCapture? = null
     private var imageAnalyzer: ImageAnalysis? = null
     private var cameraSelectorOption = CameraSelector.DEFAULT_FRONT_CAMERA
-    private var flashFlag: Boolean = true
 
     private var partialBlinkCounter: Int = 0
 
@@ -77,17 +71,7 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
 
     private fun clickableViews() {
         binding.apply {
-            imageCaptureButton.setOnClickListener {
-                takePhoto()
-            }
 
-            buttonRotation.setOnClickListener{
-                flipCamera()
-            }
-
-            buttonFlash.setOnClickListener{
-                changeFlash()
-            }
         }
     }
 
@@ -99,50 +83,7 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
 
     val faceDetector = FaceDetection.getClient(highAccuracyOpts)
 
-    private fun takePhoto() {
-        val imageCapture = imageCapture ?: return
 
-        // Create time stamped name and MediaStore entry.
-        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US)
-            .format(System.currentTimeMillis())
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/CameraX-Image")
-            }
-        }
-
-        // Create output options object which contains file + metadata
-        val outputOptions = ImageCapture.OutputFileOptions
-            .Builder(requireActivity().contentResolver,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                contentValues)
-            .build()
-
-        // Set up image capture listener, which is triggered after photo has
-        // been taken
-        imageCapture.takePicture(
-            outputOptions,
-            ContextCompat.getMainExecutor(requireActivity()),
-            object : ImageCapture.OnImageSavedCallback {
-                override fun onError(exc: ImageCaptureException) {
-                    Log.e(CAMERA_X, "Photo capture failed: ${exc.message}", exc)
-                }
-
-                override fun
-                        onImageSaved(output: ImageCapture.OutputFileResults){
-                    val msg = "Photo capture succeeded: ${output.savedUri}"
-                    Toast.makeText(requireActivity().baseContext, msg, Toast.LENGTH_SHORT).show()
-                    Log.d(CAMERA_X, msg)
-                }
-            }
-        )
-    }
-    private fun changeFlash(){
-        flashFlag = !flashFlag
-        cameraControl.enableTorch(flashFlag)
-    }
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireActivity())
 
@@ -180,14 +121,8 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
 
         }, ContextCompat.getMainExecutor(requireActivity()))
     }
-    private fun flipCamera() {
-        if (cameraSelectorOption == CameraSelector.DEFAULT_FRONT_CAMERA) {
-            cameraSelectorOption = CameraSelector.DEFAULT_BACK_CAMERA
-        } else if (cameraSelectorOption == CameraSelector.DEFAULT_BACK_CAMERA) {
-            cameraSelectorOption = CameraSelector.DEFAULT_FRONT_CAMERA
-        }
-        startCamera();
-    }
+
+
     inner class YourImageAnalyzer : ImageAnalysis.Analyzer {
 
         @SuppressLint("UnsafeOptInUsageError")
