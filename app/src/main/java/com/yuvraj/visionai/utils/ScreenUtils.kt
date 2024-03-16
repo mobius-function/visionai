@@ -85,6 +85,8 @@ object ScreenUtils {
                 it.hide(WindowInsets.Type.systemBars())
             }
         } else {
+            window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+
             // Enables regular immersive mode.
             // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
             // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -98,6 +100,7 @@ object ScreenUtils {
                             // Keep the app content behind the bars even if user swipes them up
                             or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                             or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+
             // make navbar translucent - do this already in hideSystemUI() so that the bar
             // is translucent if user swipes it up
             @Suppress("DEPRECATION")

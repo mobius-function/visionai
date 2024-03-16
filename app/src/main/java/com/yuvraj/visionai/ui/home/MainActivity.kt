@@ -1,6 +1,5 @@
 package com.yuvraj.visionai.ui.home
 
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
