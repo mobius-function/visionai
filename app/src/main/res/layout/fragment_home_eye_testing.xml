@@ -5,12 +5,14 @@
     android:backgroundTint="@color/design_default_color_on_secondary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ui.home.fragments.EyeTestingFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:fitsSystemWindows="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvInput"
@@ -20,8 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.home.fragments.EyeTestingFragment">
-
-
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvRandomText"
