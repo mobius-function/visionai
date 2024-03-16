@@ -16,8 +16,8 @@ android {
         applicationId "com.yuvraj.visionai"
         minSdk 24
         targetSdk 33
-        versionCode 7
-        versionName "2.5"
+        versionCode 8
+        versionName "2.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
