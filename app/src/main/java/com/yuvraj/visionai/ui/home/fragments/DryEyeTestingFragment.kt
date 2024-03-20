@@ -42,6 +42,7 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
     private var cameraSelectorOption = CameraSelector.DEFAULT_FRONT_CAMERA
 
     private var partialBlinkCounter: Int = 0
+    private var fullBlinkCounter: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -153,7 +154,8 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                                 binding.eyes.text="PARTIAL BLINK"
                                 partialBlinkCounter += 1
 
-                                binding.tvResult.text = "Partial Blink Counter: $partialBlinkCounter"
+                                binding.tvResult.text = "Partial Blink Counter: $partialBlinkCounter \n" +
+                                        "Full Blink Counter: $fullBlinkCounter"
 
                                 if (partialBlinkCounter == 10) {
                                     Toast.makeText(
@@ -162,6 +164,13 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                                         Toast.LENGTH_SHORT).show()
                                 }
 
+                            }else if(face.leftEyeOpenProbability!! > 0.7 ||
+                                face.rightEyeOpenProbability!! > 0.7){
+                                binding.eyes.text="FULL BLINK"
+                                fullBlinkCounter += 1
+
+                                binding.tvResult.text = "Partial Blink Counter: $partialBlinkCounter \n" +
+                                        "Full Blink Counter: $fullBlinkCounter"
                             } else {
                                 binding.eyes.text="DOES NO BLINK"
                                 Log.e(FACE_DETECTION, "does not blink")
