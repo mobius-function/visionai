@@ -10,7 +10,6 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import com.yuvraj.visionai.R
 import com.yuvraj.visionai.utils.DebugTags.DEVICE_INFO
 import java.math.BigDecimal
 import java.math.RoundingMode
