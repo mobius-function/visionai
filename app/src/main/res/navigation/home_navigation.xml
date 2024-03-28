@@ -69,4 +69,9 @@
         android:name="com.yuvraj.visionai.ui.home.fragments.DryEyeTestingFragment"
         android:label="fragment_home_dry_eye_testing"
         tools:layout="@layout/fragment_home_dry_eye_testing" />
+    <fragment
+        android:id="@+id/notificationsFragment2"
+        android:name="com.yuvraj.visionai.ui.home.fragments.NotificationsFragment"
+        android:label="fragment_home_notifications_fragment"
+        tools:layout="@layout/fragment_home_notifications" />
 </navigation>
