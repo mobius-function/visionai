@@ -26,11 +26,24 @@ class MainActivity : AppCompatActivity() {
         hideSystemUI()
         setupAppBar()
         setupNavigationController()
+        clickableViews()
     }
 
     fun initViews() {
         _binding = UiHomeActivityMainBinding.inflate(layoutInflater,null,false)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+    }
+
+    private fun clickableViews() {
+        binding.apply {
+            ivToolbarProfilePicture.setOnClickListener {
+                navHostFragment.findNavController().navigate(R.id.profileFragment)
+            }
+
+            btnEyeTest.setOnClickListener {
+                navHostFragment.findNavController().navigate(R.id.eyeTestingFragment)
+            }
+        }
     }
 
     private fun setupNavigationController() {
