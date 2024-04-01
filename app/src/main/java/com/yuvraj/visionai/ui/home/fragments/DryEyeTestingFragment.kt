@@ -41,8 +41,10 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
     private var imageAnalyzer: ImageAnalysis? = null
     private var cameraSelectorOption = CameraSelector.DEFAULT_FRONT_CAMERA
 
-    private var partialBlinkCounter: Int = 0
-    private var fullBlinkCounter: Int = 0
+    private var leftEyePartialBlinkCounter: Int = 0
+    private var rightEyePartialBlinkCounter: Int = 0
+    private var leftEyeFullBlinkCounter: Int = 0
+    private var rightEyeFullBlinkCounter: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -148,31 +150,76 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                     .addOnSuccessListener {
                             faces ->
                         faces.forEach { face ->
-                            if (face.leftEyeOpenProbability!! in 0.4..0.7 ||
-                            face.rightEyeOpenProbability!! in 0.4..0.7) {
+//                            if (face.leftEyeOpenProbability!! in 0.4..0.7 ||
+//                            face.rightEyeOpenProbability!! in 0.4..0.7) {
+//
+//                                binding.eyes.text="PARTIAL BLINK"
+//                                partialBlinkCounter += 1
+//
+//                                binding.tvResult.text = "Partial Blink Counter: $partialBlinkCounter \n" +
+//                                        "Full Blink Counter: $fullBlinkCounter"
+//
+//                                if (partialBlinkCounter == 10) {
+//                                    Toast.makeText(
+//                                        requireActivity(),
+//                                        "You Have Dry Eye",
+//                                        Toast.LENGTH_SHORT).show()
+//                                }
+//
+//                            }else if(face.leftEyeOpenProbability!! > 0.7 ||
+//                                face.rightEyeOpenProbability!! > 0.7){
+//                                binding.eyes.text="FULL BLINK"
+//                                fullBlinkCounter += 1
+//
+//                                binding.tvResult.text = "Partial Blink Counter: $partialBlinkCounter \n" +
+//                                        "Full Blink Counter: $fullBlinkCounter"
+//                            } else {
+//                                binding.eyes.text="DOES NO BLINK"
+//                                Log.e(FACE_DETECTION, "does not blink")
+//                            }
 
-                                binding.eyes.text="PARTIAL BLINK"
-                                partialBlinkCounter += 1
+                            if(face.leftEyeOpenProbability!! in 0.4..0.7 ) {
+                                binding.apply {
+                                    leftEyePartialBlinkCounter += 1
+                                    tvLeftEye.text = "Partial Blink Counter: $leftEyePartialBlinkCounter \n" +
+                                        "Full Blink Counter: $leftEyeFullBlinkCounter"
 
-                                binding.tvResult.text = "Partial Blink Counter: $partialBlinkCounter \n" +
-                                        "Full Blink Counter: $fullBlinkCounter"
-
-                                if (partialBlinkCounter == 10) {
-                                    Toast.makeText(
-                                        requireActivity(),
-                                        "You Have Dry Eye",
-                                        Toast.LENGTH_SHORT).show()
+                                    if (leftEyePartialBlinkCounter == 10) {
+                                        Toast.makeText(
+                                            requireActivity(),
+                                            "You Have Dry Eye in left eye",
+                                            Toast.LENGTH_SHORT).show()
+                                    }
                                 }
+                            } else if(face.rightEyeOpenProbability!! in 0.4..0.7 ) {
+                                binding.apply {
+                                    rightEyePartialBlinkCounter += 1
+                                    tvLeftEye.text = "Partial Blink Counter: $rightEyePartialBlinkCounter \n" +
+                                            "Full Blink Counter: $rightEyeFullBlinkCounter"
 
-                            }else if(face.leftEyeOpenProbability!! > 0.7 ||
-                                face.rightEyeOpenProbability!! > 0.7){
-                                binding.eyes.text="FULL BLINK"
-                                fullBlinkCounter += 1
+                                    if (rightEyePartialBlinkCounter == 10) {
+                                        Toast.makeText(
+                                            requireActivity(),
+                                            "You Have Dry Eye in right eye",
+                                            Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            } else if(face.leftEyeOpenProbability!! > 0.7){
+                                binding.tvLeftEyeFB.text="FULL BLINK"
+                                leftEyeFullBlinkCounter += 1
 
-                                binding.tvResult.text = "Partial Blink Counter: $partialBlinkCounter \n" +
-                                        "Full Blink Counter: $fullBlinkCounter"
+                                binding.tvLeftEye.text = "Partial Blink Counter: $leftEyePartialBlinkCounter \n" +
+                                        "Full Blink Counter: $leftEyeFullBlinkCounter"
+                            } else if(face.rightEyeOpenProbability!! > 0.7){
+                                binding.tvRightEyeFB.text="FULL BLINK"
+                                rightEyeFullBlinkCounter += 1
+
+                                binding.tvRightEye.text = "Partial Blink Counter: $rightEyePartialBlinkCounter \n" +
+                                        "Full Blink Counter: $rightEyeFullBlinkCounter"
                             } else {
-                                binding.eyes.text="DOES NO BLINK"
+                                binding.tvLeftEyeFB.text="DOES NO BLINK"
+                                binding.tvRightEyeFB.text="DOES NO BLINK"
+
                                 Log.e(FACE_DETECTION, "does not blink")
                             }
                         }

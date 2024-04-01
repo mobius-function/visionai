@@ -14,7 +14,7 @@
     </androidx.camera.view.PreviewView>
 
     <TextView
-        android:id="@+id/tvResult"
+        android:id="@+id/tvLeftEye"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -38,7 +38,7 @@
         android:text="Partial Blink Counter: 0" />
 
     <TextView
-        android:id="@+id/eyes"
+        android:id="@+id/tvLeftEyeFB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
