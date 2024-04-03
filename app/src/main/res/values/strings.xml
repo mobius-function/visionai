@@ -19,4 +19,5 @@
         \n\n\n\n
         Does some lines appear greyer than others?
     </string>
+    <string name="textbody_set_notification">Turn on notifications from your device settings to see updates on your lock screen.</string>
 </resources>
