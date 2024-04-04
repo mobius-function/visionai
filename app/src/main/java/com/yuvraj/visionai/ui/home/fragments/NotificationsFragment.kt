@@ -93,6 +93,10 @@ class NotificationsFragment : Fragment(R.layout.fragment_home_notifications) {
                     tvTimeRegularReminder.setTextColor("#898989".toColorInt())
                 }
             }
+
+            // setting the default state of the toggle button (Debugging purpose)
+            tbRegularReminder.isChecked = true
+            tbRegularReminder.isChecked = false
         }
     }
 }
