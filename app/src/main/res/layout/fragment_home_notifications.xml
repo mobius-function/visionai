@@ -108,15 +108,16 @@
         app:layout_constraintBottom_toBottomOf="@id/tvRegularReminder"/>
 
     <TextView
-        android:id="@+id/tvTime"
+        android:id="@+id/tvTimeRegularReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="15dp"
-        android:text="22 : 10"
+        android:text="12 : 10 pm"
         android:textSize="45dp"
         android:gravity="center_vertical"
         android:textColor="#898989"
+        android:clickable="false"
         app:layout_constraintStart_toStartOf="@id/middleGuideline"
         app:layout_constraintEnd_toEndOf="@id/middleGuideline"
         app:layout_constraintTop_toBottomOf="@id/tvRegularReminder"
