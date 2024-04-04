@@ -54,6 +54,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.background = null
 
+        // Disable the middle item of the bottom navigation view
+        binding.bottomNavigationView.menu.getItem(2).isEnabled = false
+
         navHostFragment.findNavController().addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id) {
                 R.id.landingFragment,

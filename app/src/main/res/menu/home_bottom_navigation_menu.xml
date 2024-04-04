@@ -12,6 +12,10 @@
         android:icon="@drawable/ic_notification"
         android:title="Notifications" />
 
+    <item
+        android:id="@+id/nullFragment"
+        android:title="" />
+
 
     <item
         android:id="@+id/statisticsFragment"
