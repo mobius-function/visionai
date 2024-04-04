@@ -55,8 +55,23 @@
         android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:text="@string/textbody_set_notification"
+        android:textSize="14dp"
         android:textColor="#898989"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintTop_toBottomOf="@id/tvSetNotification" />
+
+    <TextView
+        android:id="@+id/tvEyeTestReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:text="Eye Test Reminder"
+        android:textSize="16dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@id/set_notific"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
