@@ -18,4 +18,10 @@ object Constants {
 
     const val ML_MODEL = "ML_MODEL"
     const val LOGOUT = "LOGOUT"
+
+    // Settings Preferences
+    const val EYE_TEST_REMINDER = "EYE_TEST_REMINDER"
+    const val EYE_TEST_REMINDER_TIME = "EYE_TEST_REMINDER_TIME"
+    const val REGULAR_REMINDER = "REGULAR_REMINDER"
+    const val REGULAR_REMINDER_TIME = "REGULAR_REMINDER_TIME"
 }
