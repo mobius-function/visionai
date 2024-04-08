@@ -2,15 +2,18 @@ package com.yuvraj.visionai.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
+import com.google.firebase.messaging.FirebaseMessaging
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiHomeActivityMainBinding
 import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
+import com.yuvraj.visionai.utils.DebugTags.FIREBASE_PUSH_NOTIFICATION
 import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +35,19 @@ class MainActivity : AppCompatActivity() {
     fun initViews() {
         _binding = UiHomeActivityMainBinding.inflate(layoutInflater,null,false)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+                // this fail
+                if (!task.isSuccessful) {
+                    Log.d(
+                        FIREBASE_PUSH_NOTIFICATION,
+                        "Fetching FCM registration token failed",
+                        task.exception
+                    )
+                    return@addOnCompleteListener
+                }
+            }
     }
 
     private fun clickableViews() {
