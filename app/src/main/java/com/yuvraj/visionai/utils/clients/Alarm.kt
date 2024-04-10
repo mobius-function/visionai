@@ -21,7 +21,7 @@ class Alarm {
             // Create a PendingIntent to start the AlarmReceiver when the alarm triggers
             val intent = Intent(this, AlarmReceiver::class.java)
             intent.putExtra("alarmTime", alarmTime)
-            val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+            val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
             // Schedule the alarm
             AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent)
