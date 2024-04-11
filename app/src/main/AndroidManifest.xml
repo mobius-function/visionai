@@ -51,8 +51,8 @@
         </service>
 
         <receiver
-            android:name=".service.alarmReceiver.AlarmReceiver"
-            android:exported="false" />
+            android:name=".service.alarmReceiver.Notification"
+            android:enabled="true" />
     </application>
 
 </manifest>
