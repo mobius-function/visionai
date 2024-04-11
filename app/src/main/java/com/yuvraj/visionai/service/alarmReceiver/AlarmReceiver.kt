@@ -18,9 +18,9 @@ package com.yuvraj.visionai.service.alarmReceiver
 //        val alarmTime = intent.getStringExtra("alarmTime")
 //        sendAlarmNotification(context, alarmTime)
 //
-//        Log.d("TAG", "onReceive: Alarm is triggered")
+//        Log.d("TAG", "onReceive: NotificationHelper is triggered")
 //
-//        // DEBUG: Alarm is triggered
+//        // DEBUG: NotificationHelper is triggered
 //        // Set the alarm again
 //        setAlarmAgain(1, context)
 //    }
@@ -34,7 +34,7 @@ package com.yuvraj.visionai.service.alarmReceiver
 //
 //    private fun sendAlarmNotification(context: Context, alarmTime: String?) {
 //        val notificationBuilder = NotificationCompat.Builder(context, "alarm_channel")
-//            .setContentTitle("Alarm")
+//            .setContentTitle("NotificationHelper")
 //            .setContentText("$alarmTime has been triggered!")
 //            .setPriority(NotificationCompat.PRIORITY_HIGH)
 //            .setAutoCancel(true)
@@ -45,7 +45,7 @@ package com.yuvraj.visionai.service.alarmReceiver
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //            val channel = NotificationChannel(
 //                "alarm_channel",
-//                "Alarm channel",
+//                "NotificationHelper channel",
 //                NotificationManager.IMPORTANCE_HIGH
 //            )
 //            notificationManager.createNotificationChannel(channel)
@@ -73,6 +73,6 @@ package com.yuvraj.visionai.service.alarmReceiver
 //
 //        // Schedule the alarm
 //        AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent)
-//        Log.d("TAG", "Alarm is set for ${calendar.time} with alarm time $alarmTime hours and ${calendar.timeInMillis / 1000} seconds")
+//        Log.d("TAG", "NotificationHelper is set for ${calendar.time} with alarm time $alarmTime hours and ${calendar.timeInMillis / 1000} seconds")
 //    }
 //}
