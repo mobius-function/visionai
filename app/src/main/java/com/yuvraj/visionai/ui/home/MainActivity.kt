@@ -1,5 +1,6 @@
 package com.yuvraj.visionai.ui.home
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,8 @@ import com.yuvraj.visionai.databinding.UiHomeActivityMainBinding
 import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
 import com.yuvraj.visionai.utils.DebugTags.FIREBASE_PUSH_NOTIFICATION
 import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
+import com.yuvraj.visionai.utils.clients.NotificationHelper.createNotificationChannel
+import com.yuvraj.visionai.utils.clients.NotificationHelper.scheduleNotification
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         clickableViews()
     }
 
+
     fun initViews() {
         _binding = UiHomeActivityMainBinding.inflate(layoutInflater,null,false)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
@@ -48,6 +52,17 @@ class MainActivity : AppCompatActivity() {
                     return@addOnCompleteListener
                 }
             }
+
+        // DEBUG: Firebase Push Notification Token
+//        setAlarm(1, this)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel()
+        } else {
+            Log.d("TAG", "initViews: Notification channel is not created")
+            Log.d("TAG", "Build version is ${Build.VERSION.SDK_INT} and Name is ${Build.VERSION.CODENAME}")
+        }
+
+        scheduleNotification(1)
     }
 
     private fun clickableViews() {
