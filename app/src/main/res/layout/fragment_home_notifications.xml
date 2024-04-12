@@ -108,13 +108,13 @@
         app:layout_constraintBottom_toBottomOf="@id/tvRegularReminder"/>
 
     <TextView
-        android:id="@+id/tvTimeRegularReminder"
+        android:id="@+id/tvTimeInHours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
-        android:text="12 : 10 pm"
-        android:textSize="45dp"
+        android:layout_marginTop="25dp"
+        android:text="12"
+        android:textSize="65dp"
         android:gravity="center_vertical"
         android:textColor="#898989"
         android:clickable="false"
@@ -122,4 +122,30 @@
         app:layout_constraintEnd_toEndOf="@id/middleGuideline"
         app:layout_constraintTop_toBottomOf="@id/tvRegularReminder"
         />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnTimeInHoursPlus"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        android:layout_marginHorizontal="35dp"
+        android:background="@drawable/ic_plus"
+        android:backgroundTint="#898989"
+        app:layout_constraintBottom_toBottomOf="@id/tvTimeInHours"
+        app:layout_constraintTop_toTopOf="@id/tvTimeInHours"
+        app:layout_constraintStart_toEndOf="@id/tvTimeInHours"/>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnTimeInHoursMinus"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        android:layout_marginHorizontal="35dp"
+        android:background="@drawable/ic_minus"
+        android:backgroundTint="#898989"
+        app:layout_constraintBottom_toBottomOf="@id/tvTimeInHours"
+        app:layout_constraintTop_toTopOf="@id/tvTimeInHours"
+        app:layout_constraintEnd_toStartOf="@id/tvTimeInHours"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
