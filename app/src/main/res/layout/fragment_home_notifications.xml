@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="80dp"
-        android:text="Regular Reminder"
+        android:text="Regular Reminder (in hrs)"
         android:textSize="16dp"
         android:gravity="center_vertical"
         android:textColor="@color/white"
@@ -113,15 +113,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="25dp"
-        android:text="12"
-        android:textSize="65dp"
-        android:gravity="center_vertical"
-        android:textColor="#898989"
         android:clickable="false"
-        app:layout_constraintStart_toStartOf="@id/middleGuideline"
+        android:gravity="center_vertical"
+        android:text="2"
+        android:textColor="#898989"
+        android:textSize="65dp"
         app:layout_constraintEnd_toEndOf="@id/middleGuideline"
-        app:layout_constraintTop_toBottomOf="@id/tvRegularReminder"
-        />
+        app:layout_constraintStart_toStartOf="@id/middleGuideline"
+        app:layout_constraintTop_toBottomOf="@id/tvRegularReminder" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnTimeInHoursPlus"
