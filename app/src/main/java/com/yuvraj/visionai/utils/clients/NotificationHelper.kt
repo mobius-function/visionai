@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.icu.util.Calendar
 import android.util.Log
-//import com.yuvraj.visionai.service.alarmReceiver.AlarmReceiver
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.NotificationChannel
@@ -46,13 +45,13 @@ object NotificationHelper {
 
 
     @SuppressLint("ScheduleExactAlarm")
-    fun Activity.scheduleNotification(alarmTime: Int) {
+    fun Activity.scheduleNotification(alarmTimeInMinutes: Int) {
         // Create an intent for the Notification BroadcastReceiver
         val intent = Intent(applicationContext, Notification::class.java)
 
         // Extract title and message from user input
-        val title = "Notification Title"
-        val message = "Notification Message"
+        val title = "Regular Notification Title"
+        val message = "Regular Notification Message"
 
         // Add title and message as extras to the intent
         intent.putExtra(titleExtra, title)
@@ -70,14 +69,14 @@ object NotificationHelper {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         // Get the selected time and schedule the notification
-        val time = getTime(alarmTime)
+        val time = getTime(alarmTimeInMinutes)
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             time.timeInMillis,
             pendingIntent
         )
 
-        Log.d("TAG", "NotificationHelper is set for ${time.time} with alarm time $alarmTime minutes and ${time.timeInMillis / 1000} seconds")
+        Log.d("TAG", "NotificationHelper is set for ${time.time} with alarm time $alarmTimeInMinutes minutes and ${time.timeInMillis / 1000} seconds")
 
         // Show an alert dialog with information
         // about the scheduled notification
