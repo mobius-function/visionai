@@ -14,6 +14,12 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiHomeActivityMainBinding
 import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
+import com.yuvraj.visionai.utils.Constants.EYE_TEST_REMINDER
+import com.yuvraj.visionai.utils.Constants.FIRST_USE_AFTER_LOGIN
+import com.yuvraj.visionai.utils.Constants.NOTIFICATION_PREFERENCES
+import com.yuvraj.visionai.utils.Constants.REGULAR_REMINDER
+import com.yuvraj.visionai.utils.Constants.REGULAR_REMINDER_TIME
+import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.DebugTags.FIREBASE_PUSH_NOTIFICATION
 import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
 import com.yuvraj.visionai.utils.clients.NotificationHelper.createNotificationChannel
@@ -33,12 +39,21 @@ class MainActivity : AppCompatActivity() {
         setupAppBar()
         setupNavigationController()
         clickableViews()
+//        scheduleRegularNotification()
     }
 
 
     fun initViews() {
         _binding = UiHomeActivityMainBinding.inflate(layoutInflater,null,false)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
+        val userSharedPreferences = this.getSharedPreferences(USER_DETAILS, MODE_PRIVATE)
+        val firstUseAfterLogin = userSharedPreferences.getBoolean(FIRST_USE_AFTER_LOGIN, true)
+
+        if(firstUseAfterLogin){
+//            val sharedPreferences = this.getSharedPreferences(NOTIFICATION_PREFERENCES, MODE_PRIVATE)
+//            val isEyeTestReminderEnabled = sharedPreferences.getBoolean(EYE_TEST_REMINDER, true)
+        }
 
         FirebaseMessaging.getInstance().token
             .addOnCompleteListener { task ->
@@ -52,17 +67,6 @@ class MainActivity : AppCompatActivity() {
                     return@addOnCompleteListener
                 }
             }
-
-        // DEBUG: Firebase Push Notification Token
-//        setAlarm(1, this)
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel()
-        } else {
-            Log.d("TAG", "initViews: Notification channel is not created")
-            Log.d("TAG", "Build version is ${Build.VERSION.SDK_INT} and Name is ${Build.VERSION.CODENAME}")
-        }
-
-        scheduleNotification(1)
     }
 
     private fun clickableViews() {
@@ -136,5 +140,30 @@ class MainActivity : AppCompatActivity() {
                 tvToolbarShortName.text = "GU"
             }
         }
+    }
+
+    fun scheduleRegularNotification(){
+        val sharedPreferences = this.getSharedPreferences(NOTIFICATION_PREFERENCES, MODE_PRIVATE)
+
+        val isRegularReminderEnabled = sharedPreferences.getBoolean(REGULAR_REMINDER, false)
+        val regularReminderTime = sharedPreferences.getInt(REGULAR_REMINDER_TIME, 2)
+
+        // DEBUG: Firebase Push Notification Token
+        // setAlarm(1, this)
+        if(isRegularReminderEnabled) {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                createNotificationChannel()
+            } else {
+                Log.d("TAG", "initViews: Notification channel is not created")
+                Log.d("TAG", "Build version is ${Build.VERSION.SDK_INT} and Name is ${Build.VERSION.CODENAME}")
+            }
+            scheduleNotification(regularReminderTime * 60)
+            Log.d("TAG", "Notification scheduled after $regularReminderTime hours.")
+        }
+    }
+
+    override fun onDestroy() {
+        scheduleRegularNotification()
+        super.onDestroy()
     }
 }

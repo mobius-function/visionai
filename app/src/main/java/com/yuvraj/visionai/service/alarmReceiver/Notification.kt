@@ -43,17 +43,18 @@ class Notification : BroadcastReceiver() {
         manager.notify(notificationID, notification)
 
 
-        // Schedule next alarm
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel(context)
-        } else {
-            Log.d("TAG", "initViews: Notification channel is not created")
-            Log.d("TAG", "Build version is ${Build.VERSION.SDK_INT} and Name is ${Build.VERSION.CODENAME}")
-        }
-        scheduleNotification(1, context)
+//        // Schedule next alarm
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            createNotificationChannel(context)
+//        } else {
+//            Log.d("TAG", "initViews: Notification channel is not created")
+//            Log.d("TAG", "Build version is ${Build.VERSION.SDK_INT} and Name is ${Build.VERSION.CODENAME}")
+//        }
+//        scheduleNotification(1, context)
 
         //kill current broadcast receiver
         this.clearAbortBroadcast()
+        this.abortBroadcast()
 
         Log.d("TAG", "onReceive: Broadcast is killed")
     }
@@ -133,4 +134,5 @@ class Notification : BroadcastReceiver() {
 
         return calendar
     }
+
 }
