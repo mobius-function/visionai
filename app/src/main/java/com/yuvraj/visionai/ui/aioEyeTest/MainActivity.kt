@@ -1,4 +1,6 @@
 package com.yuvraj.visionai.ui.aioEyeTest
 
-class MainActivity {
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
 }
