@@ -128,7 +128,9 @@ class MainActivity : AppCompatActivity() {
                    ivToolbarProfilePicture.visibility = View.GONE
 
                    val shortName = user.displayName?.substring(0,1) +
-                           user.displayName?.indexOf(" ")?.plus(1)?.let { user.displayName?.get(it) }
+                           user.displayName?.indexOf(" ")?.plus(1)?.let {
+                               user.displayName?.get(it)
+                           }
                    tvToolbarShortName.text = shortName
                }
            }
