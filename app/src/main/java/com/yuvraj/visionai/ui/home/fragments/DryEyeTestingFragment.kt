@@ -204,13 +204,13 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                                             Toast.LENGTH_SHORT).show()
                                     }
                                 }
-                            } else if(face.leftEyeOpenProbability!! > 0.7){
+                            } else if(face.leftEyeOpenProbability!! < 0.3){
                                 binding.tvLeftEyeFB.text="FULL BLINK"
                                 leftEyeFullBlinkCounter += 1
 
                                 binding.tvLeftEye.text = "Partial Blink Counter: $leftEyePartialBlinkCounter \n" +
                                         "Full Blink Counter: $leftEyeFullBlinkCounter"
-                            } else if(face.rightEyeOpenProbability!! > 0.7){
+                            } else if(face.rightEyeOpenProbability!! < 0.3){
                                 binding.tvRightEyeFB.text="FULL BLINK"
                                 rightEyeFullBlinkCounter += 1
 
