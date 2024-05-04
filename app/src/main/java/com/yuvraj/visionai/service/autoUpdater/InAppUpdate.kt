@@ -2,8 +2,10 @@ package com.yuvraj.visionai.service.autoUpdater
 
 import android.app.Activity
 import android.content.IntentSender.SendIntentException
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
