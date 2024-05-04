@@ -16,6 +16,7 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiHomeActivityMainBinding
 import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
 import com.yuvraj.visionai.service.autoUpdater.InAppUpdate
+import com.yuvraj.visionai.ui.aioEyeTest.MainActivity
 import com.yuvraj.visionai.utils.Constants.EYE_TEST_REMINDER
 import com.yuvraj.visionai.utils.Constants.FIRST_USE_AFTER_LOGIN
 import com.yuvraj.visionai.utils.Constants.NOTIFICATION_PREFERENCES
@@ -85,7 +86,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             btnEyeTest.setOnClickListener {
-                navHostFragment.findNavController().navigate(R.id.eyeTestingFragment)
+                // open new Activity
+                val intent = Intent(this@MainActivity, MainActivity::class.java)
+                startActivity(intent)
             }
         }
     }
