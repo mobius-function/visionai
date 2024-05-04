@@ -1,5 +1,6 @@
 package com.yuvraj.visionai.ui.home
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiHomeActivityMainBinding
 import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
+import com.yuvraj.visionai.service.autoUpdater.InAppUpdate
 import com.yuvraj.visionai.utils.Constants.EYE_TEST_REMINDER
 import com.yuvraj.visionai.utils.Constants.FIRST_USE_AFTER_LOGIN
 import com.yuvraj.visionai.utils.Constants.NOTIFICATION_PREFERENCES
@@ -30,6 +32,9 @@ class MainActivity : AppCompatActivity() {
     private var _binding: UiHomeActivityMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var navHostFragment: NavHostFragment
+
+    //In-App Update manager
+    private var inAppUpdate: InAppUpdate? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +72,10 @@ class MainActivity : AppCompatActivity() {
                     return@addOnCompleteListener
                 }
             }
+
+        //In-App Update Initializer
+        inAppUpdate = InAppUpdate(this@MainActivity)
+        inAppUpdate!!.checkForAppUpdate()
     }
 
     private fun clickableViews() {
@@ -164,8 +173,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Override methods for In-App Update
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        inAppUpdate!!.onActivityResult(requestCode, resultCode)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        inAppUpdate!!.onResume()
+    }
+
     override fun onDestroy() {
-        scheduleRegularNotification()
         super.onDestroy()
+        inAppUpdate!!.onDestroy()
+        scheduleRegularNotification()
     }
 }

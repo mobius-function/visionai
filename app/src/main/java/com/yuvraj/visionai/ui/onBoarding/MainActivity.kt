@@ -28,11 +28,12 @@ class MainActivity: AppCompatActivity() {
 
     fun initviews() {
         binding = UiOnboardingActivityMainBinding.inflate(layoutInflater,null,false)
-        navHostFragment = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment)
 
         //In-App Update Initializer
         inAppUpdate = InAppUpdate(this@MainActivity)
         inAppUpdate!!.checkForAppUpdate()
+
+        navHostFragment = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment)
     }
 
     // Override methods for In-App Update
