@@ -2,4 +2,26 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/aio_eye_test_navigation" />
+    android:id="@+id/aio_eye_test_navigation"
+    app:startDestination="@id/eyeTestingFragment2">
+    <fragment
+        android:id="@+id/eyeTestingFragment2"
+        android:name="com.yuvraj.visionai.ui.aioEyeTest.fragments.EyeTestingFragment"
+        android:label="EyeTestingFragment" >
+        <action
+            android:id="@+id/action_eyeTestingFragment2_to_hyperopiaTestingFragment2"
+            app:destination="@id/hyperopiaTestingFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/astigmatismTestingFragment2"
+        android:name="com.yuvraj.visionai.ui.home.fragments.AstigmatismTestingFragment"
+        android:label="AstigmatismTestingFragment" />
+    <fragment
+        android:id="@+id/hyperopiaTestingFragment2"
+        android:name="com.yuvraj.visionai.ui.aioEyeTest.fragments.HyperopiaTestingFragment"
+        android:label="HyperopiaTestingFragment" >
+        <action
+            android:id="@+id/action_hyperopiaTestingFragment2_to_astigmatismTestingFragment2"
+            app:destination="@id/astigmatismTestingFragment2" />
+    </fragment>
+</navigation>
