@@ -36,6 +36,7 @@
         android:text="Current Distance: XX"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="18sp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
