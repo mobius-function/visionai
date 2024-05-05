@@ -28,7 +28,7 @@ class CameraManager(
     private val lifecycleOwner: LifecycleOwner,
     private val graphicOverlay: GraphicOverlay,
     private val onSuccessCallback: ((FaceStatus) -> Unit),
-    private val onSuccessCallbackFace: ((Face) -> Unit)
+    private val onSuccessCallbackFace: ((Face, Float, Float) -> Unit)
     ) {
 
     private var preview: Preview? = null
