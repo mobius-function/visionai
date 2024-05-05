@@ -13,7 +13,7 @@ class FaceContourGraphic(
     private val face: Face,
     private val imageRect: Rect,
     private val onSuccessCallback: ((FaceStatus) -> Unit),
-    private val onSuccessCallbackFace: ((Face) -> Unit)
+    private val onSuccessCallbackFace: ((Face, Float, Float) -> Unit)
 ) : GraphicOverlay.Graphic(overlay) {
 
     private val facePositionPaint: Paint
@@ -62,17 +62,35 @@ class FaceContourGraphic(
         when {
             checkIsToFar(faceDimensions) -> {
                 onSuccessCallback(FaceStatus.TOO_FAR)
-                onSuccessCallbackFace(face)
+                val leftEyeOpenProbability = face.leftEyeOpenProbability
+                val rightEyeOpenProbability = face.rightEyeOpenProbability
+                if (leftEyeOpenProbability != null && rightEyeOpenProbability != null) {
+                    onSuccessCallbackFace(face, leftEyeOpenProbability, rightEyeOpenProbability)
+                } else {
+                    onSuccessCallbackFace(face, 1.0f, 1.0f)
+                }
                 canvas?.drawRect(rect,redBoxPaint)
             }
             checkIsNoCentered(faceDimensions) -> {
                 onSuccessCallback(FaceStatus.NOT_CENTERED)
-                onSuccessCallbackFace(face)
+                val leftEyeOpenProbability = face.leftEyeOpenProbability
+                val rightEyeOpenProbability = face.rightEyeOpenProbability
+                if (leftEyeOpenProbability != null && rightEyeOpenProbability != null) {
+                    onSuccessCallbackFace(face, leftEyeOpenProbability, rightEyeOpenProbability)
+                } else {
+                    onSuccessCallbackFace(face, 1.0f, 1.0f)
+                }
                 canvas?.drawRect(rect,yellowBoxPaint)
             }
             else -> {
                 onSuccessCallback(FaceStatus.VALID)
-                onSuccessCallbackFace(face)
+                val leftEyeOpenProbability = face.leftEyeOpenProbability
+                val rightEyeOpenProbability = face.rightEyeOpenProbability
+                if (leftEyeOpenProbability != null && rightEyeOpenProbability != null) {
+                    onSuccessCallbackFace(face, leftEyeOpenProbability, rightEyeOpenProbability)
+                } else {
+                    onSuccessCallbackFace(face, 1.0f, 1.0f)
+                }
                 canvas?.drawRect(rect,greenBoxPaint)
             }
         }

@@ -15,7 +15,7 @@ import java.io.IOException
 
 class FaceContourDetectionProcessor(private val view: GraphicOverlay,
                                     private val onSuccessCallback: ((FaceStatus) -> Unit),
-                                    private val onSuccessCallbackFace: ((Face) -> Unit)):
+                                    private val onSuccessCallbackFace: ((Face, Float, Float) -> Unit)):
     BaseImageAnalyzer<List<Face>>() {
 
     private val realTimeOpts = FaceDetectorOptions.Builder()
@@ -23,7 +23,13 @@ class FaceContourDetectionProcessor(private val view: GraphicOverlay,
         .setContourMode(FaceDetectorOptions.CONTOUR_MODE_NONE)
         .build()
 
-    private val detector = FaceDetection.getClient(realTimeOpts)
+    private var highAccuracyOpts = FaceDetectorOptions.Builder()
+        .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
+        .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
+        .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
+        .build()
+
+    private val detector = FaceDetection.getClient(highAccuracyOpts)
 
     override val graphicOverlay: GraphicOverlay
         get() = view
