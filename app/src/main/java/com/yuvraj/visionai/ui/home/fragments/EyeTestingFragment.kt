@@ -1,5 +1,6 @@
 package com.yuvraj.visionai.ui.home.fragments
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -7,20 +8,33 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
+import androidx.camera.core.CameraControl
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.Face
+import com.google.mlkit.vision.face.FaceDetection
+import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import com.yuvraj.visionai.model.FaceStatus
 import com.yuvraj.visionai.service.cameraX.CameraManager
+import com.yuvraj.visionai.utils.DebugTags
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateNegativePower
 import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructionDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import java.util.*
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 /**
  * A simple [Fragment] subclass.
@@ -51,14 +65,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private var lastCorrect: Float? = null
     private var lastIncorrect: Float? = null
     private var checkingRightEye: Boolean? = false
-
-    private val textToSpeechEngine: TextToSpeech by lazy {
-        TextToSpeech(requireActivity()) { status ->
-            if (status == TextToSpeech.SUCCESS) {
-                textToSpeechEngine.language = Locale.US
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -279,7 +285,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         Log.e(FACE_DETECTION,"This is it ${faceStatus.name}")
     }
 
-    private fun updateTVFaceWidth(face: Face) {
+    private fun updateTVFaceWidth(face: Face, lEOP : Float, rEOP : Float) {
         val faceWidth : Int = DistanceHelper.pixelsToDp(face.boundingBox.width()).toInt()
         var distance = 0.0
 
@@ -292,10 +298,32 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
 
         distanceCurrent = distance.toFloat()*100.0f
+        binding.tvCurrentDistance.text = "Current Distance: ${distanceCurrent} cm"
 
         if(distanceCurrent < distanceMinimum) {
             distanceMinimum = distanceCurrent
+            binding.tvMinimumDistance.text = "Minimum Distance: ${distanceMinimum} cm"
         }
+
+        if (rEOP in 0.4..0.7 ) {
+            binding.tvRightEye.text = "Partial Blink"
+        } else if (rEOP < 0.3) {
+            binding.tvRightEye.text = "Full Blink"
+        } else {
+            binding.tvRightEye.text = "Does not Blink"
+        }
+
+
+        if (lEOP in 0.4..0.7 ) {
+            binding.tvLeftEye.text = "Partial Blink"
+        } else if (lEOP < 0.3) {
+            binding.tvLeftEye.text = "Full Blink"
+        } else {
+            binding.tvLeftEye.text = "Does not Blink"
+        }
+
+        Log.e(FACE_DETECTION,"The left eye open probability is: $lEOP")
+        Log.e(FACE_DETECTION,"The right eye open probability is: $rEOP")
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
@@ -306,16 +334,4 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
     }
-
-
-    override fun onPause() {
-        textToSpeechEngine.stop()
-        super.onPause()
-    }
-
-    override fun onDestroy() {
-        textToSpeechEngine.shutdown()
-        super.onDestroy()
-    }
-
 }

@@ -99,7 +99,7 @@ class TestingFragment : Fragment(R.layout.fragment_home_testing) {
 //       when(faceStatus){}
     }
 
-    private fun updateTVFaceWidth(face: Face) {
+    private fun updateTVFaceWidth(face: Face, lEOP : Float, rEOP : Float) {
         val faceWidth : Int = DistanceHelper.pixelsToDp(face.boundingBox.width()).toInt()
         var distance = 0.0
 

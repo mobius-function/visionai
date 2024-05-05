@@ -23,10 +23,8 @@ import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiAioEyeTestActivityMainBinding
-import com.yuvraj.visionai.databinding.UiHomeActivityMainBinding
 import com.yuvraj.visionai.utils.DebugTags
 import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
-import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 

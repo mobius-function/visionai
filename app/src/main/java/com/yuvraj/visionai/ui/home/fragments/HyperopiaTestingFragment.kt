@@ -288,7 +288,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 //       when(faceStatus){}
     }
 
-    private fun updateTVFaceWidth(face: Face) {
+    private fun updateTVFaceWidth(face: Face, lEOP: Float, rEOP: Float) {
         val faceWidth : Int = DistanceHelper.pixelsToDp(face.boundingBox.width()).toInt()
         var distance = 0.0
 
@@ -301,9 +301,28 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
 
         distanceCurrent = distance.toFloat()*100.0f
+        binding.tvCurrentDistance.text = "Current Distance: ${distanceCurrent} cm"
 
         if(distanceCurrent > distanceMaximum) {
             distanceMaximum = distanceCurrent
+            binding.tvMinimumDistance.text = "Maximum Distance: ${distanceMaximum} cm"
+        }
+
+        if (rEOP in 0.4..0.7 ) {
+            binding.tvRightEye.text = "Partial Blink"
+        } else if (rEOP < 0.3) {
+            binding.tvRightEye.text = "Full Blink"
+        } else {
+            binding.tvRightEye.text = "Does not Blink"
+        }
+
+
+        if (lEOP in 0.4..0.7 ) {
+            binding.tvLeftEye.text = "Partial Blink"
+        } else if (lEOP < 0.3) {
+            binding.tvLeftEye.text = "Full Blink"
+        } else {
+            binding.tvLeftEye.text = "Does not Blink"
         }
     }
 
