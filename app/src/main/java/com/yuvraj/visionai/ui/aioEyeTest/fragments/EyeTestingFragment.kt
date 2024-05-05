@@ -279,7 +279,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         Log.e(FACE_DETECTION,"This is it ${faceStatus.name}")
     }
 
-    private fun updateTVFaceWidth(face: Face) {
+    private fun updateTVFaceWidth(face: Face, lEOP : Float, rEOP : Float) {
         val faceWidth : Int = DistanceHelper.pixelsToDp(face.boundingBox.width()).toInt()
         var distance = 0.0
 
