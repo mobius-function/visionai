@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
@@ -23,6 +24,7 @@ import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculatePositivePower
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
 import java.util.Locale
 
 /**
@@ -34,6 +36,8 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private var _binding: FragmentHomeEyeTestingBinding? = null
     private val binding get() = _binding!!
+
+    private val isAllInOneTest = requireActivity().getAllInOneEyeTestMode()
 
     private lateinit var cameraManager: CameraManager
 
@@ -47,7 +51,6 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private  var textSize: Float = 2.0f
     private  var relativeTextSize: Float = 1.0f
 
-
     private var reading : Int = 0
     private var score : Int = 0
 
@@ -55,13 +58,11 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private var lastIncorrect: Float? = null
     private var checkingRightEye: Boolean? = false
 
-    private val textToSpeechEngine: TextToSpeech by lazy {
-        TextToSpeech(requireActivity()) { status ->
-            if (status == TextToSpeech.SUCCESS) {
-                textToSpeechEngine.language = Locale.US
-            }
-        }
-    }
+    // for dry eye testing
+    private var leftEyePartialBlinkCounter: Int = 0
+    private var rightEyePartialBlinkCounter: Int = 0
+    private var leftEyeFullBlinkCounter: Int = 0
+    private var rightEyeFullBlinkCounter: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -226,11 +227,18 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 relativeTextSize = textSize * (baseDistance/distanceMaximum)
 
             } else {
+                //EVENT: End of the test
                 AlertDialogBox.showInstructionDialogBox(
                     requireActivity(),
                     "Positive Power",
                     "Your power of Right eye is $diapter"
                 )
+
+                if (isAllInOneTest) {
+                    findNavController().navigate(
+                        R.id.action_hyperopiaTestingFragment_to_astigmatismTestingFragment
+                    )
+                }
             }
         }
 
@@ -335,15 +343,9 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
     }
 
-
-    override fun onPause() {
-        textToSpeechEngine.stop()
-        super.onPause()
-    }
-
     override fun onDestroy() {
-        textToSpeechEngine.shutdown()
+        Log.e("OnDestroy", "onDestroy: HyperopiaTestingFragment")
         super.onDestroy()
+        _binding = null
     }
-
 }

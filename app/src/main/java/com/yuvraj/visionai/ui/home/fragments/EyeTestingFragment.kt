@@ -1,40 +1,28 @@
 package com.yuvraj.visionai.ui.home.fragments
 
-import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
-import androidx.camera.core.CameraControl
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageProxy
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.google.mlkit.vision.common.InputImage
+import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
-import com.google.mlkit.vision.face.FaceDetection
-import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import com.yuvraj.visionai.model.FaceStatus
 import com.yuvraj.visionai.service.cameraX.CameraManager
-import com.yuvraj.visionai.utils.DebugTags
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateNegativePower
 import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructionDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setAllInOneEyeTestMode
 import java.util.*
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 /**
  * A simple [Fragment] subclass.
@@ -45,6 +33,10 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private var _binding: FragmentHomeEyeTestingBinding? = null
     private val binding get() = _binding!!
+
+    private val fragmentStartTime : Long = System.currentTimeMillis()
+
+    private val isAllInOneTest = requireActivity().getAllInOneEyeTestMode()
 
     private lateinit var cameraManager: CameraManager
 
@@ -230,11 +222,21 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 relativeTextSize = textSize * (baseDistance/distanceMinimum)
 
             } else {
+                // EVENT: End of the test
+
+                val totalTimeSpent = (System.currentTimeMillis() - fragmentStartTime)/1000
+
                 showInstructionDialogBox(
                     requireActivity(),
                     "Negative Power",
                     "Your power of right eye is ${calculateNegativePower(deno)}"
                 )
+
+                if(isAllInOneTest) {
+                    findNavController().navigate(
+                        R.id.action_eyeTestingFragment_to_hyperopiaTestingFragment
+                    )
+                }
             }
         }
 
@@ -338,5 +340,11 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
+    }
+
+    override fun onDestroy() {
+        Log.e("OnDestroy", "onDestroy: EyeTestingFragment")
+        super.onDestroy()
+        _binding = null
     }
 }
