@@ -35,6 +35,12 @@ class FaceContourDetectionProcessor(private val view: GraphicOverlay,
         .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
         .build()
 
+    // private val detector = FaceDetection.getClient(highAccuracyOpts)
+    // private val detector = FaceDetection.getClient(realTimeOpts)
+    // private val detector = FaceDetection.getClient(currentFaceDetectionOpts)
+    // Use one of the above options to change the face detection mode
+    // currently using currentFaceDetectionOpts
+
     private val detector = FaceDetection.getClient(currentFaceDetectionOpts)
 
     override val graphicOverlay: GraphicOverlay
