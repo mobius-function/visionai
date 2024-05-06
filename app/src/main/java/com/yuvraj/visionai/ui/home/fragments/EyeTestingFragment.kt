@@ -58,13 +58,18 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private  var textSize: Float = 1.0f
     private  var relativeTextSize: Float = 1.0f
 
-
     private var reading : Int = 0
     private var score : Int = 0
 
     private var lastCorrect: Float? = null
     private var lastIncorrect: Float? = null
     private var checkingRightEye: Boolean? = false
+
+    // for dry eye testing
+    private var leftEyePartialBlinkCounter: Int = 0
+    private var rightEyePartialBlinkCounter: Int = 0
+    private var leftEyeFullBlinkCounter: Int = 0
+    private var rightEyeFullBlinkCounter: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

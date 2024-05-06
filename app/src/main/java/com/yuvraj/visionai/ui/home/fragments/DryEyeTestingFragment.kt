@@ -150,35 +150,8 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                     .addOnSuccessListener {
                             faces ->
                         faces.forEach { face ->
-//                            if (face.leftEyeOpenProbability!! in 0.4..0.7 ||
-//                            face.rightEyeOpenProbability!! in 0.4..0.7) {
-//
-//                                binding.eyes.text="PARTIAL BLINK"
-//                                partialBlinkCounter += 1
-//
-//                                binding.tvResult.text = "Partial Blink Counter: $partialBlinkCounter \n" +
-//                                        "Full Blink Counter: $fullBlinkCounter"
-//
-//                                if (partialBlinkCounter == 10) {
-//                                    Toast.makeText(
-//                                        requireActivity(),
-//                                        "You Have Dry Eye",
-//                                        Toast.LENGTH_SHORT).show()
-//                                }
-//
-//                            }else if(face.leftEyeOpenProbability!! > 0.7 ||
-//                                face.rightEyeOpenProbability!! > 0.7){
-//                                binding.eyes.text="FULL BLINK"
-//                                fullBlinkCounter += 1
-//
-//                                binding.tvResult.text = "Partial Blink Counter: $partialBlinkCounter \n" +
-//                                        "Full Blink Counter: $fullBlinkCounter"
-//                            } else {
-//                                binding.eyes.text="DOES NO BLINK"
-//                                Log.e(FACE_DETECTION, "does not blink")
-//                            }
 
-                            if(face.leftEyeOpenProbability!! in 0.4..0.7 ) {
+                            if(face.leftEyeOpenProbability!! in 0.35..0.65 ) {
                                 binding.apply {
                                     leftEyePartialBlinkCounter += 1
                                     tvLeftEye.text = "Partial Blink Counter: $leftEyePartialBlinkCounter \n" +
@@ -191,10 +164,10 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
                                             Toast.LENGTH_SHORT).show()
                                     }
                                 }
-                            } else if(face.rightEyeOpenProbability!! in 0.4..0.7 ) {
+                            } else if(face.rightEyeOpenProbability!! in 0.35..0.65 ) {
                                 binding.apply {
                                     rightEyePartialBlinkCounter += 1
-                                    tvLeftEye.text = "Partial Blink Counter: $rightEyePartialBlinkCounter \n" +
+                                    tvRightEye.text = "Partial Blink Counter: $rightEyePartialBlinkCounter \n" +
                                             "Full Blink Counter: $rightEyeFullBlinkCounter"
 
                                     if (rightEyePartialBlinkCounter == 10) {
