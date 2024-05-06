@@ -7,6 +7,8 @@ object Constants {
 
     const val FIRST_USE_AFTER_LOGIN = "FIRST_USE_AFTER_LOGIN"               // Boolean
 
+    const val ALL_IN_ONE_EYE_TEST = "ALL_IN_ONE_EYE_TEST"
+
     const val USER_NAME = "user_name"
     const val USER_EMAIL = "user_email"
     const val USER_PHONE = "user_phone"                                     // Long
@@ -29,4 +31,6 @@ object Constants {
 
     const val REGULAR_REMINDER = "REGULAR_REMINDER"                     // Boolean
     const val REGULAR_REMINDER_TIME = "REGULAR_REMINDER_TIME"           // Long
+
+
 }
