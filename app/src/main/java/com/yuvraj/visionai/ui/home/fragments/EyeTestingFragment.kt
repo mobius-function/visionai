@@ -23,6 +23,7 @@ import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setAllInOneEyeTestMode
 import java.util.*
+import kotlin.properties.Delegates
 
 /**
  * A simple [Fragment] subclass.
@@ -36,7 +37,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private val fragmentStartTime : Long = System.currentTimeMillis()
 
-    private val isAllInOneTest = requireActivity().getAllInOneEyeTestMode()
+    private var isAllInOneTest: Boolean = false
 
     private lateinit var cameraManager: CameraManager
 
@@ -77,6 +78,8 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private fun initViews(view: View) {
         _binding = FragmentHomeEyeTestingBinding.bind(view)
+
+        isAllInOneTest = requireActivity().getAllInOneEyeTestMode()
 
         val message: String = "Cover left eye with your left hand, ensure to avoid applying pressure to the eyelid. Read the letters on the screen beginning at the top. Once completed, repeat with the right eye."
         showInstructionDialogBox(
