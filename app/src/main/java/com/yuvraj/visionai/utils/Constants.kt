@@ -9,6 +9,13 @@ object Constants {
 
     const val ALL_IN_ONE_EYE_TEST = "ALL_IN_ONE_EYE_TEST"
 
+    // Test Results
+    const val ALL_IN_ONE_EYE_TEST_RESULTS = "ALL_IN_ONE_EYE_TEST_RESULTS"
+    const val MYOPIA_RESULTS = "MYOPIA_RESULTS"
+    const val HYPEROPIA_RESULTS = "HYPEROPIA_RESULTS"
+    const val ASTIGMATISM_RESULTS = "ASTIGMATISM_RESULTS"
+    const val DRY_EYE_RESULTS = "DRY_EYE_RESULTS"
+
     const val USER_NAME = "user_name"
     const val USER_EMAIL = "user_email"
     const val USER_PHONE = "user_phone"                                     // Long
