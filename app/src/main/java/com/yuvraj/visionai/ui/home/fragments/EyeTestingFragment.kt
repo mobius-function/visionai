@@ -61,8 +61,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     // for dry eye testing
     private var leftEyePartialBlinkCounter: Int = 0
     private var rightEyePartialBlinkCounter: Int = 0
-    private var leftEyeFullBlinkCounter: Int = 0
-    private var rightEyeFullBlinkCounter: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -316,20 +314,14 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
 
         if (rEOP in 0.4..0.7 ) {
-            binding.tvRightEye.text = "Partial Blink"
-        } else if (rEOP < 0.3) {
-            binding.tvRightEye.text = "Full Blink"
-        } else {
-            binding.tvRightEye.text = "Does not Blink"
+            rightEyePartialBlinkCounter += 1
+            binding.tvRightEye.text = "RE Partial Blink: $rightEyePartialBlinkCounter"
         }
 
 
         if (lEOP in 0.4..0.7 ) {
-            binding.tvLeftEye.text = "Partial Blink"
-        } else if (lEOP < 0.3) {
-            binding.tvLeftEye.text = "Full Blink"
-        } else {
-            binding.tvLeftEye.text = "Does not Blink"
+            leftEyePartialBlinkCounter += 1
+            binding.tvLeftEye.text = "LE Partial Blink: $leftEyePartialBlinkCounter"
         }
 
         Log.e(FACE_DETECTION,"The left eye open probability is: $lEOP")
