@@ -135,5 +135,9 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
+
+        // TODO: Add the following permissions
+        // Schedule exact alarm
+        // private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA, android.Manifest.permission.SCHEDULE_EXACT_ALARM)
     }
 }
