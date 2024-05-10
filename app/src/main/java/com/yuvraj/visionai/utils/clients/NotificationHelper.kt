@@ -70,6 +70,7 @@ object NotificationHelper {
 
         // Get the selected time and schedule the notification
         val time = getTime(alarmTimeInMinutes)
+
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             time.timeInMillis,
@@ -140,7 +141,7 @@ object NotificationHelper {
         notificationManager.createNotificationChannel(channel)
     }
 
-    fun checkNotificationPermissions(context: Context): Boolean {
+    fun areNotificationPermissionsGranted(context: Context): Boolean {
         // Check if notification permissions are granted
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager =
