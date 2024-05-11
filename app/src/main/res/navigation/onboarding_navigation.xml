@@ -45,5 +45,14 @@
         android:id="@+id/detailsFragment"
         android:name="com.yuvraj.visionai.ui.onBoarding.fragments.DetailsFragment"
         android:label="fragment_on_boarding_details"
-        tools:layout="@layout/fragment_on_boarding_details" />
+        tools:layout="@layout/fragment_on_boarding_details" >
+        <action
+            android:id="@+id/action_detailsFragment_to_checkPermissionsFragment"
+            app:destination="@id/checkPermissionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkPermissionsFragment"
+        android:name="com.yuvraj.visionai.ui.onBoarding.fragments.CheckPermissionsFragment"
+        android:label="fragment_onboarding_check_permissions"
+        tools:layout="@layout/fragment_onboarding_check_permissions" />
 </navigation>
