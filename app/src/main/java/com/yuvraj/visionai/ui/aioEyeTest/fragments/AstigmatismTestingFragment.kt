@@ -9,11 +9,7 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeAstigmatismTestingBinding
 import com.yuvraj.visionai.databinding.FragmentHomeProfileBinding
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
 
 /**
  * A simple [Fragment] subclass.
@@ -24,6 +20,7 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
     private var _binding: FragmentHomeAstigmatismTestingBinding? = null
     private val binding get() = _binding!!
 
+    private var isAllInOneTest: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +36,17 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
 
     private fun initViews(view: View) {
         _binding = FragmentHomeAstigmatismTestingBinding.bind(view)
+
+        isAllInOneTest = requireActivity().getAllInOneEyeTestMode()
+
+        // TODO: Implement the logic for the fragment
+        if (isAllInOneTest) {
+
+        }
+
+        else {
+
+        }
     }
 
     private fun clickableViews() {
