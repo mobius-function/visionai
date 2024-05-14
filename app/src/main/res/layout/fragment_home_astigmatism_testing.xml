@@ -11,9 +11,9 @@
         android:id="@+id/ivImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:translationZ="10dp"
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="1:1"
-
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="32dp"
         app:circularflow_radiusInDP="18dp"
@@ -25,6 +25,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/cvImage"
+        android:layout_width="120dp"
+        android:layout_height="240dp"
+        android:translationZ="0dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintStart_toStartOf="@+id/ivImage"
+        app:layout_constraintEnd_toEndOf="@id/ivImage"
+        app:layout_constraintTop_toTopOf="@+id/ivImage"
+        app:layout_constraintBottom_toBottomOf="@+id/ivImage">
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/previewViewFinder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:scaleType="fillCenter" />
+
+        <com.yuvraj.visionai.service.cameraX.GraphicOverlay
+            android:id="@+id/graphicOverlayFinder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvRightEye"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/red_button"
+        app:layout_constraintTop_toBottomOf="@id/ivImage"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginVertical="35dp"
+        android:text="Partial Blink Counter: 0" />
+
+    <TextView
+        android:id="@+id/tvLeftEye"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/red_button"
+        app:layout_constraintTop_toBottomOf="@id/ivImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginVertical="35dp"
+        android:text="Partial Blink Counter: 0" />
+
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvInstructions"
