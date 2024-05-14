@@ -25,6 +25,7 @@ import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculatePositivePower
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 import java.util.Locale
 
 /**
@@ -36,6 +37,8 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private var _binding: FragmentHomeEyeTestingBinding? = null
     private val binding get() = _binding!!
+
+    private val fragmentStartTime : Long = System.currentTimeMillis()
 
     private var isAllInOneTest: Boolean = false
 
@@ -228,16 +231,29 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
             } else {
                 //EVENT: End of the test
+                val totalTimeSpent : Long = (System.currentTimeMillis() - fragmentStartTime)/1000
+
                 AlertDialogBox.showInstructionDialogBox(
                     requireActivity(),
                     "Positive Power",
                     "Your power of Right eye is $diapter"
                 )
 
-                if (isAllInOneTest) {
+                if(isAllInOneTest) {
+
+                    requireActivity().updateAllInOneEyeTestModeAfterTest(
+                        totalTimeSpent,
+                        leftEyePartialBlinkCounter,
+                        rightEyePartialBlinkCounter
+                    )
+
                     findNavController().navigate(
                         R.id.action_hyperopiaTestingFragment_to_astigmatismTestingFragment
                     )
+                } else {
+                    // TODO : Suggest if the user needs to do another test
+
+                    // TODO : Show the test results
                 }
             }
         }

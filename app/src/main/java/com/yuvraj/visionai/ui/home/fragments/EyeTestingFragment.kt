@@ -6,6 +6,7 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -15,6 +16,12 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import com.yuvraj.visionai.model.FaceStatus
 import com.yuvraj.visionai.service.cameraX.CameraManager
+import com.yuvraj.visionai.utils.Constants
+import com.yuvraj.visionai.utils.Constants.EYE_TEST_RESULTS
+import com.yuvraj.visionai.utils.Constants.LEFT_EYE_PARTIAL_BLINK_COUNTER
+import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_CAMERA
+import com.yuvraj.visionai.utils.Constants.RIGHT_EYE_PARTIAL_BLINK_COUNTER
+import com.yuvraj.visionai.utils.Constants.TOTAL_TIME_SPENT_TESTING
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateNegativePower
@@ -22,6 +29,7 @@ import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructio
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setAllInOneEyeTestMode
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -70,6 +78,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initViews(view)
+        createCameraManager()
         checkForPermission()
         clickableViews()
     }
@@ -97,8 +106,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         displayRandomText(textSize)
 
         baseDistance = 350.0f
-
-        createCameraManager()
 
         distanceMinimum = 1000.0f
         relativeTextSize = textSize * (baseDistance/distanceMinimum)
@@ -224,8 +231,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
             } else {
                 // EVENT: End of the test
-
-                val totalTimeSpent = (System.currentTimeMillis() - fragmentStartTime)/1000
+                val totalTimeSpent : Long = (System.currentTimeMillis() - fragmentStartTime)/1000
 
                 showInstructionDialogBox(
                     requireActivity(),
@@ -234,9 +240,20 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 )
 
                 if(isAllInOneTest) {
+
+                    requireActivity().updateAllInOneEyeTestModeAfterTest(
+                        totalTimeSpent,
+                        leftEyePartialBlinkCounter,
+                        rightEyePartialBlinkCounter
+                    )
+
                     findNavController().navigate(
                         R.id.action_eyeTestingFragment_to_hyperopiaTestingFragment
                     )
+                } else {
+                    // TODO : Suggest if the user needs to do another test
+
+                    // TODO : Show the test results
                 }
             }
         }
@@ -250,7 +267,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                REQUIRED_PERMISSIONS,
+                REQUIRED_PERMISSIONS_FOR_CAMERA,
                 REQUEST_CODE_PERMISSIONS
             )
         }
@@ -328,13 +345,12 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         Log.e(FACE_DETECTION,"The right eye open probability is: $rEOP")
     }
 
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS_FOR_CAMERA.all {
         ContextCompat.checkSelfPermission(requireActivity().baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
     }
 
     override fun onDestroy() {
