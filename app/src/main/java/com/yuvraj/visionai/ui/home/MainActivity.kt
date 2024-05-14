@@ -29,6 +29,7 @@ import com.yuvraj.visionai.utils.DebugTags.FIREBASE_PUSH_NOTIFICATION
 import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
 import com.yuvraj.visionai.utils.clients.NotificationHelper.createNotificationChannel
 import com.yuvraj.visionai.utils.clients.NotificationHelper.scheduleNotification
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.initiateAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setAllInOneEyeTestMode
 
 class MainActivity : AppCompatActivity() {
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             btnEyeTest.setOnClickListener {
-                setAllInOneEyeTestMode(true)
+                initiateAllInOneEyeTestMode()
                 navHostFragment.findNavController().navigate(R.id.eyeTestingFragment)
             }
         }
