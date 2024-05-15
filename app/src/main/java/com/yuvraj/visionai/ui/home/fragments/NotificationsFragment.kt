@@ -1,11 +1,11 @@
 package com.yuvraj.visionai.ui.home.fragments
 
 import android.annotation.SuppressLint
-import android.app.TimePickerDialog
 import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.toColorInt
 import com.yuvraj.visionai.R
@@ -14,6 +14,7 @@ import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.Constants.REGULAR_REMINDER
 import com.yuvraj.visionai.utils.Constants.EYE_TEST_REMINDER
 import com.yuvraj.visionai.utils.Constants.REGULAR_REMINDER_TIME
+import com.yuvraj.visionai.utils.clients.NotificationHelper.setRegularReminderTime
 
 class NotificationsFragment : Fragment(R.layout.fragment_home_notifications) {
 
@@ -47,38 +48,24 @@ class NotificationsFragment : Fragment(R.layout.fragment_home_notifications) {
             btnTimeInHoursPlus.setOnClickListener {
                 if (tvTimeInHours.text.toString().toInt() >= 2) {
                     tvTimeInHours.text = (tvTimeInHours.text.toString().toInt() + 1).toString()
-
-                    val sharedPreferences = requireActivity().getSharedPreferences(
-                        Constants.NOTIFICATION_PREFERENCES,
-                        AppCompatActivity.MODE_PRIVATE
-                    )
-
-                    val sharedPreferencesEditor = sharedPreferences.edit()
-
-                    sharedPreferencesEditor.putInt(
-                        REGULAR_REMINDER_TIME,
-                        binding.tvTimeInHours.text.toString().toInt()
-                    )
-                    sharedPreferencesEditor.apply()
+                    requireActivity().setRegularReminderTime(tvTimeInHours.text.toString().toInt())
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Time should be greater than 2 hours",
+                        Toast.LENGTH_SHORT).show()
                 }
             }
 
             btnTimeInHoursMinus.setOnClickListener {
                 if (tvTimeInHours.text.toString().toInt() <= 24) {
                     tvTimeInHours.text = (tvTimeInHours.text.toString().toInt() - 1).toString()
-
-                    val sharedPreferences = requireActivity().getSharedPreferences(
-                        Constants.NOTIFICATION_PREFERENCES,
-                        AppCompatActivity.MODE_PRIVATE
-                    )
-
-                    val sharedPreferencesEditor = sharedPreferences.edit()
-
-                    sharedPreferencesEditor.putInt(
-                        REGULAR_REMINDER_TIME,
-                        binding.tvTimeInHours.text.toString().toInt()
-                    )
-                    sharedPreferencesEditor.apply()
+                    requireActivity().setRegularReminderTime(tvTimeInHours.text.toString().toInt())
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Time should be less than 24 hours",
+                        Toast.LENGTH_SHORT).show()
                 }
             }
 

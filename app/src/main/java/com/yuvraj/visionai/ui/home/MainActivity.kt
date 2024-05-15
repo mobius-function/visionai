@@ -28,7 +28,10 @@ import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.DebugTags.FIREBASE_PUSH_NOTIFICATION
 import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
 import com.yuvraj.visionai.utils.clients.NotificationHelper.createNotificationChannel
+import com.yuvraj.visionai.utils.clients.NotificationHelper.getRegularReminderTime
+import com.yuvraj.visionai.utils.clients.NotificationHelper.isRegularReminderEnabled
 import com.yuvraj.visionai.utils.clients.NotificationHelper.scheduleNotification
+import com.yuvraj.visionai.utils.clients.NotificationHelper.scheduleRegularNotification
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.initiateAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setAllInOneEyeTestMode
 
@@ -159,26 +162,6 @@ class MainActivity : AppCompatActivity() {
                 ivToolbarProfilePicture.visibility = View.GONE
                 tvToolbarShortName.text = "GU"
             }
-        }
-    }
-
-    fun scheduleRegularNotification(){
-        val sharedPreferences = this.getSharedPreferences(NOTIFICATION_PREFERENCES, MODE_PRIVATE)
-
-        val isRegularReminderEnabled = sharedPreferences.getBoolean(REGULAR_REMINDER, false)
-        val regularReminderTime = sharedPreferences.getInt(REGULAR_REMINDER_TIME, 2)
-
-        // DEBUG: Firebase Push Notification Token
-        // setAlarm(1, this)
-        if(isRegularReminderEnabled) {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                createNotificationChannel()
-            } else {
-                Log.d("TAG", "initViews: Notification channel is not created")
-                Log.d("TAG", "Build version is ${Build.VERSION.SDK_INT} and Name is ${Build.VERSION.CODENAME}")
-            }
-            scheduleNotification(regularReminderTime * 60)
-            Log.d("TAG", "Notification scheduled after $regularReminderTime hours.")
         }
     }
 
