@@ -26,6 +26,10 @@ object Constants {
     const val DRY_EYE_RESULTS = "DRY_EYE_RESULTS"
 
 
+    // Test Configs
+    val DRY_EYE_RANGE = 0.4..0.7
+
+
     // User Details
     const val USER_DETAILS = "USER_DETAILS"
 
@@ -55,9 +59,10 @@ object Constants {
 
     const val EYE_TEST_REMINDER = "EYE_TEST_REMINDER"                    // Boolean
     const val EYE_TEST_REMINDER_TIME = "EYE_TEST_REMINDER_TIME"         // Long
+    const val DEFAULT_EYE_TEST_REMINDER_TIME = 10                        // Int
 
     const val REGULAR_REMINDER = "REGULAR_REMINDER"                     // Boolean
     const val REGULAR_REMINDER_TIME = "REGULAR_REMINDER_TIME"           // Long
-
+    const val DEFAULT_REGULAR_REMINDER_TIME = 2                         // Int
 
 }
