@@ -53,6 +53,7 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
 
         val adapter = EyeTestsList(tests, this::onListItemClick)
         binding.testsRecyclerView.adapter = adapter
+
         binding.testsRecyclerView.addItemDecoration(
             DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL)
         )
