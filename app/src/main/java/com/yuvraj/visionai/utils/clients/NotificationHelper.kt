@@ -14,34 +14,60 @@ import android.content.Context.NOTIFICATION_SERVICE
 import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
 import com.yuvraj.visionai.service.alarmReceiver.Notification
 import com.yuvraj.visionai.service.alarmReceiver.channelID
 import com.yuvraj.visionai.service.alarmReceiver.messageExtra
 import com.yuvraj.visionai.service.alarmReceiver.notificationID
 import com.yuvraj.visionai.service.alarmReceiver.titleExtra
+import com.yuvraj.visionai.utils.Constants
+import com.yuvraj.visionai.utils.Constants.DEFAULT_REGULAR_REMINDER_TIME
 
 object NotificationHelper {
-//    fun setAlarm(alarmTime: Int, context: Context) {
-//        // Create a Calendar instance for the alarm time
-//        val calendar = Calendar.getInstance().apply {
-////                val time = alarmTime.split(":").map { it.toInt() }
-//            val currentHour = get(Calendar.HOUR_OF_DAY)
-//            val currentMinute = get(Calendar.MINUTE)
-//            set(Calendar.HOUR_OF_DAY, currentHour)
-//            set(Calendar.MINUTE, currentMinute + alarmTime)
-//            set(Calendar.SECOND, 0)
-//        }
-//
-//        // Create a PendingIntent to start the AlarmReceiver when the alarm triggers
-//        val intent = Intent(context, AlarmReceiver::class.java)
-//        intent.putExtra("alarmTime", alarmTime.toString())
-//        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-//
-//        // Schedule the alarm
-//        AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent)
-//        Log.d("TAG", "NotificationHelper is set for ${calendar.time} with alarm time $alarmTime minutes and ${calendar.timeInMillis / 1000} seconds")
-//    }
+    fun Activity.isRegularReminderEnabled() : Boolean {
+        val sharedPreferences = this.getSharedPreferences(
+            Constants.NOTIFICATION_PREFERENCES,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        return sharedPreferences.getBoolean(Constants.REGULAR_REMINDER, false)
+    }
+
+    fun Activity.getRegularReminderTime() : Int {
+        val sharedPreferences = this.getSharedPreferences(
+            Constants.NOTIFICATION_PREFERENCES,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        return sharedPreferences.getInt(Constants.REGULAR_REMINDER_TIME,
+            DEFAULT_REGULAR_REMINDER_TIME)
+    }
+
+    fun Activity.setRegularReminderTime(time: Int) {
+        val sharedPreferences = this.getSharedPreferences(
+            Constants.NOTIFICATION_PREFERENCES,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        val sharedPreferencesEditor = sharedPreferences.edit()
+        sharedPreferencesEditor.putInt(Constants.REGULAR_REMINDER_TIME, time)
+        sharedPreferencesEditor.apply()
+    }
+
+
+    fun Activity.scheduleRegularNotification(){
+        if(isRegularReminderEnabled()) {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                createNotificationChannel()
+            } else {
+                Log.d("TAG", "initViews: Notification channel is not created")
+                Log.d("TAG", "Build version is ${Build.VERSION.SDK_INT} and Name is ${Build.VERSION.CODENAME}")
+            }
+            scheduleNotification(getRegularReminderTime() * 60)
+            Log.d("TAG", "Notification scheduled after ${getRegularReminderTime()} hours.")
+        }
+    }
 
 
     @SuppressLint("ScheduleExactAlarm")
