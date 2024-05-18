@@ -15,10 +15,12 @@ import com.yuvraj.visionai.databinding.FragmentHomeProfileBinding
 import com.yuvraj.visionai.model.FaceStatus
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_CAMERA
+import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_NOTIFICATIONS_AND_ALARM
 import com.yuvraj.visionai.utils.DebugTags
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 
 /**
  * A simple [Fragment] subclass.
@@ -86,8 +88,30 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
         }
     }
 
+    private fun endFunction() {
+        val totalTimeSpent : Long = (System.currentTimeMillis() - fragmentStartTime)/1000
+
+        if (isAllInOneTest) {
+            requireActivity().updateAllInOneEyeTestModeAfterTest(
+                totalTimeSpent,
+                leftEyePartialBlinkCounter,
+                rightEyePartialBlinkCounter
+            )
+
+            // TODO : navigate to other test
+
+        }
+
+        else {
+            // TODO : Suggest if the user needs to do another test
+
+            // TODO : Show the test results
+
+        }
+    }
+
     private fun createCameraManager() {
-        if(allPermissionsGranted()) {
+        if(cameraPermissionGranted()) {
             cameraManager = CameraManager(
                 requireActivity(),
                 binding.previewViewFinder,
@@ -122,7 +146,7 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
         Log.e(DebugTags.FACE_DETECTION,"The right eye open probability is: $rEOP")
     }
 
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS_FOR_CAMERA.all {
+    private fun cameraPermissionGranted() = REQUIRED_PERMISSIONS_FOR_CAMERA.all {
         ContextCompat.checkSelfPermission(requireActivity().baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
