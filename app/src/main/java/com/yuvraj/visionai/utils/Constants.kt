@@ -4,12 +4,19 @@ object Constants {
     // App's required permissions
     val REQUIRED_PERMISSIONS = arrayOf(
         android.Manifest.permission.CAMERA,
-        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        android.Manifest.permission.READ_EXTERNAL_STORAGE
+        android.Manifest.permission.SCHEDULE_EXACT_ALARM,
+        android.Manifest.permission.POST_NOTIFICATIONS,
+        android.Manifest.permission.SET_ALARM
     )
 
     val REQUIRED_PERMISSIONS_FOR_CAMERA = arrayOf(
         android.Manifest.permission.CAMERA
+    )
+
+    val REQUIRED_PERMISSIONS_FOR_NOTIFICATIONS_AND_ALARM = arrayOf(
+        android.Manifest.permission.POST_NOTIFICATIONS,
+        android.Manifest.permission.SET_ALARM,
+        android.Manifest.permission.SCHEDULE_EXACT_ALARM
     )
 
 
