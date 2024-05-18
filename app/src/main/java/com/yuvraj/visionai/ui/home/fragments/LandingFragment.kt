@@ -24,6 +24,7 @@ import com.yuvraj.visionai.utils.Constants.HYPEROPIA
 import com.yuvraj.visionai.utils.Constants.LOGOUT
 import com.yuvraj.visionai.utils.Constants.ML_MODEL
 import com.yuvraj.visionai.utils.Constants.MYOPIA
+import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS
 
 /**
  * A simple [Fragment] subclass.
@@ -135,7 +136,7 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
 
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
+//        private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
 
         // TODO: Add the following permissions
         // Schedule exact alarm
