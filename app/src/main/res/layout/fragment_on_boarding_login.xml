@@ -33,7 +33,7 @@
 
 
     <ImageView
-        android:id="@+id/back"
+        android:id="@+id/btnBack"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
@@ -56,9 +56,9 @@
         android:textColor="@color/white"
         android:textSize="22sp"
         android:layout_marginStart="22dp"
-        app:layout_constraintStart_toEndOf="@+id/back"
-        app:layout_constraintTop_toTopOf="@+id/back"
-        app:layout_constraintBottom_toBottomOf="@+id/back"/>
+        app:layout_constraintStart_toEndOf="@+id/btnBack"
+        app:layout_constraintTop_toTopOf="@+id/btnBack"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBack"/>
 
     <TextView
         android:id="@+id/tvEmail"

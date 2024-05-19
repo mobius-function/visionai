@@ -24,7 +24,7 @@
         app:layout_constraintGuide_end="16dp" />
 
     <ImageView
-        android:id="@+id/back"
+        android:id="@+id/btnBack"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
@@ -47,10 +47,9 @@
         android:textColor="@color/white"
         android:textSize="24sp"
         android:layout_marginStart="22dp"
-        app:layout_constraintStart_toEndOf="@+id/leftGuideline"
-        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
-        app:layout_constraintTop_toTopOf="@+id/back"
-        app:layout_constraintBottom_toBottomOf="@+id/back"/>
+        app:layout_constraintStart_toEndOf="@+id/btnBack"
+        app:layout_constraintTop_toTopOf="@+id/btnBack"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBack"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
