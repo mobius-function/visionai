@@ -74,4 +74,9 @@
         android:name="com.yuvraj.visionai.ui.home.fragments.NotificationsFragment"
         android:label="fragment_home_notifications_fragment"
         tools:layout="@layout/fragment_home_notifications" />
+    <fragment
+        android:id="@+id/generatedResultFragment"
+        android:name="com.yuvraj.visionai.ui.home.fragments.GeneratedResultFragment"
+        android:label="fragment_on_boarding_generated_result"
+        tools:layout="@layout/fragment_home_generated_result" />
 </navigation>
