@@ -63,6 +63,10 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
 
                 requireActivity().finish()
             }
+
+            btnBack.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
         }
     }
 

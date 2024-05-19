@@ -36,7 +36,11 @@ class CheckPermissionsFragment : Fragment(R.layout.fragment_on_boarding_check_pe
     }
 
     private fun clickableViews() {
-
+        binding.apply {
+            btnBack.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(

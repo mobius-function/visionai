@@ -72,7 +72,7 @@ class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
                 findNavController().navigate(R.id.action_loginFragment_to_detailsFragment)
             }
 
-            back.setOnClickListener {
+            btnBack.setOnClickListener {
                 requireActivity().onBackPressed()
             }
         }

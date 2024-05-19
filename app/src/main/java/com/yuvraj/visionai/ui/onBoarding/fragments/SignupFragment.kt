@@ -112,7 +112,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
                 findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
             }
 
-            back.setOnClickListener {
+            btnBack.setOnClickListener {
                 requireActivity().onBackPressed()
             }
         }
