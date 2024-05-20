@@ -1,14 +1,18 @@
 package com.yuvraj.visionai.ui.onBoarding.fragments
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingCheckPermissionsBinding
+import com.yuvraj.visionai.ui.home.MainActivity
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS
+import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_CAMERA
 
 /**
  * A simple [Fragment] subclass.
@@ -18,6 +22,8 @@ import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS
 class CheckPermissionsFragment : Fragment(R.layout.fragment_on_boarding_check_permissions) {
     private var _binding: FragmentOnBoardingCheckPermissionsBinding? = null
     private val binding get() = _binding!!
+
+    var requiredPermission = REQUIRED_PERMISSIONS_FOR_CAMERA
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +39,10 @@ class CheckPermissionsFragment : Fragment(R.layout.fragment_on_boarding_check_pe
 
     private fun initViews(view: View) {
         _binding = FragmentOnBoardingCheckPermissionsBinding.bind(view)
+
+        binding.tvDescription.text = "This app requires camera permission to work. Please grant the permission to continue. \n\n" +
+                "- Camera permission is required to capture images of the eye for testing and calculating user's distance from the phone.\n" +
+                "Click on the button below to grant the permission."
     }
 
     private fun clickableViews() {
@@ -40,6 +50,22 @@ class CheckPermissionsFragment : Fragment(R.layout.fragment_on_boarding_check_pe
             btnBack.setOnClickListener {
                 requireActivity().onBackPressed()
             }
+
+            btnGrantPermission.setOnClickListener {
+                checkForPermission(requiredPermission)
+            }
+        }
+    }
+
+    private fun checkForPermission(permissions: Array<String>) {
+        if (allPermissionsGranted()) {
+            // continue
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                permissions,
+                REQUEST_CODE_PERMISSIONS
+            )
         }
     }
 
@@ -50,7 +76,12 @@ class CheckPermissionsFragment : Fragment(R.layout.fragment_on_boarding_check_pe
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
-                // continue
+                Toast.makeText(requireActivity(),
+                    "Permissions granted by the user.",
+                    Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                startActivity(intent)
             } else {
                 Toast.makeText(requireActivity(),
                     "Permissions not granted by the user.",
