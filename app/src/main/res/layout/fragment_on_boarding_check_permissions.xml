@@ -51,12 +51,14 @@
         app:layout_constraintTop_toTopOf="@+id/btnBack"
         app:layout_constraintBottom_toBottomOf="@+id/btnBack"/>
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/ivGrantPermission"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:src="@drawable/ic_grant_permission"
         android:layout_marginTop="55dp"
+        app:lottie_rawRes="@raw/anim_camera_permission"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         app:layout_constraintTop_toBottomOf="@id/tvHeading"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"/>
