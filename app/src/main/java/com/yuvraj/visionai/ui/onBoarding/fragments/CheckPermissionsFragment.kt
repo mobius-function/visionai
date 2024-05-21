@@ -1,30 +1,22 @@
 package com.yuvraj.visionai.ui.onBoarding.fragments
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingCheckPermissionsBinding
 import com.yuvraj.visionai.ui.home.MainActivity
-import com.yuvraj.visionai.utils.Constants
-import com.yuvraj.visionai.utils.Constants.REQUEST_CODE_PERMISSION_FOR_CAMERA
-import com.yuvraj.visionai.utils.Constants.REQUEST_CODE_PERMISSION_FOR_NOTIFICATIONS
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_CAMERA
-import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_NOTIFICATIONS_AND_ALARM
 import com.yuvraj.visionai.utils.helpers.Permissions.allPermissionsGranted
 
 
 class CheckPermissionsFragment : Fragment(R.layout.fragment_on_boarding_check_permissions) {
     private var _binding: FragmentOnBoardingCheckPermissionsBinding? = null
     private val binding get() = _binding!!
-
-    var currentPermission = REQUIRED_PERMISSIONS_FOR_CAMERA
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +50,7 @@ class CheckPermissionsFragment : Fragment(R.layout.fragment_on_boarding_check_pe
         }
     }
 
-    val requestMultiplePermissions = registerForActivityResult(
+    private val requestMultiplePermissions = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         permissions.entries.forEach {
