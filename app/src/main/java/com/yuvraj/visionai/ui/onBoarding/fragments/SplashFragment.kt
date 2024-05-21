@@ -18,6 +18,7 @@ import com.yuvraj.visionai.ui.home.MainActivity
 import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.Constants.USER_ONBOARDING_COMPLETED
+import com.yuvraj.visionai.utils.helpers.Permissions.allPermissionsGranted
 import javax.inject.Inject
 
 /**
@@ -60,13 +61,17 @@ class SplashFragment : Fragment(R.layout.fragment_on_boarding_splash) {
             if(!isOnBoardingCompleted){
                 findNavController().navigate(R.id.action_splashFragment_to_detailsFragment)
             } else {
-                val intent = Intent(requireActivity(), MainActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
+                if(requireActivity().allPermissionsGranted()) {
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
+                } else {
+                    findNavController().navigate(R.id.action_splashFragment_to_checkPermissionsFragment)
+                }
             }
         } else{
-            val action = SplashFragmentDirections.actionSplashFragmentToSignupFragment()
-            findNavController().navigate(action)
+            // No User found. Navigate to Signup Fragment for user registration
+            findNavController().navigate(R.id.action_splashFragment_to_signupFragment)
         }
     }
 }
