@@ -6,7 +6,6 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -16,22 +15,15 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import com.yuvraj.visionai.model.FaceStatus
 import com.yuvraj.visionai.service.cameraX.CameraManager
-import com.yuvraj.visionai.utils.Constants
-import com.yuvraj.visionai.utils.Constants.EYE_TEST_RESULTS
-import com.yuvraj.visionai.utils.Constants.LEFT_EYE_PARTIAL_BLINK_COUNTER
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_CAMERA
-import com.yuvraj.visionai.utils.Constants.RIGHT_EYE_PARTIAL_BLINK_COUNTER
-import com.yuvraj.visionai.utils.Constants.TOTAL_TIME_SPENT_TESTING
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateNegativePower
 import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructionDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
-import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 import java.util.*
-import kotlin.properties.Delegates
 
 /**
  * A simple [Fragment] subclass.

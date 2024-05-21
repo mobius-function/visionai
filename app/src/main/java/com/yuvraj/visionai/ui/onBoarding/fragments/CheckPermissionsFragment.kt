@@ -3,27 +3,28 @@ package com.yuvraj.visionai.ui.onBoarding.fragments
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.activity.result.contract.ActivityResultContracts
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingCheckPermissionsBinding
 import com.yuvraj.visionai.ui.home.MainActivity
+import com.yuvraj.visionai.utils.Constants
+import com.yuvraj.visionai.utils.Constants.REQUEST_CODE_PERMISSION_FOR_CAMERA
+import com.yuvraj.visionai.utils.Constants.REQUEST_CODE_PERMISSION_FOR_NOTIFICATIONS
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_CAMERA
+import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_NOTIFICATIONS_AND_ALARM
+import com.yuvraj.visionai.utils.helpers.Permissions.allPermissionsGranted
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CheckPermissionsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class CheckPermissionsFragment : Fragment(R.layout.fragment_on_boarding_check_permissions) {
     private var _binding: FragmentOnBoardingCheckPermissionsBinding? = null
     private val binding get() = _binding!!
 
-    var requiredPermission = REQUIRED_PERMISSIONS_FOR_CAMERA
+    var currentPermission = REQUIRED_PERMISSIONS_FOR_CAMERA
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,51 +53,28 @@ class CheckPermissionsFragment : Fragment(R.layout.fragment_on_boarding_check_pe
             }
 
             btnGrantPermission.setOnClickListener {
-                checkForPermission(requiredPermission)
+                startPermissionsRequest(REQUIRED_PERMISSIONS)
             }
         }
     }
 
-    private fun checkForPermission(permissions: Array<String>) {
-        if (allPermissionsGranted()) {
-            // continue
+    val requestMultiplePermissions = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        permissions.entries.forEach {
+            Log.d("DEBUG", "${it.key} = ${it.value}")
+        }
+
+        if (requireActivity().allPermissionsGranted()) {
+            // Navigate to MainActivity
+            val intent = Intent(requireActivity(), MainActivity::class.java)
+            startActivity(intent)
         } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                permissions,
-                REQUEST_CODE_PERMISSIONS
-            )
+            // continue asking for permissions
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>, grantResults:
-        IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (allPermissionsGranted()) {
-                Toast.makeText(requireActivity(),
-                    "Permissions granted by the user.",
-                    Toast.LENGTH_SHORT).show()
-
-                val intent = Intent(requireActivity(), MainActivity::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(requireActivity(),
-                    "Permissions not granted by the user.",
-                    Toast.LENGTH_SHORT).show()
-
-                requireActivity().finish()
-            }
-        }
-    }
-
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(requireActivity().baseContext, it) == PackageManager.PERMISSION_GRANTED
-    }
-
-    companion object {
-        private const val REQUEST_CODE_PERMISSIONS = 10
+    private fun startPermissionsRequest(permissions: Array<String>) {
+        requestMultiplePermissions.launch(permissions)
     }
 }

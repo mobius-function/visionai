@@ -14,6 +14,7 @@ import com.yuvraj.visionai.utils.Constants.USER_AGE
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.Constants.USER_ONBOARDING_COMPLETED
 import com.yuvraj.visionai.utils.Constants.USER_PHONE
+import com.yuvraj.visionai.utils.helpers.Permissions.allPermissionsGranted
 
 
 /**
@@ -59,12 +60,13 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
                 myEdit.putBoolean(USER_ONBOARDING_COMPLETED, true)
                 myEdit.apply()
 
-//                val intent = Intent(requireActivity(), MainActivity::class.java)
-//                startActivity(intent)
-
-                findNavController().navigate(R.id.action_detailsFragment_to_checkPermissionsFragment)
-
-                requireActivity().finish()
+                if(requireActivity().allPermissionsGranted()){
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
+                } else {
+                    findNavController().navigate(R.id.action_detailsFragment_to_checkPermissionsFragment)
+                }
             }
 
             btnBack.setOnClickListener {
