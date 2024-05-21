@@ -1,24 +1,29 @@
 package com.yuvraj.visionai.utils
 
+import android.Manifest
+import android.os.Build
+import androidx.annotation.RequiresApi
+
 object Constants {
     // App's required permissions
-    val REQUIRED_PERMISSIONS = arrayOf(
-        android.Manifest.permission.CAMERA,
-        android.Manifest.permission.SCHEDULE_EXACT_ALARM,
-        android.Manifest.permission.POST_NOTIFICATIONS,
-        android.Manifest.permission.SET_ALARM
-    )
+    const val REQUEST_CODE_PERMISSION_FOR_CAMERA = 100
+    const val REQUEST_CODE_PERMISSION_FOR_NOTIFICATIONS = 101
+
+    val REQUIRED_PERMISSIONS = mutableListOf (
+            Manifest.permission.CAMERA,
+        ).apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                add(Manifest.permission.SCHEDULE_EXACT_ALARM)
+            }
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+                add(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }.toTypedArray()
 
     val REQUIRED_PERMISSIONS_FOR_CAMERA = arrayOf(
         android.Manifest.permission.CAMERA
     )
-
-    val REQUIRED_PERMISSIONS_FOR_NOTIFICATIONS_AND_ALARM = arrayOf(
-        android.Manifest.permission.POST_NOTIFICATIONS,
-        android.Manifest.permission.SET_ALARM,
-        android.Manifest.permission.SCHEDULE_EXACT_ALARM
-    )
-
 
     // Test Results
     const val EYE_TEST_RESULTS = "EYE_TEST_RESULTS"
