@@ -15,7 +15,6 @@ import com.yuvraj.visionai.databinding.FragmentHomeProfileBinding
 import com.yuvraj.visionai.model.FaceStatus
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_CAMERA
-import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_NOTIFICATIONS_AND_ALARM
 import com.yuvraj.visionai.utils.DebugTags
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
