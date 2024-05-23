@@ -2,22 +2,14 @@ package com.yuvraj.visionai.ui.onBoarding.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingLoginBinding
-import com.yuvraj.visionai.utils.helpers.Validations
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
 
     private var _binding: FragmentOnBoardingLoginBinding? = null
