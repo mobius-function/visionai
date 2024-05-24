@@ -24,7 +24,7 @@
 
 
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/chatBotFragment"
         android:icon="@drawable/ic_profile"
         android:title="Chat" />
 </menu>
