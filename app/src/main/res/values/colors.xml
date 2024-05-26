@@ -7,6 +7,8 @@
 
     <color name="transparent">#00000000</color>
 
+    <color name="edit_text_hint">#A6A6A6</color>
+
     <color name="navy_500">#64869B</color>
     <color name="navy_700">#37596D</color>
     <color name="navy_900">#073042</color>
