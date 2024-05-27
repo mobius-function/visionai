@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import com.google.mlkit.vision.face.Face
-import com.yuvraj.visionai.model.FaceStatus
+import com.yuvraj.visionai.enums.FaceStatus
 import com.yuvraj.visionai.service.cameraX.GraphicOverlay
 
 class FaceContourGraphic(

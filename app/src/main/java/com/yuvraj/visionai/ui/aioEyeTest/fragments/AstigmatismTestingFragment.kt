@@ -4,20 +4,16 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeAstigmatismTestingBinding
-import com.yuvraj.visionai.databinding.FragmentHomeProfileBinding
-import com.yuvraj.visionai.model.FaceStatus
+import com.yuvraj.visionai.enums.FaceStatus
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_CAMERA
 import com.yuvraj.visionai.utils.DebugTags
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
-import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 

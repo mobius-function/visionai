@@ -7,7 +7,7 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
-import com.yuvraj.visionai.model.FaceStatus
+import com.yuvraj.visionai.enums.FaceStatus
 import com.yuvraj.visionai.service.cameraX.BaseImageAnalyzer
 import com.yuvraj.visionai.service.cameraX.GraphicOverlay
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION

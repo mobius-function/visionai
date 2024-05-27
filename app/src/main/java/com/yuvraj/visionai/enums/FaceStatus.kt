@@ -1,4 +1,4 @@
-package com.yuvraj.visionai.model
+package com.yuvraj.visionai.enums
 
 enum class FaceStatus {
     TOO_FAR,

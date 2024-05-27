@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
-import com.yuvraj.visionai.model.FaceStatus
+import com.yuvraj.visionai.enums.FaceStatus
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength

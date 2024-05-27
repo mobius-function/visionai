@@ -11,12 +11,11 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.service.faceDetection.FaceContourDetectionProcessor
-import com.yuvraj.visionai.model.FaceStatus
+import com.yuvraj.visionai.enums.FaceStatus
 import com.yuvraj.visionai.utils.DebugTags
 import com.yuvraj.visionai.utils.DebugTags.CAMERA_X_BASICS
 import java.util.concurrent.ExecutorService
