@@ -77,4 +77,8 @@ object Constants {
     const val REGULAR_REMINDER_TIME = "REGULAR_REMINDER_TIME"           // Long
     const val DEFAULT_REGULAR_REMINDER_TIME = 2                         // Int
 
+    // ChatBot API
+    const val API_KEY = "API_KEY"
+    const val CHAT_BOT_MODEL = "text-davinci-003"
+
 }
