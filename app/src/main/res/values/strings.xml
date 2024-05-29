@@ -22,4 +22,6 @@
     </string>
     <string name="textbody_set_notification">Turn on notifications from your device settings to see updates on your lock screen.</string>
     <string name="welcome_chat_bot">Welcome to Solution code android\n Chat GPT \nTry it out now</string>
+
+    <string name="CHAT_GPT_API_KEY">sk-proj-J7QNBOspNhahRWJViuG7T3BlbkFJIghB0PBUWSBPsUsV8eJF</string>
 </resources>

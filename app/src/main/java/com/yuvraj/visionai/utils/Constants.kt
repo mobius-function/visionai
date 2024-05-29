@@ -3,6 +3,8 @@ package com.yuvraj.visionai.utils
 import android.Manifest
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.yuvraj.visionai.BuildConfig
+import com.yuvraj.visionai.R
 
 object Constants {
     // App's required permissions
@@ -78,7 +80,7 @@ object Constants {
     const val DEFAULT_REGULAR_REMINDER_TIME = 2                         // Int
 
     // ChatBot API
-    const val API_KEY = "API_KEY"
+    const val CHAT_BOT_API_KEY = R.string.CHAT_GPT_API_KEY
     const val CHAT_BOT_MODEL = "text-davinci-003"
 
 }
