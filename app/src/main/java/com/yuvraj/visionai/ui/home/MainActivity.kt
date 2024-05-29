@@ -117,8 +117,7 @@ class MainActivity : AppCompatActivity() {
             when(destination.id) {
                 R.id.landingFragment,
                 R.id.statisticsFragment ,
-                R.id.notificationsFragment,
-                R.id.chatBotFragment -> binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.notificationsFragment -> binding.bottomNavigation.visibility = View.VISIBLE
 
                 else -> binding.bottomNavigation.visibility = View.GONE
             }
