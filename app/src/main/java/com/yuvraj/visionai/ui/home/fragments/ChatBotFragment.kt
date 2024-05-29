@@ -1,6 +1,7 @@
 package com.yuvraj.visionai.ui.home.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,13 @@ import com.yuvraj.visionai.enums.ChatMessageSender.SENT_BY_BOT
 import com.yuvraj.visionai.enums.ChatMessageSender.SENT_BY_ME
 import com.yuvraj.visionai.model.ChatMessage
 import com.yuvraj.visionai.repositories.ChatResponse.getChatResponse
+import com.yuvraj.visionai.repositories.ChatResponse.getResFun
+import com.yuvraj.visionai.utils.Constants.CHAT_BOT_API_KEY
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.IOException
 
 
 class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
@@ -53,13 +61,17 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
         binding.apply {
             btnSend.setOnClickListener {
                 val question = inputMessage.text.toString().trim{ it <= ' '}
+                if(question.isEmpty()){
+                    return@setOnClickListener
+                }
 
                 addToChat(question,SENT_BY_ME)
                 inputMessage.setText("")
                 messageList.add(ChatMessage("Typing...", SENT_BY_BOT))
 
-                val response : String = getChatResponse(question)
-                addResponse(response)
+//                getChatResponse(question, ::addResponse)
+//                callAPI(question)
+                getResFun(question, ::addResponse)
 
                 welcomeText.visibility = View.GONE
             }
