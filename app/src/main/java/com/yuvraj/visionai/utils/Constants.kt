@@ -83,4 +83,8 @@ object Constants {
     const val CHAT_BOT_API_KEY = R.string.CHAT_GPT_API_KEY
     const val CHAT_BOT_MODEL = "text-davinci-003"
 
+    const val CHAT_BASE_URL="https://api.openai.com"
+    const val CHAT_END_POINT ="/v1/chat/completions"
+    const val CHAT_AUTHORIZATION="Bearer API_KEY"
+
 }
