@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
 class InferenceChatModel private constructor(context: Context) {
+    private var llmInference: LlmInference
 
     private val modelExists: Boolean
         get() = File(MODEL_PATH).exists()
@@ -18,6 +19,26 @@ class InferenceChatModel private constructor(context: Context) {
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
     val partialResults: SharedFlow<Pair<String, Boolean>> = _partialResults.asSharedFlow()
+
+    init {
+        if (!modelExists) {
+            throw IllegalArgumentException("Model not found at path: $MODEL_PATH")
+        }
+
+        val options = LlmInference.LlmInferenceOptions.builder()
+            .setModelPath(MODEL_PATH)
+            .setMaxTokens(1024)
+            .setResultListener { partialResult, done ->
+                _partialResults.tryEmit(partialResult to done)
+            }
+            .build()
+
+        llmInference = LlmInference.createFromOptions(context, options)
+    }
+
+    fun generateResponseAsync(prompt: String) {
+        llmInference.generateResponseAsync(prompt)
+    }
 
 
 
