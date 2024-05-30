@@ -20,20 +20,23 @@ object ChatResponse {
         val client = OkHttpClient()
 
         val mediaType = "application/json".toMediaTypeOrNull()
-
         val body = JSONObject()
-            .put("model", "gpt-3.5-turbo-16k")
-            .put("prompt", question)
-            .put("max_tokens", 7)
-            .put("temperature", 0)
+            .put("model", "gpt-3.5-turbo")
+            .put("messages", JSONArray()
+                .put(JSONObject()
+                    .put("role", "user")
+                    .put("content", question)
+                )
+            )
+            .put("temperature", 0.7)
             .toString()
             .toRequestBody(mediaType)
 
         val request = Request.Builder()
-            .url("https://api.openai.com/v1/completions")
-            .addHeader("Content-Type", "application/json")
-            .addHeader("Authorization", "Bearer $CHAT_BOT_API_KEY")
+            .url("https://api.openai.com/v1/chat/completions")
             .post(body)
+            .header("Content-Type", "application/json")
+            .addHeader("Authorization", "Bearer $CHAT_BOT_API_KEY")
             .build()
 
         client.newCall(request).enqueue(object : Callback {
@@ -43,7 +46,8 @@ object ChatResponse {
 
             override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful) {
-                    callback("Unexpected code $response")
+                    callback("responseFailure: Failed to load response due to ${response.body.toString()}")
+                    Log.d("ChatResponse", "responseFailure: Failed to load response due to $response")
                     return
                 }
 
@@ -110,4 +114,6 @@ object ChatResponse {
             }
         )
     }
+
+
 }
