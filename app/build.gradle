@@ -155,6 +155,9 @@ dependencies {
     // Lottie for animations
     implementation 'com.airbnb.android:lottie:4.2.0'
 
+    // Mediapipe for AI tasks (llm implementation)
+    implementation ("com.google.mediapipe:tasks-genai:0.10.14")
+
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
