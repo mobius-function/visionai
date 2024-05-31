@@ -8,17 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.adapters.ChatMessages
 import com.yuvraj.visionai.databinding.FragmentHomeChatBotBinding
+import com.yuvraj.visionai.enums.ChatMessageSender
 import com.yuvraj.visionai.enums.ChatMessageSender.SENT_BY_BOT
 import com.yuvraj.visionai.enums.ChatMessageSender.SENT_BY_ME
 import com.yuvraj.visionai.model.ChatMessage
-import com.yuvraj.visionai.repositories.ChatResponse.getChatResponse
 import com.yuvraj.visionai.repositories.ChatResponse.getResFun
-import com.yuvraj.visionai.utils.Constants.CHAT_BOT_API_KEY
-import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaType
-import org.json.JSONException
-import org.json.JSONObject
-import java.io.IOException
 
 
 class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
@@ -79,7 +73,7 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
         }
     }
 
-    private fun addToChat(message: String, sentBy: String) {
+    private fun addToChat(message: String, sentBy: ChatMessageSender) {
         requireActivity().runOnUiThread{
             messageList.add(ChatMessage(message,sentBy))
             messageAdapter.notifyDataSetChanged()
