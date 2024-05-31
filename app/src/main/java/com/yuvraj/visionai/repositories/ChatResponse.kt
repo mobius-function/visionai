@@ -1,10 +1,12 @@
 package com.yuvraj.visionai.repositories
 
+import android.util.Log
 import com.yuvraj.visionai.utils.Constants.CHAT_AUTHORIZATION
 import com.yuvraj.visionai.utils.Constants.CHAT_BASE_URL
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
@@ -42,11 +44,38 @@ object ChatResponse {
                     return
                 }
                 val responseBody = response.body?.string() ?: "No response from API"
-                callback(responseBody)
+                Log.d("ChatResponse", responseBody)
+                try {
+                    // Parse the JSON array
+                    val jsonArray = JSONArray(responseBody)
+                    if (jsonArray.length() > 0) {
+                        val generatedText = jsonArray.getJSONObject(0).getString("generated_text")
+                        // Split the generated text and get the second part
+//                        val parts = generatedText.split(" ")
+//                        if (parts.size > 1) {
+//                            callback(parts[1].trim())
+//                        } else {
+//                            callback("Response does not contain enough parts")
+//                        }
+
+                        callback(generatedText)
+                    } else {
+                        callback("No generated text found in response")
+                    }
+                } catch (e: Exception) {
+                    callback("Error parsing JSON response: ${e.message}")
+                }
             }
         })
     }
 
-
+    fun extractAnswer(generatedText: String): String {
+        val parts = generatedText.split("\n\n")
+        return if (parts.size > 1) {
+            parts[1].trim()
+        } else {
+            "No answer found"
+        }
+    }
 
 }
