@@ -117,7 +117,8 @@ class MainActivity : AppCompatActivity() {
             when(destination.id) {
                 R.id.landingFragment,
                 R.id.statisticsFragment ,
-                R.id.notificationsFragment -> binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.notificationsFragment,
+                R.id.chatBotFragment -> binding.bottomNavigation.visibility = View.VISIBLE
 
                 else -> binding.bottomNavigation.visibility = View.GONE
             }
@@ -126,8 +127,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.eyeTestingFragment,
                 R.id.astigmatismTestingFragment,
                 R.id.hyperopiaTestingFragment,
-                R.id.profileFragment,
-                R.id.chatBotFragment-> binding.appBarLayout.visibility = View.GONE
+                R.id.profileFragment -> binding.appBarLayout.visibility = View.GONE
 
                 else -> binding.appBarLayout.visibility = View.VISIBLE
             }
