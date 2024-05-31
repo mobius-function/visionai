@@ -22,12 +22,13 @@
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:translationZ="10dp"
         android:text="@string/welcome_chat_bot"
         android:textColor="@color/white"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -44,7 +45,7 @@
         <EditText
             android:id="@+id/inputMessage"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:background="@drawable/bg_edit_text_1"
             android:textColor="@color/black"
             android:ems="10"
@@ -60,7 +61,7 @@
         <ImageButton
             android:id="@+id/btnSend"
             android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_height="45dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_send"
             android:background="?attr/selectableItemBackgroundBorderless"

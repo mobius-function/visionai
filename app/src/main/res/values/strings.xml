@@ -21,7 +21,7 @@
         Does some lines appear greyer than others?
     </string>
     <string name="textbody_set_notification">Turn on notifications from your device settings to see updates on your lock screen.</string>
-    <string name="welcome_chat_bot">Welcome to Solution code android\n Chat GPT \nTry it out now</string>
+    <string name="welcome_chat_bot">Hi I am Vision GPT\n Your personal AEye Assistant \nTry asking me something</string>
 
     <string name="CHAT_GPT_API_KEY">sk-proj-ZyJ9CglhfV6X9R0SEnzXT3BlbkFJQolYIzrUbqu4PqWNiSZa</string>
 </resources>

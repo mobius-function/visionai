@@ -13,7 +13,7 @@
         android:padding="8dp"
         android:layout_alignParentStart="true"
         android:layout_marginEnd="80dp"
-        android:background="@drawable/bg_rectangle_corner_radius"
+        android:background="@drawable/bg_edit_text_1"
         android:backgroundTint="#297BBC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -33,7 +33,7 @@
         android:gravity="end"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="80dp"
-        android:background="@drawable/bg_rectangle_corner_radius"
+        android:background="@drawable/bg_edit_text_1"
         android:backgroundTint="#29702C"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
