@@ -11,6 +11,7 @@ import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context.NOTIFICATION_SERVICE
+import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresApi
@@ -23,6 +24,7 @@ import com.yuvraj.visionai.service.alarmReceiver.notificationID
 import com.yuvraj.visionai.service.alarmReceiver.titleExtra
 import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.Constants.DEFAULT_REGULAR_REMINDER_TIME
+import com.yuvraj.visionai.utils.helpers.Permissions.allPermissionsGranted
 
 object NotificationHelper {
     fun Activity.isRegularReminderEnabled() : Boolean {
@@ -72,6 +74,9 @@ object NotificationHelper {
 
     @SuppressLint("ScheduleExactAlarm")
     fun Activity.scheduleNotification(alarmTimeInMinutes: Int) {
+        // checking whether the SCHEDULE_EXACT_ALARM permission has been granted.
+
+
         // Create an intent for the Notification BroadcastReceiver
         val intent = Intent(applicationContext, Notification::class.java)
 
@@ -93,6 +98,13 @@ object NotificationHelper {
 
         // Get the AlarmManager service
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        // Check if the device can schedule exact alarms (For Android 14 and above)
+        if(Build.VERSION.SDK_INT >= 34){
+            if(!alarmManager.canScheduleExactAlarms()) {
+                return
+            }
+        }
 
         // Get the selected time and schedule the notification
         val time = getTime(alarmTimeInMinutes)
@@ -168,6 +180,7 @@ object NotificationHelper {
     }
 
     fun areNotificationPermissionsGranted(context: Context): Boolean {
+
         // Check if notification permissions are granted
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager =
