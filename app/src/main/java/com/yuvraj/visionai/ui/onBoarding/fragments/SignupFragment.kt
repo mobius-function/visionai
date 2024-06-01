@@ -31,7 +31,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
     private var _binding: FragmentOnBoardingSignupBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var firebaseAuth: FirebaseAuth
 
     private lateinit var registerAuth: FirebaseAuth
@@ -203,7 +203,6 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
     override fun onStart() {
         super.onStart()
         binding.progressBar.visibility = View.GONE
-        checkForSignedInUser()
     }
 
     override fun onResume() {
