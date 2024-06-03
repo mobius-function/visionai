@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import com.yuvraj.visionai.utils.DebugTags.DEVICE_INFO
 import java.math.BigDecimal
 import java.math.RoundingMode
+import kotlin.math.sqrt
 
 object ScreenUtils {
     private var mInch = 0.0
@@ -29,42 +30,16 @@ object ScreenUtils {
         display.getRealSize(size)
         realWidth = size.x
         realHeight = size.y
-        val d = Math.sqrt((realWidth / metrics.xdpi * (realWidth / metrics.xdpi) + realHeight / metrics.ydpi * (realHeight / metrics.ydpi)).toDouble())
+
+        val d = sqrt(
+            (realWidth / metrics.xdpi * (realWidth / metrics.xdpi)
+                    + realHeight / metrics.ydpi
+                    * (realHeight / metrics.ydpi))
+                .toDouble())
+
         mInch = BigDecimal(d).setScale(1, RoundingMode.HALF_UP).toDouble()
         return mInch
     }
-
-
-    fun hideStatusBar(activity: Activity) {
-        // log the current version of the device
-        Log.d(DEVICE_INFO, "Device Version API: " + Build.VERSION.SDK_INT )
-        Log.d(DEVICE_INFO, "Device Version CODE: " + Build.VERSION.CODENAME )
-
-        if (Build.VERSION.SDK_INT < 16) {
-            activity.window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R){
-            activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-            activity.actionBar?.hide()
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            activity.window.setDecorFitsSystemWindows(false)
-        }
-
-//        activity.window.statusBarColor = ContextCompat.getColor(activity, android.R.color.transparent)
-    } // Didn't work for Yuvraj Moto e40 (Android 11)
-
-    fun enableFullScreenMode(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            activity.window.setDecorFitsSystemWindows(false)
-        } else {
-            activity.window.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
-    } // Didn't work for Yuvraj Moto e40 (Android 11)
 
     fun Activity.hideSystemUI() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
