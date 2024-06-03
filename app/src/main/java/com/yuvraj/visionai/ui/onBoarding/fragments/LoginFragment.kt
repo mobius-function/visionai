@@ -3,7 +3,6 @@ package com.yuvraj.visionai.ui.onBoarding.fragments
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -16,7 +15,7 @@ class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
     private val binding get() = _binding!!
 
     // creating a variable for firebaseAuth instance
-    lateinit var auth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,21 +24,11 @@ class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
-//        textWatcher()
-//        binding.btn.btnStart.isEnabled = false
-        binding.btnLogin.isEnabled = true
-//        showSoftKeyboard(requireActivity(),binding.etName)
-        clickableViews(binding.etEmail,binding.etPassword)
-
-        auth = FirebaseAuth.getInstance()
+        clickableViews()
     }
 
-//    private fun textWatcher() {
-//        binding.etName.addTextWatcher()
-//    }
 
-
-    private fun clickableViews(Email : EditText, Password : EditText) {
+    private fun clickableViews() {
         binding.apply {
 
             btnLogin.setOnClickListener {
@@ -72,8 +61,8 @@ class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
 
     private fun initViews(view: View) {
         _binding = FragmentOnBoardingLoginBinding.bind(view)
-//        ConstantsFunctions.setStatusBarTransparent(requireActivity(), false)
 
+        auth = FirebaseAuth.getInstance()
     }
 
     private fun login() {

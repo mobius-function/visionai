@@ -10,7 +10,6 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingCheckPermissionsBinding
 import com.yuvraj.visionai.ui.home.MainActivity
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS
-import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_CAMERA
 import com.yuvraj.visionai.utils.helpers.Permissions.allPermissionsGranted
 
 

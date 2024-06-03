@@ -7,7 +7,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiOnboardingActivityMainBinding
 import com.yuvraj.visionai.service.autoUpdater.InAppUpdate
-import com.yuvraj.visionai.utils.ScreenUtils.hideStatusBar
 import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
 
 

@@ -47,7 +47,7 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 
         initViews(view)
         binding.btnCreateAccount.isEnabled = true
-        clickableViews(binding.etName,binding.etEmail,binding.etPassword,binding.etConfirmPassword)
+        clickableViews()
 
         FirebaseApp.initializeApp(this.requireActivity())
 
@@ -69,28 +69,28 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
     }
 
 
-    private fun clickableViews(Name : EditText, Email : EditText, Password : EditText, ConfirmPassword : EditText) {
+    private fun clickableViews() {
         binding.apply {
 
             btnCreateAccount.setOnClickListener {
 
-                if(!Validations.validateFirstName(Name.text.toString())){
-                    Name.error = "Enter a Valid Name"
+                if(!Validations.validateFirstName(etName.text.toString())){
+                    etName.error = "Enter a Valid Name"
                     return@setOnClickListener
                 }
 
-                if(!Validations.validateEmail(Email.text.toString())){
-                    Email.error = "Enter a Valid Email"
+                if(!Validations.validateEmail(etEmail.text.toString())){
+                    etEmail.error = "Enter a Valid Email"
                     return@setOnClickListener
                 }
 
-                if(!Validations.validatePassword(Password.text.toString())){
-                    Password.error = "Password must be atleast of 8 characters"
+                if(!Validations.validatePassword(etPassword.text.toString())){
+                    etPassword.error = "Password must be atleast of 8 characters"
                     return@setOnClickListener
                 }
 
-                if(!Validations.validateConfirmPassword(Password.text.toString(),ConfirmPassword.text.toString())){
-                    ConfirmPassword.error = "Password and confirm password should match"
+                if(!Validations.validateConfirmPassword(etPassword.text.toString(),etConfirmPassword.text.toString())){
+                    etConfirmPassword.error = "Password and confirm password should match"
                     return@setOnClickListener
                 }
 

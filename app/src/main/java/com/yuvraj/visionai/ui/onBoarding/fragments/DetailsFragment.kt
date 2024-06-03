@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingDetailsBinding
 import com.yuvraj.visionai.ui.home.MainActivity
-import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.Constants.USER_AGE
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.Constants.USER_ONBOARDING_COMPLETED
