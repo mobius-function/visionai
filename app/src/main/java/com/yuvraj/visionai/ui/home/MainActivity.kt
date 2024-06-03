@@ -1,8 +1,6 @@
 package com.yuvraj.visionai.ui.home
 
 import android.content.Intent
-import android.content.SharedPreferences
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,20 +15,10 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiHomeActivityMainBinding
 import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
 import com.yuvraj.visionai.service.autoUpdater.InAppUpdate
-import com.yuvraj.visionai.ui.aioEyeTest.MainActivity
-import com.yuvraj.visionai.utils.Constants.ALL_IN_ONE_EYE_TEST
-import com.yuvraj.visionai.utils.Constants.EYE_TEST_REMINDER
 import com.yuvraj.visionai.utils.Constants.FIRST_USE_AFTER_LOGIN
-import com.yuvraj.visionai.utils.Constants.NOTIFICATION_PREFERENCES
-import com.yuvraj.visionai.utils.Constants.REGULAR_REMINDER
-import com.yuvraj.visionai.utils.Constants.REGULAR_REMINDER_TIME
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.DebugTags.FIREBASE_PUSH_NOTIFICATION
 import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
-import com.yuvraj.visionai.utils.clients.NotificationHelper.createNotificationChannel
-import com.yuvraj.visionai.utils.clients.NotificationHelper.getRegularReminderTime
-import com.yuvraj.visionai.utils.clients.NotificationHelper.isRegularReminderEnabled
-import com.yuvraj.visionai.utils.clients.NotificationHelper.scheduleNotification
 import com.yuvraj.visionai.utils.clients.NotificationHelper.scheduleRegularNotification
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.initiateAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setAllInOneEyeTestMode

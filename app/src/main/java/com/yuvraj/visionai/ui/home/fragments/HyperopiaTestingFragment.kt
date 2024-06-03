@@ -26,11 +26,6 @@ import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HyperopiaTestingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private var _binding: FragmentHomeEyeTestingBinding? = null

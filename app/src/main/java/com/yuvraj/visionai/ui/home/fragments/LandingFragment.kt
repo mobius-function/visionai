@@ -26,11 +26,6 @@ import com.yuvraj.visionai.utils.Constants.ML_MODEL
 import com.yuvraj.visionai.utils.Constants.MYOPIA
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LandingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LandingFragment : Fragment(R.layout.fragment_home_landing) {
 
     private var _binding: FragmentHomeLandingBinding? = null
