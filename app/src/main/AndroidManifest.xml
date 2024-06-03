@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -38,11 +39,11 @@
             android:exported="true">
         </activity>
 
-        <activity
-            android:name=".ui.aioEyeTest.MainActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true">
-        </activity>
+<!--        <activity-->
+<!--            android:name=".ui.aioEyeTest.MainActivity"-->
+<!--            android:windowSoftInputMode="adjustResize"-->
+<!--            android:exported="true">-->
+<!--        </activity>-->
 
 <!--        <activity-->
 <!--            android:name=".ui.onBoarding.MainActivity"-->
