@@ -52,6 +52,7 @@ android {
 
 dependencies {
 
+    implementation 'com.google.firebase:firebase-firestore-ktx:25.0.0'
     def nav_version = "2.5.3"
     def kotlin_version = "1.9.0"
     def camerax_version = "1.1.0-beta01"
@@ -128,7 +129,13 @@ dependencies {
     implementation "androidx.camera:camera-extensions:${camerax_version}"
 
     // Firebase Auth
-    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:23.0.0'
+
+    // Firestore
+    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation 'com.google.firebase:firebase-firestore-ktx:25.0.0'
+
+
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:32.3.1')
     // When using the BoM, don't specify versions in Firebase dependencies
