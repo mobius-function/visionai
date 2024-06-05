@@ -1,6 +1,7 @@
 package com.yuvraj.visionai.repositories
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.model.UserPreferences
 
@@ -50,5 +51,9 @@ class FirebaseRepository {
             .addOnFailureListener {
                 callback(null)
             }
+    }
+
+    fun getEyeTests(userId: String): Query {
+        return db.collection("users").document(userId).collection("eyeTests")
     }
 }
