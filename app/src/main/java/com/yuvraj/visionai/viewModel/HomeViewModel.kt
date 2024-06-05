@@ -2,13 +2,21 @@ package com.yuvraj.visionai.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.model.UserPreferences
+import com.yuvraj.visionai.repositories.EyeTestPagingSource
 import com.yuvraj.visionai.repositories.FirebaseRepository
+import kotlinx.coroutines.flow.Flow
 
 class HomeViewModel : ViewModel() {
 
     private val userRepository = FirebaseRepository()
+    private val pagingConfig = PagingConfig(pageSize = 10)
 
     val apiKey: MutableLiveData<String?> = MutableLiveData()
     val userPreferences: MutableLiveData<UserPreferences?> = MutableLiveData()
@@ -40,6 +48,13 @@ class HomeViewModel : ViewModel() {
         userRepository.getEyeTests(userId) { tests ->
             eyeTests.value = tests
         }
+    }
+
+    fun getEyeTestsPagingData(userId: String): Flow<PagingData<EyeTestResult>> {
+        val query = userRepository.getEyeTests(userId)
+        return Pager(pagingConfig) {
+            EyeTestPagingSource(query)
+        }.flow.cachedIn(viewModelScope)
     }
 
     fun saveEyeTest(userId: String, eyeTest: EyeTestResult) {
