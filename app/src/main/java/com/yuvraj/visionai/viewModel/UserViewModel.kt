@@ -13,7 +13,7 @@ import com.yuvraj.visionai.repositories.EyeTestPagingSource
 import com.yuvraj.visionai.repositories.FirebaseRepository
 import kotlinx.coroutines.flow.Flow
 
-class HomeViewModel : ViewModel() {
+class UserViewModel : ViewModel() {
 
     private val userRepository = FirebaseRepository()
     private val pagingConfig = PagingConfig(pageSize = 10)

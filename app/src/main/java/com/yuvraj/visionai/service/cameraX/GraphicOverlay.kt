@@ -146,7 +146,7 @@ open class GraphicOverlay(context: Context?, attrs: AttributeSet?) :
         postInvalidate()
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         synchronized(lock) {
             for (graphic in graphics) {
