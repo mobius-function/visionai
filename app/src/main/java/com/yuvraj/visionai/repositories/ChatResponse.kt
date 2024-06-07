@@ -50,14 +50,6 @@ object ChatResponse {
                     val jsonArray = JSONArray(responseBody)
                     if (jsonArray.length() > 0) {
                         val generatedText = jsonArray.getJSONObject(0).getString("generated_text")
-                        // Split the generated text and get the second part
-//                        val parts = generatedText.split(" ")
-//                        if (parts.size > 1) {
-//                            callback(parts[1].trim())
-//                        } else {
-//                            callback("Response does not contain enough parts")
-//                        }
-
                         callback(generatedText)
                     } else {
                         callback("No generated text found in response")
