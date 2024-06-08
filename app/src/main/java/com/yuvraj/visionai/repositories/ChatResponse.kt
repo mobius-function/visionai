@@ -12,9 +12,18 @@ import java.io.IOException
 
 object ChatResponse {
     private const val API_URL = CHAT_BASE_URL
-    private val headers = mapOf("Authorization" to CHAT_AUTHORIZATION)
+//    private lateinit var CHAT_AUTH: String
 
     fun getResFun(question:String, callback : (String) -> Unit) {
+//        val firebaseRepository = FirebaseRepository()
+//        firebaseRepository.getApiKey { key ->
+//            if (key != null) {
+//                CHAT_AUTH = key
+//            } else {
+//                CHAT_AUTH = "Bearer "
+//            }
+//        }
+        val headers = mapOf("Authorization" to CHAT_AUTHORIZATION)
         val payload = mapOf("inputs" to question)
 
         val client = OkHttpClient()
