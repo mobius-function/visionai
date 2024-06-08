@@ -2,9 +2,6 @@ package com.yuvraj.visionai.utils
 
 import android.Manifest
 import android.os.Build
-import androidx.annotation.RequiresApi
-import com.yuvraj.visionai.BuildConfig
-import com.yuvraj.visionai.R
 
 object Constants {
     // App's required permissions
