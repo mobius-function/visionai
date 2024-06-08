@@ -1,31 +1,40 @@
 package com.yuvraj.visionai.repositories
 
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.Firebase
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.firestore
 import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.model.UserPreferences
 
 class FirebaseRepository {
 
-    private val db = FirebaseFirestore.getInstance()
+    private val db = Firebase.firestore
 
     fun saveApiKey(apiKey: String) {
-        val apiKeyDoc = mapOf("apiKey" to apiKey)
-        db.collection("config").document("apiKey").set(apiKeyDoc)
+        val apiKeyDoc = mapOf("CHAT_AUTHORIZATION" to apiKey)
+        db.collection("config").document("apiKeys").set(apiKeyDoc)
     }
 
     fun getApiKey(callback: (String?) -> Unit) {
-        db.collection("config").document("apiKey").get()
+        db.collection("config").document("apiKeys").get()
             .addOnSuccessListener { document ->
-                callback(document.getString("apiKey"))
+                callback(document.getString("CHAT_AUTHORIZATION"))
             }
             .addOnFailureListener {
-                callback(null)
+                callback("")
             }
     }
 
     fun saveUserPreferences(userId: String, preferences: UserPreferences) {
-        db.collection("users").document(userId).set(preferences)
+        val preferencesDoc = mapOf(
+            "name" to preferences.name,
+            "phoneNumber" to preferences.phoneNumber,
+            "age" to preferences.age,
+            "gender" to preferences.gender,
+            "email" to preferences.email
+        )
+
+        db.collection("users").document(userId).set(preferencesDoc)
     }
 
     fun getUserPreferences(userId: String, callback: (UserPreferences?) -> Unit) {
@@ -34,7 +43,8 @@ class FirebaseRepository {
                 callback(document.toObject(UserPreferences::class.java))
             }
             .addOnFailureListener {
-                callback(null)
+                val nullUserPreferences = UserPreferences()
+                callback(nullUserPreferences)
             }
     }
 
