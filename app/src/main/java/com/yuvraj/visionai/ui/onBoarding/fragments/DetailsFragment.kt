@@ -3,6 +3,7 @@ package com.yuvraj.visionai.ui.onBoarding.fragments
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -31,10 +32,13 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
     private var _binding: FragmentOnBoardingDetailsBinding? = null
     private val binding get() = _binding!!
 
+    val user = Authentication.getSignedInUser()
     private val userRepository = FirebaseRepository()
     private lateinit var userSavedPreferences: UserPreferences
 
-//    private lateinit var viewModel: UserViewModel
+    private val userId = Authentication.getSignedInUser()?.uid ?: "GUEST_CUSTOMER_ID"
+
+    private lateinit var viewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,10 +54,10 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
         _binding = FragmentOnBoardingDetailsBinding.bind(view)
 
 //        viewModel = ViewModelProvider(this)[UserViewModel::class.java]
-//        binding.viewModel = viewModel
+//        _binding.viewModel = viewModel
 
-        val user = Authentication.getSignedInUser()
-        userRepository.getUserPreferences(user?.email!!) {
+        Log.d("DetailsFragment", "User: $userId")
+        userRepository.getUserPreferences(userId) {
             if(it != null) {
                 userSavedPreferences = it
 
@@ -93,7 +97,7 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
                     email = user.email!!
                 )
 
-                userRepository.saveUserPreferences(user.email!!, userPreferences)
+                userRepository.saveUserPreferences(userId, userPreferences)
 
 
                 val sharedPreferences = requireActivity().getSharedPreferences(USER_DETAILS, MODE_PRIVATE)
