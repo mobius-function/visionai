@@ -53,21 +53,30 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
     private fun initViews(view: View) {
         _binding = FragmentOnBoardingDetailsBinding.bind(view)
 
-//        viewModel = ViewModelProvider(this)[UserViewModel::class.java]
-//        _binding.viewModel = viewModel
+        viewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
 
-        Log.d("DetailsFragment", "User: $userId")
-        userRepository.getUserPreferences(userId) {
-            if(it != null) {
-                userSavedPreferences = it
+        viewModel.userPreferences.observe(viewLifecycleOwner) {
+            userSavedPreferences = it ?: UserPreferences()
 
-                binding.apply {
-                    etAge.setText(userSavedPreferences.age.toString())
-                    etMobileNumber.setText(userSavedPreferences.phoneNumber)
-                    etGender.setText(userSavedPreferences.gender)
-                }
+            binding.apply {
+                etAge.setText(userSavedPreferences.age.toString())
+                etMobileNumber.setText(userSavedPreferences.phoneNumber)
+                etGender.setText(userSavedPreferences.gender)
             }
         }
+
+//        Log.d("DetailsFragment", "User: $userId")
+//        userRepository.getUserPreferences(userId) {
+//            if(it != null) {
+//                userSavedPreferences = it
+//
+//                binding.apply {
+//                    etAge.setText(userSavedPreferences.age.toString())
+//                    etMobileNumber.setText(userSavedPreferences.phoneNumber)
+//                    etGender.setText(userSavedPreferences.gender)
+//                }
+//            }
+//        }
 
 
     }
