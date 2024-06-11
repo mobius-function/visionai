@@ -8,8 +8,9 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiOnboardingActivityMainBinding
 import com.yuvraj.visionai.service.autoUpdater.InAppUpdate
 import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity: AppCompatActivity() {
 
     private var binding: UiOnboardingActivityMainBinding? = null

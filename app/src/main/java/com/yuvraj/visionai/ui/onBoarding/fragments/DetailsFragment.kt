@@ -3,9 +3,10 @@ package com.yuvraj.visionai.ui.onBoarding.fragments
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingDetailsBinding
@@ -18,7 +19,9 @@ import com.yuvraj.visionai.utils.Constants.USER_ONBOARDING_COMPLETED
 import com.yuvraj.visionai.utils.Constants.USER_PHONE
 import com.yuvraj.visionai.utils.helpers.Permissions.allPermissionsGranted
 import com.yuvraj.visionai.viewModel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
 
     private var _binding: FragmentOnBoardingDetailsBinding? = null
@@ -26,7 +29,7 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
 
     val user = Authentication.getSignedInUser()
 
-    private lateinit var viewModel: UserViewModel
+    private val viewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +44,7 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
     private fun initViews(view: View) {
         _binding = FragmentOnBoardingDetailsBinding.bind(view)
 
-        viewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
-
-        viewModel.userPreferences.observe(requireActivity()) { userPreferences ->
+        viewModel.userPreferences.observe(viewLifecycleOwner) { userPreferences ->
             if(userPreferences != null){
                 binding.apply {
                     etAge.setText(userPreferences.age.toString())
@@ -104,5 +105,10 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
                 requireActivity().onBackPressed()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
