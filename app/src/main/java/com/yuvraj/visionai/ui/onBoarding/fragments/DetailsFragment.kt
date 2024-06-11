@@ -19,7 +19,6 @@ import com.yuvraj.visionai.utils.Constants.USER_PHONE
 import com.yuvraj.visionai.utils.helpers.Permissions.allPermissionsGranted
 import com.yuvraj.visionai.viewModel.UserViewModel
 
-
 class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
 
     private var _binding: FragmentOnBoardingDetailsBinding? = null
