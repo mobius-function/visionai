@@ -1,14 +1,18 @@
 package com.yuvraj.visionai.repositories
 
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.model.UserPreferences
+import javax.inject.Inject
 
-class FirebaseRepository {
+class FirebaseRepository  @Inject constructor(
+    private val db: FirebaseFirestore
+) {
 
-    private val db = Firebase.firestore
+//    private val db = Firebase.firestore
 
     fun getApiKey(callback: (String?) -> Unit) {
         db.collection("config").document("apiKeys").get()

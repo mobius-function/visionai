@@ -12,13 +12,18 @@ import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.model.UserPreferences
 import com.yuvraj.visionai.repositories.EyeTestPagingSource
 import com.yuvraj.visionai.repositories.FirebaseRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class UserViewModel : ViewModel() {
+@HiltViewModel
+class UserViewModel @Inject constructor(
+    private val userRepository: FirebaseRepository
+) : ViewModel() {
 
     private val pagingConfig = PagingConfig(pageSize = 10)
 
-    private val userRepository = FirebaseRepository()
+//    private val userRepository = FirebaseRepository()
 
     val apiKey: MutableLiveData<String?> = MutableLiveData()
     val userPreferences: MutableLiveData<UserPreferences?> = MutableLiveData()
