@@ -16,14 +16,15 @@ import kotlinx.coroutines.flow.Flow
 
 class UserViewModel : ViewModel() {
 
-    private val userRepository = FirebaseRepository()
     private val pagingConfig = PagingConfig(pageSize = 10)
+
+    private val userRepository = FirebaseRepository()
 
     val apiKey: MutableLiveData<String?> = MutableLiveData()
     val userPreferences: MutableLiveData<UserPreferences?> = MutableLiveData()
     val eyeTests: MutableLiveData<List<EyeTestResult>?> = MutableLiveData()
 
-    private val userId = Authentication.getSignedInUser()?.providerId ?: "GUEST_CUSTOMER_ID"
+    private val userId = Authentication.getSignedInUser()?.uid ?: "GUEST_CUSTOMER_ID"
 
     fun loadApiKey() {
         userRepository.getApiKey { key ->
@@ -31,14 +32,11 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    fun saveApiKey(key: String) {
-        userRepository.saveApiKey(key)
-        apiKey.value = key
-    }
-
     fun loadUserPreferences() {
-        userRepository.getUserPreferences(userId) { preferences ->
-            userPreferences.value = preferences
+        userRepository.getUserPreferences(userId) {
+            if(it != null){
+                userPreferences.value = it
+            }
         }
     }
 

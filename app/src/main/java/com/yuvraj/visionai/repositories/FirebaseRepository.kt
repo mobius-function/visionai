@@ -10,11 +10,6 @@ class FirebaseRepository {
 
     private val db = Firebase.firestore
 
-    fun saveApiKey(apiKey: String) {
-        val apiKeyDoc = mapOf("CHAT_AUTHORIZATION" to apiKey)
-        db.collection("config").document("apiKeys").set(apiKeyDoc)
-    }
-
     fun getApiKey(callback: (String?) -> Unit) {
         db.collection("config").document("apiKeys").get()
             .addOnSuccessListener { document ->

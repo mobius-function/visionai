@@ -3,7 +3,6 @@ package com.yuvraj.visionai.ui.onBoarding.fragments
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +11,6 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingDetailsBinding
 import com.yuvraj.visionai.firebase.Authentication
 import com.yuvraj.visionai.model.UserPreferences
-import com.yuvraj.visionai.repositories.FirebaseRepository
 import com.yuvraj.visionai.ui.home.MainActivity
 import com.yuvraj.visionai.utils.Constants.USER_AGE
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
@@ -22,21 +20,12 @@ import com.yuvraj.visionai.utils.helpers.Permissions.allPermissionsGranted
 import com.yuvraj.visionai.viewModel.UserViewModel
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
 
     private var _binding: FragmentOnBoardingDetailsBinding? = null
     private val binding get() = _binding!!
 
     val user = Authentication.getSignedInUser()
-    private val userRepository = FirebaseRepository()
-    private lateinit var userSavedPreferences: UserPreferences
-
-    private val userId = Authentication.getSignedInUser()?.uid ?: "GUEST_CUSTOMER_ID"
 
     private lateinit var viewModel: UserViewModel
 
@@ -55,30 +44,17 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
 
         viewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
 
-        viewModel.userPreferences.observe(viewLifecycleOwner) {
-            userSavedPreferences = it ?: UserPreferences()
-
-            binding.apply {
-                etAge.setText(userSavedPreferences.age.toString())
-                etMobileNumber.setText(userSavedPreferences.phoneNumber)
-                etGender.setText(userSavedPreferences.gender)
+        viewModel.userPreferences.observe(requireActivity()) { userPreferences ->
+            if(userPreferences != null){
+                binding.apply {
+                    etAge.setText(userPreferences.age.toString())
+                    etMobileNumber.setText(userPreferences.phoneNumber)
+                    etGender.setText(userPreferences.gender)
+                }
             }
         }
 
-//        Log.d("DetailsFragment", "User: $userId")
-//        userRepository.getUserPreferences(userId) {
-//            if(it != null) {
-//                userSavedPreferences = it
-//
-//                binding.apply {
-//                    etAge.setText(userSavedPreferences.age.toString())
-//                    etMobileNumber.setText(userSavedPreferences.phoneNumber)
-//                    etGender.setText(userSavedPreferences.gender)
-//                }
-//            }
-//        }
-
-
+        viewModel.loadUserPreferences()
     }
 
 
@@ -106,8 +82,7 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
                     email = user.email!!
                 )
 
-                userRepository.saveUserPreferences(userId, userPreferences)
-
+                viewModel.saveUserPreferences(userPreferences)
 
                 val sharedPreferences = requireActivity().getSharedPreferences(USER_DETAILS, MODE_PRIVATE)
                 val myEdit = sharedPreferences.edit()
