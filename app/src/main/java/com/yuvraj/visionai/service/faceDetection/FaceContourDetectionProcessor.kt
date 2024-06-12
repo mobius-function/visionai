@@ -29,7 +29,7 @@ class FaceContourDetectionProcessor(private val view: GraphicOverlay,
         .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
         .build()
 
-    private var currentFaceDetectionOpts = FaceDetectorOptions.Builder()
+    private var realTimeLowAccuracyOpts = FaceDetectorOptions.Builder()
         .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
         .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
         .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
@@ -41,7 +41,7 @@ class FaceContourDetectionProcessor(private val view: GraphicOverlay,
     // Use one of the above options to change the face detection mode
     // currently using currentFaceDetectionOpts
 
-    private val detector = FaceDetection.getClient(currentFaceDetectionOpts)
+    private val detector = FaceDetection.getClient(highAccuracyOpts)
 
     override val graphicOverlay: GraphicOverlay
         get() = view
