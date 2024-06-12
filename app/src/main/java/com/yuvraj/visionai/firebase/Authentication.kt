@@ -12,6 +12,10 @@ class Authentication {
             return FirebaseAuth.getInstance().currentUser
         }
 
+        fun getSignedInUserId(): String {
+            return FirebaseAuth.getInstance().currentUser?.uid ?: "GUEST_CUSTOMER_ID"
+        }
+
         fun signOutUser() {
             Firebase.auth.signOut()
         }
