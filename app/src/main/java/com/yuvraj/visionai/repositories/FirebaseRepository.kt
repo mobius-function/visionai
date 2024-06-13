@@ -48,7 +48,19 @@ class FirebaseRepository  @Inject constructor(
     }
 
     fun saveEyeTest(userId: String, eyeTest: EyeTestResult) {
-        db.collection("users").document(userId).collection("eyeTests").add(eyeTest)
+        val eyeTestDoc = mapOf(
+            "id" to eyeTest.id,
+            "plusPowerRightEye" to eyeTest.plusPowerRightEye,
+            "plusPowerLeftEye" to eyeTest.plusPowerLeftEye,
+            "minusPowerRightEye" to eyeTest.minusPowerRightEye,
+            "minusPowerLeftEye" to eyeTest.minusPowerLeftEye,
+            "astigmatismResult" to eyeTest.astigmatismResult,
+            "dryLeftEyeResult" to eyeTest.dryLeftEyeResult,
+            "dryRightEyeResult" to eyeTest.dryRightEyeResult,
+            "jaundiceResult" to eyeTest.jaundiceResult
+        )
+//        db.collection("users").document(userId).collection("eyeTests").add(eyeTestDoc)
+        db.collection("users").document(userId).collection("eyeTests").document(eyeTestDoc["id"].toString()).set(eyeTestDoc)
     }
 
     fun getEyeTests(userId: String, callback: (List<EyeTestResult>?) -> Unit) {
