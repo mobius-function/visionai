@@ -1,27 +1,33 @@
 package com.yuvraj.visionai.ui.home.fragments
 
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeAstigmatismTestingBinding
 import com.yuvraj.visionai.enums.FaceStatus
+import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.DebugTags
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
-import com.yuvraj.visionai.utils.helpers.DistanceHelper
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
+import com.yuvraj.visionai.viewModel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
 
-
+@AndroidEntryPoint
 class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_testing) {
     private var _binding: FragmentHomeAstigmatismTestingBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: UserViewModel by viewModels()
 
     private val fragmentStartTime : Long = System.currentTimeMillis()
 
@@ -47,6 +53,8 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
 
     private fun initViews(view: View) {
         _binding = FragmentHomeAstigmatismTestingBinding.bind(view)
+
+        isAllInOneTest = requireActivity().getAllInOneEyeTestMode()
     }
 
     private fun clickableViews() {
@@ -61,8 +69,8 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
         }
     }
 
-    private fun check(result: Boolean) {
-        val message: String = if (result) {
+    private fun check(astigmatismResults: Boolean) {
+        val message: String = if (astigmatismResults) {
             "You have Astigmatism. Please consult a doctor."
         } else {
             "You don't have Astigmatism."
@@ -84,10 +92,17 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
                 rightEyePartialBlinkCounter
             )
 
+            Log.d("DebugEyeTestResult", "The total time spent is: $totalTimeSpent")
+            Log.d("DebugEyeTestResult", "The left eye partial blink counter is: $leftEyePartialBlinkCounter")
+            Log.d("DebugEyeTestResult", "The right eye partial blink counter is: $rightEyePartialBlinkCounter")
+
             val sharedPreferences = requireActivity().getSharedPreferences(
                 Constants.EYE_TEST_RESULTS,
                 AppCompatActivity.MODE_PRIVATE
             )
+
+            // get current data in format (DD/MM/YYYY) and time in format (HH:MM:SS) as id
+            val id = Calendar.getInstance().time.toString()
 
             val totalTimeSpent = sharedPreferences.getLong(Constants.TOTAL_TIME_SPENT_TESTING, 0)
             val totalLeftEyePartialBlinkCounter = sharedPreferences.getInt(Constants.LEFT_EYE_PARTIAL_BLINK_COUNTER, 0)
@@ -99,8 +114,29 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
             val hyperopiaResultsLeftEye = sharedPreferences.getFloat(Constants.HYPEROPIA_RESULTS_LEFT_EYE, 0.0f)
             val hyperopiaResultsRightEye = sharedPreferences.getFloat(Constants.HYPEROPIA_RESULTS_RIGHT_EYE, 0.0f)
 
-            val astigmatismResults = result
+            val dryLeftEyeResults = totalLeftEyePartialBlinkCounter/totalTimeSpent > 10
+            val dryRightEyeResults = totalRightEyePartialBlinkCounter/totalTimeSpent > 10
+
+            val eyeTestResult = EyeTestResult(
+                id = id,
+                astigmatismResult = astigmatismResults,
+                dryLeftEyeResult = dryLeftEyeResults,
+                dryRightEyeResult = dryRightEyeResults,
+                jaundiceResult = false,
+                plusPowerLeftEye = myopiaResultsLeftEye,
+                plusPowerRightEye = myopiaResultsRightEye,
+                minusPowerLeftEye = hyperopiaResultsLeftEye,
+                minusPowerRightEye = hyperopiaResultsRightEye
+            )
+
+            Log.d("DebugEyeTestResult", eyeTestResult.toString())
+
+            viewModel.saveEyeTest(eyeTestResult)
         }
+
+        findNavController().navigate(R.id.landingFragment)
+
+        // TODO: "Show an alert dialog with the result of the test."
     }
 
     private fun createCameraManager() {
