@@ -123,10 +123,10 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
                 dryLeftEyeResult = dryLeftEyeResults,
                 dryRightEyeResult = dryRightEyeResults,
                 jaundiceResult = false,
-                plusPowerLeftEye = myopiaResultsLeftEye,
-                plusPowerRightEye = myopiaResultsRightEye,
-                minusPowerLeftEye = hyperopiaResultsLeftEye,
-                minusPowerRightEye = hyperopiaResultsRightEye
+                plusPowerLeftEye = hyperopiaResultsLeftEye,
+                plusPowerRightEye = hyperopiaResultsRightEye,
+                minusPowerLeftEye = myopiaResultsLeftEye,
+                minusPowerRightEye = myopiaResultsRightEye
             )
 
             Log.d("DebugEyeTestResult", eyeTestResult.toString())
