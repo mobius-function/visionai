@@ -22,7 +22,9 @@ import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
 import com.yuvraj.visionai.utils.clients.NotificationHelper.scheduleRegularNotification
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.initiateAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setAllInOneEyeTestMode
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var _binding: UiHomeActivityMainBinding? = null
