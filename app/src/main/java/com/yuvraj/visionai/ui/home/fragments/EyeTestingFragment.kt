@@ -23,6 +23,7 @@ import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructio
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeMyopiaTestResult
 import java.util.*
 
 /**
@@ -61,6 +62,9 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     // for dry eye testing
     private var leftEyePartialBlinkCounter: Int = 0
     private var rightEyePartialBlinkCounter: Int = 0
+
+    private var myopiaLeftEyePower: Float = 0.0f
+    private var myopiaRightEyePower: Float = 0.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -172,10 +176,10 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         } else {
             var deno : Double? = null
 
-            if(lastCorrect != null) {
-                deno = (lastCorrect!! * 20)/0.50905435
+            deno = if(lastCorrect != null) {
+                (lastCorrect!! * 20)/0.50905435
             } else {
-                deno = (lastIncorrect!! * 20)/0.50905435
+                (lastIncorrect!! * 20)/0.50905435
             }
 
             if(checkingRightEye == false){
@@ -204,14 +208,17 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                     message
                 )
 
+                myopiaLeftEyePower = calculateNegativePower(deno)
+
                 showInstructionDialogBox(
                     requireActivity(),
                     "Negative Power",
-                    "Your power of left eye is ${calculateNegativePower(deno)}"
+                    "Your power of left eye is $myopiaLeftEyePower"
                 )
 
                 val r = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, textSize,
-                    getResources().getDisplayMetrics())
+                    resources.displayMetrics
+                )
 
                 Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
                 displayRandomText(textSize)
@@ -225,12 +232,14 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 // EVENT: End of the test
                 val totalTimeSpent : Long = (System.currentTimeMillis() - fragmentStartTime)/1000
 
+                myopiaRightEyePower = calculateNegativePower(deno)
+
                 showInstructionDialogBox(
                     requireActivity(),
                     "Negative Power",
-                    "Your power of right eye is ${calculateNegativePower(deno)}"
+                    "Your power of right eye is $myopiaRightEyePower"
                 )
-
+                isAllInOneTest = requireActivity().getAllInOneEyeTestMode()
                 if(isAllInOneTest) {
 
                     requireActivity().updateAllInOneEyeTestModeAfterTest(
@@ -238,6 +247,17 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                         leftEyePartialBlinkCounter,
                         rightEyePartialBlinkCounter
                     )
+                    Log.d("DebugEyeTestResult", "The total time spent is: $totalTimeSpent")
+                    Log.d("DebugEyeTestResult", "The left eye partial blink counter is: $leftEyePartialBlinkCounter")
+                    Log.d("DebugEyeTestResult", "The right eye partial blink counter is: $rightEyePartialBlinkCounter")
+
+                    requireActivity().updateAllInOneEyeTestModeMyopiaTestResult(
+                        myopiaLeftEyePower,
+                        myopiaRightEyePower
+                    )
+
+                    Log.d("DebugEyeTestResult", "The left eye power is: $myopiaLeftEyePower")
+                    Log.d("DebugEyeTestResult", "The right eye power is: $myopiaRightEyePower")
 
                     findNavController().navigate(
                         R.id.action_eyeTestingFragment_to_hyperopiaTestingFragment

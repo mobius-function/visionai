@@ -25,6 +25,7 @@ import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeHyperopiaTestResult
 
 class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
@@ -57,6 +58,9 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     // for dry eye testing
     private var leftEyePartialBlinkCounter: Int = 0
     private var rightEyePartialBlinkCounter: Int = 0
+
+    private var hyperopiaLeftEyePower: Float = 0.0f
+    private var hyperopiaRightEyePower: Float = 0.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -166,9 +170,9 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
 
         else {
-            var diapter : Double? = null
+            var diapter : Float = 0.0f
             if(lastIncorrect == null) {
-                diapter = 0.0
+                diapter = 0.0f
             } else {
                 val sharedPreferences = requireActivity().getSharedPreferences(USER_DETAILS, MODE_PRIVATE)
                 val userAge = sharedPreferences.getInt(USER_AGE, 20)
@@ -207,12 +211,15 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 AlertDialogBox.showInstructionDialogBox(
                     requireActivity(),
                     "Positive Power",
-                    "Your power of Right eye is $diapter"
+                    "Your power of Left eye is $diapter"
                 )
+
+                hyperopiaLeftEyePower = diapter
 
                 val r = TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_MM, textSize,
-                    getResources().getDisplayMetrics())
+                    resources.displayMetrics
+                )
 
                 Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
                 displayRandomText(textSize)
@@ -232,6 +239,8 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                     "Your power of Right eye is $diapter"
                 )
 
+                hyperopiaRightEyePower = diapter
+
                 if(isAllInOneTest) {
 
                     requireActivity().updateAllInOneEyeTestModeAfterTest(
@@ -239,6 +248,17 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                         leftEyePartialBlinkCounter,
                         rightEyePartialBlinkCounter
                     )
+                    Log.d("DebugEyeTestResult", "The total time spent is: $totalTimeSpent")
+                    Log.d("DebugEyeTestResult", "The left eye partial blink counter is: $leftEyePartialBlinkCounter")
+                    Log.d("DebugEyeTestResult", "The right eye partial blink counter is: $rightEyePartialBlinkCounter")
+
+                    requireActivity().updateAllInOneEyeTestModeHyperopiaTestResult(
+                        hyperopiaLeftEyePower,
+                        hyperopiaRightEyePower
+                    )
+
+                    Log.d("DebugEyeTestResult", "The left eye power is: $hyperopiaLeftEyePower")
+                    Log.d("DebugEyeTestResult", "The right eye power is: $hyperopiaRightEyePower")
 
                     findNavController().navigate(
                         R.id.action_hyperopiaTestingFragment_to_astigmatismTestingFragment
