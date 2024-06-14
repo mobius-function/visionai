@@ -24,4 +24,13 @@
     <string name="welcome_chat_bot">Hi I am Vision GPT\n Your personal AEye Assistant \nTry asking me something</string>
 
     <string name="CHAT_GPT_API_KEY">sk-proj-ZyJ9CglhfV6X9R0SEnzXT3BlbkFJQolYIzrUbqu4PqWNiSZa</string>
+    <string name="stat_item_id">Id:</string>
+    <string name="stat_item_right_eye_plus_power">Right Eye plus Power:</string>
+    <string name="stat_item_left_eye_plus_power">Left Eye plus Power:</string>
+    <string name="stat_item_right_eye_minus_power">Right Eye minus Power:</string>
+    <string name="stat_item_left_eye_minus_power">Left Eye minus Power:</string>
+    <string name="stat_item_has_astigmatism">Has Astigmatism:</string>
+    <string name="stat_item_has_dry_left_eye">Has Dry Left Eye:</string>
+    <string name="stat_item_has_dry_right_eye">Has Dry Right Eye:</string>
+    <string name="stat_item_has_jaundice">Has Jaundice:</string>
 </resources>

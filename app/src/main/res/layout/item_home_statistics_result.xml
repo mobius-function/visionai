@@ -3,13 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="15dp"
     app:cardCornerRadius="15dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
         <TextView
             android:id="@+id/tvDateAndTime"
@@ -17,9 +18,19 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
             android:layout_marginStart="16dp"
-            android:text="Name: "
+            android:text="@string/stat_item_id"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/DateAndTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="@id/tvDateAndTime"
+            app:layout_constraintStart_toEndOf="@id/tvDateAndTime"
+            app:layout_constraintBottom_toBottomOf="@id/tvDateAndTime" />
 
         <TextView
             android:id="@+id/tvPlusPowerRightEye"
@@ -28,9 +39,19 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_marginStart="16dp"
-            android:text="Right Eye plus Power: "
+            android:text="@string/stat_item_right_eye_plus_power"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDateAndTime" />
+
+        <TextView
+            android:id="@+id/PlusPowerRightEye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="@id/tvPlusPowerRightEye"
+            app:layout_constraintStart_toEndOf="@id/tvPlusPowerRightEye"
+            app:layout_constraintBottom_toBottomOf="@id/tvPlusPowerRightEye" />
 
         <TextView
             android:id="@+id/tvPlusPowerLeftEye"
@@ -38,9 +59,19 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
             android:layout_marginStart="16dp"
-            android:text="Left Eye plus Power: "
+            android:text="@string/stat_item_left_eye_plus_power"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvPlusPowerRightEye" />
+
+        <TextView
+            android:id="@+id/PlusPowerLeftEye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="@id/tvPlusPowerLeftEye"
+            app:layout_constraintStart_toEndOf="@id/tvPlusPowerLeftEye"
+            app:layout_constraintBottom_toBottomOf="@id/tvPlusPowerLeftEye" />
 
         <TextView
             android:id="@+id/tvMinusPowerRightEye"
@@ -48,9 +79,19 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
             android:layout_marginStart="16dp"
-            android:text="Right Eye minus Power: "
+            android:text="@string/stat_item_right_eye_minus_power"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvPlusPowerLeftEye" />
+
+        <TextView
+            android:id="@+id/MinusPowerRightEye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="@id/tvMinusPowerRightEye"
+            app:layout_constraintStart_toEndOf="@id/tvMinusPowerRightEye"
+            app:layout_constraintBottom_toBottomOf="@id/tvMinusPowerRightEye" />
 
         <TextView
             android:id="@+id/tvMinusPowerLeftEye"
@@ -58,9 +99,19 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
             android:layout_marginStart="16dp"
-            android:text="Left Eye minus Power: "
+            android:text="@string/stat_item_left_eye_minus_power"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvMinusPowerRightEye" />
+
+        <TextView
+            android:id="@+id/MinusPowerLeftEye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="@id/tvMinusPowerLeftEye"
+            app:layout_constraintStart_toEndOf="@id/tvMinusPowerLeftEye"
+            app:layout_constraintBottom_toBottomOf="@id/tvMinusPowerLeftEye" />
 
         <TextView
             android:id="@+id/tvAstigmatism"
@@ -68,19 +119,59 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
             android:layout_marginStart="16dp"
-            android:text="Right Eye Cylinder: "
+            android:text="@string/stat_item_has_astigmatism"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvMinusPowerLeftEye" />
 
         <TextView
-            android:id="@+id/tvDryEye"
+            android:id="@+id/Astigmatism"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="@id/tvAstigmatism"
+            app:layout_constraintStart_toEndOf="@id/tvAstigmatism"
+            app:layout_constraintBottom_toBottomOf="@id/tvAstigmatism" />
+
+        <TextView
+            android:id="@+id/tvDryRightEye"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
-            android:text="Has Astigmatism: "
+            android:text="@string/stat_item_has_dry_left_eye"
             android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvAstigmatism" />
+
+        <TextView
+            android:id="@+id/DryRightEye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="@id/tvDryRightEye"
+            app:layout_constraintStart_toEndOf="@id/tvDryRightEye"
+            app:layout_constraintBottom_toBottomOf="@id/tvDryRightEye" />
+
+        <TextView
+            android:id="@+id/tvDryLeftEye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:text="@string/stat_item_has_dry_right_eye"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDryRightEye" />
+
+        <TextView
+            android:id="@+id/DryLeftEye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="@id/tvDryLeftEye"
+            app:layout_constraintStart_toEndOf="@id/tvDryLeftEye"
+            app:layout_constraintBottom_toBottomOf="@id/tvDryLeftEye" />
 
         <TextView
             android:id="@+id/tvJaundice"
@@ -88,10 +179,20 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
             android:paddingBottom="5dp"
-            android:text="Has Dry Eye: "
+            android:text="@string/stat_item_has_jaundice"
             android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDryEye" />
+            app:layout_constraintTop_toBottomOf="@id/tvDryLeftEye" />
+
+        <TextView
+            android:id="@+id/Jaundice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="@id/tvJaundice"
+            app:layout_constraintStart_toEndOf="@id/tvJaundice"
+            app:layout_constraintBottom_toBottomOf="@id/tvJaundice" />
 
         <!-- Add more TextViews for other EyeTest properties -->
 
