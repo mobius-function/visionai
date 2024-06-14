@@ -25,7 +25,18 @@ class EyeTestResultAdapter : PagingDataAdapter<EyeTestResult, EyeTestResultAdapt
 
     class EyeTestViewHolder(private val binding: ItemHomeStatisticsResultBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(eyeTest: EyeTestResult) {
-            binding.tvDateAndTime.text = eyeTest.id
+            binding.apply {
+                DateAndTime.text = eyeTest.id
+
+                PlusPowerRightEye.text = eyeTest.plusPowerRightEye.toString()
+                PlusPowerLeftEye.text = eyeTest.plusPowerLeftEye.toString()
+                MinusPowerRightEye.text = eyeTest.minusPowerRightEye.toString()
+                MinusPowerLeftEye.text = eyeTest.minusPowerLeftEye.toString()
+                Astigmatism.text = eyeTest.astigmatismResult.toString()
+                DryLeftEye.text = eyeTest.dryLeftEyeResult.toString()
+                DryRightEye.text = eyeTest.dryRightEyeResult.toString()
+                Jaundice.text = eyeTest.jaundiceResult.toString()
+            }
         }
     }
 
