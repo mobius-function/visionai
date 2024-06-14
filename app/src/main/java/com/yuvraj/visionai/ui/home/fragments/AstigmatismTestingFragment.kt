@@ -1,10 +1,13 @@
 package com.yuvraj.visionai.ui.home.fragments
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
@@ -48,6 +51,8 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
         // Inflate the layout for this fragment
         initViews(view)
         clickableViews()
+        createCameraManager()
+        checkForPermission()
     }
 
 
@@ -92,9 +97,9 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
                 rightEyePartialBlinkCounter
             )
 
-            Log.d("DebugEyeTestResult", "The total time spent is: $totalTimeSpent")
-            Log.d("DebugEyeTestResult", "The left eye partial blink counter is: $leftEyePartialBlinkCounter")
-            Log.d("DebugEyeTestResult", "The right eye partial blink counter is: $rightEyePartialBlinkCounter")
+            // Log.d("DebugEyeTestResult", "The total time spent is: $totalTimeSpent")
+            // Log.d("DebugEyeTestResult", "The left eye partial blink counter is: $leftEyePartialBlinkCounter")
+            // Log.d("DebugEyeTestResult", "The right eye partial blink counter is: $rightEyePartialBlinkCounter")
 
             val sharedPreferences = requireActivity().getSharedPreferences(
                 Constants.EYE_TEST_RESULTS,
@@ -129,7 +134,7 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
                 minusPowerRightEye = myopiaResultsRightEye
             )
 
-            Log.d("DebugEyeTestResult", eyeTestResult.toString())
+            // Log.d("DebugEyeTestResult", eyeTestResult.toString())
 
             viewModel.saveEyeTest(eyeTestResult)
         }
@@ -153,6 +158,18 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
         cameraManager.getCameraDetails(requireActivity())
     }
 
+    private fun checkForPermission() {
+        if (allPermissionsGranted()) {
+            cameraManager.startCamera()
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                Constants.REQUIRED_PERMISSIONS_FOR_CAMERA,
+                REQUEST_CODE_PERMISSIONS
+            )
+        }
+    }
+
 
     private fun processPicture(faceStatus: FaceStatus) {
         Log.e(DebugTags.FACE_DETECTION,"This is it ${faceStatus.name}")
@@ -172,6 +189,14 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
 
         Log.e(DebugTags.FACE_DETECTION,"The left eye open probability is: $lEOP")
         Log.e(DebugTags.FACE_DETECTION,"The right eye open probability is: $rEOP")
+    }
+
+    private fun allPermissionsGranted() = Constants.REQUIRED_PERMISSIONS_FOR_CAMERA.all {
+        ContextCompat.checkSelfPermission(requireActivity().baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    companion object {
+        private const val REQUEST_CODE_PERMISSIONS = 10
     }
 
     override fun onDestroy() {
