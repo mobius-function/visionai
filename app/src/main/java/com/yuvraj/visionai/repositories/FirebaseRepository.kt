@@ -12,7 +12,7 @@ class FirebaseRepository  @Inject constructor(
     private val db: FirebaseFirestore
 ) {
 
-//    private val db = Firebase.firestore
+    // private val db = Firebase.firestore
 
     fun getApiKey(callback: (String?) -> Unit) {
         db.collection("config").document("apiKeys").get()
@@ -59,7 +59,7 @@ class FirebaseRepository  @Inject constructor(
             "dryRightEyeResult" to eyeTest.dryRightEyeResult,
             "jaundiceResult" to eyeTest.jaundiceResult
         )
-//        db.collection("users").document(userId).collection("eyeTests").add(eyeTestDoc)
+        // db.collection("users").document(userId).collection("eyeTests").add(eyeTestDoc)
         db.collection("users").document(userId).collection("eyeTests").document(eyeTestDoc["id"].toString()).set(eyeTestDoc)
     }
 
