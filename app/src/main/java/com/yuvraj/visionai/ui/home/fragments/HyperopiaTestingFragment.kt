@@ -248,17 +248,17 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                         leftEyePartialBlinkCounter,
                         rightEyePartialBlinkCounter
                     )
-                    Log.d("DebugEyeTestResult", "The total time spent is: $totalTimeSpent")
-                    Log.d("DebugEyeTestResult", "The left eye partial blink counter is: $leftEyePartialBlinkCounter")
-                    Log.d("DebugEyeTestResult", "The right eye partial blink counter is: $rightEyePartialBlinkCounter")
+                    // Log.d("DebugEyeTestResult", "The total time spent is: $totalTimeSpent")
+                    // Log.d("DebugEyeTestResult", "The left eye partial blink counter is: $leftEyePartialBlinkCounter")
+                    // Log.d("DebugEyeTestResult", "The right eye partial blink counter is: $rightEyePartialBlinkCounter")
 
                     requireActivity().updateAllInOneEyeTestModeHyperopiaTestResult(
                         hyperopiaLeftEyePower,
                         hyperopiaRightEyePower
                     )
 
-                    Log.d("DebugEyeTestResult", "The left eye power is: $hyperopiaLeftEyePower")
-                    Log.d("DebugEyeTestResult", "The right eye power is: $hyperopiaRightEyePower")
+                    // Log.d("DebugEyeTestResult", "The left eye power is: $hyperopiaLeftEyePower")
+                    // Log.d("DebugEyeTestResult", "The right eye power is: $hyperopiaRightEyePower")
 
                     findNavController().navigate(
                         R.id.action_hyperopiaTestingFragment_to_astigmatismTestingFragment
@@ -356,8 +356,8 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             binding.tvLeftEye.text = "LE Partial Blink: $leftEyePartialBlinkCounter"
         }
 
-        Log.e(FACE_DETECTION,"The left eye open probability is: $lEOP")
-        Log.e(FACE_DETECTION,"The right eye open probability is: $rEOP")
+        // Log.e(FACE_DETECTION,"The left eye open probability is: $lEOP")
+        // Log.e(FACE_DETECTION,"The right eye open probability is: $rEOP")
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
