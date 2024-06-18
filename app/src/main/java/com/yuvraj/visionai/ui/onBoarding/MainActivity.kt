@@ -1,9 +1,17 @@
 package com.yuvraj.visionai.ui.onBoarding
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiOnboardingActivityMainBinding
 import com.yuvraj.visionai.service.autoUpdater.InAppUpdate
@@ -31,15 +39,10 @@ class MainActivity: AppCompatActivity() {
 
         //In-App Update Initializer
         inAppUpdate = InAppUpdate(this@MainActivity)
-        inAppUpdate!!.checkForAppUpdate()
+        inAppUpdate!!.onStart()
+        inAppUpdate!!.checkUpdate()
 
         navHostFragment = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment)
-    }
-
-    // Override methods for In-App Update
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        inAppUpdate!!.onActivityResult(requestCode, resultCode)
     }
 
     override fun onResume() {
