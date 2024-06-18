@@ -19,8 +19,8 @@ android {
         targetSdk 34
 
         // Version code and version name for Google play store
-        versionCode 13
-        versionName "2.10.1"
+        versionCode 14
+        versionName "2.11"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -110,8 +110,8 @@ dependencies {
     // Dagger - Hilt
     implementation 'com.google.dagger:hilt-android:2.48'
     kapt 'com.google.dagger:hilt-compiler:2.48'
-//    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     kapt "androidx.hilt:hilt-compiler:1.2.0"
+    // implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
 
     //Timber
     implementation "com.jakewharton.timber:timber:4.7.1"
@@ -149,9 +149,9 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
     implementation 'com.google.firebase:firebase-firestore-ktx:25.0.0'
 
-
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:32.3.1')
+
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
@@ -176,7 +176,7 @@ dependencies {
     // Lottie for animations
     implementation 'com.airbnb.android:lottie:4.2.0'
 
-    // Mediapipe for AI tasks (llm implementation)
+    // Media pipe for AI tasks (llm implementation)
     implementation ("com.google.mediapipe:tasks-genai:0.10.14")
 
 }
