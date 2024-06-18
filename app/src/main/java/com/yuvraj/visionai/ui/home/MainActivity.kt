@@ -76,7 +76,8 @@ class MainActivity : AppCompatActivity() {
 
         //In-App Update Initializer
         inAppUpdate = InAppUpdate(this@MainActivity)
-        inAppUpdate!!.checkForAppUpdate()
+        inAppUpdate!!.onStart()
+        inAppUpdate!!.checkUpdate()
     }
 
     private fun clickableViews() {
@@ -153,12 +154,6 @@ class MainActivity : AppCompatActivity() {
                 tvToolbarShortName.text = "GU"
             }
         }
-    }
-
-    // Override methods for In-App Update
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        inAppUpdate!!.onActivityResult(requestCode, resultCode)
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onResume() {
