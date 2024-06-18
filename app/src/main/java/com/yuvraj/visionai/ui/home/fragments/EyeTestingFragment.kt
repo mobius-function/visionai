@@ -174,7 +174,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             Log.e("EyeTesting Debug","The presented Distance Minimum in MM is: $distanceMinimum mm")
             Log.e("EyeTesting Debug","The presented Distance Current in MM is: $distanceCurrent mm")
         } else {
-            var deno : Double? = null
+            var deno : Double?
 
             deno = if(lastCorrect != null) {
                 (lastCorrect!! * 20)/0.50905435

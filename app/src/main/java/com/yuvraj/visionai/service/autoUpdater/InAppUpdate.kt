@@ -20,7 +20,6 @@ import com.google.android.play.core.install.model.UpdateAvailability
 
 class InAppUpdate(private val parentActivity: Activity) {
     private val appUpdateManager: AppUpdateManager?
-    private val appUpdateType = AppUpdateType.FLEXIBLE
 
     init {
         appUpdateManager = AppUpdateManagerFactory.create(parentActivity)
@@ -107,6 +106,8 @@ class InAppUpdate(private val parentActivity: Activity) {
             val totalBytesToDownload = state.totalBytesToDownload()
             val progress = (bytesDownloaded * 100 / totalBytesToDownload).toInt()
             // Show update progress bar.
+
+            Log.d("DebugInAppUpdate", "Downloading $progress%")
         }
         if (state.installStatus() == InstallStatus.DOWNLOADED) {
             Snackbar.make(
