@@ -102,6 +102,7 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
             }
 
             btnBack.setOnClickListener {
+                Authentication.signOutUser()
                 requireActivity().onBackPressed()
             }
         }
