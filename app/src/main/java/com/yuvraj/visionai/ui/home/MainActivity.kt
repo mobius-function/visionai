@@ -76,8 +76,8 @@ class MainActivity : AppCompatActivity() {
 
         //In-App Update Initializer
         inAppUpdate = InAppUpdate(this@MainActivity)
-        inAppUpdate!!.onStart()
         inAppUpdate!!.checkUpdate()
+        inAppUpdate!!.onStart()
     }
 
     private fun clickableViews() {
