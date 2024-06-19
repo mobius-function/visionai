@@ -39,8 +39,8 @@ class MainActivity: AppCompatActivity() {
 
         //In-App Update Initializer
         inAppUpdate = InAppUpdate(this@MainActivity)
-        inAppUpdate!!.onStart()
         inAppUpdate!!.checkUpdate()
+        inAppUpdate!!.onStart()
 
         navHostFragment = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment)
     }
