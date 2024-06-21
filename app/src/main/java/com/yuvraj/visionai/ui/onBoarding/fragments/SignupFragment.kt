@@ -3,11 +3,10 @@ package com.yuvraj.visionai.ui.onBoarding.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -18,8 +17,8 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingSignupBinding
@@ -180,10 +179,15 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 
                 val user = FirebaseAuth.getInstance().currentUser
                 if(user != null) {
-                    val profileUpdates = userProfileChangeRequest {
-                        displayName = binding.etName.text.toString()
-                        photoUri = null
-                    }
+                    // val profileUpdates = userProfileChangeRequest {
+                    //    displayName = binding.etName.text.toString()
+                    //    photoUri = null
+                    // }
+
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setDisplayName(binding.etName.text.toString())
+                        .setPhotoUri(null)
+                        .build()
 
                     user.updateProfile(profileUpdates)
                         .addOnCompleteListener { task ->
