@@ -31,7 +31,7 @@ import java.util.concurrent.Executors
 
 class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
 
-    private lateinit var _binding: FragmentHomeDryEyeTestingBinding
+    private var _binding: FragmentHomeDryEyeTestingBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var cameraExecutor: ExecutorService
