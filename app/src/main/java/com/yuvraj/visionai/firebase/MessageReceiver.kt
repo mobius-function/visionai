@@ -65,7 +65,7 @@ class MessagingService: FirebaseMessagingService() {
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent)
                 .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bmp))
-                .setPriority(Notification.PRIORITY_DEFAULT)
+                .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
 
 //        val notificationBuilder: NotificationCompat.Builder =
 //            NotificationCompat.Builder(this, channelId)
