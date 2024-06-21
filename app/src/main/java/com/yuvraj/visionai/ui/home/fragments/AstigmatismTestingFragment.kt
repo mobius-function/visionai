@@ -87,7 +87,7 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
             message
         )
 
-        val totalTimeSpent : Long = (System.currentTimeMillis() - fragmentStartTime)/1000
+        var totalTimeSpent : Long = (System.currentTimeMillis() - fragmentStartTime)/1000
 
         if(isAllInOneTest) {
 
@@ -109,9 +109,9 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
             // get current data in format (DD/MM/YYYY) and time in format (HH:MM:SS) as id
             val id = Calendar.getInstance().time.toString()
 
-            val totalTimeSpent = sharedPreferences.getLong(Constants.TOTAL_TIME_SPENT_TESTING, 0)
-            val totalLeftEyePartialBlinkCounter = sharedPreferences.getInt(Constants.LEFT_EYE_PARTIAL_BLINK_COUNTER, 0)
-            val totalRightEyePartialBlinkCounter = sharedPreferences.getInt(Constants.RIGHT_EYE_PARTIAL_BLINK_COUNTER, 0)
+            totalTimeSpent += sharedPreferences.getLong(Constants.TOTAL_TIME_SPENT_TESTING, 0)
+            val totalLeftEyePartialBlinkCounter = leftEyePartialBlinkCounter + sharedPreferences.getInt(Constants.LEFT_EYE_PARTIAL_BLINK_COUNTER, 0)
+            val totalRightEyePartialBlinkCounter = rightEyePartialBlinkCounter + sharedPreferences.getInt(Constants.RIGHT_EYE_PARTIAL_BLINK_COUNTER, 0)
 
             val myopiaResultsLeftEye = sharedPreferences.getFloat(Constants.MYOPIA_RESULTS_LEFT_EYE, 0.0f)
             val myopiaResultsRightEye = sharedPreferences.getFloat(Constants.MYOPIA_RESULTS_RIGHT_EYE, 0.0f)
