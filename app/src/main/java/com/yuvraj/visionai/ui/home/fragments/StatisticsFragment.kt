@@ -1,6 +1,7 @@
 package com.yuvraj.visionai.ui.home.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -12,6 +13,8 @@ import com.yuvraj.visionai.databinding.FragmentHomeStatisticsBinding
 import com.yuvraj.visionai.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -57,9 +60,14 @@ class StatisticsFragment : Fragment(R.layout.fragment_home_statistics) {
 
     private fun observeData() {
         lifecycleScope.launch {
-            viewModel.getEyeTestsPagingData().collectLatest { pagingData ->
-                adapter.submitData(pagingData)
-            }
+            Log.d("DebugEyeTests","Getting Eye Tests (fragment)")
+//            viewModel.getEyeTestsPagingData().collectLatest { pagingData ->
+//                adapter.submitData(pagingData)
+//            }
+
+            viewModel.getEyeTestsPagingData2().onEach { pagingData ->
+                adapter.submitData(lifecycle, pagingData)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
         }
     }
 

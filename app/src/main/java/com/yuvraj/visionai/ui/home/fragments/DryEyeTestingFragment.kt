@@ -2,6 +2,7 @@ package com.yuvraj.visionai.ui.home.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraControl
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -23,8 +25,10 @@ import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeDryEyeTestingBinding
+import com.yuvraj.visionai.ui.home.MainActivity
 import com.yuvraj.visionai.utils.DebugTags.CAMERA_X
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
+import com.yuvraj.visionai.utils.helpers.Permissions.allPermissionsGranted
 import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -64,8 +68,7 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
         if (allPermissionsGranted()) {
             startCamera()
         } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+            startPermissionsRequest(REQUIRED_PERMISSIONS)
         }
 
         // Set up the listeners for take photo and video capture buttons
@@ -216,30 +219,24 @@ class DryEyeTestingFragment : Fragment(R.layout.fragment_home_dry_eye_testing) {
         cameraExecutor.shutdown()
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>, grantResults:
-        IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (allPermissionsGranted()) {
-                startCamera()
-            } else {
-                Toast.makeText(requireActivity(),
-                    "Permissions not granted by the user.",
-                    Toast.LENGTH_SHORT).show()
-                requireActivity().finish()
-            }
+    private val requestMultiplePermissions = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        permissions.entries.forEach {
+            Log.d("DEBUG", "${it.key} = ${it.value}")
+        }
+
+        if (requireActivity().allPermissionsGranted()) {
+            // Navigate to MainActivity
+            val intent = Intent(requireActivity(), MainActivity::class.java)
+            startActivity(intent)
+        } else {
+            // continue asking for permissions
         }
     }
 
-    suspend fun startTimer() {
-        // Start a coroutine
-        for (i in 1..5) {
-            // Delay for 1 second
-            delay(1000)
-            // Print the number
-            println(i)
-        }
+    private fun startPermissionsRequest(permissions: Array<String>) {
+        requestMultiplePermissions.launch(permissions)
     }
 
     companion object {
