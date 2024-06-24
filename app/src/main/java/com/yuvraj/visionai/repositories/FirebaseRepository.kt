@@ -1,5 +1,6 @@
 package com.yuvraj.visionai.repositories
 
+import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -64,14 +65,21 @@ class FirebaseRepository  @Inject constructor(
     }
 
     fun getEyeTests(userId: String, callback: (List<EyeTestResult>?) -> Unit) {
+        Log.d("DebugEyeTests", "Getting Eye Tests (Repository)")
         db.collection("users").document(userId).collection("eyeTests").get()
             .addOnSuccessListener { documents ->
                 val eyeTests = documents.mapNotNull { it.toObject(EyeTestResult::class.java) }
+                Log.d("DebugEyeTests", eyeTests.toString())
                 callback(eyeTests)
             }
-            .addOnFailureListener {
+            .addOnFailureListener { e ->
+                Log.d("DebugEyeTests", "Failed: ${e.message}")
                 callback(null)
             }
+    }
+
+    fun getEyeTestsQuery(userId: String): Query {
+        return db.collection("users").document(userId).collection("eyeTests").orderBy("id")
     }
 
     fun getEyeTests(userId: String): Query {
