@@ -1,5 +1,6 @@
 package com.yuvraj.visionai.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -57,8 +58,19 @@ class UserViewModel @Inject constructor(
     }
 
     fun getEyeTestsPagingData(): Flow<PagingData<EyeTestResult>> {
+        Log.d("DebugEyeTests","Getting Eye Tests (View Model)")
         val query = userRepository.getEyeTests(userId)
         return Pager(pagingConfig) {
+            Log.d("DebugEyeTests","Paging Eye Tests (View Model)")
+            EyeTestPagingSource(query)
+        }.flow.cachedIn(viewModelScope)
+    }
+
+    fun getEyeTestsPagingData2(): Flow<PagingData<EyeTestResult>> {
+        Log.d("DebugEyeTests", "Getting Eye Tests (View Model)")
+        val query = userRepository.getEyeTestsQuery(userId)
+        return Pager(PagingConfig(pageSize = 10)) {
+            Log.d("DebugEyeTests", "Paging Eye Tests (View Model)")
             EyeTestPagingSource(query)
         }.flow.cachedIn(viewModelScope)
     }
