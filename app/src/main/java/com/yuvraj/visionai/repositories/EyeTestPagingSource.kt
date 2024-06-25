@@ -14,17 +14,16 @@ class EyeTestPagingSource(
 
     override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, EyeTestResult> {
         return try {
-            val currentPage = params.key ?: query.get().await()
-            val lastDocumentSnapshot = currentPage.documents.lastOrNull()
-            val nextPage = if (lastDocumentSnapshot != null) {
-                query.startAfter(lastDocumentSnapshot).get().await()
-            } else {
-                null
+            val currentPage = params.key ?: query.limit(params.loadSize.toLong()).get().await()
+            val lastVisibleDocument = currentPage.documents.lastOrNull()
+
+            val nextPage = lastVisibleDocument?.let {
+                query.startAfter(it).limit(params.loadSize.toLong()).get().await()
             }
 
             LoadResult.Page(
                 data = currentPage.toObjects(EyeTestResult::class.java),
-                prevKey = null,
+                prevKey = null, // Only paging forward.
                 nextKey = nextPage
             )
         } catch (e: Exception) {

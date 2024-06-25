@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yuvraj.visionai.databinding.ItemHomeStatisticsResultBinding
 import com.yuvraj.visionai.model.EyeTestResult
 
-
-class EyeTestResultAdapter : PagingDataAdapter<EyeTestResult, EyeTestResultAdapter.EyeTestViewHolder>(EyeTestDiffCallback()) {
+class EyeTestResultAdapter : PagingDataAdapter<EyeTestResult, EyeTestResultAdapter.EyeTestViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EyeTestViewHolder {
         val binding = ItemHomeStatisticsResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -40,13 +39,15 @@ class EyeTestResultAdapter : PagingDataAdapter<EyeTestResult, EyeTestResultAdapt
         }
     }
 
-    class EyeTestDiffCallback : DiffUtil.ItemCallback<EyeTestResult>() {
-        override fun areItemsTheSame(oldItem: EyeTestResult, newItem: EyeTestResult): Boolean {
-            return oldItem.id == newItem.id
-        }
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<EyeTestResult>() {
+            override fun areItemsTheSame(oldItem: EyeTestResult, newItem: EyeTestResult): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-        override fun areContentsTheSame(oldItem: EyeTestResult, newItem: EyeTestResult): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: EyeTestResult, newItem: EyeTestResult): Boolean {
+                return oldItem == newItem
+            }
         }
     }
 }

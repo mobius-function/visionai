@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.adapters.EyeTestResultAdapter
 import com.yuvraj.visionai.databinding.FragmentHomeStatisticsBinding
+import com.yuvraj.visionai.utils.loadStates.EyeTestLoadStateAdapter
 import com.yuvraj.visionai.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -54,7 +55,9 @@ class StatisticsFragment : Fragment(R.layout.fragment_home_statistics) {
 
     private fun setupRecyclerView() {
         adapter = EyeTestResultAdapter()
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter.withLoadStateFooter(
+            footer = EyeTestLoadStateAdapter { adapter.retry() }
+        )
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
