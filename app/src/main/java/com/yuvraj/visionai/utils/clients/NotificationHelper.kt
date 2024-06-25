@@ -14,6 +14,7 @@ import android.content.Context.NOTIFICATION_SERVICE
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
@@ -100,9 +101,9 @@ object NotificationHelper {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         // Check if the device can schedule exact alarms (For Android 14 and above)
-        if(Build.VERSION.SDK_INT >= 34){
+        if(Build.VERSION.SDK_INT >= 31){
             if(!alarmManager.canScheduleExactAlarms()) {
-                return
+                startActivity(Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM))
             }
         }
 
@@ -179,6 +180,7 @@ object NotificationHelper {
         notificationManager.createNotificationChannel(channel)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun areNotificationPermissionsGranted(context: Context): Boolean {
 
         // Check if notification permissions are granted
