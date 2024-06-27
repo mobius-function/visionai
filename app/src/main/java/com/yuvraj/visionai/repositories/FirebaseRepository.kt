@@ -83,6 +83,7 @@ class FirebaseRepository  @Inject constructor(
     }
 
     fun getEyeTests(userId: String): Query {
+        Log.d("DebugEyeTests", "Getting Eye Tests (Repository)")
         return db.collection("users").document(userId).collection("eyeTests")
     }
 }
