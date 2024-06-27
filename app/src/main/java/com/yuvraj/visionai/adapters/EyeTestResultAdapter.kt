@@ -1,5 +1,6 @@
 package com.yuvraj.visionai.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -24,6 +25,7 @@ class EyeTestResultAdapter : PagingDataAdapter<EyeTestResult, EyeTestResultAdapt
 
     class EyeTestViewHolder(private val binding: ItemHomeStatisticsResultBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(eyeTest: EyeTestResult) {
+            Log.d("EyeTestResultAdapterDebug", "bind: $eyeTest")
             binding.apply {
                 DateAndTime.text = eyeTest.id
 

@@ -64,13 +64,14 @@ class StatisticsFragment : Fragment(R.layout.fragment_home_statistics) {
     private fun observeData() {
         lifecycleScope.launch {
             Log.d("DebugEyeTests","Getting Eye Tests (fragment)")
-//            viewModel.getEyeTestsPagingData().collectLatest { pagingData ->
-//                adapter.submitData(pagingData)
-//            }
+            viewModel.getEyeTestsPagingData().collectLatest { pagingData ->
+                Log.d("DebugEyeTests","Got Eye Tests (fragment) $pagingData")
+                adapter.submitData(pagingData)
+            }
 
-            viewModel.getEyeTestsPagingData2().onEach { pagingData ->
-                adapter.submitData(lifecycle, pagingData)
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+            // viewModel.getEyeTestsPagingData().onEach { pagingData ->
+            //     adapter.submitData(lifecycle, pagingData)
+            // }.launchIn(viewLifecycleOwner.lifecycleScope)
         }
     }
 

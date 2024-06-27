@@ -6,6 +6,8 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.yuvraj.visionai.model.EyeTestResult
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
+import timber.log.Timber.*
 
 
 class EyeTestPagingSource(

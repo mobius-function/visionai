@@ -51,26 +51,17 @@ class UserViewModel @Inject constructor(
         userPreferences.value = preferences
     }
 
-    fun loadEyeTests() {
-        userRepository.getEyeTests(userId) { tests ->
-            eyeTests.value = tests
-        }
-    }
+//    fun loadEyeTests() {
+//        userRepository.getEyeTests(userId) { tests ->
+//            eyeTests.value = tests
+//        }
+//    }
 
     fun getEyeTestsPagingData(): Flow<PagingData<EyeTestResult>> {
         Log.d("DebugEyeTests","Getting Eye Tests (View Model)")
         val query = userRepository.getEyeTests(userId)
         return Pager(pagingConfig) {
             Log.d("DebugEyeTests","Paging Eye Tests (View Model)")
-            EyeTestPagingSource(query)
-        }.flow.cachedIn(viewModelScope)
-    }
-
-    fun getEyeTestsPagingData2(): Flow<PagingData<EyeTestResult>> {
-        Log.d("DebugEyeTests", "Getting Eye Tests (View Model)")
-        val query = userRepository.getEyeTestsQuery(userId)
-        return Pager(PagingConfig(pageSize = 10)) {
-            Log.d("DebugEyeTests", "Paging Eye Tests (View Model)")
             EyeTestPagingSource(query)
         }.flow.cachedIn(viewModelScope)
     }
