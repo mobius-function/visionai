@@ -22,6 +22,10 @@ android {
         versionCode 17
         versionName "2.11.3"
 
+        ndk {
+            debugSymbolLevel 'SYMBOL_TABLE'
+        }
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
