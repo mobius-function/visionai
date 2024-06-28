@@ -20,6 +20,16 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# Keep the model class and its fields
+-keepclassmembers class com.yuvraj.visionai.model.EyeTestResult {
+    public <init>();
+}
+
+# Keep all constructors in your model package
+-keepclassmembers class com.yuvraj.visionai.model.** {
+    public <init>(...);
+}
+
 -dontwarn javax.lang.model.SourceVersion
 -dontwarn javax.lang.model.element.Element
 -dontwarn javax.lang.model.element.ElementKind
