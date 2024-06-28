@@ -19,11 +19,11 @@ android {
         targetSdk 34
 
         // Version code and version name for Google play store
-        versionCode 18
-        versionName "2.11.4"
+        versionCode 19
+        versionName "2.11.5"
 
         ndk {
-            debugSymbolLevel 'SYMBOL_TABLE'
+            debugSymbolLevel 'FULL'
         }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
