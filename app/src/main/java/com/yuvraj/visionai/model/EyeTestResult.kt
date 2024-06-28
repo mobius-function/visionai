@@ -10,5 +10,7 @@ data class EyeTestResult(
     val dryLeftEyeResult: Boolean? = false,
     val dryRightEyeResult: Boolean? = false,
     val jaundiceResult: Boolean? = false
-)
+) {
+    // No-argument constructor is implicitly added by the Kotlin compiler
+}
 
