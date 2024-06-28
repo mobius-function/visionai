@@ -64,11 +64,15 @@ object NotificationHelper {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 createNotificationChannel()
             } else {
-                Log.d("TAG", "initViews: Notification channel is not created")
-                Log.d("TAG", "Build version is ${Build.VERSION.SDK_INT} and Name is ${Build.VERSION.CODENAME}")
+                Log.d("NotificationDebug",
+                    "initViews: Notification channel is not created")
+                Log.d("NotificationDebug",
+                    "Build version is ${Build.VERSION.SDK_INT} and Name is ${Build.VERSION.CODENAME}")
             }
             scheduleNotification(getRegularReminderTime() * 60)
-            Log.d("TAG", "Notification scheduled after ${getRegularReminderTime()} hours.")
+
+            Log.d("NotificationDebug",
+                "Notification scheduled after ${getRegularReminderTime()} hours.")
         }
     }
 
@@ -102,25 +106,23 @@ object NotificationHelper {
 
         // Check if the device can schedule exact alarms (For Android 14 and above)
         if(Build.VERSION.SDK_INT >= 31){
-            if(!alarmManager.canScheduleExactAlarms()) {
+            if(alarmManager.canScheduleExactAlarms()) {
+                // Get the selected time and schedule the notification
+                val time = getTime(alarmTimeInMinutes)
+
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    time.timeInMillis,
+                    pendingIntent
+                )
+
+                Log.d("NotificationDebug", "NotificationHelper is set for ${time.time} " +
+                        "with alarm time $alarmTimeInMinutes minutes " +
+                        "and ${time.timeInMillis / 1000} seconds")
+            } else {
                 startActivity(Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM))
             }
         }
-
-        // Get the selected time and schedule the notification
-        val time = getTime(alarmTimeInMinutes)
-
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            time.timeInMillis,
-            pendingIntent
-        )
-
-        Log.d("TAG", "NotificationHelper is set for ${time.time} with alarm time $alarmTimeInMinutes minutes and ${time.timeInMillis / 1000} seconds")
-
-        // Show an alert dialog with information
-        // about the scheduled notification
-//        showAlert(time.timeInMillis, title, message)
     }
 
 //    private fun Activity.showAlert(time: Long, title: String, message: String) {
