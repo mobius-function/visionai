@@ -19,8 +19,8 @@ android {
         targetSdk 34
 
         // Version code and version name for Google play store
-        versionCode 16
-        versionName "2.11.2"
+        versionCode 17
+        versionName "2.11.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
