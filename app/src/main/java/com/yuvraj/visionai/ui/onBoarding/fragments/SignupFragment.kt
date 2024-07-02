@@ -208,9 +208,4 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
         super.onStart()
         binding.progressBar.visibility = View.GONE
     }
-
-    override fun onResume() {
-        super.onResume()
-        binding.progressBar.visibility = View.GONE
-    }
 }

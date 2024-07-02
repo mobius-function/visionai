@@ -9,7 +9,7 @@ import com.yuvraj.visionai.model.ChatMessage
 import com.yuvraj.visionai.enums.ChatMessageSender.SENT_BY_ME
 
 class ChatMessages(
-    var messageList :List<ChatMessage>
+    private var messageList :List<ChatMessage>
 ): RecyclerView.Adapter<ChatMessages.ViewHolder>()
 {
     inner class ViewHolder(private val binding: ItemChatBinding) :
