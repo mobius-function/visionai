@@ -86,7 +86,7 @@
         tools:layout="@layout/fragment_home_chat_bot" />
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.yuvraj.visionai.ResultFragment"
+        android:name="com.yuvraj.visionai.ui.home.fragments.ResultFragment"
         android:label="fragment_home_result"
         tools:layout="@layout/fragment_home_result" />
 </navigation>
