@@ -106,6 +106,12 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
                 AppCompatActivity.MODE_PRIVATE
             )
 
+            requireActivity().updateAllInOneEyeTestModeAfterTest(
+                totalTimeSpent,
+                leftEyePartialBlinkCounter,
+                rightEyePartialBlinkCounter
+            )
+
             // get current data in format (DD/MM/YYYY) and time in format (HH:MM:SS) as id
             val id = Calendar.getInstance().time.toString()
 
@@ -139,7 +145,7 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
             viewModel.saveEyeTest(eyeTestResult)
         }
 
-        findNavController().navigate(R.id.landingFragment)
+        findNavController().navigate(R.id.generatedResultFragment)
 
         // TODO: "Show an alert dialog with the result of the test."
     }
