@@ -31,9 +31,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <include
+    <TextView
         android:id="@+id/generatedResult"
-        layout="@layout/item_home_statistics_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
