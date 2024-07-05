@@ -248,6 +248,9 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                         leftEyePartialBlinkCounter,
                         rightEyePartialBlinkCounter
                     )
+
+                    Log.d("DebugTimeResult", "The total time spent is: $totalTimeSpent minutes " +
+                            "$leftEyePartialBlinkCounter $rightEyePartialBlinkCounter")
                     // Log.d("DebugEyeTestResult", "The total time spent is: $totalTimeSpent")
                     // Log.d("DebugEyeTestResult", "The left eye partial blink counter is: $leftEyePartialBlinkCounter")
                     // Log.d("DebugEyeTestResult", "The right eye partial blink counter is: $rightEyePartialBlinkCounter")

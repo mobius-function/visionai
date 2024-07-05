@@ -87,15 +87,9 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
             message
         )
 
-        var totalTimeSpent : Long = (System.currentTimeMillis() - fragmentStartTime)/1000
+        var totalTimeSpent = (System.currentTimeMillis() - fragmentStartTime)/1000
 
         if(isAllInOneTest) {
-
-            requireActivity().updateAllInOneEyeTestModeAfterTest(
-                totalTimeSpent,
-                leftEyePartialBlinkCounter,
-                rightEyePartialBlinkCounter
-            )
 
             // Log.d("DebugEyeTestResult", "The total time spent is: $totalTimeSpent")
             // Log.d("DebugEyeTestResult", "The left eye partial blink counter is: $leftEyePartialBlinkCounter")
@@ -115,9 +109,10 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
             // get current data in format (DD/MM/YYYY) and time in format (HH:MM:SS) as id
             val id = Calendar.getInstance().time.toString()
 
-            totalTimeSpent += sharedPreferences.getLong(Constants.TOTAL_TIME_SPENT_TESTING, 0)
-            val totalLeftEyePartialBlinkCounter = leftEyePartialBlinkCounter + sharedPreferences.getInt(Constants.LEFT_EYE_PARTIAL_BLINK_COUNTER, 0)
-            val totalRightEyePartialBlinkCounter = rightEyePartialBlinkCounter + sharedPreferences.getInt(Constants.RIGHT_EYE_PARTIAL_BLINK_COUNTER, 0)
+            // total time spent in minutes
+            val totalTimeSpentInMinutes : Double = sharedPreferences.getLong(Constants.TOTAL_TIME_SPENT_TESTING, 0).toDouble() / 60
+            val totalLeftEyePartialBlinkCounter = sharedPreferences.getInt(Constants.LEFT_EYE_PARTIAL_BLINK_COUNTER, 0)
+            val totalRightEyePartialBlinkCounter = sharedPreferences.getInt(Constants.RIGHT_EYE_PARTIAL_BLINK_COUNTER, 0)
 
             val myopiaResultsLeftEye = sharedPreferences.getFloat(Constants.MYOPIA_RESULTS_LEFT_EYE, 0.0f)
             val myopiaResultsRightEye = sharedPreferences.getFloat(Constants.MYOPIA_RESULTS_RIGHT_EYE, 0.0f)
@@ -125,8 +120,11 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
             val hyperopiaResultsLeftEye = sharedPreferences.getFloat(Constants.HYPEROPIA_RESULTS_LEFT_EYE, 0.0f)
             val hyperopiaResultsRightEye = sharedPreferences.getFloat(Constants.HYPEROPIA_RESULTS_RIGHT_EYE, 0.0f)
 
-            val dryLeftEyeResults = totalLeftEyePartialBlinkCounter/totalTimeSpent > 10
-            val dryRightEyeResults = totalRightEyePartialBlinkCounter/totalTimeSpent > 10
+            val dryLeftEyeResults = totalLeftEyePartialBlinkCounter/totalTimeSpentInMinutes > 10
+            val dryRightEyeResults = totalRightEyePartialBlinkCounter/totalTimeSpentInMinutes > 10
+
+            Log.d("DebugTimeResult", "The total time spent is: $totalTimeSpent minutes " +
+                    "$totalLeftEyePartialBlinkCounter $totalRightEyePartialBlinkCounter")
 
             val eyeTestResult = EyeTestResult(
                 id = id,

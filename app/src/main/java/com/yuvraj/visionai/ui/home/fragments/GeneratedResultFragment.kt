@@ -1,5 +1,6 @@
 package com.yuvraj.visionai.ui.home.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeGeneratedResultBinding
+import com.yuvraj.visionai.ui.home.MainActivity
 import com.yuvraj.visionai.utils.Constants
 import java.util.Calendar
 
@@ -36,7 +38,7 @@ class GeneratedResultFragment : Fragment(R.layout.fragment_home_generated_result
         // get current data in format (DD/MM/YYYY) and time in format (HH:MM:SS) as id
         val id = Calendar.getInstance().time.toString()
 
-        val totalTimeSpent = sharedPreferences.getLong(Constants.TOTAL_TIME_SPENT_TESTING, 0)
+        val totalTimeSpent : Double = sharedPreferences.getLong(Constants.TOTAL_TIME_SPENT_TESTING, 0).toDouble() / 60
         val totalLeftEyePartialBlinkCounter = sharedPreferences.getInt(Constants.LEFT_EYE_PARTIAL_BLINK_COUNTER, 0)
         val totalRightEyePartialBlinkCounter = sharedPreferences.getInt(Constants.RIGHT_EYE_PARTIAL_BLINK_COUNTER, 0)
 
@@ -66,10 +68,10 @@ class GeneratedResultFragment : Fragment(R.layout.fragment_home_generated_result
     private fun clickableViews() {
         binding.apply {
             btnDone.setOnClickListener {
-                findNavController().navigate(R.id.landingFragment)
-
-                // Disable back press
-                requireActivity().onBackPressedDispatcher.onBackPressed()
+                // Remove past fragments from backstack
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
             }
         }
     }
