@@ -10,6 +10,7 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeGeneratedResultBinding
 import com.yuvraj.visionai.ui.home.MainActivity
 import com.yuvraj.visionai.utils.Constants
+import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import java.util.Calendar
 
 class GeneratedResultFragment : Fragment(R.layout.fragment_home_generated_result) {
@@ -74,5 +75,14 @@ class GeneratedResultFragment : Fragment(R.layout.fragment_home_generated_result
                 startActivity(intent)
             }
         }
+    }
+
+    // override on back pressed function
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        val intent = Intent(requireActivity(), MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
     }
 }

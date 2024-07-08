@@ -144,8 +144,6 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
         }
 
         findNavController().navigate(R.id.generatedResultFragment)
-
-        // TODO: "Show an alert dialog with the result of the test."
     }
 
     private fun createCameraManager() {
