@@ -41,10 +41,12 @@ class FirebaseRepository  @Inject constructor(
         db.collection("users").document(userId).get()
             .addOnSuccessListener { document ->
                 callback(document.toObject(UserPreferences::class.java))
+                Log.d("DebugUserPreferences", document.toObject(UserPreferences::class.java).toString())
             }
             .addOnFailureListener {
                 val nullUserPreferences = UserPreferences()
                 callback(nullUserPreferences)
+                Log.d("DebugUserPreferences", nullUserPreferences.toString() + " " + it.toString())
             }
     }
 
