@@ -8,12 +8,15 @@
     tools:context=".ui.splash.MainActivity">
 
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/ivAnimLogo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:contentDescription="app logo"
-        android:src="@drawable/logo_app"
+        app:lottie_rawRes="@raw/anim_eye_splash"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
