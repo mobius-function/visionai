@@ -23,7 +23,7 @@
         android:theme="@style/Theme.VisionAI"
         tools:targetApi="31">
         <activity
-            android:name=".ui.onBoarding.MainActivity"
+            android:name=".ui.splash.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,10 +37,10 @@
             android:exported="true">
         </activity>
 
-<!--        <activity-->
-<!--            android:name=".ui.onBoarding.MainActivity"-->
-<!--            android:exported="true">-->
-<!--        </activity>-->
+        <activity
+            android:name=".ui.onBoarding.MainActivity"
+            android:exported="true">
+        </activity>
 
         <service
             android:name=".firebase.MessagingService"
