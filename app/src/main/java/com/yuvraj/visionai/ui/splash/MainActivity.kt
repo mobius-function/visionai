@@ -15,29 +15,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initviews()
         setContentView(binding?.root)
-
-        binding?.let {
-            Glide.with(this)
-                .load(R.drawable.anim_app_logo)
-                .into(it.ivAnimLogo)
-        }
-
-        // pause for 8 seconds
-//        Thread.sleep(8000)
-//
-//        val intent = Intent(this, MainActivity::class.java)
-//        startActivity(intent)
-//
-//        finish()
     }
 
     fun initviews() {
         binding = UiSplashScreenBinding.inflate(layoutInflater,null,false)
-    }
-
-    fun showAnimation() {
 
 
-//        finish()
+        // pause for 8 seconds
+        Thread.sleep(8000)
+
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }
