@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:contentDescription="app logo"
-        app:lottie_rawRes="@raw/anim_eye_splash"
+        app:lottie_rawRes="@raw/anim_camera_permission"
         app:lottie_autoPlay="true"
         app:lottie_loop="false"
         android:layout_marginHorizontal="16dp"
