@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiSplashScreenBinding
+import com.yuvraj.visionai.ui.onBoarding.MainActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,13 +14,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initviews()
+        initViews()
         setContentView(binding?.root)
     }
 
-    fun initviews() {
+    fun initViews() {
         binding = UiSplashScreenBinding.inflate(layoutInflater,null,false)
-
 
         // pause for 8 seconds
         Thread.sleep(8000)
