@@ -112,6 +112,10 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                         tvInput.text.toString().lowercase())
             }
 
+            btnUnclearText.setOnClickListener {
+                onCheck(false)
+            }
+
             tvInput.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     tvInstructions.visibility = View.GONE
