@@ -10,13 +10,13 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:fillViewport="true"
         android:fitsSystemWindows="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bottom_layout"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_layout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -57,9 +57,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvRandomText" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUnclearText"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="68dp"
                 android:layout_marginHorizontal="16dp"
+                android:text="UNCLEAR TEXT"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:backgroundTint="#94F363"
+                app:cornerRadius="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvInstructions"
@@ -145,7 +151,7 @@
         android:id="@+id/bottom_layout"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:padding="8dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -154,7 +160,7 @@
         <EditText
             android:id="@+id/tvInput"
             android:layout_width="0dp"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:background="@drawable/bg_edit_text_1"
             android:textColor="@color/black"
             android:ems="10"
@@ -170,7 +176,7 @@
         <ImageButton
             android:id="@+id/btnCheck"
             android:layout_width="48dp"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_send"
             android:background="?attr/selectableItemBackgroundBorderless"
