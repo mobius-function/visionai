@@ -27,7 +27,6 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
     private var _binding: FragmentOnBoardingDetailsBinding? = null
     private val binding get() = _binding!!
 
-    val user = Authentication.getSignedInUser()
 
     private val viewModel: UserViewModel by viewModels()
 
