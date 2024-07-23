@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         hideSystemUI()
 
         // pause for 8 seconds
-        Thread.sleep(8000)
+//        Thread.sleep(8000)
 
 //        val intent = Intent(this, MainActivity::class.java)
 //        startActivity(intent)
