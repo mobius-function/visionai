@@ -1,6 +1,7 @@
 package com.yuvraj.visionai.repositories
 
 import android.util.Log
+import com.yuvraj.visionai.R
 import com.yuvraj.visionai.utils.Constants.CHAT_AUTHORIZATION
 import com.yuvraj.visionai.utils.Constants.CHAT_BASE_URL
 import okhttp3.*
@@ -15,8 +16,9 @@ object ChatResponse {
 
     fun getResFun(question:String, callback : (String) -> Unit) {
 
+        val query = R.string.llm_train_prompt.toString() + question
         val headers = mapOf("Authorization" to CHAT_AUTHORIZATION)
-        val payload = mapOf("inputs" to question)
+        val payload = mapOf("inputs" to query)
 
         val client = OkHttpClient()
 

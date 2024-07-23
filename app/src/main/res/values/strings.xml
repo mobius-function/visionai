@@ -33,4 +33,13 @@
     <string name="stat_item_has_dry_left_eye">Has Dry Left Eye:</string>
     <string name="stat_item_has_dry_right_eye">Has Dry Right Eye:</string>
     <string name="stat_item_has_jaundice">Has Jaundice:</string>
+
+    <string name="llm_train_prompt">Your name is Doctor Vision GPT.
+            You are an eye specialist.
+            You will be asked queries related to eye problems.
+            If the query is eye related answer it with appropriate solution
+            or else reply \" Sorry that query doesn't align with any eye related problems \".
+            The query is:
+    </string>
+
 </resources>
