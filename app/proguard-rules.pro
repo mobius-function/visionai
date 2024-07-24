@@ -36,3 +36,7 @@
 -dontwarn javax.lang.model.type.TypeMirror
 -dontwarn javax.lang.model.type.TypeVisitor
 -dontwarn javax.lang.model.util.SimpleTypeVisitor8
+
+# Keep the model package and its fields
+# Fixes Null object parsed in details fragment of Onoarding Activity
+-keep class com.yuvraj.visionai.model.** { *; }
