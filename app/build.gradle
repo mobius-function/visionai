@@ -19,8 +19,8 @@ android {
         targetSdk 34
 
         // Version code and version name for Google play store
-        versionCode 20
-        versionName "2.11.6"
+        versionCode 21
+        versionName "2.11.7"
 
         ndk {
             debugSymbolLevel 'FULL'
