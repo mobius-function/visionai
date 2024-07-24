@@ -33,7 +33,8 @@ class InAppUpdate(private val parentActivity: Activity) {
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
                 && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
             ) {
-                // Request the update
+                // Request the Flexible update
+                Log.d("DebugInAppUpdate", "Flexible Update Available")
                 try {
                     appUpdateManager?.startUpdateFlowForResult(
                         // Pass the intent that is returned by 'getAppUpdateInfo()'.
@@ -48,10 +49,14 @@ class InAppUpdate(private val parentActivity: Activity) {
                     )
                 } catch (exception: IntentSender.SendIntentException) {
                     Toast.makeText(parentActivity, "Something wrong went wrong!", Toast.LENGTH_SHORT).show()
+                    Log.d("DebugInAppUpdate", "Something wrong went wrong!")
                 }
-            } else if(appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
-                // Request the update
+            }
+
+            else if(appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
+                // Request the Immediate update
+                Log.d("DebugInAppUpdate", "Immediate Update Available")
                 try {
                     appUpdateManager?.startUpdateFlowForResult(
                         // Pass the intent that is returned by 'getAppUpdateInfo()'.
@@ -64,11 +69,15 @@ class InAppUpdate(private val parentActivity: Activity) {
                         // Include a request code to later monitor this update request.
                         UPDATE_REQUEST_CODE
                     )
-                } catch (exception: IntentSender.SendIntentException) {
-                    Toast.makeText(parentActivity, "Something wrong went wrong!", Toast.LENGTH_SHORT).show()
                 }
 
-                } else {
+                catch (exception: IntentSender.SendIntentException) {
+                    Toast.makeText(parentActivity, "Something wrong went wrong!", Toast.LENGTH_SHORT).show()
+                    Log.d("DebugInAppUpdate", "Something wrong went wrong!")
+                }
+            }
+
+            else {
                 Log.d("DebugInAppUpdate", "No Update available")
             }
         }
@@ -89,14 +98,14 @@ class InAppUpdate(private val parentActivity: Activity) {
     }
 
     private val updateResultStarter =
-        IntentSenderForResultStarter { intent, _, fillInIntent, flagsMask, flagsValues, _, _ ->
+                IntentSenderForResultStarter { intent, _, fillInIntent, flagsMask, flagsValues, _, _ ->
             val request = IntentSenderRequest.Builder(intent)
                 .setFillInIntent(fillInIntent)
                 .setFlags(flagsValues, flagsMask)
                 .build()
             // launch updateLauncher
             updateLauncher.launch(request)
-        }
+    }
 
     private val listener = InstallStateUpdatedListener { state ->
         // (Optional) Provide a download progress bar.
