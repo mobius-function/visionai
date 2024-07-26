@@ -33,8 +33,8 @@ class UserViewModel @Inject constructor(
     val eyeTests: MutableLiveData<List<EyeTestResult>?> = MutableLiveData()
 
     // TODO: Add live data for analytics!
-//    val myopiaTestResultModel: MutableLiveData<List<MyopiaTestResultModel>> = MutableLiveData()
-//    val hyperopiaTestResultModel: MutableLiveData<List<HyperopiaTestResultModel>> = MutableLiveData()
+//    val myopiaTestResultModelList: MutableLiveData<List<MyopiaTestResultModel>> = MutableLiveData()
+//    val hyperopiaTestResultModelList: MutableLiveData<List<HyperopiaTestResultModel>> = MutableLiveData()
 
     private val userId = Authentication.getSignedInUser()?.uid ?: "GUEST_CUSTOMER_ID"
 
