@@ -8,6 +8,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.yuvraj.visionai.analytics.HyperopiaTestResultModel
+import com.yuvraj.visionai.analytics.MyopiaTestResultModel
 import com.yuvraj.visionai.firebase.Authentication
 import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.model.UserPreferences
@@ -29,6 +31,10 @@ class UserViewModel @Inject constructor(
     val apiKey: MutableLiveData<String?> = MutableLiveData()
     val userPreferences: MutableLiveData<UserPreferences?> = MutableLiveData()
     val eyeTests: MutableLiveData<List<EyeTestResult>?> = MutableLiveData()
+
+    // TODO: Add live data for analytics!
+//    val myopiaTestResultModel: MutableLiveData<List<MyopiaTestResultModel>> = MutableLiveData()
+//    val hyperopiaTestResultModel: MutableLiveData<List<HyperopiaTestResultModel>> = MutableLiveData()
 
     private val userId = Authentication.getSignedInUser()?.uid ?: "GUEST_CUSTOMER_ID"
 
@@ -68,5 +74,9 @@ class UserViewModel @Inject constructor(
 
     fun saveEyeTest(eyeTest: EyeTestResult) {
         userRepository.saveEyeTest(userId, eyeTest)
+    }
+
+    fun saveTestDetails() {
+
     }
 }
