@@ -16,7 +16,8 @@ object ChatResponse {
 
     fun getResFun(question:String, callback : (String) -> Unit) {
 
-        val query = R.string.llm_train_prompt.toString() + question
+        val query : String = R.string.llm_train_prompt.toString() + question
+        Log.d("ChatResponse", "Query: $query")
         val headers = mapOf("Authorization" to CHAT_AUTHORIZATION)
         val payload = mapOf("inputs" to query)
 
@@ -47,7 +48,7 @@ object ChatResponse {
                     return
                 }
                 val responseBody = response.body?.string() ?: "No response from API"
-                Log.d("ChatResponse", responseBody)
+                Log.d("ChatResponseDebug", responseBody)
                 try {
                     // Parse the JSON array
                     val jsonArray = JSONArray(responseBody)
