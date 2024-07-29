@@ -75,34 +75,4 @@ object SharedPreferencesHelper {
 
         sharedPreferencesEditor.apply()
     }
-
-    fun Activity.updateAllInOneEyeTestModeMyopiaTestResult(
-        leftEyeMyopia: Float,
-        rightEyeMyopia: Float
-    ) {
-        val sharedPreferences = getSharedPreferences(
-            Constants.EYE_TEST_RESULTS,
-            AppCompatActivity.MODE_PRIVATE
-        )
-
-        val sharedPreferencesEditor = sharedPreferences.edit()
-        sharedPreferencesEditor.putFloat(Constants.MYOPIA_RESULTS_LEFT_EYE, leftEyeMyopia)
-        sharedPreferencesEditor.putFloat(Constants.MYOPIA_RESULTS_RIGHT_EYE, rightEyeMyopia)
-        sharedPreferencesEditor.apply()
-    }
-
-    fun Activity.updateAllInOneEyeTestModeHyperopiaTestResult(
-        leftEyeHyperopia: Float,
-        rightEyeHyperopia: Float
-    ) {
-        val sharedPreferences = getSharedPreferences(
-            Constants.EYE_TEST_RESULTS,
-            AppCompatActivity.MODE_PRIVATE
-        )
-
-        val sharedPreferencesEditor = sharedPreferences.edit()
-        sharedPreferencesEditor.putFloat(Constants.HYPEROPIA_RESULTS_LEFT_EYE, leftEyeHyperopia)
-        sharedPreferencesEditor.putFloat(Constants.HYPEROPIA_RESULTS_RIGHT_EYE, rightEyeHyperopia)
-        sharedPreferencesEditor.apply()
-    }
 }
