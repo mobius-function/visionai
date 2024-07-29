@@ -1,6 +1,7 @@
 package com.yuvraj.visionai.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,8 +9,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.yuvraj.visionai.analytics.HyperopiaTestResultModel
-import com.yuvraj.visionai.analytics.MyopiaTestResultModel
 import com.yuvraj.visionai.firebase.Authentication
 import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.model.UserPreferences
@@ -32,11 +31,58 @@ class UserViewModel @Inject constructor(
     val userPreferences: MutableLiveData<UserPreferences?> = MutableLiveData()
     val eyeTests: MutableLiveData<List<EyeTestResult>?> = MutableLiveData()
 
-    // TODO: Add live data for analytics!
-//    val myopiaTestResultModelList: MutableLiveData<List<MyopiaTestResultModel>> = MutableLiveData()
-//    val hyperopiaTestResultModelList: MutableLiveData<List<HyperopiaTestResultModel>> = MutableLiveData()
-
     private val userId = Authentication.getSignedInUser()?.uid ?: "GUEST_CUSTOMER_ID"
+
+
+    // TODO: Add live data for analytics!
+    // MutableLiveData to hold the EyeTestResult
+    private val _eyeTestResult = MutableLiveData<EyeTestResult>().apply {
+        value = EyeTestResult()
+    }
+
+    // LiveData to expose the EyeTestResult
+    val eyeTestResult: LiveData<EyeTestResult> = _eyeTestResult
+
+    // Method to update plusPower in right eye
+    fun updatePlusPowerRightEye(value: Float) {
+        _eyeTestResult.value = _eyeTestResult.value?.copy(plusPowerRightEye = value)
+    }
+
+    // Method to update plusPower in left eye
+    fun updatePlusPowerLeftEye(value: Float) {
+        _eyeTestResult.value = _eyeTestResult.value?.copy(plusPowerLeftEye = value)
+    }
+
+    // Method to update minusPower in right eye
+    fun updateMinusPowerRightEye(value: Float) {
+        _eyeTestResult.value = _eyeTestResult.value?.copy(minusPowerRightEye = value)
+    }
+
+    // Method to update minusPower in left eye
+    fun updateMinusPowerLeftEye(value: Float) {
+        _eyeTestResult.value = _eyeTestResult.value?.copy(minusPowerLeftEye = value)
+    }
+
+    // Method to update astigmatism result
+    fun updateAstigmatismResult(value: Boolean) {
+        _eyeTestResult.value = _eyeTestResult.value?.copy(astigmatismResult = value)
+    }
+
+    // Method to update dry left eye result
+    fun updateDryLeftEyeResult(value: Boolean) {
+        _eyeTestResult.value = _eyeTestResult.value?.copy(dryLeftEyeResult = value)
+    }
+
+    // Method to update dry right eye result
+    fun updateDryRightEyeResult(value: Boolean) {
+        _eyeTestResult.value = _eyeTestResult.value?.copy(dryRightEyeResult = value)
+    }
+
+    // Method to update jaundice result
+    fun updateJaundiceResult(value: Boolean) {
+        _eyeTestResult.value = _eyeTestResult.value?.copy(jaundiceResult = value)
+    }
+
 
     fun loadApiKey() {
         userRepository.getApiKey { key ->
@@ -72,11 +118,12 @@ class UserViewModel @Inject constructor(
         }.flow.cachedIn(viewModelScope)
     }
 
-    fun saveEyeTest(eyeTest: EyeTestResult) {
-        userRepository.saveEyeTest(userId, eyeTest)
-    }
+//    fun saveEyeTest(eyeTest: EyeTestResult) {
+//        userRepository.saveEyeTest(userId, eyeTest)
+//    }
 
-    fun saveTestDetails() {
-
+    fun saveEyeTest() {
+        Log.d("DebugEyeTests", "Saved EyeTest: ${eyeTestResult.value}")
+        eyeTestResult.value?.let { userRepository.saveEyeTest(userId, it) }
     }
 }
