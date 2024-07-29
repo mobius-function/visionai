@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
@@ -24,6 +26,8 @@ import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeMyopiaTestResult
+import com.yuvraj.visionai.viewModel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 /**
@@ -31,10 +35,14 @@ import java.util.*
  * Use the [EyeTestingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+@AndroidEntryPoint
 class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private var _binding: FragmentHomeEyeTestingBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: UserViewModel by activityViewModels()
 
     private val fragmentStartTime : Long = System.currentTimeMillis()
 
@@ -252,16 +260,23 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                         rightEyePartialBlinkCounter
                     )
 
+                    viewModel.apply {
+                        updateMinusPowerLeftEye(myopiaLeftEyePower)
+                        updateMinusPowerRightEye(myopiaRightEyePower)
+                    }
+
+                    Log.d("DebugEyeTests", "Saved EyeTest after Myopia: ${viewModel.eyeTestResult}")
+
                     Log.d("DebugTimeResult", "The total time spent is: $totalTimeSpent minutes " +
                             "$leftEyePartialBlinkCounter $rightEyePartialBlinkCounter")
                     // Log.d("DebugEyeTestResult", "The total time spent is: $totalTimeSpent")
                     // Log.d("DebugEyeTestResult", "The left eye partial blink counter is: $leftEyePartialBlinkCounter")
                     // Log.d("DebugEyeTestResult", "The right eye partial blink counter is: $rightEyePartialBlinkCounter")
 
-                    requireActivity().updateAllInOneEyeTestModeMyopiaTestResult(
-                        myopiaLeftEyePower,
-                        myopiaRightEyePower
-                    )
+//                    requireActivity().updateAllInOneEyeTestModeMyopiaTestResult(
+//                        myopiaLeftEyePower,
+//                        myopiaRightEyePower
+//                    )
 
                     // Log.d("DebugEyeTestResult", "The left eye power is: $myopiaLeftEyePower")
                     // Log.d("DebugEyeTestResult", "The right eye power is: $myopiaRightEyePower")
