@@ -5,17 +5,26 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeGeneratedResultBinding
+import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.ui.home.MainActivity
 import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
+import com.yuvraj.visionai.viewModel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
+
+@AndroidEntryPoint
 class GeneratedResultFragment : Fragment(R.layout.fragment_home_generated_result) {
     private var _binding: FragmentHomeGeneratedResultBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: UserViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,31 +40,47 @@ class GeneratedResultFragment : Fragment(R.layout.fragment_home_generated_result
     private fun initViews(view: View) {
         _binding = FragmentHomeGeneratedResultBinding.bind(view)
 
-        val sharedPreferences = requireActivity().getSharedPreferences(
-            Constants.EYE_TEST_RESULTS,
-            AppCompatActivity.MODE_PRIVATE
-        )
+//        val sharedPreferences = requireActivity().getSharedPreferences(
+//            Constants.EYE_TEST_RESULTS,
+//            AppCompatActivity.MODE_PRIVATE
+//        )
 
         // get current data in format (DD/MM/YYYY) and time in format (HH:MM:SS) as id
-        val id = Calendar.getInstance().time.toString()
+//        val id = Calendar.getInstance().time.toString()
+//
+//        val totalTimeSpent : Double = sharedPreferences.getLong(Constants.TOTAL_TIME_SPENT_TESTING, 0).toDouble() / 60
+//        val totalLeftEyePartialBlinkCounter = sharedPreferences.getInt(Constants.LEFT_EYE_PARTIAL_BLINK_COUNTER, 0)
+//        val totalRightEyePartialBlinkCounter = sharedPreferences.getInt(Constants.RIGHT_EYE_PARTIAL_BLINK_COUNTER, 0)
+//
+//        val myopiaResultsLeftEye = sharedPreferences.getFloat(Constants.MYOPIA_RESULTS_LEFT_EYE, 0.0f)
+//        val myopiaResultsRightEye = sharedPreferences.getFloat(Constants.MYOPIA_RESULTS_RIGHT_EYE, 0.0f)
+//
+//        val hyperopiaResultsLeftEye = sharedPreferences.getFloat(Constants.HYPEROPIA_RESULTS_LEFT_EYE, 0.0f)
+//        val hyperopiaResultsRightEye = sharedPreferences.getFloat(Constants.HYPEROPIA_RESULTS_RIGHT_EYE, 0.0f)
+//
+//        val dryLeftEyeResults = totalLeftEyePartialBlinkCounter/totalTimeSpent > 10
+//        val dryRightEyeResults = totalRightEyePartialBlinkCounter/totalTimeSpent > 10
 
-        val totalTimeSpent : Double = sharedPreferences.getLong(Constants.TOTAL_TIME_SPENT_TESTING, 0).toDouble() / 60
-        val totalLeftEyePartialBlinkCounter = sharedPreferences.getInt(Constants.LEFT_EYE_PARTIAL_BLINK_COUNTER, 0)
-        val totalRightEyePartialBlinkCounter = sharedPreferences.getInt(Constants.RIGHT_EYE_PARTIAL_BLINK_COUNTER, 0)
 
-        val myopiaResultsLeftEye = sharedPreferences.getFloat(Constants.MYOPIA_RESULTS_LEFT_EYE, 0.0f)
-        val myopiaResultsRightEye = sharedPreferences.getFloat(Constants.MYOPIA_RESULTS_RIGHT_EYE, 0.0f)
+        val eyeTestResult : EyeTestResult = viewModel.eyeTestResult.value!!
 
-        val hyperopiaResultsLeftEye = sharedPreferences.getFloat(Constants.HYPEROPIA_RESULTS_LEFT_EYE, 0.0f)
-        val hyperopiaResultsRightEye = sharedPreferences.getFloat(Constants.HYPEROPIA_RESULTS_RIGHT_EYE, 0.0f)
+        val id = eyeTestResult.id
 
-        val dryLeftEyeResults = totalLeftEyePartialBlinkCounter/totalTimeSpent > 10
-        val dryRightEyeResults = totalRightEyePartialBlinkCounter/totalTimeSpent > 10
+        val myopiaResultsLeftEye = eyeTestResult.minusPowerLeftEye
+        val myopiaResultsRightEye = eyeTestResult.minusPowerRightEye
+
+        val hyperopiaResultsLeftEye = eyeTestResult.plusPowerLeftEye
+        val hyperopiaResultsRightEye = eyeTestResult.plusPowerRightEye
+
+        val dryLeftEyeResults = eyeTestResult.dryLeftEyeResult
+        val dryRightEyeResults = eyeTestResult.dryRightEyeResult
+
+        val astigmatismResult = eyeTestResult.astigmatismResult
 
         binding.generatedResult.apply {
             text = "Your eye test results are as follows:\n\n" +
                 "ID: $id\n" +
-                "Astigmatism: ${sharedPreferences.getFloat(Constants.ASTIGMATISM_RESULTS, 0.0f)}\n" +
+                "Astigmatism: $astigmatismResult\n" +
                 "Dry Left Eye: $dryLeftEyeResults\n" +
                 "Dry Right Eye: $dryRightEyeResults\n" +
 //                "Jaundice: ${sharedPreferences.getBoolean(Constants.JAUNDICE_RESULTS, false)}\n" +
