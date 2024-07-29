@@ -265,21 +265,10 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                         updateMinusPowerRightEye(myopiaRightEyePower)
                     }
 
-                    Log.d("DebugEyeTests", "Saved EyeTest after Myopia: ${viewModel.eyeTestResult}")
+                    // Log.d("DebugEyeTests", "Saved EyeTest after Myopia: ${viewModel.eyeTestResult}")
 
-                    Log.d("DebugTimeResult", "The total time spent is: $totalTimeSpent minutes " +
-                            "$leftEyePartialBlinkCounter $rightEyePartialBlinkCounter")
-                    // Log.d("DebugEyeTestResult", "The total time spent is: $totalTimeSpent")
-                    // Log.d("DebugEyeTestResult", "The left eye partial blink counter is: $leftEyePartialBlinkCounter")
-                    // Log.d("DebugEyeTestResult", "The right eye partial blink counter is: $rightEyePartialBlinkCounter")
-
-//                    requireActivity().updateAllInOneEyeTestModeMyopiaTestResult(
-//                        myopiaLeftEyePower,
-//                        myopiaRightEyePower
-//                    )
-
-                    // Log.d("DebugEyeTestResult", "The left eye power is: $myopiaLeftEyePower")
-                    // Log.d("DebugEyeTestResult", "The right eye power is: $myopiaRightEyePower")
+                    // Log.d("DebugTimeResult", "The total time spent is: $totalTimeSpent minutes " +
+                            // "$leftEyePartialBlinkCounter $rightEyePartialBlinkCounter")
 
                     findNavController().navigate(
                         R.id.action_eyeTestingFragment_to_hyperopiaTestingFragment

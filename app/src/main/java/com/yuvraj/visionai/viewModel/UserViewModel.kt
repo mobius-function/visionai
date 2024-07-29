@@ -118,10 +118,6 @@ class UserViewModel @Inject constructor(
         }.flow.cachedIn(viewModelScope)
     }
 
-//    fun saveEyeTest(eyeTest: EyeTestResult) {
-//        userRepository.saveEyeTest(userId, eyeTest)
-//    }
-
     fun saveEyeTest() {
         Log.d("DebugEyeTests", "Saved EyeTest: ${eyeTestResult.value}")
         eyeTestResult.value?.let { userRepository.saveEyeTest(userId, it) }

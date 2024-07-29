@@ -40,28 +40,6 @@ class GeneratedResultFragment : Fragment(R.layout.fragment_home_generated_result
     private fun initViews(view: View) {
         _binding = FragmentHomeGeneratedResultBinding.bind(view)
 
-//        val sharedPreferences = requireActivity().getSharedPreferences(
-//            Constants.EYE_TEST_RESULTS,
-//            AppCompatActivity.MODE_PRIVATE
-//        )
-
-        // get current data in format (DD/MM/YYYY) and time in format (HH:MM:SS) as id
-//        val id = Calendar.getInstance().time.toString()
-//
-//        val totalTimeSpent : Double = sharedPreferences.getLong(Constants.TOTAL_TIME_SPENT_TESTING, 0).toDouble() / 60
-//        val totalLeftEyePartialBlinkCounter = sharedPreferences.getInt(Constants.LEFT_EYE_PARTIAL_BLINK_COUNTER, 0)
-//        val totalRightEyePartialBlinkCounter = sharedPreferences.getInt(Constants.RIGHT_EYE_PARTIAL_BLINK_COUNTER, 0)
-//
-//        val myopiaResultsLeftEye = sharedPreferences.getFloat(Constants.MYOPIA_RESULTS_LEFT_EYE, 0.0f)
-//        val myopiaResultsRightEye = sharedPreferences.getFloat(Constants.MYOPIA_RESULTS_RIGHT_EYE, 0.0f)
-//
-//        val hyperopiaResultsLeftEye = sharedPreferences.getFloat(Constants.HYPEROPIA_RESULTS_LEFT_EYE, 0.0f)
-//        val hyperopiaResultsRightEye = sharedPreferences.getFloat(Constants.HYPEROPIA_RESULTS_RIGHT_EYE, 0.0f)
-//
-//        val dryLeftEyeResults = totalLeftEyePartialBlinkCounter/totalTimeSpent > 10
-//        val dryRightEyeResults = totalRightEyePartialBlinkCounter/totalTimeSpent > 10
-
-
         val eyeTestResult : EyeTestResult = viewModel.eyeTestResult.value!!
 
         val id = eyeTestResult.id

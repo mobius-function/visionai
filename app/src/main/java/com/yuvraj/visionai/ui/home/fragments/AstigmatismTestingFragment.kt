@@ -88,7 +88,7 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
             message
         )
 
-        var totalTimeSpent = (System.currentTimeMillis() - fragmentStartTime)/1000
+        val totalTimeSpent = (System.currentTimeMillis() - fragmentStartTime)/1000
 
         if(isAllInOneTest) {
 
@@ -107,22 +107,10 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
                 rightEyePartialBlinkCounter
             )
 
-            // get current data in format (DD/MM/YYYY) and time in format (HH:MM:SS) as id
-//            val id = Calendar.getInstance().time.toString()
-
             // total time spent in minutes
             val totalTimeSpentInMinutes : Double = sharedPreferences.getLong(Constants.TOTAL_TIME_SPENT_TESTING, 0).toDouble() / 60
             val totalLeftEyePartialBlinkCounter = sharedPreferences.getInt(Constants.LEFT_EYE_PARTIAL_BLINK_COUNTER, 0)
             val totalRightEyePartialBlinkCounter = sharedPreferences.getInt(Constants.RIGHT_EYE_PARTIAL_BLINK_COUNTER, 0)
-
-            val myopiaResultsLeftEye = sharedPreferences.getFloat(Constants.MYOPIA_RESULTS_LEFT_EYE, 0.0f)
-            val myopiaResultsRightEye = sharedPreferences.getFloat(Constants.MYOPIA_RESULTS_RIGHT_EYE, 0.0f)
-
-            val hyperopiaResultsLeftEye = sharedPreferences.getFloat(Constants.HYPEROPIA_RESULTS_LEFT_EYE, 0.0f)
-            val hyperopiaResultsRightEye = sharedPreferences.getFloat(Constants.HYPEROPIA_RESULTS_RIGHT_EYE, 0.0f)
-
-//            val dryLeftEyeResults = totalLeftEyePartialBlinkCounter/totalTimeSpentInMinutes > 10
-//            val dryRightEyeResults = totalRightEyePartialBlinkCounter/totalTimeSpentInMinutes > 10
 
             viewModel.apply {
                 updateAstigmatismResult(astigmatismResults)
@@ -131,24 +119,10 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
                 updateDryRightEyeResult(totalRightEyePartialBlinkCounter/totalTimeSpentInMinutes > 10)
             }
 
-            Log.d("DebugEyeTests", "Saved EyeTest after Astigmatism: ${viewModel.eyeTestResult}")
+            // Log.d("DebugEyeTests", "Saved EyeTest after Astigmatism: ${viewModel.eyeTestResult}")
 
-            Log.d("DebugTimeResult", "The total time spent is: $totalTimeSpent minutes " +
-                    "$totalLeftEyePartialBlinkCounter $totalRightEyePartialBlinkCounter")
-
-//            val eyeTestResult = EyeTestResult(
-//                id = id,
-//                astigmatismResult = astigmatismResults,
-//                dryLeftEyeResult = dryLeftEyeResults,
-//                dryRightEyeResult = dryRightEyeResults,
-//                jaundiceResult = false,
-//                plusPowerLeftEye = hyperopiaResultsLeftEye,
-//                plusPowerRightEye = hyperopiaResultsRightEye,
-//                minusPowerLeftEye = myopiaResultsLeftEye,
-//                minusPowerRightEye = myopiaResultsRightEye
-//            )
-
-            // Log.d("DebugEyeTestResult", eyeTestResult.toString())
+            // Log.d("DebugTimeResult", "The total time spent is: $totalTimeSpent minutes " +
+                    // "$totalLeftEyePartialBlinkCounter $totalRightEyePartialBlinkCounter")
 
             viewModel.saveEyeTest()
         }
