@@ -10,7 +10,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
@@ -25,7 +24,6 @@ import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructio
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
-import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeMyopiaTestResult
 import com.yuvraj.visionai.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
