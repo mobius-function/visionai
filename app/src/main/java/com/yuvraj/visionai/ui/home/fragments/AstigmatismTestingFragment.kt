@@ -9,13 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeAstigmatismTestingBinding
 import com.yuvraj.visionai.enums.FaceStatus
-import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.DebugTags
@@ -24,7 +22,6 @@ import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeT
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 import com.yuvraj.visionai.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Calendar
 
 @AndroidEntryPoint
 class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_testing) {
