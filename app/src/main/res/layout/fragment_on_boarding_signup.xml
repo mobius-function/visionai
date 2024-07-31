@@ -15,7 +15,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="16dp" />
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightGuideline"
         android:layout_width="wrap_content"
@@ -48,7 +47,7 @@
         android:layout_marginStart="22dp"
         app:layout_constraintStart_toEndOf="@+id/btnBack"
         app:layout_constraintTop_toTopOf="@+id/btnBack"
-        app:layout_constraintBottom_toBottomOf="@+id/btnBack"/>
+        app:layout_constraintBottom_toBottomOf="@+id/btnBack" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
@@ -73,151 +72,164 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent" />
 
+            <!-- Name TextInputLayout -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:hint="Name"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                app:boxBackgroundColor="@android:color/white"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxStrokeColor="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#A6A6A6"
+                    android:textSize="16sp"
+                    android:textFontWeight="600"
+                    android:inputType="text"
+                    android:padding="10dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Email TextInputLayout -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEmail"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="Name"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/etName"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/bg_edit_text"
-                android:textColor="@color/black"
-                android:ems="10"
-                android:hint="Enter your name"
-                android:textSize="16sp"
-                android:textFontWeight="600"
-                android:textColorHint="#A6A6A6"
-                android:inputType="text"
-                android:padding="10dp"
+                android:hint="Email"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                app:boxBackgroundColor="@android:color/white"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxStrokeColor="@android:color/darker_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvName"/>
+                app:layout_constraintTop_toBottomOf="@+id/tilName">
 
-            <TextView
-                android:id="@+id/tvEmail"
-                android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#A6A6A6"
+                    android:textSize="16sp"
+                    android:textFontWeight="600"
+                    android:inputType="textEmailAddress"
+                    android:padding="10dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Password TextInputLayout -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:text="Email"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etName" />
-
-            <EditText
-                android:id="@+id/etEmail"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/bg_edit_text"
-                android:textColor="@color/black"
-                android:ems="10"
-                android:hint="Enter your email"
-                android:textColorHint="#A6A6A6"
-                android:textSize="16sp"
-                android:textFontWeight="600"
-                android:inputType="textEmailAddress"
-                android:padding="10dp"
+                android:layout_marginTop="30dp"
+                android:hint="Password"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/black"
+                app:boxBackgroundColor="@android:color/white"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxStrokeColor="@android:color/darker_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
+                app:layout_constraintTop_toBottomOf="@id/tilEmail">
 
-            <TextView
-                android:id="@+id/tvPassword"
-                android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#A6A6A6"
+                    android:textSize="16sp"
+                    android:textFontWeight="600"
+                    android:inputType="textPassword"
+                    android:padding="10dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Confirm Password TextInputLayout -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilConfirmPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:text="Password"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/etEmail" />
-
-            <EditText
-                android:id="@+id/etPassword"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/bg_edit_text"
-                android:textColor="@color/black"
-                android:ems="10"
-                android:hint="Password must be of 8 characters"
-                android:textColorHint="#A6A6A6"
-                android:inputType="textPassword"
-                android:textSize="16sp"
-                android:textFontWeight="600"
-                android:padding="10dp"
+                android:layout_marginTop="30dp"
+                android:hint="Confirm Password"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/black"
+                app:boxBackgroundColor="@android:color/white"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxStrokeColor="@android:color/darker_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
+                app:layout_constraintTop_toBottomOf="@id/tilPassword">
 
-            <TextView
-                android:id="@+id/tvConfirmPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:text="Confirm Password"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/etPassword" />
-
-            <EditText
-                android:id="@+id/etConfirmPassword"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/bg_edit_text"
-                android:textColor="@color/black"
-                android:ems="10"
-                android:hint="Re-enter your password"
-                android:textColorHint="#A6A6A6"
-                android:textSize="16sp"
-                android:textFontWeight="600"
-                android:inputType="textPassword"
-                android:padding="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvConfirmPassword" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#A6A6A6"
+                    android:textSize="16sp"
+                    android:textFontWeight="600"
+                    android:inputType="textPassword"
+                    android:padding="10dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreateAccount"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="54dp"
-                android:text="Create Account"
+                android:layout_height="65dp"
+                android:layout_marginTop="65dp"
+                android:text="CREATE ACCOUNT"
                 android:textSize="24sp"
                 android:textColor="@color/black"
                 android:backgroundTint="#94F363"
                 app:cornerRadius="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etConfirmPassword"
+                app:layout_constraintTop_toBottomOf="@+id/tilConfirmPassword"
                 tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/tvOrSignUpWith"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
                 android:text="Or SignIn with"
                 android:textColor="#B2B2B2"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/textView8"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnCreateAccount" />
+                app:layout_constraintTop_toBottomOf="@+id/btnCreateAccount"
+                app:layout_constraintVertical_bias="0.308" />
 
             <View
                 android:id="@+id/rectangle_2"
@@ -229,7 +241,7 @@
                 android:background="@drawable/shape_line"
                 app:layout_constraintEnd_toStartOf="@id/tvOrSignUpWith"
                 app:layout_constraintTop_toTopOf="@+id/tvOrSignUpWith"
-                app:layout_constraintBottom_toBottomOf="@+id/tvOrSignUpWith"/>
+                app:layout_constraintBottom_toBottomOf="@+id/tvOrSignUpWith" />
 
             <View
                 android:id="@+id/rectangle_3"
@@ -241,7 +253,7 @@
                 android:background="@drawable/shape_line"
                 app:layout_constraintStart_toEndOf="@id/tvOrSignUpWith"
                 app:layout_constraintTop_toTopOf="@+id/tvOrSignUpWith"
-                app:layout_constraintBottom_toBottomOf="@+id/tvOrSignUpWith"/>
+                app:layout_constraintBottom_toBottomOf="@+id/tvOrSignUpWith" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGoogleSignIn"
@@ -274,20 +286,20 @@
                 app:layout_constraintEnd_toStartOf="@+id/tvLoginHere"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnGoogleSignIn" />
+                app:layout_constraintBottom_toTopOf="@id/tvSkipForNow" />
 
             <TextView
                 android:id="@+id/tvLoginHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
                 android:text="Login Here"
                 android:textColor="#94F363"
                 android:textFontWeight="600"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.733"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnGoogleSignIn" />
+                app:layout_constraintTop_toTopOf="@id/textView8"
+                app:layout_constraintBottom_toBottomOf="@id/textView8"/>
 
             <TextView
                 android:id="@+id/tvSkipForNow"
@@ -298,7 +310,7 @@
                 android:text="Skip for now"
                 android:textColor="#8C8B8B"
                 android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@+id/tvLoginHere"
+                app:layout_constraintBottom_toTopOf="@id/dummy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -311,7 +323,7 @@
                 android:background="@drawable/shape_line"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSkipForNow"/>
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -327,6 +339,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
