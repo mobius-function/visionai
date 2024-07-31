@@ -59,79 +59,82 @@
         app:layout_constraintTop_toTopOf="@+id/btnBack"
         app:layout_constraintBottom_toBottomOf="@+id/btnBack"/>
 
-    <TextView
-        android:id="@+id/tvEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="104dp"
-        android:text="E-Mail"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/etEmail"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEmail"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="135dp"
-        android:background="@drawable/bg_edit_text"
-        android:textColor="@color/black"
-        android:ems="10"
-        android:hint="Enter E-Mail ID"
-        android:textColorHint="#A6A6A6"
-        android:textSize="16sp"
-        android:textFontWeight="600"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:hint="Email"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/black"
+        app:boxBackgroundColor="@android:color/white"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxStrokeColor="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/Tvheading">
 
-    <TextView
-        android:id="@+id/tvPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="200dp"
-        android:text="Password"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#A6A6A6"
+            android:textSize="16sp"
+            android:textFontWeight="600"
+            android:inputType="text"
+            android:padding="10dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/etPassword"
+    <!-- Email TextInputLayout -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPassword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="232dp"
-        android:background="@drawable/bg_edit_text"
-        android:textColor="@color/black"
-        android:ems="10"
-        android:hint="Enter Your Password"
-        android:textColorHint="#A6A6A6"
-        android:textSize="16sp"
-        android:textFontWeight="600"
-        android:inputType="textPassword"
-        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:hint="Password"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/black"
+        app:boxBackgroundColor="@android:color/white"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxStrokeColor="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tilEmail">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#A6A6A6"
+            android:textSize="16sp"
+            android:textFontWeight="600"
+            android:inputType="textEmailAddress"
+            android:padding="10dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="316dp"
-        android:text="Login"
-        android:textSize="20sp"
+        android:layout_height="65dp"
+        android:layout_marginTop="65dp"
+        android:text="L O G I N"
+        android:textSize="24sp"
         android:textColor="@color/black"
         android:backgroundTint="#94F363"
         app:cornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilPassword"
         tools:ignore="HardcodedText" />
 
     <TextView
