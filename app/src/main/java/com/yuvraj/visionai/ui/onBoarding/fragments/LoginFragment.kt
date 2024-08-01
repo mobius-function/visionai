@@ -33,13 +33,17 @@ class LoginFragment : Fragment(R.layout.fragment_on_boarding_login) {
 
             btnLogin.setOnClickListener {
                 if(etEmail.text.toString().isEmpty()){
-                    etEmail.error = "Please enter your Email"
+                    tilEmail.error = "Please enter your Email"
                     return@setOnClickListener
+                } else {
+                    tilEmail.error = null
                 }
 
                 if(etPassword.text.toString().isEmpty()){
-                    etPassword.error = "Please enter your Password"
+                    tilPassword.error = "Please enter your Password"
                     return@setOnClickListener
+                } else {
+                    tilPassword.error = null
                 }
 
                 login()

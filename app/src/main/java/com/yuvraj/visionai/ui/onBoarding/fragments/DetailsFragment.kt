@@ -62,13 +62,17 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
             btnCreateAccount.setOnClickListener {
 
                 if(etAge.text.toString().isEmpty()){
-                    etAge.error = "Please enter a valid age"
+                    tilAge.error = "Please enter a valid age"
                     return@setOnClickListener
+                } else {
+                    tilAge.error = null
                 }
 
                 if(etMobileNumber.text.toString().isEmpty()){
-                    etMobileNumber.error = "Please enter your Phone Number"
+                    tilMobileNumber.error = "Please enter your Phone Number"
                     return@setOnClickListener
+                } else {
+                    tilMobileNumber.error = null
                 }
 
 

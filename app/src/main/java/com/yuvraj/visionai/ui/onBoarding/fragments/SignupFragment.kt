@@ -77,23 +77,31 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
             btnCreateAccount.setOnClickListener {
 
                 if(!Validations.validateFirstName(etName.text.toString())){
-                    etName.error = "Enter a Valid Name"
+                    tilName.error = "Enter a Valid Name"
                     return@setOnClickListener
+                } else {
+                    tilName.error = null
                 }
 
                 if(!Validations.validateEmail(etEmail.text.toString())){
-                    etEmail.error = "Enter a Valid Email"
+                    tilEmail.error = "Enter a Valid Email"
                     return@setOnClickListener
+                } else {
+                    tilEmail.error = null
                 }
 
                 if(!Validations.validatePassword(etPassword.text.toString())){
-                    etPassword.error = "Password must be atleast of 8 characters"
+                    tilPassword.error = "Password must be atleast of 8 characters"
                     return@setOnClickListener
+                } else {
+                    tilPassword.error = null
                 }
 
                 if(!Validations.validateConfirmPassword(etPassword.text.toString(),etConfirmPassword.text.toString())){
-                    etConfirmPassword.error = "Password and confirm password should match"
+                    tilConfirmPassword.error = "Password and confirm password should match"
                     return@setOnClickListener
+                } else {
+                    tilConfirmPassword.error = null
                 }
 
                 progressBar.visibility = View.VISIBLE
