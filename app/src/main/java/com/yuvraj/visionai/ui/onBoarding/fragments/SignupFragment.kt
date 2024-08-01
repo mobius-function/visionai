@@ -60,6 +60,9 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
         registerAuth = Firebase.auth
     }
 
+    private fun initViews(view: View) {
+        _binding = FragmentOnBoardingSignupBinding.bind(view)
+    }
 
     private fun checkForSignedInUser() {
         if (getSignedInUser() != null) {
@@ -115,10 +118,6 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
                 requireActivity().onBackPressed()
             }
         }
-    }
-
-    private fun initViews(view: View) {
-        _binding = FragmentOnBoardingSignupBinding.bind(view)
     }
 
 

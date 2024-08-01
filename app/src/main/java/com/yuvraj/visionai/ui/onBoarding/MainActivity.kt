@@ -1,12 +1,14 @@
 package com.yuvraj.visionai.ui.onBoarding
 
-import android.app.Activity
-import android.content.Intent
+import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -43,6 +45,22 @@ class MainActivity: AppCompatActivity() {
         inAppUpdate!!.onStart()
 
         navHostFragment = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment)
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            val v: View? = currentFocus
+            if (v is EditText) {
+                val outRect = Rect()
+                v.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    v.clearFocus()
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+                    imm?.hideSoftInputFromWindow(v.windowToken, 0)
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event)
     }
 
     override fun onResume() {
