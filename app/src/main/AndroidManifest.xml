@@ -48,6 +48,7 @@
 
         <activity
             android:name=".ui.onBoarding.MainActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
         </activity>
 
