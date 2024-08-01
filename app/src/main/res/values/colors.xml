@@ -20,5 +20,6 @@
     <color name="black_overlay">#66000000</color>
     <color name="yellow">#FFF895</color>
     <color name="txt_hint">#33FFFFFF</color>
+    <color name="edit_text_bg">#272727</color>
     <color name="red_button">#FFFF0000</color>
 </resources>

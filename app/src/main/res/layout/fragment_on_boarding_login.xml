@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_black"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".ui.onBoarding.fragments.LoginFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -59,67 +61,62 @@
         app:layout_constraintTop_toTopOf="@+id/btnBack"
         app:layout_constraintBottom_toBottomOf="@+id/btnBack"/>
 
+    <!-- Email Input -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:hint="Email"
+        android:hint="Enter your Email"
+        android:textColorHint="@android:color/darker_gray"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
         app:endIconMode="clear_text"
-        app:endIconTint="@color/black"
-        app:boxBackgroundColor="@android:color/white"
-        app:boxCornerRadiusTopStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxStrokeColor="@android:color/darker_gray"
+        app:endIconTint="@color/white"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@id/Tvheading">
+        app:layout_constraintTop_toBottomOf="@+id/Tvheading">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:textColor="@color/black"
-            android:textColorHint="#A6A6A6"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:inputType="textEmailAddress"
             android:textSize="16sp"
-            android:textFontWeight="600"
-            android:inputType="text"
-            android:padding="10dp" />
+            android:background="@drawable/bg_edit_text_input_layout"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Email TextInputLayout -->
+    <!-- Password Input -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:hint="Password"
-        app:endIconMode="clear_text"
-        app:endIconTint="@color/black"
-        app:boxBackgroundColor="@android:color/white"
-        app:boxCornerRadiusTopStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxStrokeColor="@android:color/darker_gray"
+        android:textColorHint="@android:color/darker_gray"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:errorEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/tilEmail"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/tilEmail">
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@android:color/darker_gray">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:textColor="@color/black"
-            android:textColorHint="#A6A6A6"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:inputType="textPassword"
             android:textSize="16sp"
-            android:textFontWeight="600"
-            android:inputType="textEmailAddress"
-            android:padding="10dp" />
+            android:background="@drawable/bg_edit_text_input_layout"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -169,7 +166,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="50dp"
         android:text="Skip for now"
         android:textColor="#8C8B8B"
         android:textSize="12sp"
