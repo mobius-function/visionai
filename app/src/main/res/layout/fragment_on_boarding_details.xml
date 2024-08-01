@@ -75,107 +75,106 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-
-            <TextView
-                android:id="@+id/tvGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="Gender"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/etGender"
+            <!-- Email Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilGender"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/bg_edit_text"
-                android:textColor="@color/black"
-                android:ems="10"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:hint="Enter your Gender"
-                android:textSize="16sp"
-                android:textFontWeight="600"
-                android:textColorHint="#A6A6A6"
-                android:inputType="text"
-                android:padding="10dp"
+                android:textColorHint="@android:color/darker_gray"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvGender"/>
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tvAge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:text="Age"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etGender" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:inputType="textPersonName"
+                    android:textSize="16sp"
+                    android:background="@drawable/bg_edit_text_input_layout"/>
 
-            <EditText
-                android:id="@+id/etAge"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Age Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAge"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/bg_edit_text"
-                android:textColor="@color/black"
-                android:ems="10"
-                android:hint="Enter your Age"
-                android:textColorHint="#A6A6A6"
-                android:textSize="16sp"
-                android:textFontWeight="600"
-                android:inputType="number"
-                android:padding="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAge" />
-
-            <TextView
-                android:id="@+id/tvMobileNumber"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:text="Mobile Number"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etAge" />
-
-            <EditText
-                android:id="@+id/etMobileNumber"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/bg_edit_text"
-                android:textColor="@color/black"
-                android:ems="10"
-                android:hint="Enter your Phone Number"
-                android:textColorHint="#A6A6A6"
-                android:textSize="16sp"
-                android:textFontWeight="600"
-                android:inputType="number"
-                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:hint="Age"
+                android:textColorHint="@android:color/darker_gray"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvMobileNumber" />
+                app:layout_constraintTop_toBottomOf="@id/tilGender">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:inputType="number"
+                    android:textSize="16sp"
+                    android:background="@drawable/bg_edit_text_input_layout"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Mobile Number Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilMobileNumber"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Mobile Number"
+                android:textColorHint="@android:color/darker_gray"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilAge">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMobileNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:inputType="number"
+                    android:textSize="16sp"
+                    android:background="@drawable/bg_edit_text_input_layout"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreateAccount"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="54dp"
-                android:text="Let's Get started"
+                android:layout_height="65dp"
+                android:layout_marginTop="34dp"
+                android:text="LET'S GET STARTED"
                 android:textSize="24sp"
                 android:textColor="@color/black"
                 android:backgroundTint="#94F363"
                 app:cornerRadius="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etMobileNumber"
+                app:layout_constraintTop_toBottomOf="@+id/tilMobileNumber"
                 tools:ignore="HardcodedText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
