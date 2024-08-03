@@ -344,11 +344,11 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
 
         distanceCurrent = distance.toFloat()*100.0f
-        binding.tvCurrentDistance.text = "Current Distance: ${distanceCurrent} cm"
+        binding.tvCurrentDistance.text = "Current Distance: ${distanceCurrent/10} cm"
 
         if(distanceCurrent < distanceMinimum) {
             distanceMinimum = distanceCurrent
-            binding.tvMinimumDistance.text = "Minimum Distance: ${distanceMinimum} cm"
+            binding.tvMinimumDistance.text = "Minimum Distance: ${distanceMinimum/10} cm"
         }
 
         if (rEOP in 0.4..0.7 ) {
@@ -361,9 +361,6 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             leftEyePartialBlinkCounter += 1
             binding.tvLeftEye.text = "LE Partial Blink: $leftEyePartialBlinkCounter"
         }
-
-        // Log.e(FACE_DETECTION,"The left eye open probability is: $lEOP")
-        // Log.e(FACE_DETECTION,"The right eye open probability is: $rEOP")
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS_FOR_CAMERA.all {
