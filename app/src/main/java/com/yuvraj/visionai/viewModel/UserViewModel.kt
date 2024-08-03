@@ -9,6 +9,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.yuvraj.visionai.analytics.HyperopiaTestResultModel
+import com.yuvraj.visionai.analytics.MyopiaTestResultModel
 import com.yuvraj.visionai.firebase.Authentication
 import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.model.UserPreferences
@@ -23,18 +25,15 @@ class UserViewModel @Inject constructor(
     private val userRepository: FirebaseRepository
 ) : ViewModel() {
 
+    // private val userRepository = FirebaseRepository()
+
     private val pagingConfig = PagingConfig(pageSize = 10)
 
-//    private val userRepository = FirebaseRepository()
-
+    private val userId = Authentication.getSignedInUser()?.uid ?: "GUEST_CUSTOMER_ID"
     val apiKey: MutableLiveData<String?> = MutableLiveData()
     val userPreferences: MutableLiveData<UserPreferences?> = MutableLiveData()
-    val eyeTests: MutableLiveData<List<EyeTestResult>?> = MutableLiveData()
-
-    private val userId = Authentication.getSignedInUser()?.uid ?: "GUEST_CUSTOMER_ID"
 
 
-    // TODO: Add live data for analytics!
     // MutableLiveData to hold the EyeTestResult
     private val _eyeTestResult = MutableLiveData<EyeTestResult>().apply {
         value = EyeTestResult()
@@ -103,12 +102,6 @@ class UserViewModel @Inject constructor(
         userPreferences.value = preferences
     }
 
-//    fun loadEyeTests() {
-//        userRepository.getEyeTests(userId) { tests ->
-//            eyeTests.value = tests
-//        }
-//    }
-
     fun getEyeTestsPagingData(): Flow<PagingData<EyeTestResult>> {
         Log.d("DebugEyeTests","Getting Eye Tests (View Model)")
         val query = userRepository.getEyeTests(userId)
@@ -122,4 +115,47 @@ class UserViewModel @Inject constructor(
         Log.d("DebugEyeTests", "Saved EyeTest: ${eyeTestResult.value}")
         eyeTestResult.value?.let { userRepository.saveEyeTest(userId, it) }
     }
+
+    // <------------------------------A N A L Y T I C S------------------------------------->
+    // TODO: Add live data for analytics!
+    // LiveData to hold the list of test results
+    private val _hyperopiaTestResultModel = MutableLiveData<List<HyperopiaTestResultModel>>().apply {
+        value = mutableListOf()
+    }
+    val hyperopiaTestResultModel: LiveData<List<HyperopiaTestResultModel>> = _hyperopiaTestResultModel
+
+    private val _myopiaTestResultModel = MutableLiveData<List<MyopiaTestResultModel>>().apply {
+        value = mutableListOf()
+    }
+    val myopiaTestResultModel: LiveData<List<MyopiaTestResultModel>> = _myopiaTestResultModel
+
+    // Function to add a test result to the list
+    fun addHyperopiaTestResult(testResult: HyperopiaTestResultModel) {
+        // Create a new mutable list and update the LiveData value
+        val updatedList = _hyperopiaTestResultModel.value?.toMutableList() ?: mutableListOf()
+        updatedList.add(testResult)
+        _hyperopiaTestResultModel.value = updatedList
+    }
+
+    fun saveHyperopiaTestResult(testResults: List<HyperopiaTestResultModel>) {
+        userRepository.saveHyperopiaTestResult(userId, _eyeTestResult.value?.id!!, testResults)
+    }
+
+    fun addMyopiaTestResult(testResult: MyopiaTestResultModel) {
+        // Create a new mutable list and update the LiveData value
+        val updatedList = _myopiaTestResultModel.value?.toMutableList() ?: mutableListOf()
+        updatedList.add(testResult)
+        _myopiaTestResultModel.value = updatedList
+    }
+
+    fun saveMyopiaTestResult(testResults: List<MyopiaTestResultModel>) {
+        userRepository.saveMyopiaTestResult(userId, _eyeTestResult.value?.id!!, testResults)
+    }
+
+    // Function to clear all test results from the list
+    fun clearTestResults() {
+        _hyperopiaTestResultModel.value = mutableListOf()
+        _myopiaTestResultModel.value = mutableListOf()
+    }
+    // <--------------------------------------X-------------------------------------------->
 }
