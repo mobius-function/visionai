@@ -1,10 +1,10 @@
 package com.yuvraj.visionai.repositories
 
 import android.util.Log
-import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.firestore
+import com.yuvraj.visionai.analytics.HyperopiaTestResultModel
+import com.yuvraj.visionai.analytics.MyopiaTestResultModel
 import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.model.UserPreferences
 import javax.inject.Inject
@@ -65,6 +65,22 @@ class FirebaseRepository  @Inject constructor(
         // db.collection("users").document(userId).collection("eyeTests").add(eyeTestDoc)
         db.collection("users").document(userId).collection("eyeTests").document(eyeTestDoc["id"].toString()).set(eyeTestDoc)
     }
+
+    // <------------------------------A N A L Y T I C S------------------------------------->
+    fun saveHyperopiaTestResult(userId: String, testId: String, testResults: List<HyperopiaTestResultModel>) {
+        db.collection("users")
+            .document(userId).collection("eyeTests")
+            .document(testId).collection("analytics")
+            .document("hyperopiaTestResults").set(testResults)
+    }
+
+    fun saveMyopiaTestResult(userId: String, testId: String, testResults: List<MyopiaTestResultModel>) {
+        db.collection("users")
+            .document(userId).collection("eyeTests")
+            .document(testId).collection("analytics")
+            .document("myopiaTestResults").set(testResults)
+    }
+    // <--------------------------------------X-------------------------------------------->
 
     fun getEyeTests(userId: String, callback: (List<EyeTestResult>?) -> Unit) {
         Log.d("DebugEyeTests", "Getting Eye Tests (Repository)")
