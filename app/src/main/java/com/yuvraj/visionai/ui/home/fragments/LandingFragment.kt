@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,11 +26,16 @@ import com.yuvraj.visionai.utils.Constants.LOGOUT
 import com.yuvraj.visionai.utils.Constants.ML_MODEL
 import com.yuvraj.visionai.utils.Constants.MYOPIA
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS
+import com.yuvraj.visionai.viewModel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LandingFragment : Fragment(R.layout.fragment_home_landing) {
 
     private var _binding: FragmentHomeLandingBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: UserViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +59,10 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         binding.testsRecyclerView.addItemDecoration(
             DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL)
         )
+
+        viewModel.apply {
+            clearTestResults()
+        }
     }
 
     private fun clickableViews() {
