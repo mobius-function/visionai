@@ -3,14 +3,17 @@ package com.yuvraj.visionai.ui.home
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -18,8 +21,10 @@ import com.bumptech.glide.Glide
 import com.google.firebase.messaging.FirebaseMessaging
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiHomeActivityMainBinding
+import com.yuvraj.visionai.firebase.Authentication
 import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
 import com.yuvraj.visionai.service.autoUpdater.InAppUpdate
+import com.yuvraj.visionai.ui.onBoarding.MainActivity
 import com.yuvraj.visionai.utils.Constants.FIRST_USE_AFTER_LOGIN
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.DebugTags.FIREBASE_PUSH_NOTIFICATION
@@ -28,6 +33,7 @@ import com.yuvraj.visionai.utils.clients.NotificationHelper.scheduleRegularNotif
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.initiateAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setAllInOneEyeTestMode
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -131,6 +137,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupAppBar() {
+        val toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+
         val user = getSignedInUser()
         if (user != null) {
            binding.apply {
@@ -175,6 +184,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.dispatchTouchEvent(event)
+    }
+    
+    private fun logOutUser() {
+        Toast.makeText(this, "Logging out", Toast.LENGTH_SHORT).show()
+        Authentication.signOutUser()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        this.finish()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.home_appbar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.logOut -> logOutUser()
+            R.id.mlModel -> navHostFragment.findNavController().navigate(R.id.testingFragment)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {
