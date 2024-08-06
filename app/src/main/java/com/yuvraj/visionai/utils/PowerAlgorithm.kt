@@ -16,14 +16,14 @@ class PowerAlgorithm {
                 Aditya android 14 - 25.962
                 Abhinav android 12 - 28.1747   38.1747
              */
-            if (Build.VERSION.SDK_INT <= 30) {
-                return 50.0
+            return if (Build.VERSION.SDK_INT <= 30) {
+                40.0
             } else if (Build.VERSION.SDK_INT == 31 || Build.VERSION.SDK_INT == 32) {
-                return 38.1747
+                38.1747
             } else if (Build.VERSION.SDK_INT >= 33) {
-                return 23.64
+                23.64
             } else {
-                return 23.64
+                23.64
             }
         }
 
