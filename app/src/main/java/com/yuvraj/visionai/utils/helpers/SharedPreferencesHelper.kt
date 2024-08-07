@@ -27,6 +27,26 @@ object SharedPreferencesHelper {
         sharedPreferencesEditor.apply()
     }
 
+    fun Activity.setFocalLength(focalLength: Double) {
+        val sharedPreferences = getSharedPreferences(
+            "TESTING_DEBUG_VALUES",
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        val sharedPreferencesEditor = sharedPreferences.edit()
+        sharedPreferencesEditor.putFloat("FOCAL_LENGTH", focalLength.toFloat())
+        sharedPreferencesEditor.apply()
+    }
+
+    fun Activity.getFocalLength(): Double {
+        val sharedPreferences = getSharedPreferences(
+            "TESTING_DEBUG_VALUES",
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        return sharedPreferences.getFloat("FOCAL_LENGTH", 35.0f).toDouble()
+    }
+
     fun Activity.initiateAllInOneEyeTestMode() {
         setAllInOneEyeTestMode(true)
 

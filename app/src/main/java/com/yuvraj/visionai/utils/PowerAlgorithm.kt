@@ -1,6 +1,9 @@
 package com.yuvraj.visionai.utils
 
+import android.app.Activity
+import android.content.Context
 import android.os.Build
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getFocalLength
 
 class PowerAlgorithm {
 
@@ -9,22 +12,24 @@ class PowerAlgorithm {
             return (0.145 * 6 * 3) / 8
         }
 
-        fun calculateFocalLength(): Double {
+        fun Activity.calculateFocalLength(): Double {
             /*
                 Abhiram android 13 - 23.64
                 Kunal android 13 - 24.71
                 Aditya android 14 - 25.962
                 Abhinav android 12 - 28.1747   38.1747
              */
-            return if (Build.VERSION.SDK_INT <= 30) {
-                40.0
-            } else if (Build.VERSION.SDK_INT == 31 || Build.VERSION.SDK_INT == 32) {
-                38.1747
-            } else if (Build.VERSION.SDK_INT >= 33) {
-                23.64
-            } else {
-                23.64
-            }
+//            return if (Build.VERSION.SDK_INT <= 30) {
+//                40.0
+//            } else if (Build.VERSION.SDK_INT == 31 || Build.VERSION.SDK_INT == 32) {
+//                38.1747
+//            } else if (Build.VERSION.SDK_INT >= 33) {
+//                23.64
+//            } else {
+//                23.64
+//            }
+
+            return getFocalLength()
         }
 
         fun calculatePositivePower(lastIncorrect: Float, age: Int, baseDistance: Float) : Float {
