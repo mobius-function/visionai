@@ -24,16 +24,6 @@ object EyeTestMenuList {
             EyeTests(
                 Constants.DRY_EYE,
                 "Dry Eye Test"
-            ),
-
-            EyeTests(
-                Constants.ML_MODEL,
-                "Ml Model Test"
-            ),
-
-            EyeTests(
-                Constants.LOGOUT,
-                "Log Out"
             )
         )
     }

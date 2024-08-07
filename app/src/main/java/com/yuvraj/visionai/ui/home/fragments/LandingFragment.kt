@@ -93,15 +93,15 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
             DRY_EYE -> {
                 findNavController().navigate(R.id.action_landingFragment_to_dryEyeTestingFragment)
             }
-            ML_MODEL -> {
-                findNavController().navigate(R.id.action_landingFragment_to_testingFragment)
-            }
-            LOGOUT -> {
-                 signOutUser()
-                 val intent = Intent(requireActivity(), MainActivity::class.java)
-                 startActivity(intent)
-                 requireActivity().finish()
-            }
+            // ML_MODEL -> {
+            //     findNavController().navigate(R.id.action_landingFragment_to_testingFragment)
+            // }
+            // LOGOUT -> {
+            //      signOutUser()
+            //      val intent = Intent(requireActivity(), MainActivity::class.java)
+            //      startActivity(intent)
+            //      requireActivity().finish()
+            // }
         }
     }
 
@@ -141,10 +141,5 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
 
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10
-//        private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
-
-        // TODO: Add the following permissions
-        // Schedule exact alarm
-        // private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA, android.Manifest.permission.SCHEDULE_EXACT_ALARM)
     }
 }
