@@ -48,7 +48,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private lateinit var cameraManager: CameraManager
 
-    private val focalLengthFound : Double = calculateFocalLength()
+//    private val focalLengthFound : Double = requireActivity().calculateFocalLength()
     private val realFaceWidth : Double = 14.0
 
     private var distanceCurrent : Float = 0.0f
@@ -337,7 +337,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         if(faceWidth != 0) {
             distance = DistanceHelper.distanceFinder(
-                focalLengthFound,
+                requireActivity().calculateFocalLength(),
                 realFaceWidth,
                 faceWidth.toDouble()
             )
