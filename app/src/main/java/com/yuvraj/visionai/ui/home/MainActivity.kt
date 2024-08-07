@@ -29,6 +29,7 @@ import com.yuvraj.visionai.utils.Constants.FIRST_USE_AFTER_LOGIN
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.DebugTags.FIREBASE_PUSH_NOTIFICATION
 import com.yuvraj.visionai.utils.ScreenUtils.hideSystemUI
+import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInputBoxForFocalLength
 import com.yuvraj.visionai.utils.clients.NotificationHelper.scheduleRegularNotification
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.initiateAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setAllInOneEyeTestMode
@@ -202,6 +203,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.logOut -> logOutUser()
+            R.id.focalLength -> showInputBoxForFocalLength()
             R.id.mlModel -> navHostFragment.findNavController().navigate(R.id.testingFragment)
         }
         return super.onOptionsItemSelected(item)

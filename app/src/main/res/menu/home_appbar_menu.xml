@@ -9,6 +9,13 @@
         app:showAsAction="never"
         android:title="ML Model Testing" />
 
+    <item
+        android:id="@+id/focalLength"
+        android:icon="@drawable/ic_home"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="Update Focal Length" />
+
 
     <item
         android:id="@+id/logOut"
