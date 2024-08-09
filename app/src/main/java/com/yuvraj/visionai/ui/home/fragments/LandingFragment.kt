@@ -1,6 +1,5 @@
 package com.yuvraj.visionai.ui.home.fragments
 
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,14 +15,10 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.adapters.EyeTestsList
 import com.yuvraj.visionai.data.EyeTestMenuList.getEyeTestMenuList
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
-import com.yuvraj.visionai.firebase.Authentication.Companion.signOutUser
 import com.yuvraj.visionai.model.EyeTests
-import com.yuvraj.visionai.ui.onBoarding.MainActivity
 import com.yuvraj.visionai.utils.Constants.ASTIGMATISM
 import com.yuvraj.visionai.utils.Constants.DRY_EYE
 import com.yuvraj.visionai.utils.Constants.HYPEROPIA
-import com.yuvraj.visionai.utils.Constants.LOGOUT
-import com.yuvraj.visionai.utils.Constants.ML_MODEL
 import com.yuvraj.visionai.utils.Constants.MYOPIA
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS
 import com.yuvraj.visionai.viewModel.UserViewModel
