@@ -162,6 +162,119 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Last Eye Power Left Myopia Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLastEyePowerLeftMyopia"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Last Eye Power Left Myopia"
+                android:textColorHint="@android:color/darker_gray"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilMobileNumber">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLastEyePowerLeftMyopia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:textSize="16sp"
+                    android:background="@drawable/bg_edit_text_input_layout"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Last Eye Power Right Myopia Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLastEyePowerRightMyopia"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Last Eye Power Right Myopia"
+                android:textColorHint="@android:color/darker_gray"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilLastEyePowerLeftMyopia">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLastEyePowerRightMyopia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:textSize="16sp"
+                    android:background="@drawable/bg_edit_text_input_layout"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Last Eye Power Left Hyperopia Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLastEyePowerLeftHyperopia"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Last Eye Power Left Hyperopia"
+                android:textColorHint="@android:color/darker_gray"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilLastEyePowerRightMyopia">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLastEyePowerLeftHyperopia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:textSize="16sp"
+                    android:background="@drawable/bg_edit_text_input_layout"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Last Eye Power Right Hyperopia Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLastEyePowerRightHyperopia"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Last Eye Power Right Hyperopia"
+                android:textColorHint="@android:color/darker_gray"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/white"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilLastEyePowerLeftHyperopia">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLastEyePowerRightHyperopia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:textSize="16sp"
+                    android:background="@drawable/bg_edit_text_input_layout"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreateAccount"
                 android:layout_width="0dp"
@@ -174,7 +287,7 @@
                 app:cornerRadius="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tilMobileNumber"
+                app:layout_constraintTop_toBottomOf="@id/tilLastEyePowerRightHyperopia"
                 tools:ignore="HardcodedText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
