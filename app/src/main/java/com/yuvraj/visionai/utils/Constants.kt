@@ -56,6 +56,12 @@ object Constants {
     const val USER_PHONE = "USER_PHONE"                                     // Long
     const val USER_AGE = "USER_AGE"                                        // Int
 
+    // past test results inside user details
+    const val PAST_LEFT_EYE_MYOPIA = "PAST_LEFT_EYE_MYOPIA"
+    const val PAST_RIGHT_EYE_MYOPIA = "PAST_RIGHT_EYE_MYOPIA"
+    const val PAST_LEFT_EYE_HYPEROPIA = "PAST_LEFT_EYE_HYPEROPIA"
+    const val PAST_RIGHT_EYE_HYPEROPIA = "PAST_RIGHT_EYE_HYPEROPIA"
+
 
     // Eye Tests IDs
     const val MYOPIA = "MYOPIA"
