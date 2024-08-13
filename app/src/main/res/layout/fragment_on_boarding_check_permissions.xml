@@ -70,7 +70,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="16dp"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/ivGrantPermission"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
@@ -78,14 +78,16 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGrantPermission"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="Grant Permissions"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/theme_primary"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:text="GRANT PERMISSIONS"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        app:cornerRadius="22dp"
         android:layout_marginBottom="30dp"
+        android:layout_marginHorizontal="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintEnd_toEndOf="@id/rightGuideline"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
