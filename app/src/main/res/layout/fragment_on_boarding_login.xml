@@ -138,41 +138,27 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
         android:text="Don't have an Account?"
         android:textColor="#B2B2B2"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvSignUpHere"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvSignUpHere"
-        app:layout_constraintBottom_toBottomOf="@id/tvSignUpHere"/>
+        app:layout_constraintBottom_toTopOf="@id/tvSignUpHere"/>
 
     <TextView
         android:id="@+id/tvSignUpHere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="604dp"
-        android:text="SignUp Here."
+        android:layout_marginBottom="60dp"
+        android:padding="5dp"
+        android:text="SignUp Here!"
+        android:textSize="18dp"
+        android:textStyle="bold"
         android:textColor="#94F363"
         android:textFontWeight="600"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tvSkipForNow" />
-
-    <TextView
-        android:id="@+id/tvSkipForNow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="50dp"
-        android:text="Skip for now"
-        android:textColor="#8C8B8B"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
