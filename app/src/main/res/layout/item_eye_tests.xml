@@ -27,7 +27,7 @@
             android:id="@+id/testTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:gravity="center"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="10dp"
