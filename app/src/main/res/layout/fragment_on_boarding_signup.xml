@@ -274,41 +274,27 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="92dp"
                 android:layout_marginTop="35dp"
                 android:text="Already have an account?"
                 android:textColor="#B2B2B2"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/tvLoginHere"
-                app:layout_constraintHorizontal_bias="1.0"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/tvSkipForNow" />
+                app:layout_constraintBottom_toTopOf="@id/tvLoginHere" />
 
             <TextView
                 android:id="@+id/tvLoginHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login Here"
+                android:padding="5dp"
+                android:text="LOGIN  HERE!"
+                android:textSize="18dp"
+                android:textStyle="bold"
                 android:textColor="#94F363"
                 android:textFontWeight="600"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.733"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/textView8"
-                app:layout_constraintBottom_toBottomOf="@id/textView8"/>
-
-            <TextView
-                android:id="@+id/tvSkipForNow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Skip for now"
-                android:textColor="#8C8B8B"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@id/dummy"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintEnd_toEndOf="@+id/textView8"
+                app:layout_constraintBottom_toTopOf="@+id/dummy"/>
 
             <TextView
                 android:id="@+id/dummy"

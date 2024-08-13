@@ -118,10 +118,6 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
                 findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
             }
 
-            tvSkipForNow.setOnClickListener {
-                findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
-            }
-
             btnBack.setOnClickListener {
                 requireActivity().onBackPressed()
             }
