@@ -20,13 +20,13 @@ class PowerAlgorithm {
                 Abhinav android 12 - 28.1747   38.1747
              */
 //            return if (Build.VERSION.SDK_INT <= 30) {
-//                40.0
+//                32
 //            } else if (Build.VERSION.SDK_INT == 31 || Build.VERSION.SDK_INT == 32) {
-//                38.1747
+//                25
 //            } else if (Build.VERSION.SDK_INT >= 33) {
-//                23.64
+//                17
 //            } else {
-//                23.64
+//                16
 //            }
 
             return getFocalLength()
