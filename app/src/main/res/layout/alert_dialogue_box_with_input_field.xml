@@ -40,6 +40,7 @@
         android:id="@+id/btnRestoreDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:text="Restore Default"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,9 +51,11 @@
         android:id="@+id/btnGetStoredFocalLength"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:text="Get Stored Focal Length"
         android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilInput"
+        android:layout_marginVertical="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnRestoreDefault"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
