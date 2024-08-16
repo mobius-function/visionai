@@ -2,7 +2,10 @@ package com.yuvraj.visionai.utils
 
 import android.app.Activity
 import android.content.Context
+import android.hardware.camera2.CameraCharacteristics
+import android.hardware.camera2.CameraManager
 import android.os.Build
+import android.util.Log
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getFocalLength
 
 class PowerAlgorithm {
@@ -13,23 +16,24 @@ class PowerAlgorithm {
         }
 
         fun Activity.calculateFocalLength(): Double {
-            /*
-                Abhiram android 13 - 23.64
-                Kunal android 13 - 24.71
-                Aditya android 14 - 25.962
-                Abhinav android 12 - 28.1747   38.1747
-             */
-//            return if (Build.VERSION.SDK_INT <= 30) {
-//                32
-//            } else if (Build.VERSION.SDK_INT == 31 || Build.VERSION.SDK_INT == 32) {
-//                25
-//            } else if (Build.VERSION.SDK_INT >= 33) {
-//                17
-//            } else {
-//                16
-//            }
-
             return getFocalLength()
+        }
+
+        fun getFrontCameraFocalLength(context: Context): Float? {
+            val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+            val cameraIdList = cameraManager.cameraIdList
+            for (id in cameraIdList) {
+                val characteristics = cameraManager.getCameraCharacteristics(id)
+                val facing = characteristics.get(CameraCharacteristics.LENS_FACING)
+                if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
+                    val focalLengths = characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
+                    if (focalLengths != null && focalLengths.isNotEmpty()) {
+                        return focalLengths[0] // or calculate an average if there are multiple
+                    }
+                }
+            }
+            Log.e("FocalLength", "Front camera focal length not found")
+            return null
         }
 
         fun calculatePositivePower(lastIncorrect: Float, age: Int, baseDistance: Float) : Float {

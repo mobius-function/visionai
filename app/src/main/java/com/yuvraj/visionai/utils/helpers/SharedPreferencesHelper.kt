@@ -1,6 +1,7 @@
 package com.yuvraj.visionai.utils.helpers
 
 import android.app.Activity
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.Constants.ALL_IN_ONE_EYE_TEST
@@ -39,12 +40,38 @@ object SharedPreferencesHelper {
     }
 
     fun Activity.getFocalLength(): Double {
+        /*
+            Abhiram android 13 - 23.64
+            Kunal android 13 - 24.71
+            Aditya android 14 - 25.962
+            Abhinav android 12 - 28.1747   38.1747
+         */
+        // return if (Build.VERSION.SDK_INT <= 30) {
+        //     32
+        // } else if (Build.VERSION.SDK_INT == 31 || Build.VERSION.SDK_INT == 32) {
+        //     25
+        // } else if (Build.VERSION.SDK_INT >= 33) {
+        //     17
+        // } else {
+        //     16
+        // }
+
+        val defaultFocalLengthAcrossDevices : Float = if (Build.VERSION.SDK_INT <= 30) {
+                32.0f
+            } else if (Build.VERSION.SDK_INT == 31 || Build.VERSION.SDK_INT == 32) {
+                25.0f
+            } else if (Build.VERSION.SDK_INT >= 33) {
+                17.0f
+            } else {
+                16.0f
+            }
+
         val sharedPreferences = getSharedPreferences(
             "TESTING_DEBUG_VALUES",
             AppCompatActivity.MODE_PRIVATE
         )
 
-        return sharedPreferences.getFloat("FOCAL_LENGTH", 35.0f).toDouble()
+        return sharedPreferences.getFloat("FOCAL_LENGTH", defaultFocalLengthAcrossDevices).toDouble()
     }
 
     fun Activity.initiateAllInOneEyeTestMode() {
