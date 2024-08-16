@@ -19,8 +19,8 @@ class PowerAlgorithm {
             return getFocalLength()
         }
 
-        fun getFrontCameraFocalLength(context: Context): Float? {
-            val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        fun Activity.getFrontCameraFocalLength(): Float {
+            val cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
             val cameraIdList = cameraManager.cameraIdList
             for (id in cameraIdList) {
                 val characteristics = cameraManager.getCameraCharacteristics(id)
@@ -28,12 +28,31 @@ class PowerAlgorithm {
                 if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
                     val focalLengths = characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
                     if (focalLengths != null && focalLengths.isNotEmpty()) {
-                        return focalLengths[0] // or calculate an average if there are multiple
+                        return focalLengths[0]*10 // or calculate an average if there are multiple
                     }
                 }
             }
             Log.e("FocalLength", "Front camera focal length not found")
-            return null
+            return getDefaultFocalLength()
+        }
+
+        fun getDefaultFocalLength(): Float {
+            /*
+            Abhiram android 13 - 23.64
+            Kunal android 13 - 24.71
+            Aditya android 14 - 25.962
+            Abhinav android 12 - 28.1747   38.1747
+            */
+
+            return if (Build.VERSION.SDK_INT <= 30) {
+                32.0f
+            } else if (Build.VERSION.SDK_INT == 31 || Build.VERSION.SDK_INT == 32) {
+                25.0f
+            } else if (Build.VERSION.SDK_INT >= 33) {
+                17.0f
+            } else {
+                16.0f
+            }
         }
 
         fun calculatePositivePower(lastIncorrect: Float, age: Int, baseDistance: Float) : Float {
