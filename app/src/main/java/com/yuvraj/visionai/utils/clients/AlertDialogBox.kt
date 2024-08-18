@@ -36,17 +36,14 @@ class AlertDialogBox {
 
             // I'm using fragment here so I'm using getView() to provide ViewGroup
             // but you can provide here any other instance of ViewGroup from your Fragment / Activity
-            // I'm using fragment here so I'm using getView() to provide ViewGroup
-            // but you can provide here any other instance of ViewGroup from your Fragment / Activity
             val viewInflated: View = LayoutInflater.from(this)
                 .inflate(R.layout.alert_dialogue_box_with_input_field, null, false)
+
             // Set up the input
-            // Set up the input
-                        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
             // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
             builder.setView(viewInflated)
 
-            // Set up the buttons
+            // Set up the UI Components
             val etInput : TextInputEditText = viewInflated.findViewById(R.id.etInput)
             val tilInput : TextInputLayout = viewInflated.findViewById(R.id.tilInput)
 
@@ -56,7 +53,6 @@ class AlertDialogBox {
             tilInput.hint = "Enter Focal Length"
             etInput.setText(getFocalLength().toString())
 
-            // Set up the buttons
             btnRestoreDefault.setOnClickListener {
                 etInput.setText(getDefaultFocalLength().toString())
             }
