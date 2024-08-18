@@ -38,8 +38,6 @@ class AlertDialogBox {
             // but you can provide here any other instance of ViewGroup from your Fragment / Activity
             // I'm using fragment here so I'm using getView() to provide ViewGroup
             // but you can provide here any other instance of ViewGroup from your Fragment / Activity
-//            val viewInflated: View = LayoutInflater.from(this)
-//                .inflate(R.layout.alert_dialog, getView() as ViewGroup?, false)
             val viewInflated: View = LayoutInflater.from(this)
                 .inflate(R.layout.alert_dialogue_box_with_input_field, null, false)
             // Set up the input
@@ -55,6 +53,10 @@ class AlertDialogBox {
             val btnRestoreDefault : TextView = viewInflated.findViewById(R.id.btnRestoreDefault)
             val btnGetStoredFocalLength : TextView = viewInflated.findViewById(R.id.btnGetStoredFocalLength)
 
+            tilInput.hint = "Enter Focal Length"
+            etInput.setText(getFocalLength().toString())
+
+            // Set up the buttons
             btnRestoreDefault.setOnClickListener {
                 etInput.setText(getDefaultFocalLength().toString())
             }
@@ -63,14 +65,11 @@ class AlertDialogBox {
                 etInput.setText(getFrontCameraFocalLength().toString())
             }
 
-            tilInput.hint = "Enter Focal Length"
-
-            etInput.setText(getFocalLength().toString())
-            // Set up the buttons
             builder.setPositiveButton("Confirm") { dialog, _ ->
                 setFocalLength(etInput.text.toString().toDouble())
                 dialog.dismiss()
             }
+
             builder.setNegativeButton(
                 "Cancel"
             ) { dialog, _ -> dialog.cancel() }

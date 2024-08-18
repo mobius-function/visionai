@@ -1,11 +1,10 @@
 package com.yuvraj.visionai.utils.helpers
 
 import android.app.Activity
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.Constants.ALL_IN_ONE_EYE_TEST
-import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.getDefaultFocalLength
+import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.getFrontCameraFocalLength
 
 object SharedPreferencesHelper {
     fun Activity.getAllInOneEyeTestMode(): Boolean {
@@ -46,7 +45,7 @@ object SharedPreferencesHelper {
             AppCompatActivity.MODE_PRIVATE
         )
 
-        return sharedPreferences.getFloat("FOCAL_LENGTH", getDefaultFocalLength()).toDouble()
+        return sharedPreferences.getFloat("FOCAL_LENGTH", getFrontCameraFocalLength()).toDouble()
     }
 
     fun Activity.initiateAllInOneEyeTestMode() {

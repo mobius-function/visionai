@@ -40,12 +40,15 @@
         android:id="@+id/btnRestoreDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="275dp"
         android:padding="5dp"
         android:text="Restore Default"
+        android:textAllCaps="false"
+        android:textFontWeight="600"
         android:textSize="16dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilInput"
-        />
+        app:layout_constraintTop_toBottomOf="@id/tilInput" />
 
     <TextView
         android:id="@+id/btnGetStoredFocalLength"
@@ -53,6 +56,8 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:text="Get Stored Focal Length"
+        android:textStyle="bold"
+        android:textFontWeight="600"
         android:textSize="16dp"
         android:layout_marginVertical="15dp"
         app:layout_constraintStart_toStartOf="parent"
