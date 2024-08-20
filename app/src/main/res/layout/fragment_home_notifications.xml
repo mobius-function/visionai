@@ -82,7 +82,8 @@
         android:checked="true"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintTop_toTopOf="@id/tvEyeTestReminder"
-        app:layout_constraintBottom_toBottomOf="@id/tvEyeTestReminder"/>
+        app:layout_constraintBottom_toBottomOf="@id/tvEyeTestReminder"
+        android:contentDescription="Toggle Eye test reminder"/>
 
     <TextView
         android:id="@+id/tvRegularReminder"
@@ -105,7 +106,8 @@
         android:checked="false"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintTop_toTopOf="@id/tvRegularReminder"
-        app:layout_constraintBottom_toBottomOf="@id/tvRegularReminder"/>
+        app:layout_constraintBottom_toBottomOf="@id/tvRegularReminder"
+        android:contentDescription="Toggle Regular reminder"/>
 
     <TextView
         android:id="@+id/tvTimeInHours"
@@ -132,7 +134,8 @@
         android:backgroundTint="#898989"
         app:layout_constraintBottom_toBottomOf="@id/tvTimeInHours"
         app:layout_constraintTop_toTopOf="@id/tvTimeInHours"
-        app:layout_constraintStart_toEndOf="@id/tvTimeInHours"/>
+        app:layout_constraintStart_toEndOf="@id/tvTimeInHours"
+        android:contentDescription="Increase Hrs by 1"/>
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnTimeInHoursMinus"
@@ -144,7 +147,8 @@
         android:backgroundTint="#898989"
         app:layout_constraintBottom_toBottomOf="@id/tvTimeInHours"
         app:layout_constraintTop_toTopOf="@id/tvTimeInHours"
-        app:layout_constraintEnd_toStartOf="@id/tvTimeInHours"/>
+        app:layout_constraintEnd_toStartOf="@id/tvTimeInHours"
+        android:contentDescription="Decrease Hrs by 1"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
