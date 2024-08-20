@@ -28,10 +28,11 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_action_back" />
+        app:srcCompat="@drawable/ic_action_back"
+        android:contentDescription="Back Button" />
 
     <TextView
         android:id="@+id/tvHeading"
@@ -51,14 +52,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/btnBack"/>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollViewDetails"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
         android:fitsSystemWindows="true"
         android:scrollbars="none"
+        android:layout_marginVertical="30dp"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateAccount"
         app:layout_constraintTop_toBottomOf="@+id/tvHeading">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -75,13 +78,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <!-- Email Input -->
+            <!-- Gender Input -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilGender"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
                 android:hint="Enter your Gender"
                 android:textColorHint="@android:color/darker_gray"
                 app:boxStrokeWidth="0dp"
@@ -275,23 +277,23 @@
                     android:background="@drawable/bg_edit_text_input_layout"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCreateAccount"
-                android:layout_width="0dp"
-                android:layout_height="65dp"
-                android:layout_marginTop="34dp"
-                android:text="LET'S GET STARTED"
-                android:textSize="24sp"
-                android:textColor="@color/black"
-                android:backgroundTint="#94F363"
-                app:cornerRadius="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tilLastEyePowerRightHyperopia"
-                tools:ignore="HardcodedText" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCreateAccount"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:text="LET'S GET STARTED"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:backgroundTint="#94F363"
+        app:cornerRadius="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

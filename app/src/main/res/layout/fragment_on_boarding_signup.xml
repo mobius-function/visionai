@@ -30,10 +30,11 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_action_back" />
+        app:srcCompat="@drawable/ic_action_back"
+        android:contentDescription="Back Button"/>
 
     <TextView
         android:id="@+id/tvHeading"

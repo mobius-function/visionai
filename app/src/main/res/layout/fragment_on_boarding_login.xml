@@ -39,10 +39,11 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_action_back" />
+        app:srcCompat="@drawable/ic_action_back"
+        android:contentDescription="Back Button" />
 
     <TextView
         android:id="@+id/Tvheading"
@@ -123,7 +124,7 @@
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="65dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="35dp"
         android:text="LOGIN"
         android:textSize="24sp"
         android:textColor="@color/black"
@@ -149,16 +150,18 @@
         android:id="@+id/tvSignUpHere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="20dp"
         android:padding="5dp"
         android:text="SIGN UP HERE!"
-        android:textSize="16dp"
-        android:textStyle="bold"
         android:textColor="#94F363"
         android:textFontWeight="600"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        app:layout_constraintVertical_bias="0.964" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
