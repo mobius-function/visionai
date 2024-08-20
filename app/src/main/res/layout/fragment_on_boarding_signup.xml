@@ -298,7 +298,7 @@
             <TextView
                 android:id="@+id/dummy"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="15dp"
                 android:backgroundTint="#00000000"
                 android:text=""
                 android:background="@drawable/shape_line"
