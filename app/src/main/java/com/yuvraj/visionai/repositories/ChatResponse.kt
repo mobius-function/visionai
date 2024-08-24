@@ -59,7 +59,7 @@ object ChatResponse {
                     val jsonArray = JSONArray(responseBody)
                     if (jsonArray.length() > 0) {
                         val generatedText = jsonArray.getJSONObject(0).getString("generated_text")
-                        callback(generatedText)
+                        callback(extractAnswer(generatedText, query))
                     } else {
                         callback("No generated text found in response")
                     }
@@ -70,12 +70,13 @@ object ChatResponse {
         })
     }
 
-    fun extractAnswer(generatedText: String): String {
-        val parts = generatedText.split("\n\n")
-        return if (parts.size > 1) {
-            parts[1].trim()
+    fun extractAnswer(generatedText: String, query: String): String {
+        // Extract the answer from the generated text, the generated text is in the format: "$query\n\n*Text to be extracted*"
+        val answer = generatedText.substringAfter(query).trim()
+        return if (answer.isNotEmpty()) {
+            answer
         } else {
-            "No answer found"
+            "No answer found in response"
         }
     }
 
