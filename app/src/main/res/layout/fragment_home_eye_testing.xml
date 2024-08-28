@@ -42,6 +42,7 @@
                     android:layout_width="300dp"
                     android:layout_height="300dp"
                     android:translationZ="10dp"
+                    android:background="@color/white"
                     android:layout_gravity="center"
                     android:text="AB"
                     android:textColor="@color/black"
