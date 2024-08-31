@@ -76,6 +76,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initViews(view)
+        debug(false)
         createCameraManager()
         checkForPermission()
         clickableViews()
@@ -108,6 +109,24 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         distanceMaximum = distanceCurrent
 
         relativeTextSize = textSize * (baseDistance/distanceMaximum)
+    }
+
+    private fun debug(debugMode: Boolean) {
+        if(debugMode) {
+            binding.apply {
+                tvLeftEye.visibility = View.INVISIBLE
+                tvRightEye.visibility = View.INVISIBLE
+                tvCurrentDistance.visibility = View.INVISIBLE
+                tvMinimumDistance.visibility = View.INVISIBLE
+            }
+        } else {
+            binding.apply {
+                tvLeftEye.visibility = View.VISIBLE
+                tvRightEye.visibility = View.VISIBLE
+                tvCurrentDistance.visibility = View.VISIBLE
+                tvMinimumDistance.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun clickableViews() {
