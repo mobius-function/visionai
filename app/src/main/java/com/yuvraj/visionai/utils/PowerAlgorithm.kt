@@ -38,10 +38,10 @@ class PowerAlgorithm {
 
         fun getDefaultFocalLength(): Float {
             /*
-            Abhiram android 13 - 23.64
-            Kunal android 13 - 24.71
-            Aditya android 14 - 25.962
-            Abhinav android 12 - 28.1747   38.1747
+                Abhiram android 13 - 23.64
+                Kunal android 13 - 24.71
+                Aditya android 14 - 25.962
+                Abhinav android 12 - 28.1747   38.1747
             */
 
             return if (Build.VERSION.SDK_INT <= 30) {
