@@ -112,19 +112,17 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     }
 
     private fun debug(debugMode: Boolean) {
-        if(debugMode) {
-            binding.apply {
-                tvLeftEye.visibility = View.INVISIBLE
-                tvRightEye.visibility = View.INVISIBLE
-                tvCurrentDistance.visibility = View.INVISIBLE
-                tvMinimumDistance.visibility = View.INVISIBLE
-            }
-        } else {
-            binding.apply {
+        binding.apply {
+            if(debugMode) {
                 tvLeftEye.visibility = View.VISIBLE
                 tvRightEye.visibility = View.VISIBLE
                 tvCurrentDistance.visibility = View.VISIBLE
                 tvMinimumDistance.visibility = View.VISIBLE
+            } else {
+                tvLeftEye.visibility = View.INVISIBLE
+                tvRightEye.visibility = View.INVISIBLE
+                tvCurrentDistance.visibility = View.INVISIBLE
+                tvMinimumDistance.visibility = View.INVISIBLE
             }
         }
     }
