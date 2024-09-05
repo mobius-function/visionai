@@ -172,26 +172,25 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         if(correctResult) {
             score += 1
-
             lastCorrect = relativeTextSize
-            if(lastIncorrect == null) {
-                textSize = relativeTextSize/2
+
+            textSize = if(lastIncorrect == null) {
+                relativeTextSize/2
             } else {
-                textSize = (relativeTextSize + lastIncorrect!!)/2
+                (relativeTextSize + lastIncorrect!!)/2
             }
 
-            Toast.makeText(requireActivity(), "Correct", Toast.LENGTH_SHORT).show()
-        }
-
-        else {
+            Log.e("EyeTesting Debug", "Correct!")
+        } else {
             lastIncorrect = relativeTextSize
-            if(lastCorrect == null) {
-                textSize = relativeTextSize * 2
+
+            textSize = if(lastCorrect == null) {
+                relativeTextSize * 2
             } else {
-                textSize = (relativeTextSize + lastCorrect!!)/2
+                (relativeTextSize + lastCorrect!!)/2
             }
 
-            Toast.makeText(requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
+            Log.e("EyeTesting Debug", "Incorrect!")
         }
 
         if(reading <= 6 && textSize > 0.25f) {
