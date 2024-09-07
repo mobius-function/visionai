@@ -19,7 +19,7 @@ import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setFocalLength
 class AlertDialogBox {
     companion object{
         fun showInstructionDialogBox(context: Context, title: String, message: String) {
-            val builder = AlertDialog.Builder(context)
+            val builder = AlertDialog.Builder(context).create()
 //            builder.setTitle(title)
 //            builder.setMessage(message)
 //
@@ -39,7 +39,7 @@ class AlertDialogBox {
             tvMessage.text = message
 
             btnOk.setOnClickListener {
-                builder.create().dismiss()
+                builder.dismiss()
             }
 
 //            val dialog: AlertDialog = builder.create()
