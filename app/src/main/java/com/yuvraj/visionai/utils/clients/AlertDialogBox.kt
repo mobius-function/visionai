@@ -20,12 +20,6 @@ class AlertDialogBox {
     companion object{
         fun showInstructionDialogBox(context: Context, title: String, message: String) {
             val builder = AlertDialog.Builder(context).create()
-//            builder.setTitle(title)
-//            builder.setMessage(message)
-//
-//            builder.setPositiveButton("OK") { dialog, _ ->
-//                dialog.cancel()
-//            }
 
             val viewInflated: View = LayoutInflater.from(context)
                 .inflate(R.layout.instructions_alert_dialog_box_instructions, null, false)
@@ -42,7 +36,6 @@ class AlertDialogBox {
                 builder.dismiss()
             }
 
-//            val dialog: AlertDialog = builder.create()
             builder.show()
         }
 
@@ -59,7 +52,6 @@ class AlertDialogBox {
             builder.setView(viewInflated)
 
             // Set up the UI Components
-            val tvTitle : TextView = viewInflated.findViewById(R.id.tvTitleBar)
             val etInput : TextInputEditText = viewInflated.findViewById(R.id.etInput)
             val tilInput : TextInputLayout = viewInflated.findViewById(R.id.tilInput)
 
@@ -87,15 +79,6 @@ class AlertDialogBox {
             btnCancel.setOnClickListener {
                 builder.dismiss()
             }
-
-//            builder.setPositiveButton("Confirm") { dialog, _ ->
-//                setFocalLength(etInput.text.toString().toDouble())
-//                dialog.dismiss()
-//            }
-//
-//            builder.setNegativeButton(
-//                "Cancel"
-//            ) { dialog, _ -> dialog.cancel() }
 
             builder.show()
         }
