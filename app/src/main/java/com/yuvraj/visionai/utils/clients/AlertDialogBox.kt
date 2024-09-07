@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.yuvraj.visionai.R
@@ -19,15 +20,30 @@ class AlertDialogBox {
     companion object{
         fun showInstructionDialogBox(context: Context, title: String, message: String) {
             val builder = AlertDialog.Builder(context)
-            builder.setTitle(title)
-            builder.setMessage(message)
+//            builder.setTitle(title)
+//            builder.setMessage(message)
+//
+//            builder.setPositiveButton("OK") { dialog, _ ->
+//                dialog.cancel()
+//            }
 
-            builder.setPositiveButton("OK") { dialog, _ ->
-                dialog.cancel()
+            val viewInflated: View = LayoutInflater.from(context)
+                .inflate(R.layout.alert_dialog_box_instructions, null, false)
+            builder.setView(viewInflated)
+
+            val tvTitle : TextView = viewInflated.findViewById(R.id.tvTitleBar)
+            val tvMessage : TextView = viewInflated.findViewById(R.id.tvInstructions)
+            val btnOk : MaterialButton = viewInflated.findViewById(R.id.btnOK)
+
+            tvTitle.text = title
+            tvMessage.text = message
+
+            btnOk.setOnClickListener {
+                builder.create().dismiss()
             }
 
-            val dialog: AlertDialog = builder.create()
-            dialog.show()
+//            val dialog: AlertDialog = builder.create()
+            builder.show()
         }
 
         fun Activity.showInputBoxForFocalLength() {
