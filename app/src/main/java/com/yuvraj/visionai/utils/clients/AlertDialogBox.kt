@@ -28,7 +28,7 @@ class AlertDialogBox {
 //            }
 
             val viewInflated: View = LayoutInflater.from(context)
-                .inflate(R.layout.alert_dialog_box_instructions, null, false)
+                .inflate(R.layout.instructions_alert_dialog_box_instructions, null, false)
             builder.setView(viewInflated)
 
             val tvTitle : TextView = viewInflated.findViewById(R.id.tvTitleBar)
@@ -47,26 +47,28 @@ class AlertDialogBox {
         }
 
         fun Activity.showInputBoxForFocalLength() {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Update Focal Length | Testing Purpose")
+            val builder = AlertDialog.Builder(this).create()
 
             // I'm using fragment here so I'm using getView() to provide ViewGroup
             // but you can provide here any other instance of ViewGroup from your Fragment / Activity
             val viewInflated: View = LayoutInflater.from(this)
-                .inflate(R.layout.alert_dialogue_box_with_input_field, null, false)
+                .inflate(R.layout.input_box_for_focal_length, null, false)
 
             // Set up the input
             // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
             builder.setView(viewInflated)
 
             // Set up the UI Components
+            val tvTitle : TextView = viewInflated.findViewById(R.id.tvTitleBar)
             val etInput : TextInputEditText = viewInflated.findViewById(R.id.etInput)
             val tilInput : TextInputLayout = viewInflated.findViewById(R.id.tilInput)
 
             val btnRestoreDefault : TextView = viewInflated.findViewById(R.id.btnRestoreDefault)
             val btnGetStoredFocalLength : TextView = viewInflated.findViewById(R.id.btnGetStoredFocalLength)
+            val btnConfirm : MaterialButton = viewInflated.findViewById(R.id.btnConfirm)
+            val btnCancel : MaterialButton = viewInflated.findViewById(R.id.btnCancel)
 
-            tilInput.hint = "Enter Focal Length"
+            tilInput.hint = "Enter Testing Value of Focal Length"
             etInput.setText(getFocalLength().toString())
 
             btnRestoreDefault.setOnClickListener {
@@ -77,14 +79,23 @@ class AlertDialogBox {
                 etInput.setText(getFrontCameraFocalLength().toString())
             }
 
-            builder.setPositiveButton("Confirm") { dialog, _ ->
+            btnConfirm.setOnClickListener {
                 setFocalLength(etInput.text.toString().toDouble())
-                dialog.dismiss()
+                builder.dismiss()
             }
 
-            builder.setNegativeButton(
-                "Cancel"
-            ) { dialog, _ -> dialog.cancel() }
+            btnCancel.setOnClickListener {
+                builder.dismiss()
+            }
+
+//            builder.setPositiveButton("Confirm") { dialog, _ ->
+//                setFocalLength(etInput.text.toString().toDouble())
+//                dialog.dismiss()
+//            }
+//
+//            builder.setNegativeButton(
+//                "Cancel"
+//            ) { dialog, _ -> dialog.cancel() }
 
             builder.show()
         }
