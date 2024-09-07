@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_edit_text_input_layout"
     android:padding="10dp"
+    android:layout_marginHorizontal="32dp"
+    android:gravity="center"
+    android:layout_gravity="center"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -25,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Instructions"
+        android:text="Instructifoskhons"
         android:textSize="16sp"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/tvTitleBar"
@@ -33,11 +36,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        app:cornerRadius="18dp"
         android:text="OK"
         android:textSize="18dp"
         android:textColor="@color/black"
