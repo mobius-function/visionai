@@ -16,6 +16,8 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import com.yuvraj.visionai.enums.FaceStatus
 import com.yuvraj.visionai.service.cameraX.CameraManager
+import com.yuvraj.visionai.utils.Constants.MAX_READINGS
+import com.yuvraj.visionai.utils.Constants.MIN_DISPLAYED_TEXT_SIZE
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS_FOR_CAMERA
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength
@@ -193,7 +195,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             Log.e("EyeTesting Debug", "Incorrect!")
         }
 
-        if(reading <= 6 && textSize > 0.25f) {
+        if(reading <= MAX_READINGS && textSize > MIN_DISPLAYED_TEXT_SIZE) {
             displayRandomText(textSize)
             Log.e("EyeTesting Debug","The presented text size in MM is: $textSize mm")
             Log.e("EyeTesting Debug","The presented Base Distance in MM is: $baseDistance mm")
