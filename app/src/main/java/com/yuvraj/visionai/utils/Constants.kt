@@ -72,6 +72,10 @@ object Constants {
     const val ML_MODEL = "ML_MODEL"
     const val LOGOUT = "LOGOUT"
 
+    // Eye Test Constants
+    const val MAX_READINGS = 8
+    const val MIN_DISPLAYED_TEXT_SIZE = 0.25f
+
 
     // Notification Settings Preferences
     const val NOTIFICATION_PREFERENCES = "NOTIFICATION_PREFERENCES"
