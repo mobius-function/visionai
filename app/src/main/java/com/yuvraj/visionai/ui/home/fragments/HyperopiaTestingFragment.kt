@@ -17,6 +17,8 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.enums.FaceStatus
+import com.yuvraj.visionai.utils.Constants.MAX_READINGS
+import com.yuvraj.visionai.utils.Constants.MIN_DISPLAYED_TEXT_SIZE
 import com.yuvraj.visionai.utils.Constants.USER_AGE
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
@@ -28,6 +30,7 @@ import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeT
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 import com.yuvraj.visionai.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.abs
 
 
 @AndroidEntryPoint
@@ -57,8 +60,8 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private var reading : Int = 0
     private var score : Int = 0
 
-    private var lastCorrect: Float? = null
-    private var lastIncorrect: Float? = null
+    private var lastCorrect: Float? = 0.0f
+    private var lastIncorrect: Float? = 0.0f
     private var checkingRightEye: Boolean? = false
 
     // for dry eye testing
@@ -192,7 +195,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             Log.e("EyeTesting Debug", "Incorrect!")
         }
 
-        if(reading <= 6 && textSize > 0.25f) {
+        if(reading <= MAX_READINGS && textSize > MIN_DISPLAYED_TEXT_SIZE) {
             displayRandomText(textSize)
             Log.e("EyeTesting Debug","The presented text size in MM is: $textSize mm")
         }
