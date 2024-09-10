@@ -26,6 +26,7 @@
                     android:padding="5dp"
                     android:layout_alignParentStart="true"
                     android:src="@drawable/ic_arrow"
+                    app:tint="@color/cardview_dark_background"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:contentDescription="back" />
@@ -41,7 +42,7 @@
             <TextView
                 android:text="My"
                 android:textStyle="normal"
-                android:textColor="@color/white"
+                android:textColor="@color/cardview_dark_background"
                 android:textSize="30sp"
                 android:layout_marginStart="15dp"
                 android:layout_width="match_parent"
@@ -49,7 +50,7 @@
             <TextView
                 android:text="Profile"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/cardview_dark_background"
                 android:textSize="33sp"
                 android:layout_marginStart="15dp"
                 android:layout_width="match_parent"
