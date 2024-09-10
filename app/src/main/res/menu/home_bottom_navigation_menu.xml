@@ -10,12 +10,12 @@
     <item
         android:id="@+id/notificationsFragment"
         android:icon="@drawable/ic_notification"
-        android:title="Notifications" />
+        android:title="Alerts" />
 
     <item
         android:id="@+id/nullFragment"
         android:title=""
-        android:contentDescription="Null button to align all items"/>
+        android:contentDescription="Align"/>
 
 
     <item
