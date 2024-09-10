@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_action_back"
-        android:contentDescription="Back Button"/>
+        android:contentDescription="Back"/>
 
     <TextView
         android:id="@+id/tvHeading"
@@ -185,6 +185,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tilPassword"
                 app:passwordToggleEnabled="true"
+                app:passwordToggleContentDescription="ReEnterPassword"
                 app:passwordToggleTint="@android:color/darker_gray">
 
                 <com.google.android.material.textfield.TextInputEditText
