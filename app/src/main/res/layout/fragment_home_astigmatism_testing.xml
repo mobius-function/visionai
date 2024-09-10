@@ -104,6 +104,7 @@
             android:layout_width="150dp"
             android:layout_height="65dp"
             android:text="Yes"
+            android:textColor="@color/black"
             android:layout_marginVertical="20dp"
             android:layout_marginHorizontal="20dp"
             android:textSize="22sp" />
@@ -113,6 +114,7 @@
             android:layout_width="150dp"
             android:layout_height="65dp"
             android:text="No"
+            android:textColor="@color/black"
             android:backgroundTint="@color/red_button"
             android:layout_marginVertical="20dp"
             android:layout_marginHorizontal="20dp"
