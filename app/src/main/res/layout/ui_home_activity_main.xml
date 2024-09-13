@@ -136,8 +136,7 @@
             android:layout_gravity="bottom"
             android:backgroundTint="@color/cardview_dark_background"
             app:fabCradleMargin="10dp"
-            app:fabCradleRoundedCornerRadius="60dp"
-            app:fabCradleVerticalOffset="10dp">
+            app:fabCradleRoundedCornerRadius="60dp">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavigationView"
