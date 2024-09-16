@@ -134,6 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:background="@android:color/transparent"
             android:backgroundTint="@color/cardview_dark_background"
             app:fabCradleMargin="10dp"
             app:fabCradleRoundedCornerRadius="60dp">
