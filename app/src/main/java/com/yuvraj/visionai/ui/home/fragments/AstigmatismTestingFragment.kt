@@ -122,9 +122,13 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
                     // "$totalLeftEyePartialBlinkCounter $totalRightEyePartialBlinkCounter")
 
             viewModel.saveEyeTest()
+
+            findNavController().navigate(R.id.generatedResultFragment)
         }
 
-        findNavController().navigate(R.id.generatedResultFragment)
+        else {
+            findNavController().navigate(R.id.landingFragment)
+        }
     }
 
     private fun createCameraManager() {
