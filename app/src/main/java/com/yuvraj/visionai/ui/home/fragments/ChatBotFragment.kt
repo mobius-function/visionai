@@ -29,7 +29,6 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Inflate the layout for this fragment
         initViews(view)
         clickableViews()
     }
