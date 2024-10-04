@@ -75,6 +75,7 @@ object Constants {
     // Eye Test Constants
     const val MAX_READINGS = 8
     const val MIN_DISPLAYED_TEXT_SIZE = 0.25f
+    const val MAX_DISPLAYED_TEXT_SIZE = 30.0f
 
 
     // Notification Settings Preferences
