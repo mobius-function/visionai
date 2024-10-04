@@ -17,6 +17,7 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.enums.FaceStatus
+import com.yuvraj.visionai.utils.Constants.MAX_DISPLAYED_TEXT_SIZE
 import com.yuvraj.visionai.utils.Constants.MAX_READINGS
 import com.yuvraj.visionai.utils.Constants.MIN_DISPLAYED_TEXT_SIZE
 import com.yuvraj.visionai.utils.Constants.USER_AGE
@@ -60,8 +61,8 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private var reading : Int = 0
     private var score : Int = 0
 
-    private var lastCorrect: Float? = 0.0f
-    private var lastIncorrect: Float? = 0.0f
+    private var lastCorrect: Float? = null
+    private var lastIncorrect: Float? = null
     private var checkingRightEye: Boolean? = false
 
     // for dry eye testing
@@ -157,12 +158,14 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         binding.apply {
             tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, textSizeDisplay)
-//            Log.e("EyeTesting Debug","The initial text size in DP is: $textSizeDisplay dp")
+            Log.e("EyeTesting Debug","The initial text size in DP is: $textSizeDisplay dp")
             tvRandomText.text = textDisplay
         }
     }
 
     private fun onCheck(correctResult : Boolean) {
+
+        Log.e("EyeTesting Debug", "${binding.tvRandomText.text} ${binding.tvInput.text} $correctResult")
 
         binding.tvInput.setText("")
 
@@ -174,10 +177,10 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             score += 1
             lastCorrect = relativeTextSize
 
-            textSize = if(lastIncorrect == null) {
-                relativeTextSize*2
+            if(lastIncorrect == null) {
+                textSize = relativeTextSize*2
             } else {
-                (relativeTextSize + lastIncorrect!!)/2
+                textSize = (relativeTextSize + lastIncorrect!!)/2
             }
 
             Log.e("EyeTesting Debug", "Correct!")
@@ -186,16 +189,16 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         else {
             lastIncorrect = relativeTextSize
 
-            textSize = if(lastCorrect == null) {
-                relativeTextSize / 2
+            if(lastCorrect == null) {
+                textSize = relativeTextSize / 2
             } else {
-                (relativeTextSize + lastCorrect!!)/2
+                textSize = (relativeTextSize + lastCorrect!!)/2
             }
 
             Log.e("EyeTesting Debug", "Incorrect!")
         }
 
-        if(reading <= MAX_READINGS && textSize > MIN_DISPLAYED_TEXT_SIZE) {
+        if(reading <= MAX_READINGS && textSize < MAX_DISPLAYED_TEXT_SIZE) {
             displayRandomText(textSize)
             Log.e("EyeTesting Debug","The presented text size in MM is: $textSize mm")
         }
