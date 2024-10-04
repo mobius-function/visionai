@@ -7,6 +7,7 @@ import com.yuvraj.visionai.db.dao.ChatMessageDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -16,7 +17,7 @@ object ChatModule {
 
     @Provides
     @Singleton
-    fun provideChatDatabase(context: Context): ChatHistoryDatabase {
+    fun provideChatDatabase(@ApplicationContext context: Context): ChatHistoryDatabase {
         return Room.databaseBuilder(
             context.applicationContext,
             ChatHistoryDatabase::class.java,
