@@ -71,11 +71,6 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
 
                 messageList.add(ChatMessage("Typing...", SENT_BY_BOT))
 
-                // Store user's message in the database
-                lifecycleScope.launch {
-                    chatMessageDao.insertMessage(ChatMessageEntity(message = question, sentBy = "SENT_BY_ME"))
-                }
-
                 // Get response
                 getResFun(question) { response ->
                     addResponse(response)
