@@ -85,8 +85,10 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
     private fun loadPreviousMessages() {
         lifecycleScope.launch {
             val messages = chatMessageDao.getAllMessages()
+
             if(messages.isEmpty()) return@launch
             binding.welcomeText.visibility = View.GONE
+
             messages.forEach { entity ->
                 messageList.add(
                     ChatMessage(entity.message,
