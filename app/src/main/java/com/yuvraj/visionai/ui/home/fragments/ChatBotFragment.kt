@@ -99,9 +99,7 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
     }
 
     private fun checkForEmptyChat() {
-        if (messageAdapter.itemCount == 0) {
-            binding.welcomeText.visibility = View.VISIBLE
-        } else {
+        if (chatBotViewModel.isListEmpty.value == false) {
             binding.welcomeText.visibility = View.GONE
         }
     }

@@ -1,5 +1,6 @@
 package com.yuvraj.visionai.ui.home.viewModel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yuvraj.visionai.db.dao.ChatMessageDao
 import com.yuvraj.visionai.db.entities.ChatMessageEntity
@@ -17,10 +18,18 @@ class ChatBotViewModel @Inject constructor(
 ) : ViewModel() {
 
     val messageList: MutableList<ChatMessage> = mutableListOf()
+    val isListEmpty = MutableLiveData(true)
 
     fun loadPreviousMessages(onLoaded: () -> Unit) {
         viewModelScope.launch {
             val messages = chatMessageDao.getAllMessages()
+            if (messages.isEmpty()) {
+                isListEmpty.value = true
+                onLoaded()
+                return@launch
+            } else {
+                isListEmpty.value = false
+            }
             messages.forEach { entity ->
                 messageList.add(
                     ChatMessage(
