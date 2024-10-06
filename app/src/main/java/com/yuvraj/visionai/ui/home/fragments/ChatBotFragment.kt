@@ -4,22 +4,14 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.adapters.ChatMessages
 import com.yuvraj.visionai.databinding.FragmentHomeChatBotBinding
-import com.yuvraj.visionai.db.dao.ChatMessageDao
-import com.yuvraj.visionai.db.entities.ChatMessageEntity
 import com.yuvraj.visionai.enums.ChatMessageSender
 import com.yuvraj.visionai.enums.ChatMessageSender.SENT_BY_BOT
-import com.yuvraj.visionai.enums.ChatMessageSender.SENT_BY_ME
-import com.yuvraj.visionai.model.ChatMessage
-import com.yuvraj.visionai.repositories.ChatResponse.getResFun
 import com.yuvraj.visionai.ui.home.viewModel.ChatBotViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
