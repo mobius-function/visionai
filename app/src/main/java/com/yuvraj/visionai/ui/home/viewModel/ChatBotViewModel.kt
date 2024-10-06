@@ -18,7 +18,6 @@ class ChatBotViewModel @Inject constructor(
 
     val messageList: MutableList<ChatMessage> = mutableListOf()
 
-
     fun loadPreviousMessages(onLoaded: () -> Unit) {
         viewModelScope.launch {
             val messages = chatMessageDao.getAllMessages()

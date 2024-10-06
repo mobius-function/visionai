@@ -3,6 +3,7 @@ package com.yuvraj.visionai.ui.home.fragments
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yuvraj.visionai.R
@@ -15,6 +16,7 @@ import com.yuvraj.visionai.enums.ChatMessageSender.SENT_BY_BOT
 import com.yuvraj.visionai.enums.ChatMessageSender.SENT_BY_ME
 import com.yuvraj.visionai.model.ChatMessage
 import com.yuvraj.visionai.repositories.ChatResponse.getResFun
+import com.yuvraj.visionai.ui.home.viewModel.ChatBotViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,15 +24,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
 
-    @Inject
-    lateinit var chatMessageDao: ChatMessageDao
-
     private var _binding: FragmentHomeChatBotBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var messageList : MutableList<ChatMessage>
-    private lateinit var messageAdapter : ChatMessages
-
+    private lateinit var messageAdapter: ChatMessages
+    private val chatBotViewModel: ChatBotViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,20 +39,20 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
         initViews(view)
         loadPreviousMessages()
         clickableViews()
+        checkForEmptyChat()
     }
 
 
     private fun initViews(view: View) {
         _binding = FragmentHomeChatBotBinding.bind(view)
 
-        messageList = ArrayList()
-        messageAdapter = ChatMessages(messageList)
+        messageAdapter = ChatMessages(chatBotViewModel.messageList)
 
-        binding.apply{
+        binding.apply {
             recyclerView.adapter = messageAdapter
-            val layoutManger = LinearLayoutManager(requireActivity())
-            layoutManger.stackFromEnd = true
-            recyclerView.layoutManager = layoutManger
+            val layoutManager = LinearLayoutManager(requireActivity())
+            layoutManager.stackFromEnd = true
+            recyclerView.layoutManager = layoutManager
         }
 
     }
@@ -62,17 +60,25 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
     private fun clickableViews() {
         binding.apply {
             btnSend.setOnClickListener {
-
-                val question = inputMessage.text.toString().trim{ it <= ' ' }
+                val question = inputMessage.text.toString().trim { it <= ' ' }
                 if (question.isEmpty()) return@setOnClickListener
 
-                addToChat(question, SENT_BY_ME)
+                // Add user's message to the chat and save it to the database
+                chatBotViewModel.addMessageToChat(question, ChatMessageSender.SENT_BY_ME) {
+                    messageAdapter.notifyDataSetChanged()
+                    binding.recyclerView.smoothScrollToPosition(messageAdapter.itemCount)
+                }
+
+                // Clear the input field and show "Typing..." message
                 inputMessage.setText("")
 
-                messageList.add(ChatMessage("Typing...", SENT_BY_BOT))
+                chatBotViewModel.addMessageToChat("Typing...", SENT_BY_BOT) {
+                    messageAdapter.notifyDataSetChanged()
+                    binding.recyclerView.smoothScrollToPosition(messageAdapter.itemCount)
+                }
 
-                // Get response
-                getResFun(question) { response ->
+                // Get response from the API
+                chatBotViewModel.getResponseFromAPI(question) { response ->
                     addResponse(response)
                 }
 
@@ -83,44 +89,29 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
     }
 
     private fun loadPreviousMessages() {
-        lifecycleScope.launch {
-            val messages = chatMessageDao.getAllMessages()
+        chatBotViewModel.loadPreviousMessages {
+            messageAdapter.notifyDataSetChanged()
+            binding.recyclerView.smoothScrollToPosition(messageAdapter.itemCount)
+        }
+    }
 
-            if(messages.isEmpty()) return@launch
+    private fun addResponse(response: String) {
+        // Remove the "Typing..." message and add the bot's response
+        chatBotViewModel.messageList.removeAt(chatBotViewModel.messageList.size - 1)
+
+        // adds the Bot's response to the chat
+        chatBotViewModel.addMessageToChat(response, SENT_BY_BOT) {
+            messageAdapter.notifyDataSetChanged()
+            binding.recyclerView.smoothScrollToPosition(messageAdapter.itemCount)
+        }
+    }
+
+    private fun checkForEmptyChat() {
+        if (messageAdapter.itemCount == 0) {
+            binding.welcomeText.visibility = View.VISIBLE
+        } else {
             binding.welcomeText.visibility = View.GONE
-
-            messages.forEach { entity ->
-                messageList.add(
-                    ChatMessage(entity.message,
-                        if (entity.sentBy == "SENT_BY_ME") SENT_BY_ME
-                        else SENT_BY_BOT)
-                )
-            }
-
-            messageAdapter.notifyDataSetChanged()
-            binding.recyclerView.smoothScrollToPosition(messageAdapter.itemCount)
         }
-    }
-
-    private fun addToChat(message: String, sentBy: ChatMessageSender) {
-        requireActivity().runOnUiThread {
-            messageList.add(ChatMessage(message, sentBy))
-            messageAdapter.notifyDataSetChanged()
-            binding.recyclerView.smoothScrollToPosition(messageAdapter.itemCount)
-
-            // Save to database
-            lifecycleScope.launch {
-                chatMessageDao.insertMessage(ChatMessageEntity(message = message, sentBy = sentBy.name))
-            }
-        }
-    }
-
-    private fun addResponse(response: String?) {
-        // removes the "Typing..." message
-        messageList.removeAt(messageList.size - 1)
-
-        // adds the response to the chat
-        addToChat(response!!, SENT_BY_BOT)
     }
 }
 
