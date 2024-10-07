@@ -1,6 +1,5 @@
 package com.yuvraj.visionai.ui.home.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yuvraj.visionai.db.dao.ChatMessageDao
@@ -29,6 +28,10 @@ class ChatBotViewModel @Inject constructor(
         viewModelScope.launch {
             val offset = currentPage * PAGE_SIZE
             val messages = chatMessageDao.getMessagesWithPagination(PAGE_SIZE, offset)
+
+            if (messages.isNotEmpty()) {
+                isListEmpty.value = false
+            }
 
             // Convert the list of ChatMessageEntity to ChatMessage
             val newMessages : MutableList<ChatMessage> = mutableListOf()
