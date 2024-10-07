@@ -1,7 +1,6 @@
 package com.yuvraj.visionai.ui.home.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -66,7 +65,7 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
 
                 // Clear the input field and show "Typing..." message
                 inputMessage.setText("")
-                chatBotViewModel.addMessageToChat("Typing...", ChatMessageSender.SENT_BY_BOT) {
+                chatBotViewModel.addMessageToChat("Typing...", SENT_BY_BOT) {
                     messageAdapter.notifyDataSetChanged()
                     binding.recyclerView.smoothScrollToPosition(messageAdapter.itemCount)
                 }
@@ -88,7 +87,6 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
 
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 if (layoutManager.findFirstVisibleItemPosition() == 0 && dy < 0) {
-                    Log.d("ChatBotFragment", "Loading more messages")
                     loadMoreMessages()
                 }
             }
@@ -138,8 +136,8 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
     }
 
     private fun checkForEmptyChat() {
-        if (chatBotViewModel.isListEmpty.value == false) {
-            binding.welcomeText.visibility = View.GONE
+        chatBotViewModel.isListEmpty.observe(viewLifecycleOwner) { isEmpty ->
+            binding.welcomeText.visibility = if (isEmpty) View.VISIBLE else View.GONE
         }
     }
 }
