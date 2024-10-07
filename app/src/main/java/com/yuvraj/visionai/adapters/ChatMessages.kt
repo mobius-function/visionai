@@ -9,23 +9,22 @@ import com.yuvraj.visionai.model.ChatMessage
 import com.yuvraj.visionai.enums.ChatMessageSender.SENT_BY_ME
 
 class ChatMessages(
-    private var messageList :List<ChatMessage>
-): RecyclerView.Adapter<ChatMessages.ViewHolder>()
-{
+    private var messageList: MutableList<ChatMessage>
+) : RecyclerView.Adapter<ChatMessages.ViewHolder>() {
+
     inner class ViewHolder(private val binding: ItemChatBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(message: ChatMessage) {
-            if (message.sender == SENT_BY_ME){
+            if (message.sender == SENT_BY_ME) {
                 binding.leftChatView.visibility = View.GONE
                 binding.rightChatView.visibility = View.VISIBLE
                 binding.rightChatTextView.text = message.message
-            }else{
+            } else {
                 binding.leftChatView.visibility = View.VISIBLE
                 binding.rightChatView.visibility = View.GONE
                 binding.leftChatTextView.text = message.message
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatMessages.ViewHolder {
@@ -36,10 +35,15 @@ class ChatMessages(
     override fun getItemCount(): Int = messageList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(messageList[position])
+        holder.bind(messageList[position])  // Bind messages directly from the list
 
         holder.itemView.setOnClickListener {
             // TODO: OnClick implementation for each message in the list
         }
+    }
+
+    // Method to notify added messages
+    fun notifyAddedMessages(newMessagesSize: Int) {
+        notifyItemRangeInserted(0, newMessagesSize)
     }
 }
