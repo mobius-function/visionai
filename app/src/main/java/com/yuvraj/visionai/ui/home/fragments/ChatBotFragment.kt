@@ -1,10 +1,12 @@
 package com.yuvraj.visionai.ui.home.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.adapters.ChatMessages
 import com.yuvraj.visionai.databinding.FragmentHomeChatBotBinding
@@ -29,14 +31,16 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
-        loadPreviousMessages()
         clickableViews()
+        loadPreviousMessages()
         checkForEmptyChat()
+        setupScrollListener()
     }
 
 
     private fun initViews(view: View) {
         _binding = FragmentHomeChatBotBinding.bind(view)
+        chatBotViewModel.resetCurrentPage()
 
         messageAdapter = ChatMessages(chatBotViewModel.messageList)
 
@@ -46,7 +50,6 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
             layoutManager.stackFromEnd = true
             recyclerView.layoutManager = layoutManager
         }
-
     }
 
     private fun clickableViews() {
@@ -63,8 +66,7 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
 
                 // Clear the input field and show "Typing..." message
                 inputMessage.setText("")
-
-                chatBotViewModel.addMessageToChat("Typing...", SENT_BY_BOT) {
+                chatBotViewModel.addMessageToChat("Typing...", ChatMessageSender.SENT_BY_BOT) {
                     messageAdapter.notifyDataSetChanged()
                     binding.recyclerView.smoothScrollToPosition(messageAdapter.itemCount)
                 }
@@ -76,14 +78,51 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
 
                 welcomeText.visibility = View.GONE
             }
-
         }
     }
 
+    private fun setupScrollListener() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                if (layoutManager.findFirstVisibleItemPosition() == 0 && dy < 0) {
+                    Log.d("ChatBotFragment", "Loading more messages")
+                    loadMoreMessages()
+                }
+            }
+        })
+    }
+
     private fun loadPreviousMessages() {
-        chatBotViewModel.loadPreviousMessages {
+        chatBotViewModel.loadMessages {
+            // Update the adapter with new messages
+            messageAdapter.notifyAddedMessages(chatBotViewModel.messageList.size)
             messageAdapter.notifyDataSetChanged()
+
+            // Debugging
+            // Log.d("ChatBotFragment", "Current page: ${chatBotViewModel.currentPage}
+            // || Message List Size: ${chatBotViewModel.messageList.size}
+            // || Page Size: ${chatBotViewModel.messageLoadedSize.value}")
+
             binding.recyclerView.smoothScrollToPosition(messageAdapter.itemCount)
+        }
+    }
+
+    private fun loadMoreMessages() {
+        chatBotViewModel.loadMessages {
+            // Update the adapter with new messages
+            messageAdapter.notifyAddedMessages(chatBotViewModel.messageList.size)
+            messageAdapter.notifyDataSetChanged()
+
+            // Debugging
+            // Log.d("ChatBotFragment", "Current page: ${chatBotViewModel.currentPage}
+            // || Message List Size: ${chatBotViewModel.messageList.size}
+            // || Page Size: ${chatBotViewModel.messageLoadedSize.value}")
+
+            // Scroll to current position
+            binding.recyclerView.scrollToPosition(chatBotViewModel.messageLoadedSize.value!!)
         }
     }
 
