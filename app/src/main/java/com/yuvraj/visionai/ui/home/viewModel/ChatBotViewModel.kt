@@ -1,5 +1,6 @@
 package com.yuvraj.visionai.ui.home.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yuvraj.visionai.db.dao.ChatMessageDao
@@ -17,27 +18,31 @@ class ChatBotViewModel @Inject constructor(
     private val chatMessageDao: ChatMessageDao
 ) : ViewModel() {
 
+    private var currentPage = 0
+
     val messageList: MutableList<ChatMessage> = mutableListOf()
     val isListEmpty = MutableLiveData(true)
+    val messageLoadedSize = MutableLiveData(0)
 
-    fun loadPreviousMessages(onLoaded: () -> Unit) {
+    // Load initial messages or next page
+    fun loadMessages(onLoaded: () -> Unit) {
         viewModelScope.launch {
-            val messages = chatMessageDao.getAllMessages()
-            if (messages.isEmpty()) {
-                isListEmpty.value = true
-                onLoaded()
-                return@launch
-            } else {
-                isListEmpty.value = false
-            }
+            val offset = currentPage * PAGE_SIZE
+            val messages = chatMessageDao.getMessagesWithPagination(PAGE_SIZE, offset)
+
+            // Convert the list of ChatMessageEntity to ChatMessage
+            val newMessages : MutableList<ChatMessage> = mutableListOf()
             messages.forEach { entity ->
-                messageList.add(
+                newMessages.add(
                     ChatMessage(
                         entity.message,
                         if (entity.sentBy == "SENT_BY_ME") ChatMessageSender.SENT_BY_ME else ChatMessageSender.SENT_BY_BOT
                     )
                 )
             }
+            messageLoadedSize.value = newMessages.size
+            messageList.addAll(0, newMessages)
+            currentPage++
             onLoaded()
         }
     }
@@ -47,7 +52,7 @@ class ChatBotViewModel @Inject constructor(
             messageList.add(ChatMessage(message, sentBy))
 
             if(sentBy == ChatMessageSender.SENT_BY_BOT && message == "Typing...") {
-                // Dont log
+                // Dont log in the local database
             } else {
                 chatMessageDao.insertMessage(
                     ChatMessageEntity(
@@ -56,7 +61,6 @@ class ChatBotViewModel @Inject constructor(
                     )
                 )
             }
-
             onAdded()
         }
     }
@@ -65,5 +69,14 @@ class ChatBotViewModel @Inject constructor(
         ChatResponse.getResFun(question) { response ->
             onResponse(response)
         }
+    }
+
+    fun resetCurrentPage() {
+        currentPage = 0
+        messageList.clear()  // Optionally clear the previous messages if you want to start fresh
+    }
+
+    companion object {
+        private const val PAGE_SIZE = 40
     }
 }
