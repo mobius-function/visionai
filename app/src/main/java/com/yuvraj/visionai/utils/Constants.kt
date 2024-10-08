@@ -57,10 +57,13 @@ object Constants {
     const val USER_AGE = "USER_AGE"                                        // Int
 
     // past test results inside user details
-    const val PAST_LEFT_EYE_MYOPIA = "PAST_LEFT_EYE_MYOPIA"
-    const val PAST_RIGHT_EYE_MYOPIA = "PAST_RIGHT_EYE_MYOPIA"
-    const val PAST_LEFT_EYE_HYPEROPIA = "PAST_LEFT_EYE_HYPEROPIA"
-    const val PAST_RIGHT_EYE_HYPEROPIA = "PAST_RIGHT_EYE_HYPEROPIA"
+    const val LATEST_LEFT_EYE_MYOPIA = "LATEST_LEFT_EYE_MYOPIA"
+    const val LATEST_RIGHT_EYE_MYOPIA = "LATEST_RIGHT_EYE_MYOPIA"
+    const val LATEST_LEFT_EYE_HYPEROPIA = "LATEST_LEFT_EYE_HYPEROPIA"
+    const val LATEST_RIGHT_EYE_HYPEROPIA = "LATEST_RIGHT_EYE_HYPEROPIA"
+    const val LATEST_ASTIGMATISM = "LATEST_ASTIGMATISM"
+    const val LATEST_DRY_LEFT_EYE = "LATEST_DRY_LEFT_EYE"
+    const val LATEST_DRY_RIGHT_EYE = "LATEST_DRY_RIGHT_EYE"
 
 
     // Eye Tests IDs
