@@ -13,10 +13,10 @@ import com.yuvraj.visionai.databinding.FragmentOnBoardingDetailsBinding
 import com.yuvraj.visionai.firebase.Authentication
 import com.yuvraj.visionai.model.UserPreferences
 import com.yuvraj.visionai.ui.home.MainActivity
-import com.yuvraj.visionai.utils.Constants.PAST_LEFT_EYE_HYPEROPIA
-import com.yuvraj.visionai.utils.Constants.PAST_LEFT_EYE_MYOPIA
-import com.yuvraj.visionai.utils.Constants.PAST_RIGHT_EYE_HYPEROPIA
-import com.yuvraj.visionai.utils.Constants.PAST_RIGHT_EYE_MYOPIA
+import com.yuvraj.visionai.utils.Constants.LATEST_LEFT_EYE_HYPEROPIA
+import com.yuvraj.visionai.utils.Constants.LATEST_LEFT_EYE_MYOPIA
+import com.yuvraj.visionai.utils.Constants.LATEST_RIGHT_EYE_HYPEROPIA
+import com.yuvraj.visionai.utils.Constants.LATEST_RIGHT_EYE_MYOPIA
 import com.yuvraj.visionai.utils.Constants.USER_AGE
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.Constants.USER_ONBOARDING_COMPLETED
@@ -99,13 +99,13 @@ class DetailsFragment : Fragment(R.layout.fragment_on_boarding_details) {
 
                 //past results
                 if(binding.etLastEyePowerLeftMyopia.text.toString().isNotEmpty())
-                    myEdit.putFloat(PAST_LEFT_EYE_MYOPIA, binding.etLastEyePowerLeftMyopia.text.toString().toFloat())
+                    myEdit.putFloat(LATEST_LEFT_EYE_MYOPIA, binding.etLastEyePowerLeftMyopia.text.toString().toFloat())
                 if(binding.etLastEyePowerRightMyopia.text.toString().isNotEmpty())
-                    myEdit.putFloat(PAST_RIGHT_EYE_MYOPIA, binding.etLastEyePowerRightMyopia.text.toString().toFloat())
+                    myEdit.putFloat(LATEST_RIGHT_EYE_MYOPIA, binding.etLastEyePowerRightMyopia.text.toString().toFloat())
                 if(binding.etLastEyePowerLeftHyperopia.text.toString().isNotEmpty())
-                    myEdit.putFloat(PAST_LEFT_EYE_HYPEROPIA, binding.etLastEyePowerLeftHyperopia.text.toString().toFloat())
+                    myEdit.putFloat(LATEST_LEFT_EYE_HYPEROPIA, binding.etLastEyePowerLeftHyperopia.text.toString().toFloat())
                 if(binding.etLastEyePowerRightHyperopia.text.toString().isNotEmpty())
-                    myEdit.putFloat(PAST_RIGHT_EYE_HYPEROPIA, binding.etLastEyePowerRightHyperopia.text.toString().toFloat())
+                    myEdit.putFloat(LATEST_RIGHT_EYE_HYPEROPIA, binding.etLastEyePowerRightHyperopia.text.toString().toFloat())
 
                 myEdit.putBoolean(USER_ONBOARDING_COMPLETED, true)
                 myEdit.apply()
