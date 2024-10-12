@@ -2,6 +2,7 @@ package com.yuvraj.visionai.utils.helpers
 
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
+import com.yuvraj.visionai.model.EyePower
 import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.Constants.ALL_IN_ONE_EYE_TEST
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.getFrontCameraFocalLength
@@ -97,7 +98,7 @@ object SharedPreferencesHelper {
         sharedPreferencesEditor.apply()
     }
 
-    fun Activity.setPastMyopiaResults(leftEye: Double, rightEye: Double) {
+    fun Activity.setPastMyopiaResults(leftEye: Float, rightEye: Float) {
         val sharedPreferences = getSharedPreferences(
             Constants.EYE_TEST_RESULTS,
             AppCompatActivity.MODE_PRIVATE
@@ -109,19 +110,19 @@ object SharedPreferencesHelper {
         sharedPreferencesEditor.apply()
     }
 
-    fun Activity.getPastMyopiaResults(): Pair<Double, Double> {
+    fun Activity.getPastMyopiaResults(): EyePower {
         val sharedPreferences = getSharedPreferences(
             Constants.EYE_TEST_RESULTS,
             AppCompatActivity.MODE_PRIVATE
         )
 
-        val leftEye = sharedPreferences.getFloat(Constants.LATEST_LEFT_EYE_MYOPIA, 0f).toDouble()
-        val rightEye = sharedPreferences.getFloat(Constants.LATEST_RIGHT_EYE_MYOPIA, 0f).toDouble()
+        val leftEye = sharedPreferences.getFloat(Constants.LATEST_LEFT_EYE_MYOPIA, 0f)
+        val rightEye = sharedPreferences.getFloat(Constants.LATEST_RIGHT_EYE_MYOPIA, 0f)
 
-        return Pair(leftEye, rightEye)
+        return EyePower(leftEye, rightEye)
     }
 
-    fun Activity.setPastHyperopiaResults(leftEye: Double, rightEye: Double) {
+    fun Activity.setPastHyperopiaResults(leftEye: Float, rightEye: Float) {
         val sharedPreferences = getSharedPreferences(
             Constants.EYE_TEST_RESULTS,
             AppCompatActivity.MODE_PRIVATE
@@ -133,58 +134,58 @@ object SharedPreferencesHelper {
         sharedPreferencesEditor.apply()
     }
 
-    fun Activity.getPastHyperopiaResults(): Pair<Double, Double> {
+    fun Activity.getPastHyperopiaResults(): EyePower {
         val sharedPreferences = getSharedPreferences(
             Constants.EYE_TEST_RESULTS,
             AppCompatActivity.MODE_PRIVATE
         )
 
-        val leftEye = sharedPreferences.getFloat(Constants.LATEST_LEFT_EYE_HYPEROPIA, 0f).toDouble()
-        val rightEye = sharedPreferences.getFloat(Constants.LATEST_RIGHT_EYE_HYPEROPIA, 0f).toDouble()
+        val leftEye = sharedPreferences.getFloat(Constants.LATEST_LEFT_EYE_HYPEROPIA, 0f)
+        val rightEye = sharedPreferences.getFloat(Constants.LATEST_RIGHT_EYE_HYPEROPIA, 0f)
 
-        return Pair(leftEye, rightEye)
+        return EyePower(leftEye, rightEye)
     }
 
-    fun Activity.setPastAstigmatismResults(astigmatism: Double) {
+    fun Activity.setPastAstigmatismResults(astigmatism: Boolean) {
         val sharedPreferences = getSharedPreferences(
             Constants.EYE_TEST_RESULTS,
             AppCompatActivity.MODE_PRIVATE
         )
 
         val sharedPreferencesEditor = sharedPreferences.edit()
-        sharedPreferencesEditor.putFloat(Constants.LATEST_ASTIGMATISM, astigmatism.toFloat())
+        sharedPreferencesEditor.putBoolean(Constants.LATEST_ASTIGMATISM, astigmatism)
         sharedPreferencesEditor.apply()
     }
 
-    fun Activity.getPastAstigmatismResults(): Double {
+    fun Activity.getPastAstigmatismResults(): Boolean {
         val sharedPreferences = getSharedPreferences(
             Constants.EYE_TEST_RESULTS,
             AppCompatActivity.MODE_PRIVATE
         )
 
-        return sharedPreferences.getFloat(Constants.LATEST_ASTIGMATISM, 0f).toDouble()
+        return sharedPreferences.getBoolean(Constants.LATEST_ASTIGMATISM, false)
     }
 
-    fun Activity.setPastDryEyeResults(leftEye: Double, rightEye: Double) {
+    fun Activity.setPastDryEyeResults(leftEye: Boolean, rightEye: Boolean) {
         val sharedPreferences = getSharedPreferences(
             Constants.EYE_TEST_RESULTS,
             AppCompatActivity.MODE_PRIVATE
         )
 
         val sharedPreferencesEditor = sharedPreferences.edit()
-        sharedPreferencesEditor.putFloat(Constants.LATEST_DRY_LEFT_EYE, leftEye.toFloat())
-        sharedPreferencesEditor.putFloat(Constants.LATEST_DRY_RIGHT_EYE, rightEye.toFloat())
+        sharedPreferencesEditor.putBoolean(Constants.LATEST_DRY_LEFT_EYE, leftEye)
+        sharedPreferencesEditor.putBoolean(Constants.LATEST_DRY_RIGHT_EYE, rightEye)
         sharedPreferencesEditor.apply()
     }
 
-    fun Activity.getPastDryEyeResults(): Pair<Double, Double> {
+    fun Activity.getPastDryEyeResults(): Pair<Boolean, Boolean> {
         val sharedPreferences = getSharedPreferences(
             Constants.EYE_TEST_RESULTS,
             AppCompatActivity.MODE_PRIVATE
         )
 
-        val leftEye = sharedPreferences.getFloat(Constants.LATEST_DRY_LEFT_EYE, 0f).toDouble()
-        val rightEye = sharedPreferences.getFloat(Constants.LATEST_DRY_RIGHT_EYE, 0f).toDouble()
+        val leftEye = sharedPreferences.getBoolean(Constants.LATEST_DRY_LEFT_EYE, false)
+        val rightEye = sharedPreferences.getBoolean(Constants.LATEST_DRY_RIGHT_EYE, false)
 
         return Pair(leftEye, rightEye)
     }
