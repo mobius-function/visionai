@@ -7,7 +7,7 @@ import com.yuvraj.visionai.db.entities.ChatMessageEntity
 import androidx.lifecycle.viewModelScope
 import com.yuvraj.visionai.enums.ChatMessageSender
 import com.yuvraj.visionai.model.ChatMessage
-import com.yuvraj.visionai.repositories.ChatResponse
+import com.yuvraj.visionai.repositories.ChatResponse.getResFun
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -69,7 +69,7 @@ class ChatBotViewModel @Inject constructor(
     }
 
     fun getResponseFromAPI(question: String, onResponse: (String) -> Unit) {
-        ChatResponse.getResFun(question) { response ->
+        getResFun(question) { response ->
             onResponse(response)
         }
     }

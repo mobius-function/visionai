@@ -1,5 +1,6 @@
 package com.yuvraj.visionai.ui.home.fragments
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -12,6 +13,10 @@ import com.yuvraj.visionai.databinding.FragmentHomeChatBotBinding
 import com.yuvraj.visionai.enums.ChatMessageSender
 import com.yuvraj.visionai.enums.ChatMessageSender.SENT_BY_BOT
 import com.yuvraj.visionai.ui.home.viewModel.ChatBotViewModel
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getPastAstigmatismResults
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getPastDryEyeResults
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getPastHyperopiaResults
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getPastMyopiaResults
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -71,7 +76,7 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
                 }
 
                 // Get response from the API
-                chatBotViewModel.getResponseFromAPI(question) { response ->
+                chatBotViewModel.getResponseFromAPI(requireActivity().addUpdateEyeTestResultToQuery(question)) { response ->
                     addResponse(response)
                 }
 
@@ -133,6 +138,24 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
             messageAdapter.notifyDataSetChanged()
             binding.recyclerView.smoothScrollToPosition(messageAdapter.itemCount)
         }
+    }
+
+    private fun Activity.addUpdateEyeTestResultToQuery(query: String) : String {
+        val myopiaResults = getPastMyopiaResults()
+        val hyperopiaResults = getPastHyperopiaResults()
+        val dryLeftEyeResults = if (getPastDryEyeResults().first) "Yes" else "No"
+        val dryRightEyeResults = if (getPastDryEyeResults().second) "Yes" else "No"
+        val astigmatismResult = if(getPastAstigmatismResults()) "Yes" else "No"
+
+        return "$query \n\nThe user's Latest Eye results are as follows:\n\n" +
+                "Astigmatism: $astigmatismResult\n" +
+                "Dry Left Eye: $dryLeftEyeResults\n" +
+                "Dry Right Eye: $dryRightEyeResults\n" +
+                "Plus Power Left Eye: ${hyperopiaResults.leftEyePower}\n" +
+                "Plus Power Right Eye: ${hyperopiaResults.rightEyePower}\n" +
+                "Minus Power Left Eye: ${myopiaResults.leftEyePower}\n" +
+                "Minus Power Right Eye: ${myopiaResults.leftEyePower}" +
+                "\n\n(tailor the response using this information of user's latest eye test results)"
     }
 
     private fun checkForEmptyChat() {

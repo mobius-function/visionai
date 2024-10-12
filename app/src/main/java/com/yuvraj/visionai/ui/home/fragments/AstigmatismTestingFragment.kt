@@ -19,6 +19,8 @@ import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.DebugTags
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastAstigmatismResults
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastDryEyeResults
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 import com.yuvraj.visionai.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -122,6 +124,12 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
                     // "$totalLeftEyePartialBlinkCounter $totalRightEyePartialBlinkCounter")
 
             viewModel.saveEyeTest()
+
+            requireActivity().apply {
+                setPastAstigmatismResults(astigmatismResults)
+                setPastDryEyeResults(totalLeftEyePartialBlinkCounter/totalTimeSpentInMinutes > 10,
+                    totalRightEyePartialBlinkCounter/totalTimeSpentInMinutes > 10)
+            }
 
             findNavController().navigate(R.id.generatedResultFragment)
         }

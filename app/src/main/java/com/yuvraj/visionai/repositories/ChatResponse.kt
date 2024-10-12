@@ -1,7 +1,6 @@
 package com.yuvraj.visionai.repositories
 
 import android.util.Log
-import com.yuvraj.visionai.R
 import com.yuvraj.visionai.utils.Constants.CHAT_AUTHORIZATION
 import com.yuvraj.visionai.utils.Constants.CHAT_BASE_URL
 import okhttp3.*

@@ -25,6 +25,7 @@ import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateNegativePower
 import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructionDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastMyopiaResults
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 import com.yuvraj.visionai.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -286,12 +287,14 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                     // Log.d("DebugTimeResult", "The total time spent is: $totalTimeSpent minutes " +
                             // "$leftEyePartialBlinkCounter $rightEyePartialBlinkCounter")
 
+                    requireActivity().setPastMyopiaResults(myopiaLeftEyePower, myopiaRightEyePower)
+
                     findNavController().navigate(
                         R.id.action_eyeTestingFragment_to_hyperopiaTestingFragment
                     )
                 } else {
                     // TODO : Suggest if the user needs to do another test
-
+                    requireActivity().setPastMyopiaResults(myopiaLeftEyePower, myopiaRightEyePower)
                     // TODO : Show the test results
                 }
             }
