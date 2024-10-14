@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/tvSetNotification"
-        android:layout_width="306dp"
+        android:layout_width="0dp"
         android:layout_height="25dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
