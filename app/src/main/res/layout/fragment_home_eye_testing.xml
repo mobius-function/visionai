@@ -209,7 +209,7 @@
             app:layout_constraintStart_toStartOf="@id/middleGuideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvInput"
-            android:contentDescription="Submit text button"/>
+            android:contentDescription="Submit text"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnUnclearText"
@@ -218,7 +218,7 @@
             android:layout_marginHorizontal="5dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
-            android:text="UNCLEAR TEXT"
+            android:text="UNCLEAR"
             android:textSize="24sp"
             android:textColor="@color/black"
             android:backgroundTint="@color/red_button"
