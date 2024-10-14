@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/nullFragment"
-        android:title=""
+        android:title="null"
         android:contentDescription="Align"/>
 
 
