@@ -19,6 +19,7 @@ import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.enums.FaceStatus
 import com.yuvraj.visionai.utils.Constants.MAX_DISPLAYED_TEXT_SIZE
 import com.yuvraj.visionai.utils.Constants.MAX_READINGS
+import com.yuvraj.visionai.utils.Constants.MIN_DISPLAYED_TEXT_SIZE
 import com.yuvraj.visionai.utils.Constants.USER_AGE
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
@@ -197,7 +198,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             Log.e("EyeTesting Debug", "Incorrect!")
         }
 
-        if(reading <= MAX_READINGS && textSize < MAX_DISPLAYED_TEXT_SIZE) {
+        if(reading <= MAX_READINGS && textSize < MAX_DISPLAYED_TEXT_SIZE && textSize > MIN_DISPLAYED_TEXT_SIZE) {
             displayRandomText(textSize)
             Log.e("EyeTesting Debug","The presented text size in MM is: $textSize mm")
         }
