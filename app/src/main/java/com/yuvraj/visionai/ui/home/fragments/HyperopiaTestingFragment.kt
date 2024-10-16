@@ -19,7 +19,6 @@ import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.enums.FaceStatus
 import com.yuvraj.visionai.utils.Constants.MAX_DISPLAYED_TEXT_SIZE
 import com.yuvraj.visionai.utils.Constants.MAX_READINGS
-import com.yuvraj.visionai.utils.Constants.MIN_DISPLAYED_TEXT_SIZE
 import com.yuvraj.visionai.utils.Constants.USER_AGE
 import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
@@ -32,7 +31,6 @@ import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastHyperopi
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 import com.yuvraj.visionai.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.abs
 
 
 @AndroidEntryPoint
