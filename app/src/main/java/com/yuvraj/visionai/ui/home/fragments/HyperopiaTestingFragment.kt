@@ -53,7 +53,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private var distanceCurrent : Float = 0.0f
     private var distanceMaximum : Float = 350.0f
-    private var baseDistance:Float = 350.0f
+    private var baseDistance:Float = 350.0f         // in mm
 
     private  var textSize: Float = 2.0f
     private  var relativeTextSize: Float = 1.0f
