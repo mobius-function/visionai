@@ -93,7 +93,6 @@ object Constants {
     const val DEFAULT_REGULAR_REMINDER_TIME = 2                         // Int
 
     // ChatBot API
-    const val CHAT_BASE_URL="xxx"
-    const val CHAT_AUTHORIZATION="Bearer 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"
+//    xxxxx
 
 }
