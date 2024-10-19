@@ -85,6 +85,78 @@ class PowerAlgorithm {
             return (1000/(ageFactor-15) - 1000/(distance-15)).toFloat()
         }
 
+        fun calculatePositivePowerWithDeno(deno: Float) : Float {
+            var denoLowerBound = 20.0f
+            var denoUpperBound = 25.0f
+
+            var cumulativePowerLowerBound = 0.00f
+            var cumulativePowerUpperBound = 0.25f
+
+            if(deno <= 20) {
+                denoLowerBound = 20.0f
+                denoUpperBound = 25.0f
+                cumulativePowerLowerBound = 0.00f
+                cumulativePowerUpperBound = 0.25f
+            } else if(deno <= 25) {
+                denoLowerBound = 25.0f
+                denoUpperBound = 30.0f
+                cumulativePowerLowerBound = 0.25f
+                cumulativePowerUpperBound = 0.50f
+            } else if(deno <= 30) {
+                denoLowerBound = 30.0f
+                denoUpperBound = 40.0f
+                cumulativePowerLowerBound = 0.50f
+                cumulativePowerUpperBound = 0.75f
+            } else if(deno <= 40) {
+                denoLowerBound = 40.0f
+                denoUpperBound = 50.0f
+                cumulativePowerLowerBound = 0.75f
+                cumulativePowerUpperBound = 1.00f
+            } else if(deno <= 50) {
+                denoLowerBound = 50.0f
+                denoUpperBound = 70.0f
+                cumulativePowerLowerBound = 1.00f
+                cumulativePowerUpperBound = 1.50f
+            } else if(deno <= 70) {
+                denoLowerBound = 70.0f
+                denoUpperBound = 100.0f
+                cumulativePowerLowerBound = 1.50f
+                cumulativePowerUpperBound = 2.00f
+            } else if(deno <= 100) {
+                denoLowerBound = 100.0f
+                denoUpperBound = 200.0f
+                cumulativePowerLowerBound = 2.00f
+                cumulativePowerUpperBound = 2.50f
+            } else if(deno <= 200) {
+                denoLowerBound = 200.0f
+                denoUpperBound = 250.0f
+                cumulativePowerLowerBound = 2.50f
+                cumulativePowerUpperBound = 3.00f
+            } else if(deno <= 250) {
+                denoLowerBound = 250.0f
+                denoUpperBound = 300.0f
+                cumulativePowerLowerBound = 3.00f
+                cumulativePowerUpperBound = 3.50f
+            } else if(deno <= 300) {
+                denoLowerBound = 300.0f
+                denoUpperBound = 400.0f
+                cumulativePowerLowerBound = 3.50f
+                cumulativePowerUpperBound = 4.00f
+            } else if(deno <= 400){
+                denoLowerBound = 400.0f
+                denoUpperBound = 500.0f
+                cumulativePowerLowerBound = 4.00f
+                cumulativePowerUpperBound = 5.00f
+            } else {
+                denoLowerBound = 500.0f
+                denoUpperBound = 1000.0f
+                cumulativePowerLowerBound = 5.00f
+                cumulativePowerUpperBound = 7.00f
+            }
+
+            return cumulativePowerLowerBound + ((cumulativePowerUpperBound - cumulativePowerLowerBound) * ((deno - denoLowerBound) / (denoUpperBound - denoLowerBound)))
+        }
+
         fun calculateNegativePower(deno: Double) : Float {
 
             var cumulativePowerLowerBound : Float = 0.0f
