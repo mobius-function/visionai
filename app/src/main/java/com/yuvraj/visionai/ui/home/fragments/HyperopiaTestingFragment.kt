@@ -1,6 +1,5 @@
 package com.yuvraj.visionai.ui.home.fragments
 
-import android.content.Context.MODE_PRIVATE
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -20,11 +19,8 @@ import com.yuvraj.visionai.enums.FaceStatus
 import com.yuvraj.visionai.utils.Constants.MAX_DISPLAYED_TEXT_SIZE
 import com.yuvraj.visionai.utils.Constants.MAX_READINGS
 import com.yuvraj.visionai.utils.Constants.MIN_DISPLAYED_TEXT_SIZE
-import com.yuvraj.visionai.utils.Constants.USER_AGE
-import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength
-import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculatePositivePower
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculatePositivePowerWithDeno
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
