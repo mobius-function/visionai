@@ -25,6 +25,7 @@ import com.yuvraj.visionai.utils.Constants.USER_DETAILS
 import com.yuvraj.visionai.utils.DebugTags.FACE_DETECTION
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateFocalLength
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculatePositivePower
+import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculatePositivePowerWithDeno
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
@@ -55,7 +56,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private var distanceMaximum : Float = 350.0f
     private var baseDistance:Float = 350.0f         // in mm
 
-    private  var textSize: Float = 2.0f
+    private  var textSize: Float = 1.05f            // in mm
     private  var relativeTextSize: Float = 1.0f
 
     private var reading : Int = 0
@@ -104,7 +105,8 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         val r = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_MM, textSize,
-            getResources().getDisplayMetrics())
+            resources.displayMetrics
+        )
 
         Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
         displayRandomText(textSize)
@@ -178,7 +180,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             lastCorrect = relativeTextSize
 
             if(lastIncorrect == null) {
-                textSize = relativeTextSize*2
+                textSize = relativeTextSize/2
             } else {
                 textSize = (relativeTextSize + lastIncorrect!!)/2
             }
@@ -190,7 +192,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             lastIncorrect = relativeTextSize
 
             if(lastCorrect == null) {
-                textSize = relativeTextSize / 2
+                textSize = relativeTextSize * 2
             } else {
                 textSize = (relativeTextSize + lastCorrect!!)/2
             }
@@ -204,17 +206,19 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
 
         else {
-            var diapter : Float = 0.0f
-            if(lastIncorrect == null) {
-                diapter = 0.0f
+
+            val deno : Float = if(lastCorrect != null) {
+                lastCorrect!! * 20 / 1.05f
             } else {
-                val sharedPreferences = requireActivity().getSharedPreferences(USER_DETAILS, MODE_PRIVATE)
-                val userAge = sharedPreferences.getInt(USER_AGE, 20)
-                diapter = calculatePositivePower(lastIncorrect!!, userAge, baseDistance)
+                lastIncorrect!! * 20 / 1.05f
             }
+
+            val diopter = calculatePositivePowerWithDeno(deno)
+
             binding.tvRandomText.setTextSize(TypedValue.COMPLEX_UNIT_MM, 10.0f)
-            binding.tvRandomText.text = "$diapter"
-            Toast.makeText(requireActivity(), "Your score is $score and deno is: $diapter", Toast.LENGTH_SHORT).show()
+            binding.tvRandomText.text = "$diopter"
+            Toast.makeText(requireActivity(), "Your score is 20/$deno = ${20/deno} and diapter is: $diopter", Toast.LENGTH_SHORT).show()
+            Log.e("EyeTesting Debug","Your score is 20/$deno = ${20/deno} and diapter is: $diopter")
 
             if(checkingRightEye == false){
                 checkingRightEye = true
@@ -245,10 +249,10 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 AlertDialogBox.showInstructionDialogBox(
                     requireActivity(),
                     "Positive Power",
-                    "Your power of Left eye is $diapter"
+                    "Your power of Left eye is $diopter"
                 )
 
-                hyperopiaLeftEyePower = diapter
+                hyperopiaLeftEyePower = diopter
 
                 val r = TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_MM, textSize,
@@ -270,10 +274,10 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 AlertDialogBox.showInstructionDialogBox(
                     requireActivity(),
                     "Positive Power",
-                    "Your power of Right eye is $diapter"
+                    "Your power of Right eye is $diopter"
                 )
 
-                hyperopiaRightEyePower = diapter
+                hyperopiaRightEyePower = diopter
 
                 if(isAllInOneTest) {
 
