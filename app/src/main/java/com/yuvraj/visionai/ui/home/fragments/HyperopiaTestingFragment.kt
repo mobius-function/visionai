@@ -45,7 +45,6 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private lateinit var cameraManager: CameraManager
 
-//    private var focalLengthFound : Double = requireActivity().calculateFocalLength()
     private val realFaceWidth : Double = 14.0
 
     private var distanceCurrent : Float = 0.0f
