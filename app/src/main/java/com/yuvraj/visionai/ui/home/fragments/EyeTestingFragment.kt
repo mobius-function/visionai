@@ -84,7 +84,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initViews(view)
-        debug(false)
+        debug(true)
         createCameraManager()
         checkForPermission()
         clickableViews()
