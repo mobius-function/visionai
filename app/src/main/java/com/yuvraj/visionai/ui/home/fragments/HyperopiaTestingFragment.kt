@@ -48,7 +48,8 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     private val realFaceWidth : Double = 14.0
 
     private var distanceCurrent : Float = 0.0f
-    private var distanceMaximum : Float = 350.0f
+//    private var distanceMaximum : Float = 350.0f
+    private var distanceMinimum : Float = 350.0f
     private var baseDistance:Float = 350.0f         // in mm
 
     private  var textSize: Float = 1.05f            // in mm
@@ -107,9 +108,9 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         displayRandomText(textSize)
 
         baseDistance = 350.0f
-        distanceMaximum = distanceCurrent
+        distanceMinimum = distanceCurrent
 
-        relativeTextSize = textSize * (baseDistance/distanceMaximum)
+        relativeTextSize = textSize * (baseDistance/distanceMinimum)
     }
 
     private fun debug(debugMode: Boolean) {
@@ -168,7 +169,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         reading += 1
 
-        relativeTextSize = textSize * (baseDistance/distanceMaximum)
+        relativeTextSize = textSize * (baseDistance/distanceMinimum)
 
         if(correctResult) {
             score += 1
@@ -218,7 +219,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             if(checkingRightEye == false){
                 checkingRightEye = true
                 baseDistance = 350.0f
-                distanceMaximum = distanceCurrent
+                distanceMinimum = distanceCurrent
 
                 textSize = 2.0f
                 relativeTextSize = 1.0f
@@ -258,9 +259,9 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 displayRandomText(textSize)
 
                 baseDistance = 350.0f
-                distanceMaximum = distanceCurrent
+                distanceMinimum = distanceCurrent
 
-                relativeTextSize = textSize * (baseDistance/distanceMaximum)
+                relativeTextSize = textSize * (baseDistance/distanceMinimum)
 
             } else {
                 //EVENT: End of the test
@@ -305,7 +306,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             }
         }
 
-        distanceMaximum = distanceCurrent
+        distanceMinimum = distanceCurrent
     }
 
     private fun checkForPermission() {
@@ -374,9 +375,9 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         distanceCurrent = distance.toFloat()*100.0f
         binding.tvCurrentDistance.text = "Current Distance: ${distanceCurrent} cm"
 
-        if(distanceCurrent > distanceMaximum) {
-            distanceMaximum = distanceCurrent
-            binding.tvMinimumDistance.text = "Maximum Distance: ${distanceMaximum} cm"
+        if(distanceCurrent < distanceMinimum) {
+            distanceMinimum = distanceCurrent
+            binding.tvMinimumDistance.text = "Minimum Distance: ${distanceMinimum} cm"
         }
 
         if (rEOP in 0.4..0.7 ) {
