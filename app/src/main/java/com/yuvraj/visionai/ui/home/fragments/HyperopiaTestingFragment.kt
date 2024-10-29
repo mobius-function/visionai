@@ -108,7 +108,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         displayRandomText(textSize)
 
         baseDistance = 350.0f
-        distanceMinimum = distanceCurrent
+        distanceMinimum = 1000.0f
 
         relativeTextSize = textSize * (baseDistance/distanceMinimum)
     }
