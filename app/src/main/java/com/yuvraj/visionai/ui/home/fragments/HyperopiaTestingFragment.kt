@@ -105,6 +105,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         )
 
         Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
+        textSize = INITIAL_TEXT_SIZE
         displayRandomText(textSize)
 
         baseDistance = 350.0f
@@ -256,6 +257,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 )
 
                 Log.e("EyeTesting Debug","The initial text size in pixels is: $r px")
+                textSize = INITIAL_TEXT_SIZE
                 displayRandomText(textSize)
 
                 baseDistance = 350.0f
@@ -402,6 +404,8 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
+
+        private val INITIAL_TEXT_SIZE = 5.0f
     }
 
     override fun onDestroy() {
