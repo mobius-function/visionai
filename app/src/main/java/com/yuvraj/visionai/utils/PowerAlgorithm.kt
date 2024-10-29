@@ -154,7 +154,12 @@ class PowerAlgorithm {
                 cumulativePowerUpperBound = 7.00f
             }
 
-            return cumulativePowerLowerBound + ((cumulativePowerUpperBound - cumulativePowerLowerBound) * ((deno - denoLowerBound) / (denoUpperBound - denoLowerBound)))
+            val power = cumulativePowerLowerBound + ((cumulativePowerUpperBound - cumulativePowerLowerBound) * ((deno - denoLowerBound) / (denoUpperBound - denoLowerBound)))
+            return if(power < 0.0f) {
+                0.0f
+            } else {
+                power
+            }
         }
 
         fun calculateNegativePower(deno: Double) : Float {
