@@ -248,18 +248,4 @@ class PowerAlgorithm {
             return cumulativePower.toFloat()
         }
     }
-
-    // On Boarding - Done
-    // Navigation in Home
-    // profile page
-    // firebase - Done
-    // logo - done
-    // tracking in new page - done
-    // changing it to text from speech - done
-    // Newton Raphson
-    // Blind app
-    // Econ Job Rumours
-    // QubeRT
-
-    // WSO
 }
