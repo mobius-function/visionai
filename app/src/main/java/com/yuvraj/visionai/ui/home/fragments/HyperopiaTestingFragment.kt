@@ -110,8 +110,10 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
         baseDistance = 350.0f
         distanceMinimum = 1000.0f
+        // distanceMaximum = 1000.0f
 
         relativeTextSize = textSize * (baseDistance/distanceMinimum)
+        // relativeTextSize = textSize * (baseDistance/distanceMaximum)
     }
 
     private fun debug(debugMode: Boolean) {
@@ -171,6 +173,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         reading += 1
 
         relativeTextSize = textSize * (baseDistance/distanceMinimum)
+        // relativeTextSize = textSize * (baseDistance/distanceMaximum)
 
         if(correctResult) {
             score += 1
@@ -221,6 +224,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
                 checkingRightEye = true
                 baseDistance = 350.0f
                 distanceMinimum = distanceCurrent
+                // distanceMaximum = distanceCurrent
 
                 textSize = 2.0f
                 relativeTextSize = 1.0f
@@ -262,8 +266,10 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
                 baseDistance = 350.0f
                 distanceMinimum = distanceCurrent
+                // distanceMaximum = distanceCurrent
 
                 relativeTextSize = textSize * (baseDistance/distanceMinimum)
+                // relativeTextSize = textSize * (baseDistance/distanceMaximum)
 
             } else {
                 //EVENT: End of the test
@@ -309,6 +315,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         }
 
         distanceMinimum = distanceCurrent
+        // distanceMaximum = distanceCurrent
     }
 
     private fun checkForPermission() {
@@ -358,8 +365,8 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
 
     private fun processPicture(faceStatus: FaceStatus) {
         Log.e(FACE_DETECTION,"This is it ${faceStatus.name}")
-//        tvFaceWidth.text
-//       when(faceStatus){}
+        // tvFaceWidth.text
+        // when(faceStatus){}
     }
 
     private fun updateTVFaceWidth(face: Face, lEOP: Float, rEOP: Float) {
@@ -381,6 +388,11 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
             distanceMinimum = distanceCurrent
             binding.tvMinimumDistance.text = "Minimum Distance: ${distanceMinimum} cm"
         }
+
+        // if(distanceCurrent < distanceMaximum) {
+        //     distanceMaximum = distanceCurrent
+        //     binding.tvMinimumDistance.text = "Minimum Distance: ${distanceMaximum} cm"
+        // }
 
         if (rEOP in 0.4..0.7 ) {
             rightEyePartialBlinkCounter += 1
