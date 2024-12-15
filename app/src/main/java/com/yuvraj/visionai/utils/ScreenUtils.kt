@@ -4,13 +4,11 @@ import android.app.Activity
 import android.graphics.Point
 import android.os.Build
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import com.yuvraj.visionai.utils.DebugTags.DEVICE_INFO
 import java.math.BigDecimal
 import java.math.RoundingMode
 import kotlin.math.sqrt
@@ -56,7 +54,7 @@ object ScreenUtils {
                 window.navigationBarColor = getColor(android.R.color.transparent)
                 // Finally, hide the system bars, alternative to View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 // and SYSTEM_UI_FLAG_FULLSCREEN.
-                it.hide(WindowInsets.Type.systemBars())
+                it.hide(WindowInsets.Type.statusBars())
             }
         } else {
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
