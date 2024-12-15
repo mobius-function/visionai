@@ -8,12 +8,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.play.core.appupdate.AppUpdateManager
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.UiOnboardingActivityMainBinding
 import com.yuvraj.visionai.service.autoUpdater.InAppUpdate
