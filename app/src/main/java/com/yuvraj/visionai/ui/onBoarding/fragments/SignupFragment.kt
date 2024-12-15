@@ -3,6 +3,7 @@ package com.yuvraj.visionai.ui.onBoarding.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +24,7 @@ import com.google.firebase.ktx.Firebase
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentOnBoardingSignupBinding
 import com.yuvraj.visionai.firebase.Authentication.Companion.getSignedInUser
+import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructionDialogBox
 import com.yuvraj.visionai.utils.helpers.Validations
 
 
@@ -202,7 +204,23 @@ class SignupFragment : Fragment(R.layout.fragment_on_boarding_signup) {
 
                 findNavController().navigate(R.id.action_signupFragment_to_detailsFragment)
             } else {
-                Toast.makeText(requireActivity(), "Singed Up Failed!", Toast.LENGTH_SHORT).show()
+                Log.d("SignupFragment", "signUpUser: ${it.exception?.message}")
+                Log.d("SignupFragment", "signUpUser: ${it.exception}")
+                binding.progressBar.visibility = View.GONE
+
+                if(it.exception.toString().startsWith("com.google.firebase.auth.FirebaseAuthUserCollisionException:")){
+                    showInstructionDialogBox(
+                        requireActivity(),
+                        "Error!",
+                        "User already exists with this email. Please login with this email or use another email."
+                    )
+                } else {
+                    showInstructionDialogBox(
+                        requireActivity(),
+                        "Error!",
+                        it.exception?.message.toString()
+                    )
+                }
             }
         }
     }
