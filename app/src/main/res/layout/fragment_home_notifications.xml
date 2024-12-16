@@ -75,6 +75,22 @@
         app:layout_constraintTop_toBottomOf="@id/set_notific"
         />
 
+    <TextView
+        android:id="@+id/tvEyeTestReminderDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/textbody_Eye_Test_Reminder"
+        android:textSize="12sp"
+        android:textColor="#898989"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintEnd_toStartOf="@id/tbEyeTestReminder"
+        app:layout_constraintTop_toBottomOf="@id/tvEyeTestReminder" />
+
     <ToggleButton
         android:id="@+id/tbEyeTestReminder"
         android:layout_width="wrap_content"
@@ -82,7 +98,7 @@
         android:checked="true"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintTop_toTopOf="@id/tvEyeTestReminder"
-        app:layout_constraintBottom_toBottomOf="@id/tvEyeTestReminder"
+        app:layout_constraintBottom_toBottomOf="@id/tvEyeTestReminderDetails"
         android:contentDescription="Toggle Eye test reminder"/>
 
     <TextView
@@ -96,8 +112,24 @@
         android:gravity="center_vertical"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@id/tvEyeTestReminder"
+        app:layout_constraintTop_toBottomOf="@id/tvEyeTestReminderDetails"
         />
+
+    <TextView
+        android:id="@+id/tvRegularReminderDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/textbody_Regular_Reminder"
+        android:textSize="12sp"
+        android:textColor="#898989"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintEnd_toStartOf="@id/tbRegularReminder"
+        app:layout_constraintTop_toBottomOf="@id/tvRegularReminder" />
 
     <ToggleButton
         android:id="@+id/tbRegularReminder"
@@ -106,7 +138,7 @@
         android:checked="false"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintTop_toTopOf="@id/tvRegularReminder"
-        app:layout_constraintBottom_toBottomOf="@id/tvRegularReminder"
+        app:layout_constraintBottom_toBottomOf="@id/tvRegularReminderDetails"
         android:contentDescription="Toggle Regular reminder"/>
 
     <TextView
@@ -122,7 +154,7 @@
         android:textSize="65dp"
         app:layout_constraintEnd_toEndOf="@id/middleGuideline"
         app:layout_constraintStart_toStartOf="@id/middleGuideline"
-        app:layout_constraintTop_toBottomOf="@id/tvRegularReminder" />
+        app:layout_constraintTop_toBottomOf="@id/tvRegularReminderDetails" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnTimeInHoursPlus"
