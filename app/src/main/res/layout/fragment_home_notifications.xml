@@ -141,46 +141,59 @@
         app:layout_constraintBottom_toBottomOf="@id/tvRegularReminderDetails"
         android:contentDescription="Toggle Regular reminder"/>
 
-    <TextView
-        android:id="@+id/tvTimeInHours"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutTimeSelector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_marginTop="25dp"
-        android:clickable="false"
-        android:gravity="center_vertical"
-        android:text="2"
-        android:textColor="#898989"
-        android:textSize="65dp"
         app:layout_constraintEnd_toEndOf="@id/middleGuideline"
         app:layout_constraintStart_toStartOf="@id/middleGuideline"
-        app:layout_constraintTop_toBottomOf="@id/tvRegularReminderDetails" />
+        app:layout_constraintTop_toBottomOf="@id/tvRegularReminderDetails">
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/btnTimeInHoursPlus"
-        android:layout_width="20dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
-        android:layout_marginHorizontal="35dp"
-        android:background="@drawable/ic_plus"
-        android:backgroundTint="#898989"
-        app:layout_constraintBottom_toBottomOf="@id/tvTimeInHours"
-        app:layout_constraintTop_toTopOf="@id/tvTimeInHours"
-        app:layout_constraintStart_toEndOf="@id/tvTimeInHours"
-        android:contentDescription="Increase Hrs by 1"/>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnTimeInHoursMinus"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="35dp"
+            android:background="@drawable/ic_minus"
+            android:backgroundTint="#898989"
+            android:contentDescription="Decrease Hrs by 1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvTimeInHours"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/btnTimeInHoursMinus"
-        android:layout_width="20dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
-        android:layout_marginHorizontal="35dp"
-        android:background="@drawable/ic_minus"
-        android:backgroundTint="#898989"
-        app:layout_constraintBottom_toBottomOf="@id/tvTimeInHours"
-        app:layout_constraintTop_toTopOf="@id/tvTimeInHours"
-        app:layout_constraintEnd_toStartOf="@id/tvTimeInHours"
-        android:contentDescription="Decrease Hrs by 1"/>
+        <TextView
+            android:id="@+id/tvTimeInHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:gravity="center_vertical"
+            android:text="2"
+            android:textColor="#898989"
+            android:textSize="65dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnTimeInHoursPlus"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="35dp"
+            android:background="@drawable/ic_plus"
+            android:backgroundTint="#898989"
+            android:contentDescription="Increase Hrs by 1"
+            app:layout_constraintStart_toEndOf="@id/tvTimeInHours"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
