@@ -3,16 +3,18 @@ package com.yuvraj.visionai.ui.home.fragments
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.toColorInt
+import androidx.fragment.app.Fragment
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeNotificationsBinding
 import com.yuvraj.visionai.utils.Constants
-import com.yuvraj.visionai.utils.Constants.REGULAR_REMINDER
 import com.yuvraj.visionai.utils.Constants.EYE_TEST_REMINDER
+import com.yuvraj.visionai.utils.Constants.REGULAR_REMINDER
 import com.yuvraj.visionai.utils.Constants.REGULAR_REMINDER_TIME
 import com.yuvraj.visionai.utils.clients.NotificationHelper.setRegularReminderTime
 
@@ -36,10 +38,22 @@ class NotificationsFragment : Fragment(R.layout.fragment_home_notifications) {
             AppCompatActivity.MODE_PRIVATE
         )
 
-        binding.tbEyeTestReminder.isChecked = sharedPreferences.getBoolean(EYE_TEST_REMINDER, true)
-        binding.tbRegularReminder.isChecked = sharedPreferences.getBoolean(REGULAR_REMINDER, false)
+        binding.apply {
+            tbEyeTestReminder.isChecked =
+                sharedPreferences.getBoolean(EYE_TEST_REMINDER, true)
+            tbRegularReminder.isChecked =
+                sharedPreferences.getBoolean(REGULAR_REMINDER, false)
 
-        binding.tvTimeInHours.text = (sharedPreferences.getInt(REGULAR_REMINDER_TIME, 2)).toString()
+            tvTimeInHours.text =
+                (sharedPreferences.getInt(REGULAR_REMINDER_TIME, 2)).toString()
+
+
+            if (tbRegularReminder.isChecked) {
+                layoutTimeSelector.visibility = View.VISIBLE
+            } else {
+                layoutTimeSelector.visibility = View.GONE
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -71,56 +85,48 @@ class NotificationsFragment : Fragment(R.layout.fragment_home_notifications) {
 
 
             tbEyeTestReminder.setOnCheckedChangeListener{_, isChecked ->
-                if (isChecked){
-                    val sharedPreferences = requireActivity().getSharedPreferences(
-                        Constants.NOTIFICATION_PREFERENCES,
-                        AppCompatActivity.MODE_PRIVATE
-                    )
+                val sharedPreferences = requireActivity().getSharedPreferences(
+                    Constants.NOTIFICATION_PREFERENCES,
+                    AppCompatActivity.MODE_PRIVATE
+                )
 
-                    val sharedPreferencesEditor = sharedPreferences.edit()
-                    sharedPreferencesEditor.putBoolean(EYE_TEST_REMINDER, true)
-                    sharedPreferencesEditor.apply()
-                } else{
-                    val sharedPreferences = requireActivity().getSharedPreferences(
-                        Constants.NOTIFICATION_PREFERENCES,
-                        AppCompatActivity.MODE_PRIVATE
-                    )
-
-                    val sharedPreferencesEditor = sharedPreferences.edit()
-                    sharedPreferencesEditor.putBoolean(EYE_TEST_REMINDER, false)
-                    sharedPreferencesEditor.apply()
-                }
+                val sharedPreferencesEditor = sharedPreferences.edit()
+                sharedPreferencesEditor.putBoolean(EYE_TEST_REMINDER, isChecked)
+                sharedPreferencesEditor.apply()
             }
 
             tbRegularReminder.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    tvTimeInHours.setTextColor("#FFFFFF".toColorInt())
-                    btnTimeInHoursMinus.backgroundTintList = (ColorStateList.valueOf("#FFFFFF".toColorInt()))
-                    btnTimeInHoursPlus.backgroundTintList = (ColorStateList.valueOf("#FFFFFF".toColorInt()))
-
-                    val sharedPreferences = requireActivity().getSharedPreferences(
-                        Constants.NOTIFICATION_PREFERENCES,
-                        AppCompatActivity.MODE_PRIVATE
-                    )
-
-                    val sharedPreferencesEditor = sharedPreferences.edit()
-                    sharedPreferencesEditor.putBoolean(REGULAR_REMINDER, true)
-                    sharedPreferencesEditor.apply()
-                } else {
-                    tvTimeInHours.setTextColor("#898989".toColorInt())
-                    btnTimeInHoursMinus.backgroundTintList = (ColorStateList.valueOf("#898989".toColorInt()))
-                    btnTimeInHoursPlus.backgroundTintList = (ColorStateList.valueOf("#898989".toColorInt()))
-
-                    val sharedPreferences = requireActivity().getSharedPreferences(
-                        Constants.NOTIFICATION_PREFERENCES,
-                        AppCompatActivity.MODE_PRIVATE
-                    )
-
-                    val sharedPreferencesEditor = sharedPreferences.edit()
-                    sharedPreferencesEditor.putBoolean(REGULAR_REMINDER, false)
-                    sharedPreferencesEditor.apply()
-                }
+                toggleRegularReminderIntervalVisibility(isChecked)
             }
         }
+    }
+
+
+    private fun toggleRegularReminderIntervalVisibility(isChecked : Boolean) {
+        TransitionManager.beginDelayedTransition(binding.layoutTimeSelector, AutoTransition())
+        if (binding.tbRegularReminder.isChecked) {
+            binding.apply{
+                layoutTimeSelector.visibility = View.VISIBLE
+                tvTimeInHours.setTextColor("#FFFFFF".toColorInt())
+                btnTimeInHoursMinus.backgroundTintList = (ColorStateList.valueOf("#FFFFFF".toColorInt()))
+                btnTimeInHoursPlus.backgroundTintList = (ColorStateList.valueOf("#FFFFFF".toColorInt()))
+            }
+        } else {
+            binding.apply {
+                layoutTimeSelector.visibility = View.INVISIBLE
+                tvTimeInHours.setTextColor("#898989".toColorInt())
+                btnTimeInHoursMinus.backgroundTintList = (ColorStateList.valueOf("#898989".toColorInt()))
+                btnTimeInHoursPlus.backgroundTintList = (ColorStateList.valueOf("#898989".toColorInt()))
+            }
+        }
+
+        val sharedPreferences = requireActivity().getSharedPreferences(
+            Constants.NOTIFICATION_PREFERENCES,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        val sharedPreferencesEditor = sharedPreferences.edit()
+        sharedPreferencesEditor.putBoolean(REGULAR_REMINDER, isChecked)
+        sharedPreferencesEditor.apply()
     }
 }
