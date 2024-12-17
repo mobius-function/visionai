@@ -46,25 +46,25 @@ class NotificationsFragment : Fragment(R.layout.fragment_home_notifications) {
     private fun clickableViews() {
         binding.apply {
             btnTimeInHoursPlus.setOnClickListener {
-                if (tvTimeInHours.text.toString().toInt() >= 2) {
+                if (tvTimeInHours.text.toString().toInt() <= 23) {
                     tvTimeInHours.text = (tvTimeInHours.text.toString().toInt() + 1).toString()
                     requireActivity().setRegularReminderTime(tvTimeInHours.text.toString().toInt())
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Time should be greater than 2 hours",
+                        "Time should be less than 24 hours",
                         Toast.LENGTH_SHORT).show()
                 }
             }
 
             btnTimeInHoursMinus.setOnClickListener {
-                if (tvTimeInHours.text.toString().toInt() <= 24) {
+                if (tvTimeInHours.text.toString().toInt() >= 2) {
                     tvTimeInHours.text = (tvTimeInHours.text.toString().toInt() - 1).toString()
                     requireActivity().setRegularReminderTime(tvTimeInHours.text.toString().toInt())
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Time should be less than 24 hours",
+                        "Time should be more than 2 hours",
                         Toast.LENGTH_SHORT).show()
                 }
             }
