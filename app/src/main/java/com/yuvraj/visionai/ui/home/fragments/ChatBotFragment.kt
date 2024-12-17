@@ -147,7 +147,7 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
         val dryRightEyeResults = if (getPastDryEyeResults().second) "Yes" else "No"
         val astigmatismResult = if(getPastAstigmatismResults()) "Yes" else "No"
 
-        return "$query \n\nThe user's Latest Eye results are as follows:\n\n" +
+        return "\n\nThe user's Latest Eye results are as follows:\n\n" +
                 "Astigmatism: $astigmatismResult\n" +
                 "Dry Left Eye: $dryLeftEyeResults\n" +
                 "Dry Right Eye: $dryRightEyeResults\n" +
@@ -155,7 +155,8 @@ class ChatBotFragment : Fragment(R.layout.fragment_home_chat_bot) {
                 "Plus Power Right Eye: ${hyperopiaResults.rightEyePower}\n" +
                 "Minus Power Left Eye: ${myopiaResults.leftEyePower}\n" +
                 "Minus Power Right Eye: ${myopiaResults.leftEyePower}" +
-                "\n\n(tailor the response using this information of user's latest eye test results)"
+                "\n\n(tailor the response using this information of user's latest eye test results)" +
+                "\\n\\nThe query is: $query.\n\n\n"
     }
 
     private fun checkForEmptyChat() {
