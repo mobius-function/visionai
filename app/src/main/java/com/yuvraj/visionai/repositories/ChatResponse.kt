@@ -19,8 +19,7 @@ object ChatResponse {
                 "You are an eye specialist.\n" +
                 "You will be asked queries related to eye problems.\\n\\n\n" +
                 "If the query is eye related answer it with appropriate solution\n" +
-                "or else reply \"Sorry that query doesn't align with any eye related problems\".\n" +
-                "\\n\\nThe query is: {$question}.\n\n\n"
+                "or else reply \"Sorry that query doesn't align with any eye related problems\".\n" + question
         Log.d("ChatResponse", "Query: $query")
         val headers = mapOf("Authorization" to CHAT_AUTHORIZATION)
         val payload = mapOf("inputs" to query)
