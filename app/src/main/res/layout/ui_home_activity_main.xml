@@ -74,6 +74,20 @@
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+<!--    Dummy View for Tap Target!     -->
+
+<!--    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--        android:id="@+id/ivToolbarProfilePictureDummy"-->
+<!--        android:layout_width="48dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:translationZ="10dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:gravity='center'-->
+<!--        android:contentDescription="User's Profile Picture"-->
+<!--        app:layout_constraintStart_toStartOf="@id/appBarLayout"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/appBarLayout"-->
+<!--        app:layout_constraintTop_toTopOf="@id/appBarLayout"/>-->
+
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
@@ -95,28 +109,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout"
         app:navGraph="@navigation/home_navigation" />
-
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="2dp"-->
-<!--        android:background="@drawable/shape_line"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"/>-->
-
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/bottomNavigationView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="56dp"-->
-<!--        android:background="#141414"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        app:labelVisibilityMode="labeled"-->
-<!--        app:menu="@menu/home_bottom_navigation_menu"-->
-<!--        app:itemIconTint="@drawable/bottom_navigation_selector"-->
-<!--        app:itemTextColor="@drawable/bottom_navigation_selector"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent" />-->
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/bottomNavigation"
@@ -153,12 +145,25 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnEyeTest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:backgroundTint="@color/theme_primary"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_eye"
             app:layout_anchor="@id/bottomNavigationBar" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/btnEyeTestDummy"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:translationZ="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_eye"
+        app:backgroundTint="@color/theme_primary"
+        app:layout_constraintBottom_toBottomOf="@id/bottomNavigation"
+        app:layout_constraintTop_toTopOf="@id/bottomNavigation"
+        app:layout_constraintStart_toStartOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="@id/bottomNavigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
