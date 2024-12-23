@@ -4,6 +4,9 @@ import android.Manifest
 import android.os.Build
 
 object Constants {
+    // App's DEBUG MODE
+    const val DEBUG_MODE = true
+
     // App's required permissions
     const val REQUEST_CODE_PERMISSION_FOR_CAMERA = 100
     const val REQUEST_CODE_PERMISSION_FOR_NOTIFICATIONS = 101

@@ -8,6 +8,126 @@ import com.yuvraj.visionai.utils.Constants.ALL_IN_ONE_EYE_TEST
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.getFrontCameraFocalLength
 
 object SharedPreferencesHelper {
+    fun Activity.openedAppFirstTime(hasOpened: Boolean) {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        val sharedPreferencesEditor = sharedPreferences.edit()
+        sharedPreferencesEditor.putBoolean("OPENED_APP_FIRST_TIME", hasOpened)
+        sharedPreferencesEditor.apply()
+    }
+
+    fun Activity.hasOpenedAppFirstTime(): Boolean {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        return sharedPreferences.getBoolean("OPENED_APP_FIRST_TIME", false)
+    }
+
+    fun Activity.openedLandingPage(hasOpened: Boolean) {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        val sharedPreferencesEditor = sharedPreferences.edit()
+        sharedPreferencesEditor.putBoolean("OPENED_LANDING_PAGE", hasOpened)
+        sharedPreferencesEditor.apply()
+    }
+
+    fun Activity.hasOpenedLandingPage(): Boolean {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        return sharedPreferences.getBoolean("OPENED_LANDING_PAGE", false)
+    }
+
+    fun Activity.openedNotificationPage(hasOpened: Boolean) {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        val sharedPreferencesEditor = sharedPreferences.edit()
+        sharedPreferencesEditor.putBoolean("OPENED_NOTIFICATION_PAGE", hasOpened)
+        sharedPreferencesEditor.apply()
+    }
+
+    fun Activity.hasOpenedNotificationPage(): Boolean {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        return sharedPreferences.getBoolean("OPENED_NOTIFICATION_PAGE", false)
+    }
+
+    fun Activity.openedProfilePage(hasOpened: Boolean) {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        val sharedPreferencesEditor = sharedPreferences.edit()
+        sharedPreferencesEditor.putBoolean("OPENED_PROFILE_PAGE", hasOpened)
+        sharedPreferencesEditor.apply()
+    }
+
+    fun Activity.hasOpenedProfilePage(): Boolean {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        return sharedPreferences.getBoolean("OPENED_PROFILE_PAGE", false)
+    }
+
+    fun Activity.openedReportPage(hasOpened: Boolean) {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        val sharedPreferencesEditor = sharedPreferences.edit()
+        sharedPreferencesEditor.putBoolean("OPENED_REPORT_PAGE", hasOpened)
+        sharedPreferencesEditor.apply()
+    }
+
+    fun Activity.hasOpenedReportPage(): Boolean {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        return sharedPreferences.getBoolean("OPENED_REPORT_PAGE", false)
+    }
+
+    fun Activity.openedChatBotPage(hasOpened: Boolean) {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        val sharedPreferencesEditor = sharedPreferences.edit()
+        sharedPreferencesEditor.putBoolean("OPENED_CHAT_BOT_PAGE", hasOpened)
+        sharedPreferencesEditor.apply()
+    }
+
+    fun Activity.hasOpenedChatBotPage(): Boolean {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        return sharedPreferences.getBoolean("OPENED_CHAT_BOT_PAGE", false)
+    }
+
     fun Activity.getAllInOneEyeTestMode(): Boolean {
         // Set all_in_one_test as false
         val sharedPreferences = getSharedPreferences(

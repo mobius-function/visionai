@@ -34,6 +34,12 @@ import com.yuvraj.visionai.utils.clients.NotificationHelper.scheduleRegularNotif
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.initiateAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setAllInOneEyeTestMode
 import dagger.hilt.android.AndroidEntryPoint
+import com.getkeepsafe.taptargetview.TapTarget
+import com.getkeepsafe.taptargetview.TapTargetSequence
+import com.getkeepsafe.taptargetview.TapTargetView
+import com.yuvraj.visionai.utils.Constants.DEBUG_MODE
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.hasOpenedAppFirstTime
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.openedAppFirstTime
 
 
 @AndroidEntryPoint
@@ -54,7 +60,10 @@ class MainActivity : AppCompatActivity() {
         setupAppBar()
         setupNavigationController()
         clickableViews()
-//        scheduleRegularNotification()
+
+        if(hasOpenedAppFirstTime() || DEBUG_MODE) {
+            showShowcase()
+        }
     }
 
 
@@ -121,9 +130,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.landingFragment,
                 R.id.statisticsFragment ,
                 R.id.notificationsFragment,
-                R.id.chatBotFragment -> binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.chatBotFragment -> {
+                    binding.bottomNavigation.visibility = View.VISIBLE
+                }
 
-                else -> binding.bottomNavigation.visibility = View.GONE
+                else -> {
+                    binding.bottomNavigation.visibility = View.GONE
+                }
             }
 
             when(destination.id) {
@@ -193,6 +206,95 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         this.finish()
+    }
+
+    private fun showShowcase() {
+        val sequence = TapTargetSequence(this)
+            .targets(
+//                TapTarget.forView(
+//                    binding.ivToolbarProfilePictureDummy, // Replace with actual menu item ID
+//                    "Menu Item 1",
+//                    "This is the first menu item."
+//                )
+//                    .outerCircleColor(R.color.theme_primary)
+//                    .targetCircleColor(android.R.color.black)
+//                    .textColor(android.R.color.black)
+//                    .drawShadow(true)
+//                    .cancelable(true),
+
+                TapTarget.forView(
+                    binding.bottomNavigationView.findViewById(R.id.landingFragment), // Replace with actual ID
+                    "Home Page",
+                    "Get started with different options here!"
+                )
+                    .outerCircleColor(R.color.theme_primary)
+                    .targetCircleColor(android.R.color.black)
+                    .textColor(android.R.color.black)
+                    .drawShadow(true)
+                    .cancelable(true),
+
+                TapTarget.forView(
+                    binding.bottomNavigationView.findViewById(R.id.notificationsFragment), // Replace with actual ID
+                    "Alerts & Notifications",
+                    "Get notified about your eye health and other important updates."
+                )
+                    .outerCircleColor(R.color.theme_primary)
+                    .targetCircleColor(android.R.color.black)
+                    .textColor(android.R.color.black)
+                    .drawShadow(true)
+                    .cancelable(true),
+
+                TapTarget.forView(
+                    binding.btnEyeTestDummy,
+                    "Eye Test Button",
+                    "Start your eye test by clicking this button."
+                )
+                    .outerCircleColor(R.color.theme_primary)
+                    .targetCircleColor(android.R.color.black)
+                    .textColor(android.R.color.black)
+                    .drawShadow(false)
+                    .cancelable(true),
+
+                TapTarget.forView(
+                    binding.bottomNavigationView.findViewById(R.id.statisticsFragment), // Replace with actual ID
+                    "Eye Test Reports",
+                    "View your eye test reports and stats."
+                )
+                    .outerCircleColor(R.color.theme_primary)
+                    .targetCircleColor(android.R.color.black)
+                    .textColor(android.R.color.black)
+                    .drawShadow(true)
+                    .cancelable(true),
+
+                TapTarget.forView(
+                    binding.bottomNavigationView.findViewById(R.id.chatBotFragment), // Replace with actual ID
+                    "Chat Assistant",
+                    "Get help from our chat assistant, Dr Vision GPT for any queries."
+                )
+                    .outerCircleColor(R.color.theme_primary)
+                    .targetCircleColor(android.R.color.black)
+                    .textColor(android.R.color.black)
+                    .drawShadow(true)
+                    .cancelable(true)
+            )
+            .listener(object : TapTargetSequence.Listener {
+                override fun onSequenceFinish() {
+                    // Showcase finished
+                    openedAppFirstTime(true)
+                }
+
+                override fun onSequenceStep(lastTarget: TapTarget, targetClicked: Boolean) {
+                    // Called when each target is clicked
+                    Log.d("Debug TapTargetView", "Clicked on " + lastTarget + "Target Clicked: $targetClicked")
+                }
+
+                override fun onSequenceCanceled(lastTarget: TapTarget) {
+                    // Showcase canceled
+                    openedAppFirstTime(true)
+                }
+            })
+
+        sequence.start()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
