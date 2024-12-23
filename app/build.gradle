@@ -196,8 +196,8 @@ dependencies {
     // Media pipe for AI tasks (llm implementation)
     implementation ("com.google.mediapipe:tasks-genai:0.10.14")
 
-    // ShowCase View
-    compile 'com.github.BlushineIO:MaterialShowcaseView:2.1.0'
+    // Tap Taget View
+    implementation 'com.github.KeepSafe:TapTargetView:1.13.2'
 
 
 }
