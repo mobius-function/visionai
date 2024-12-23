@@ -16,6 +16,7 @@ import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeEyeTestingBinding
 import com.yuvraj.visionai.enums.FaceStatus
 import com.yuvraj.visionai.service.cameraX.CameraManager
+import com.yuvraj.visionai.utils.Constants.DEBUG_MODE
 import com.yuvraj.visionai.utils.Constants.MAX_DISPLAYED_TEXT_SIZE
 import com.yuvraj.visionai.utils.Constants.MAX_READINGS
 import com.yuvraj.visionai.utils.Constants.MIN_DISPLAYED_TEXT_SIZE
@@ -84,7 +85,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initViews(view)
-        debug(true)
+        debug(DEBUG_MODE)
         createCameraManager()
         checkForPermission()
         clickableViews()
