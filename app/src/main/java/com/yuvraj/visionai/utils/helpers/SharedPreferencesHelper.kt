@@ -45,7 +45,7 @@ object SharedPreferencesHelper {
             AppCompatActivity.MODE_PRIVATE
         )
 
-        return sharedPreferences.getBoolean("OPENED_APP_FIRST_TIME", false)
+        return sharedPreferences.getBoolean("OPENED_APP_FIRST_TIME", true)
     }
 
     fun Activity.openedLandingPage(hasOpened: Boolean) {

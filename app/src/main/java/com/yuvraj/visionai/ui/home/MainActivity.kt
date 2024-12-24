@@ -281,7 +281,7 @@ class MainActivity : AppCompatActivity() {
             .listener(object : TapTargetSequence.Listener {
                 override fun onSequenceFinish() {
                     // Showcase finished
-                    openedAppFirstTime(true)
+                    openedAppFirstTime(false)
                 }
 
                 override fun onSequenceStep(lastTarget: TapTarget, targetClicked: Boolean) {
@@ -291,7 +291,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onSequenceCanceled(lastTarget: TapTarget) {
                     // Showcase canceled
-                    openedAppFirstTime(true)
+                    openedAppFirstTime(false)
                 }
             })
 
