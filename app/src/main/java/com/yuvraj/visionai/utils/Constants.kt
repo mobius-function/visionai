@@ -5,7 +5,8 @@ import android.os.Build
 
 object Constants {
     // App's DEBUG MODE
-    const val DEBUG_MODE = true
+    const val DEBUG_MODE = false
+    const val DEBUG_MODE_OPTION = "DEBUG_MODE_OPTION"
 
     // App's required permissions
     const val REQUEST_CODE_PERMISSION_FOR_CAMERA = 100
@@ -74,6 +75,11 @@ object Constants {
     const val HYPEROPIA = "HYPEROPIA"
     const val ASTIGMATISM = "ASTIGMATISM"
     const val DRY_EYE = "DRY_EYE"
+
+    const val USER_PROFILE = "USER_PROFILE"
+    const val USER_SUBSCRIPTION = "USER_SUBSCRIPTION"
+    const val ABOUT_US = "ABOUT_US"
+    const val DEBUG_TOGGLE = "DEBUG_TOGGLE"
 
     const val ML_MODEL = "ML_MODEL"
     const val LOGOUT = "LOGOUT"

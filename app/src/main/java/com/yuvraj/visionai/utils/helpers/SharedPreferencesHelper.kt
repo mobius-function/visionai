@@ -8,6 +8,26 @@ import com.yuvraj.visionai.utils.Constants.ALL_IN_ONE_EYE_TEST
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.getFrontCameraFocalLength
 
 object SharedPreferencesHelper {
+    fun Activity.isDebugMode(): Boolean {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        return sharedPreferences.getBoolean(Constants.DEBUG_MODE_OPTION, false)
+    }
+
+    fun Activity.setDebugMode(isDebugMode: Boolean) {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        val sharedPreferencesEditor = sharedPreferences.edit()
+        sharedPreferencesEditor.putBoolean(Constants.DEBUG_MODE_OPTION, isDebugMode)
+        sharedPreferencesEditor.apply()
+    }
+
     fun Activity.openedAppFirstTime(hasOpened: Boolean) {
         val sharedPreferences = getSharedPreferences(
             Constants.USER_DETAILS,
