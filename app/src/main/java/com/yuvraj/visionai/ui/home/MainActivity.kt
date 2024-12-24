@@ -209,7 +209,7 @@ class MainActivity : AppCompatActivity() {
         this.finish()
     }
 
-    private fun showShowcase() {
+    fun showShowcase() {
         val sequence = TapTargetSequence(this)
             .targets(
 //                TapTarget.forView(

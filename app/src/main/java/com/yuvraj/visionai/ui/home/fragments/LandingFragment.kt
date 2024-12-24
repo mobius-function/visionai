@@ -2,11 +2,11 @@ package com.yuvraj.visionai.ui.home.fragments
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,9 +16,11 @@ import com.yuvraj.visionai.adapters.EyeTestsList
 import com.yuvraj.visionai.data.EyeTestMenuList.getEyeTestMenuList
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
 import com.yuvraj.visionai.model.EyeTests
+import com.yuvraj.visionai.ui.home.MainActivity
 import com.yuvraj.visionai.utils.Constants.ASTIGMATISM
 import com.yuvraj.visionai.utils.Constants.DEBUG_TOGGLE
 import com.yuvraj.visionai.utils.Constants.DRY_EYE
+import com.yuvraj.visionai.utils.Constants.GET_STARTED
 import com.yuvraj.visionai.utils.Constants.HYPEROPIA
 import com.yuvraj.visionai.utils.Constants.MYOPIA
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS
@@ -27,6 +29,7 @@ import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.isDebugMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setDebugMode
 import com.yuvraj.visionai.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class LandingFragment : Fragment(R.layout.fragment_home_landing) {
@@ -87,6 +90,13 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
 
             USER_PROFILE -> {
                 findNavController().navigate(R.id.profileFragment)
+            }
+
+            GET_STARTED -> {
+                // call showShowcase() defined in MainActivity
+                super.getActivity()?.let {
+                    (it as MainActivity).showShowcase()
+                }
             }
 
             DEBUG_TOGGLE -> {
