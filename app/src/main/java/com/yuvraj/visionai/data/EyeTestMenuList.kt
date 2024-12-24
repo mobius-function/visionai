@@ -2,28 +2,51 @@ package com.yuvraj.visionai.data
 
 import com.yuvraj.visionai.model.EyeTests
 import com.yuvraj.visionai.utils.Constants
+import com.yuvraj.visionai.utils.Constants.ABOUT_US
+import com.yuvraj.visionai.utils.Constants.USER_PROFILE
+import com.yuvraj.visionai.utils.Constants.USER_SUBSCRIPTION
 
 object EyeTestMenuList {
     fun getEyeTestMenuList(): List<EyeTests> {
         return listOf(
+//            EyeTests(
+//                Constants.MYOPIA,
+//                "Myopia Test"
+//            ),
+//
+//            EyeTests(
+//                Constants.HYPEROPIA,
+//                "Hyperopia Test"
+//            ),
+//
+//            EyeTests(
+//                Constants.ASTIGMATISM,
+//                "Astigmatism Test"
+//            ),
+//
+//            EyeTests(
+//                Constants.DRY_EYE,
+//                "Dry Eye Test"
+//            )
+
             EyeTests(
-                Constants.MYOPIA,
-                "Myopia Test"
+                USER_PROFILE,
+                "User Profile"
             ),
 
             EyeTests(
-                Constants.HYPEROPIA,
-                "Hyperopia Test"
+                USER_SUBSCRIPTION,
+                "User Subscription"
             ),
 
             EyeTests(
-                Constants.ASTIGMATISM,
-                "Astigmatism Test"
+                ABOUT_US,
+                "About Us"
             ),
 
             EyeTests(
-                Constants.DRY_EYE,
-                "Dry Eye Test"
+                Constants.DEBUG_TOGGLE,
+                "Debug Mode"
             )
         )
     }
