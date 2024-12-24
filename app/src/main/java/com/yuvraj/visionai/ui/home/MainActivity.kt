@@ -39,6 +39,7 @@ import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.getkeepsafe.taptargetview.TapTargetView
 import com.yuvraj.visionai.utils.Constants.DEBUG_MODE
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.hasOpenedAppFirstTime
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.isDebugMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.openedAppFirstTime
 
 
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         setupNavigationController()
         clickableViews()
 
-        if(hasOpenedAppFirstTime() || DEBUG_MODE) {
+        if(hasOpenedAppFirstTime() || isDebugMode()) {
             showShowcase()
         }
     }

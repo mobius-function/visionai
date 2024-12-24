@@ -27,6 +27,7 @@ import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateNegativePower
 import com.yuvraj.visionai.utils.clients.AlertDialogBox.Companion.showInstructionDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.isDebugMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastMyopiaResults
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 import com.yuvraj.visionai.viewModel.UserViewModel
@@ -85,7 +86,7 @@ class EyeTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initViews(view)
-        debug(DEBUG_MODE)
+        debug(requireActivity().isDebugMode())
         createCameraManager()
         checkForPermission()
         clickableViews()

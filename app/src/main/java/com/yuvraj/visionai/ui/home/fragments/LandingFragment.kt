@@ -17,10 +17,14 @@ import com.yuvraj.visionai.data.EyeTestMenuList.getEyeTestMenuList
 import com.yuvraj.visionai.databinding.FragmentHomeLandingBinding
 import com.yuvraj.visionai.model.EyeTests
 import com.yuvraj.visionai.utils.Constants.ASTIGMATISM
+import com.yuvraj.visionai.utils.Constants.DEBUG_TOGGLE
 import com.yuvraj.visionai.utils.Constants.DRY_EYE
 import com.yuvraj.visionai.utils.Constants.HYPEROPIA
 import com.yuvraj.visionai.utils.Constants.MYOPIA
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS
+import com.yuvraj.visionai.utils.Constants.USER_PROFILE
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.isDebugMode
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setDebugMode
 import com.yuvraj.visionai.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -61,16 +65,8 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
     }
 
     private fun clickableViews() {
-
         binding.apply {
-//            btnLogOut.setOnClickListener {
-//                signOutUser()
-//
-//                val intent = Intent(requireActivity(), MainActivity::class.java)
-//                startActivity(intent)
-//
-//                requireActivity().finish()
-//            }
+
         }
     }
 
@@ -88,15 +84,24 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
             DRY_EYE -> {
                 findNavController().navigate(R.id.action_landingFragment_to_dryEyeTestingFragment)
             }
-            // ML_MODEL -> {
-            //     findNavController().navigate(R.id.action_landingFragment_to_testingFragment)
-            // }
-            // LOGOUT -> {
-            //      signOutUser()
-            //      val intent = Intent(requireActivity(), MainActivity::class.java)
-            //      startActivity(intent)
-            //      requireActivity().finish()
-            // }
+
+            USER_PROFILE -> {
+                findNavController().navigate(R.id.profileFragment)
+            }
+
+            DEBUG_TOGGLE -> {
+                if(requireActivity().isDebugMode()) {
+                    requireActivity().setDebugMode(false)
+                    Toast.makeText(requireActivity(), "Debug Mode Disabled", Toast.LENGTH_SHORT).show()
+                } else {
+                    requireActivity().setDebugMode(true)
+                    Toast.makeText(requireActivity(), "Debug Mode Enabled", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            else -> {
+                Toast.makeText(requireActivity(), "Available in Next Update!!!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
