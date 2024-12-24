@@ -78,6 +78,7 @@ object Constants {
 
     const val USER_PROFILE = "USER_PROFILE"
     const val USER_SUBSCRIPTION = "USER_SUBSCRIPTION"
+    const val GET_STARTED = "GET_STARTED"
     const val ABOUT_US = "ABOUT_US"
     const val DEBUG_TOGGLE = "DEBUG_TOGGLE"
 

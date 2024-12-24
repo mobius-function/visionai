@@ -40,6 +40,11 @@ object EyeTestMenuList {
             ),
 
             EyeTests(
+                Constants.GET_STARTED,
+                "Get Started"
+            ),
+
+            EyeTests(
                 ABOUT_US,
                 "About Us"
             ),
