@@ -7,10 +7,29 @@ import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.util.Log
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getFocalLength
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class PowerAlgorithm {
 
     companion object {
+        fun generateEyeTestId(inputDate: String): String {
+            // Input format matching the given date stamp
+            val inputFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss 'GMT'XXX yyyy", Locale.ENGLISH)
+            // Desired output format for sorting
+            val outputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
+
+            return try {
+                // Parse the input date
+                val date = inputFormat.parse(inputDate)
+                // Format the parsed date into the desired output
+                outputFormat.format(date)
+            } catch (e: Exception) {
+                // Handle parsing errors
+                "2050-12-31 00:00:00 (Invalid date format)"
+            }
+        }
+
         fun generateInitialPowerText(): Double {
             return (0.145 * 6 * 3) / 8
         }
