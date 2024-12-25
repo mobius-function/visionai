@@ -25,6 +25,7 @@ import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculatePositivePower
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import com.yuvraj.visionai.utils.helpers.DistanceHelper
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.isDebugMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastHyperopiaResults
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
 import com.yuvraj.visionai.viewModel.UserViewModel
@@ -77,7 +78,7 @@ class HyperopiaTestingFragment : Fragment(R.layout.fragment_home_eye_testing) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initViews(view)
-        debug(true)
+        debug(requireActivity().isDebugMode())
         createCameraManager()
         checkForPermission()
         clickableViews()

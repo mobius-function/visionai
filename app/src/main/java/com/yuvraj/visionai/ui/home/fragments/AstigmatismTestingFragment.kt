@@ -19,6 +19,7 @@ import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.DebugTags
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.isDebugMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastAstigmatismResults
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastDryEyeResults
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
@@ -51,6 +52,7 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
         // Inflate the layout for this fragment
         initViews(view)
         clickableViews()
+        debug(requireActivity().isDebugMode())
         createCameraManager()
         checkForPermission()
     }
@@ -60,6 +62,16 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
         _binding = FragmentHomeAstigmatismTestingBinding.bind(view)
 
         isAllInOneTest = requireActivity().getAllInOneEyeTestMode()
+    }
+
+    private fun debug(isDebugMode: Boolean) {
+        if(isDebugMode) {
+            binding.tvLeftEye.visibility = View.VISIBLE
+            binding.tvRightEye.visibility = View.VISIBLE
+        } else {
+            binding.tvLeftEye.visibility = View.GONE
+            binding.tvRightEye.visibility = View.GONE
+        }
     }
 
     private fun clickableViews() {
