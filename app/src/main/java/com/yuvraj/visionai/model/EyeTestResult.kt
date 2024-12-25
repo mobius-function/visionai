@@ -1,5 +1,6 @@
 package com.yuvraj.visionai.model
 
+import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.generateEyeTestId
 import java.util.Calendar
 
 data class EyeTestResult(
@@ -14,6 +15,6 @@ data class EyeTestResult(
     var jaundiceResult: Boolean? = false
 ) {
     // No-argument constructor is implicitly added by the Kotlin compiler
-    constructor() : this(Calendar.getInstance().time.toString(), 0f, 0f, 0f, 0f, false, false, false, false)
+    constructor() : this(generateEyeTestId(Calendar.getInstance().time.toString()), 0f, 0f, 0f, 0f, false, false, false, false)
 }
 
