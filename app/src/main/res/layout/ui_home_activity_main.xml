@@ -74,19 +74,6 @@
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-<!--    Dummy View for Tap Target!     -->
-
-<!--    <de.hdodenhof.circleimageview.CircleImageView-->
-<!--        android:id="@+id/ivToolbarProfilePictureDummy"-->
-<!--        android:layout_width="48dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:translationZ="10dp"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:gravity='center'-->
-<!--        android:contentDescription="User's Profile Picture"-->
-<!--        app:layout_constraintStart_toStartOf="@id/appBarLayout"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/appBarLayout"-->
-<!--        app:layout_constraintTop_toTopOf="@id/appBarLayout"/>-->
 
     <View
         android:layout_width="0dp"
