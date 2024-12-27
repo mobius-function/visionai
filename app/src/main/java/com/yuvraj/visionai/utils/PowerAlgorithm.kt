@@ -7,8 +7,13 @@ import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.util.Log
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getFocalLength
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getPastAstigmatismResults
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getPastDryEyeResults
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getPastHyperopiaResults
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getPastMyopiaResults
 import java.text.SimpleDateFormat
 import java.util.Locale
+import kotlin.math.absoluteValue
 
 class PowerAlgorithm {
 
@@ -266,5 +271,51 @@ class PowerAlgorithm {
 
             return cumulativePower.toFloat()
         }
+
+        fun calculateEyeHealthScore(
+            astigmatism: Boolean,
+            dryLeftEye: Boolean,
+            dryRightEye: Boolean,
+            plusPowerLeftEye: Float,
+            plusPowerRightEye: Float,
+            minusPowerLeftEye: Float,
+            minusPowerRightEye: Float,
+            age: Int
+        ): Float {
+            // Helper function to calculate eye-specific score
+            fun calculateEyeScore(dryEye: Boolean, plusPower: Float, minusPower: Float): Float {
+                var score = 100.0f
+
+                // Deduct for dry eye
+                if (dryEye) {
+                    score -= 10.0f
+                }
+
+                // Deduct for Plus Power (farsightedness)
+                score -= (plusPower * 5.0f)
+
+                // Deduct for Minus Power (nearsightedness)
+                score -= (minusPower.absoluteValue * 5.0f)
+
+                return score
+            }
+
+            // Calculate scores for left and right eyes
+            val leftEyeScore = calculateEyeScore(dryLeftEye, plusPowerLeftEye, minusPowerLeftEye)
+            val rightEyeScore = calculateEyeScore(dryRightEye, plusPowerRightEye, minusPowerRightEye)
+
+            // Deduct for age equally from both eyes
+            val ageDeduction = if (age > 20) (age - 20) * 0.5f else 0.0f
+            val adjustedLeftEyeScore = (leftEyeScore - ageDeduction).coerceIn(0.0f, 100.0f)
+            val adjustedRightEyeScore = (rightEyeScore - ageDeduction).coerceIn(0.0f, 100.0f)
+
+            // Deduct for astigmatism equally from both eyes
+            val finalLeftEyeScore = if (astigmatism) adjustedLeftEyeScore - 7.5f else adjustedLeftEyeScore
+            val finalRightEyeScore = if (astigmatism) adjustedRightEyeScore - 7.5f else adjustedRightEyeScore
+
+            // Calculate and return the average score
+            return ((finalLeftEyeScore + finalRightEyeScore) / 2.0f).coerceIn(0.0f, 100.0f)
+        }
+
     }
 }
