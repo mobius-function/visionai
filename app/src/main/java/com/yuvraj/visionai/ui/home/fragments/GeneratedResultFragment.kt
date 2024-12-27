@@ -14,6 +14,10 @@ import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.ui.home.MainActivity
 import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastAstigmatismResults
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastDryEyeResults
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastHyperopiaResults
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastMyopiaResults
 import com.yuvraj.visionai.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
@@ -54,6 +58,14 @@ class GeneratedResultFragment : Fragment(R.layout.fragment_home_generated_result
         val dryRightEyeResults = eyeTestResult.dryRightEyeResult
 
         val astigmatismResult = eyeTestResult.astigmatismResult
+
+
+        requireActivity().apply {
+            setPastMyopiaResults(myopiaResultsLeftEye!!, myopiaResultsRightEye!!)
+            setPastHyperopiaResults(hyperopiaResultsLeftEye!!, hyperopiaResultsRightEye!!)
+            setPastDryEyeResults(dryLeftEyeResults!!, dryRightEyeResults!!)
+            setPastAstigmatismResults(astigmatismResult!!)
+        }
 
         binding.generatedResult.apply {
             text = "Your eye test results are as follows:\n\n" +

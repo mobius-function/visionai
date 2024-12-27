@@ -272,16 +272,29 @@ class PowerAlgorithm {
             return cumulativePower.toFloat()
         }
 
-        fun calculateEyeHealthScore(
-            astigmatism: Boolean,
-            dryLeftEye: Boolean,
-            dryRightEye: Boolean,
-            plusPowerLeftEye: Float,
-            plusPowerRightEye: Float,
-            minusPowerLeftEye: Float,
-            minusPowerRightEye: Float,
-            age: Int
-        ): Float {
+        fun Activity.calculateEyeHealthScore(): Float {
+            val (plusPowerLeftEye, plusPowerRightEye) = getPastHyperopiaResults()
+            val (minusPowerLeftEye, minusPowerRightEye) = getPastMyopiaResults()
+            val (dryLeftEye, dryRightEye) = getPastDryEyeResults()
+            val astigmatism = getPastAstigmatismResults()
+
+            val sharedPreferences = getSharedPreferences(
+                Constants.USER_DETAILS,
+                Context.MODE_PRIVATE
+            )
+
+            val age = sharedPreferences.getInt(Constants.USER_AGE, 0)
+
+            Log.d("Debug PowerAlgorithm", "Plus Power Left Eye: $plusPowerLeftEye" +
+                    " Plus Power Right Eye: $plusPowerRightEye" +
+                    " Minus Power Left Eye: $minusPowerLeftEye" +
+                    " Minus Power Right Eye: $minusPowerRightEye" +
+                    " Dry Left Eye: $dryLeftEye" +
+                    " Dry Right Eye: $dryRightEye" +
+                    " Astigmatism: $astigmatism" +
+                    " Age: $age"
+            )
+
             // Helper function to calculate eye-specific score
             fun calculateEyeScore(dryEye: Boolean, plusPower: Float, minusPower: Float): Float {
                 var score = 100.0f
@@ -292,7 +305,7 @@ class PowerAlgorithm {
                 }
 
                 // Deduct for Plus Power (farsightedness)
-                score -= (plusPower * 5.0f)
+                score -= (plusPower.absoluteValue * 5.0f)
 
                 // Deduct for Minus Power (nearsightedness)
                 score -= (minusPower.absoluteValue * 5.0f)

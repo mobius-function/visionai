@@ -26,6 +26,7 @@ import com.yuvraj.visionai.utils.Constants.HYPEROPIA
 import com.yuvraj.visionai.utils.Constants.MYOPIA
 import com.yuvraj.visionai.utils.Constants.REQUIRED_PERMISSIONS
 import com.yuvraj.visionai.utils.Constants.USER_PROFILE
+import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.calculateEyeHealthScore
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.isDebugMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setDebugMode
 import com.yuvraj.visionai.viewModel.UserViewModel
@@ -40,6 +41,9 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
 
     private val viewModel: UserViewModel by activityViewModels()
 
+    private var _eyeHealthScore: Float? = null
+    private val eyeHealthScore get() = _eyeHealthScore!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -53,6 +57,7 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
 
     private fun initViews(view: View) {
         _binding = FragmentHomeLandingBinding.bind(view)
+        _eyeHealthScore = requireActivity().calculateEyeHealthScore()
 
         val tests = getEyeTestMenuList()
 
@@ -70,11 +75,11 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
         binding.apply {
             circularProgressBar.apply {
                 progress = 0f
-                setProgressWithAnimation(50f, 1000)
+                setProgressWithAnimation(eyeHealthScore * 0.8f, 1000)
             }
 
             waterWaveView.apply {
-                progress = 50
+                progress = eyeHealthScore.toInt()
                 setAnimationSpeed(50)
                 setBehindWaveColor("#254015".toColorInt())
                 setFrontWaveColor("#1d4009".toColorInt())
