@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -64,6 +65,21 @@ class LandingFragment : Fragment(R.layout.fragment_home_landing) {
 
         viewModel.apply {
             clearTestResults()
+        }
+
+        binding.apply {
+            circularProgressBar.apply {
+                progress = 0f
+                setProgressWithAnimation(50f, 1000)
+            }
+
+            waterWaveView.apply {
+                progress = 50
+                setAnimationSpeed(50)
+                setBehindWaveColor("#254015".toColorInt())
+                setFrontWaveColor("#1d4009".toColorInt())
+                startAnimation()
+            }
         }
     }
 

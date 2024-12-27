@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,159 +7,98 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.fragments.LandingFragment">
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/cvImage"-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.fragments.LandingFragment">
+
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/circularProgressBar"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="32dp"
+        app:cpb_background_progressbar_color="@color/transparent"
+        app:cpb_background_progressbar_width="0dp"
+        app:cpb_progress="80"
+        app:cpb_progress_direction="to_right"
+        app:cpb_progressbar_color="@color/theme_primary"
+        app:cpb_progressbar_width="30dp"
+        app:cpb_progressbar_color_start="#c0faa2"
+        app:cpb_progressbar_color_end="#1a4a02"
+        app:cpb_round_border="true"
+        app:cpb_start_angle="215"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.orbitalsonic.waterwave.WaterWaveView
+        android:id="@+id/waterWaveView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:animatorEnable="true"
+        app:textHidden="false"
+        app:shapeType="circle"
+        app:frontColor="#1a4a02"
+        app:borderColor="#000000"
+        app:borderWidthSize="0dp"
+        app:textColor="@color/white"
+        app:max="100"
+        app:progress="50"
+        app:strong="100"
+        app:shapePadding="10dp"
+        app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/circularProgressBar"
+        app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"/>
+
+    <TextView
+        android:id="@+id/tvSubtitleProgressView"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="Your Current Eye Health"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
+        app:layout_constraintTop_toBottomOf="@+id/circularProgressBar"/>
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/outlinedTextField"-->
 <!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_marginBottom="5dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/btnSwitchCamera">-->
-
-<!--        <androidx.camera.view.PreviewView-->
-<!--            android:id="@+id/previewViewFinder"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:scaleType="fillCenter" />-->
-
-<!--        <com.yuvraj.visionai.service.cameraX.GraphicOverlay-->
-<!--            android:id="@+id/graphicOverlayFinder"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
-<!--    </FrameLayout>-->
-
-<!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:id="@+id/tvFaceWidth"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Current Distance: XX"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="18sp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/cvImage" />-->
-
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/btnSwitchCamera"-->
-<!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:layout_marginHorizontal="16dp"-->
-<!--        android:layout_marginVertical="5dp"-->
-<!--        android:text="Switch Camera"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent" />-->
+<!--        android:hint="Label"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/tvSubtitleProgressView"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/tvSubtitleProgressView"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvSubtitleProgressView"-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
 
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/tvStart"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginHorizontal="16dp"-->
-<!--        android:text="Start"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintTop_toTopOf="@id/btnSwitchCamera"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/btnSwitchCamera"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
-
-<!--    <FrameLayout-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:translationZ="25dp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" >-->
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        <com.google.android.material.textfield.MaterialAutoCompleteTextView-->
 <!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@drawable/bg_black">-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Hello"-->
+<!--            />-->
 
-<!--            <com.google.android.material.button.MaterialButton-->
-<!--                android:id="@+id/btnMyopiaTesting"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginVertical="40dp"-->
-<!--                android:text="Myopia Testing"-->
-<!--                android:textSize="18sp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintBottom_toTopOf="@id/btnHyperopiaTesting"/>-->
-
-<!--            <com.google.android.material.button.MaterialButton-->
-<!--                android:id="@+id/btnHyperopiaTesting"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginVertical="40dp"-->
-<!--                android:text="Hyperopia Test"-->
-<!--                android:textSize="18sp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintBottom_toTopOf="@id/btnAstigmatismTesting"/>-->
-
-<!--            <com.google.android.material.button.MaterialButton-->
-<!--                android:id="@+id/btnAstigmatismTesting"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginVertical="40dp"-->
-<!--                android:text="Astigmatism Test"-->
-<!--                android:textSize="18sp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"/>-->
-
-
-<!--            <com.google.android.material.button.MaterialButton-->
-<!--                android:id="@+id/btnTesting"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginVertical="40dp"-->
-<!--                android:text="ML Model(testing)"-->
-<!--                android:textSize="18sp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/btnAstigmatismTesting"/>-->
-
-
-<!--            <com.google.android.material.button.MaterialButton-->
-<!--                android:id="@+id/btnDryEyeTesting"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginVertical="40dp"-->
-<!--                android:text="Dry Eye Testing"-->
-<!--                android:textSize="18sp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/btnTesting"/>-->
-
-<!--            <com.google.android.material.button.MaterialButton-->
-<!--                android:id="@+id/btnLogOut"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginVertical="40dp"-->
-<!--                android:text="Log Out"-->
-<!--                android:textSize="18sp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/btnDryEyeTesting"/>-->
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--    </FrameLayout>-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/testsRecyclerView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtitleProgressView"
         tools:listitem="@layout/item_eye_tests" />
 
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
