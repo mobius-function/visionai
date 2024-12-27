@@ -133,10 +133,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.notificationsFragment,
                 R.id.chatBotFragment -> {
                     binding.bottomNavigation.visibility = View.VISIBLE
+                    binding.btnEyeTestDummy.visibility = View.VISIBLE
                 }
 
                 else -> {
                     binding.bottomNavigation.visibility = View.GONE
+                    binding.btnEyeTestDummy.visibility = View.GONE
                 }
             }
 
