@@ -15,7 +15,7 @@
         android:id="@+id/visibleView"
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:layout_marginVertical="5dp"
+        android:layout_marginVertical="8dp"
         android:orientation="vertical"
         android:backgroundTint="@color/theme_primary"
         app:cardCornerRadius="12dp"
