@@ -199,6 +199,10 @@ dependencies {
     // Tap Taget View
     implementation 'com.github.KeepSafe:TapTargetView:1.13.2'
 
+    // Circular Progress Bar
+    implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
+    implementation 'com.github.orbitalsonic:Sonic-Water-Wave-Animation:2.0.1'
+
 
 }
 java {
