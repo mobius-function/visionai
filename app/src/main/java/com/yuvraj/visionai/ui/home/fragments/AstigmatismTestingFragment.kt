@@ -14,12 +14,14 @@ import com.google.mlkit.vision.face.Face
 import com.yuvraj.visionai.R
 import com.yuvraj.visionai.databinding.FragmentHomeAstigmatismTestingBinding
 import com.yuvraj.visionai.enums.FaceStatus
+import com.yuvraj.visionai.model.EyeTestResult
 import com.yuvraj.visionai.service.cameraX.CameraManager
 import com.yuvraj.visionai.utils.Constants
 import com.yuvraj.visionai.utils.DebugTags
 import com.yuvraj.visionai.utils.clients.AlertDialogBox
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.getAllInOneEyeTestMode
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.isDebugMode
+import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setLastEyeTestDate
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastAstigmatismResults
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.setPastDryEyeResults
 import com.yuvraj.visionai.utils.helpers.SharedPreferencesHelper.updateAllInOneEyeTestModeAfterTest
@@ -136,12 +138,14 @@ class AstigmatismTestingFragment : Fragment(R.layout.fragment_home_astigmatism_t
                     // "$totalLeftEyePartialBlinkCounter $totalRightEyePartialBlinkCounter")
 
             viewModel.saveEyeTest()
+            requireActivity().setLastEyeTestDate(viewModel.eyeTestResult.value!!.id.toString())
 
             requireActivity().apply {
                 setPastAstigmatismResults(astigmatismResults)
                 setPastDryEyeResults(totalLeftEyePartialBlinkCounter/totalTimeSpentInMinutes > 10,
                     totalRightEyePartialBlinkCounter/totalTimeSpentInMinutes > 10)
             }
+
 
             findNavController().navigate(R.id.generatedResultFragment)
         }
