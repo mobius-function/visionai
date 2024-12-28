@@ -35,7 +35,7 @@ class PowerAlgorithm {
             }
         }
 
-        fun generateInitialPowerText(): Double {
+        fun generateInitialPowerTextSize(): Double {
             return (0.145 * 6 * 3) / 8
         }
 
