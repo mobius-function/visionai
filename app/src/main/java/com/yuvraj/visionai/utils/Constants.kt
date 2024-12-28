@@ -61,6 +61,7 @@ object Constants {
     const val USER_AGE = "USER_AGE"                                        // Int
 
     // past test results inside user details
+    const val LAST_EYE_TEST_DATE = "LAST_EYE_TEST_DATE"
     const val LATEST_LEFT_EYE_MYOPIA = "LATEST_LEFT_EYE_MYOPIA"
     const val LATEST_RIGHT_EYE_MYOPIA = "LATEST_RIGHT_EYE_MYOPIA"
     const val LATEST_LEFT_EYE_HYPEROPIA = "LATEST_LEFT_EYE_HYPEROPIA"

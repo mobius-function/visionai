@@ -8,6 +8,28 @@ import com.yuvraj.visionai.utils.Constants.ALL_IN_ONE_EYE_TEST
 import com.yuvraj.visionai.utils.PowerAlgorithm.Companion.getFrontCameraFocalLength
 
 object SharedPreferencesHelper {
+    fun Activity.setLastEyeTestDate(date: String) {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        val sharedPreferencesEditor = sharedPreferences.edit()
+        sharedPreferencesEditor.putString(Constants.LAST_EYE_TEST_DATE, date)
+        sharedPreferencesEditor.apply()
+    }
+
+
+    fun Activity.getLastEyeTestDate(): String {
+        val sharedPreferences = getSharedPreferences(
+            Constants.USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        return sharedPreferences.getString(Constants.LAST_EYE_TEST_DATE, "")!!
+    }
+
+
     fun Activity.isDebugMode(): Boolean {
         val sharedPreferences = getSharedPreferences(
             Constants.USER_DETAILS,
